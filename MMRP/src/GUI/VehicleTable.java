@@ -12,13 +12,23 @@ import core.Vehicle;
 public class VehicleTable extends JTable {
 
 	String type;
+	ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
 	public VehicleTable(String type)
 	{
 		super();
 		this.type=type;
 		setData();
 	}
-	
+	public Vehicle getSelectedVehicle()
+	{
+		int searchID=Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
+		for(int i=0;i<vehicles.size();i++)
+		{
+			if(vehicles.get(i).getId()==searchID)
+				return vehicles.get(i);
+		}
+		return null;
+	}
 	public void deleteSelectedVehicle()
 	{
 		if(type.equals("Truck")){
@@ -58,7 +68,7 @@ public class VehicleTable extends JTable {
 	}
 	private void setData()
 	{
-		ArrayList<Vehicle> vehicles = new ArrayList<Vehicle>();
+		
 		if(type.equals("Truck")){
 			vehicles.addAll(Truck.LoadAll(""));
 		}

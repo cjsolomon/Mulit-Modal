@@ -138,7 +138,7 @@ public abstract class BaseClass {
 			
 			if(c!=null && !c.isClosed())													//Make sure the connection is closed
 				c.close();		
-			Thread.sleep(5);
+			Thread.sleep(1);
 			//connectionCounter--;
 		}//End of finally clause
 	}//End of executeQuery(String sql)

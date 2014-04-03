@@ -151,7 +151,7 @@ public class VehiclePanel extends JPanel {
 	}
 	private void addButtons()
 	{
-		btnEdit = new JButton("Edit");
+	/*	btnEdit = new JButton("Edit");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -208,7 +208,7 @@ public class VehiclePanel extends JPanel {
 			}
 		});
 		btnEdit.setEnabled(false);
-		add(btnEdit, "2, 4, right, top");
+		add(btnEdit, "2, 4, right, top");*/
 		
 		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener(){
@@ -293,12 +293,28 @@ public class VehiclePanel extends JPanel {
 	{
 		public void stateChanged(ChangeEvent e)
 		{
-			VehicleTable temp = getSelectedTable();
-			if(temp.getSelectedRow()!=-1)
-				btnEdit.setEnabled(true);
-			else
-				btnEdit.setEnabled(false);
+			//VehicleTable temp = getSelectedTable();
+			//if(temp.getSelectedRow()!=-1)
+			//	btnEdit.setEnabled(true);
+			//else
+				//btnEdit.setEnabled(false);
 			
+		}
+	}
+	class TableListener implements ListSelectionListener
+	{
+		public void valueChanged(ListSelectionEvent e)
+		{
+			if(e.getLastIndex()!=-1)
+			{
+				ChangeEvent ev = new ChangeEvent(this);
+				VehicleTable temp = getSelectedTable();
+				hidePanels();
+				if(temp==trucks)
+				{
+					tf.showPanel((Truck)trucks.getSelectedVehicle());
+				}
+			}
 		}
 		private VehicleTable getSelectedTable()
 		{
@@ -324,16 +340,6 @@ public class VehiclePanel extends JPanel {
 			return null;
 		}
 	}
-	class TableListener implements ListSelectionListener
-	{
-		public void valueChanged(ListSelectionEvent e)
-		{
-			if(e.getLastIndex()!=-1)
-			{
-				ChangeEvent ev = new ChangeEvent(this);
-				tabbedPane.getChangeListeners()[0].stateChanged(ev);
-			}
-		}
-	}
+	
 }
 
