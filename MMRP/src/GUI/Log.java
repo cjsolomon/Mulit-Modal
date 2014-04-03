@@ -21,6 +21,9 @@ public class Log {
 	private static FileHandler file = null;
 	
 
+	/**
+	 * This function is called once when the GUI is first initiated.  It preps the log to recieve logging comments.
+	 */
 	public static void createLogg() {
 		try {
 			file = new FileHandler("MMRP.log",true);
