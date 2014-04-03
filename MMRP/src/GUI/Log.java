@@ -19,10 +19,11 @@ import java.util.logging.*;
 public class Log {
 	private final static Logger logg = Logger.getLogger(Log.class.getName());
 	private static FileHandler file = null;
+	
 
 	public static void createLogg() {
 		try {
-			file = new FileHandler(generateFileName());
+			file = new FileHandler("MMRP.log",true);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -34,6 +35,10 @@ public class Log {
 		l.setLevel(Level.CONFIG);
 	}
 	
+	/**
+	 * Function no longer used.  All log files write to same file now.  Was used to timestamp each file.
+	 * @return
+	 */
 	private static String generateFileName() {
 		DateFormat doItLikeThis = new SimpleDateFormat("yyyy-MM-dd_hh-mm");
 		doItLikeThis.setTimeZone(TimeZone.getTimeZone("EST"));
