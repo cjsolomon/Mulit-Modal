@@ -132,6 +132,7 @@ public class VehicleRailForm extends JPanel {
 		if(id>0)
 		{
 			r=Rail.Load(id);
+			vst.ShowTable(r);
 			setRail();
 		}			
 	}
