@@ -1,0 +1,155 @@
+package Routing;
+
+public class WeightedMetric{
+
+	int distance;
+	int time;
+	int cost;
+	
+	double distNWeight;
+	double timeNWeight;
+	double costNWeight;
+	
+	static final int MIN_DISTANCE = 0;
+	static final int MAX_DISTANCE = 100;
+	static final int MIN_TIME = 0;
+	static final int MAX_TIME = 100;
+	static final int MIN_COST = 0;
+	static final int MAX_COST = 100;
+	
+	public WeightedMetric(){
+		distance = 0;
+		time = 0;
+		cost = 1;
+		this.normalize();
+	}//End of WeightedMetric default constructor
+	
+	public WeightedMetric(int distanceValue, int timeValue, int costValue){
+		//Some error checking
+		if(distanceValue < MIN_DISTANCE){
+			System.out.println("The distance value passed in was too low, the distance has be set to " + MIN_DISTANCE);
+			distanceValue = MIN_DISTANCE;
+		} else if (distanceValue > MAX_DISTANCE){
+			System.out.println("The distance value passed in was too high, the distance has be set to " + MAX_DISTANCE);
+			distanceValue = MAX_DISTANCE;
+		}
+		if(timeValue < MIN_TIME){
+			System.out.println("The time value passed in was too low, the time has be set to " + MIN_TIME);
+			timeValue = MIN_TIME;
+		} else if (timeValue > MAX_TIME){
+			System.out.println("The time value passed in was too high, the time has be set to " + MAX_TIME);
+			timeValue = MAX_TIME;
+		}
+		if(costValue < MIN_COST){
+			System.out.println("The cost value passed in was too low, the cost has be set to " + MIN_COST);
+			costValue = MIN_COST;
+		} else if (costValue > MAX_COST){
+			System.out.println("The cost value passed in was too high, the cost has be set to " + MAX_COST);
+			costValue = MAX_COST;
+		}
+		
+		this.distance = distanceValue;
+		this.time = timeValue;
+		this.cost = costValue;
+		
+		this.normalize();
+	}//End of WeightedMetric(int distanceValue, int timeValue, int costValue)
+	
+	public int getDistance(){
+		return this.distance;
+	}//End of getDistance()
+	
+	public double getWeightedDistance(){
+		return this.distNWeight;
+	}//End of getWeightedDistance()
+	
+	public int getTime(){
+		return this.time;
+	}//End of getTime()
+	
+	public double getWeightedTime(){
+		return this.timeNWeight;
+	}//End of getWeightedTime()
+	
+	public int getCost(){
+		return this.cost;
+	}//End of getCost()
+	
+	public double getWeightedCost(){
+		return this.costNWeight;
+	}//End of getWeightedCost()
+	
+	public void setDistance(double distanceValue){
+		//Some error checking
+		if(distanceValue < MIN_DISTANCE){
+			System.out.println("The distance value passed in was too low, the distance has be set to " + MIN_DISTANCE);
+			distanceValue = MIN_DISTANCE;
+		} else if (distanceValue > MAX_DISTANCE){
+			System.out.println("The distance value passed in was too high, the distance has be set to " + MAX_DISTANCE);
+			distanceValue = MAX_DISTANCE;
+		}
+		distance = distanceValue;
+		this.normalize();
+		
+	}//End of setDistance(double distanceValue)
+	
+	public void setTime(double timeValue){
+		//Some error checking
+		if(timeValue < MIN_TIME){
+			System.out.println("The time value passed in was too low, the time has be set to " + MIN_TIME);
+			timeValue = MIN_TIME;
+		} else if (timeValue > MAX_TIME){
+			System.out.println("The time value passed in was too high, the time has be set to " + MAX_TIME);
+			timeValue = MAX_TIME;
+		}
+		time = timeValue;
+		this.normalize();
+		
+	}//End of setTime(double timeValue)
+	
+	public void setCost(double costValue){
+		//Some error checking
+		if(costValue < MIN_COST){
+			System.out.println("The cost value passed in was too low, the cost has be set to " + MIN_COST);
+			costValue = MIN_COST;
+		} else if (costValue > MAX_COST){
+			System.out.println("The cost value passed in was too high, the cost has be set to " + MAX_COST);
+			costValue = MAX_COST;
+		}
+		cost = costValue;
+		this.normalize();
+		
+	}//End of setCost(double costValue)
+	
+	private void normalize(){
+		double normalLength = Math.sqrt(Math.pow((distance * distance + time * time + cost * cost),2));
+		distNWeight = distance / normalLength;
+		timeNWeight =  time / normalLength;
+		costNWeight = cost / normalLength;
+	}//End of normalize()
+	
+	public double getWeightedCost(Segment segment){
+		return segment.getCost() * costNWeight + segment.getDistance() * distNWeight + (segment.getArrivalTime() - segment.getDepartureTime()) * timeNWeight;
+	}//End of getWeightedCost(Segment segment)
+	
+	public Segment getLowestWeightedCostSegment(ArrayList<Segment> segments){
+		double lowest = segments.get(0).getCost() * costNWeight + 
+						segments.get(0).getDistance() * distNWeight + 
+					   (segments.get(0).getArrivalTime() - segments.get(0).getDepartureTime()) * timeNWeight;
+		int lowestIndex = 0;
+		for(int i=0; i< segments.size(); i++){
+			if((segments.get(i).getCost() * costNWeight + 
+				segments.get(i).getDistance() * distNWeight + 
+				(segments.get(i).getArrivalTime() - segments.get(i).getDepartureTime()) * timeNWeight) < lowest){
+				lowestIndex = i;
+				lowest = (segments.get(i).getCost() * costNWeight + 
+						segments.get(i).getDistance() * distNWeight + 
+						(segments.get(i).getArrivalTime() - segments.get(i).getDepartureTime()) * timeNWeight);
+			}//End of new lower if
+		}//End of checking for loop
+				
+		//Now we have the location of the the lowest cost path on the list so return it
+		return segments.get(lowestIndex);
+	}//End of getLowestWeightedCostSegment(ArrayList<Segment> segments)
+
+}//End of the WeightedMetric class
