@@ -17,7 +17,7 @@ public class Bike extends Vehicle {
 	 */
 	public Bike()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Bike);	//Set the TravelType to Bike
+		super.setTravelMode(Vehicle.TravelModes.Bike);	//Set the TravelMode to Bike
 		MarkNew();										//Mark this as a new object
 	}//End of Bike()
 	
@@ -30,7 +30,7 @@ public class Bike extends Vehicle {
 	{
 		super.setTravelMode(Vehicle.TravelModes.Bike);
 		this.id=id;										//Set the bike id
-						//SHOULD THIS ALSO BE MARKED AS NEW OR ATLEAST DIRTY?
+						
 	}//End of Bike(int id)
 	
 	/**
@@ -71,11 +71,11 @@ public class Bike extends Vehicle {
 			if(isNew())
 			{
 				//If the bike is new insert it into the database by executing the following
-				executeCommand("Insert into Bike (BikeName,Contractor,Status) Values ('"+
+				executeCommand("Insert into Bike (BikeName,Carrier,Status) Values ('"+
 				this.getBikeName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
 				
 				//Grab this bike from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select BikeID from Bike where BikeName = '" + this.getBikeName() + "' AND Contractor = '"+this.getCarrier().getId() +
+				ArrayList<Map<String,Object>> temp =executeQuery("Select BikeID from Bike where BikeName = '" + this.getBikeName() + "' AND Carrier = '"+this.getCarrier().getId() +
 				"' AND Status = '" + this.getStatus()+"'");
 				//If this bike exists on the database mark it as old and clean
 				if(temp.size()>0)
@@ -90,7 +90,7 @@ public class Bike extends Vehicle {
 				if(isDirty())
 				{
 					//If the Bike is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Bike Set BikeName = '" + this.getBikeName() + "' , Contractor = '"+this.getCarrier().getId() +
+					executeCommand("Update Bike Set BikeName = '" + this.getBikeName() + "' , Carrier = '"+this.getCarrier().getId() +
 					"' , Status = '" + this.getStatus() + "' Where BikeID = " +this.id);
 					MarkClean();												//Now mark the bike as clean
 				}//End of isDirty if

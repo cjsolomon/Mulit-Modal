@@ -13,40 +13,21 @@ package core;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
-public class Truck extends Vehicle {
-
-	//This is the enumeration of the different available Truck types
-	public static enum TruckTypes 
-	{
-			Semi("SEMI"),
-			Other("OTHER");
-			private String type;
-			TruckTypes(String s)
-			{
-				type=s;
-			}//End of the TruckTypes enumeration constructor
-			@Override public String toString()
-			{
-				return type;
-			}//End of the overridden toString()
-			
-	}//End of TruckTypes enumeration
-	
-	private TruckTypes type;													//The type of this Truck
+public class Truck extends Vehicle {											
 	
 	//The default Truck constructor
 	public Truck()
 	{
-		setTravelType(TravelTypes.Truck);										//Set the TravelType to Truck
-		MarkNew();																//Mark the Truck as new
+		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
+		MarkNew();														//Mark the Truck as new
 	}//End of the default Truck constructor
 	
 	//This is the argumented Truck constructor
 	public Truck(int id)
 	{
-		setTravelType(TravelTypes.Truck);										//Set the TravelType to Truck
-		this.id=id;																//Set the Truck's id
-																				//SHOULD WE ALSO SET THE TRUCK TO NEW OR DIRTY??
+		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
+		this.id=id;														//Set the Truck's id
+																				
 	}//End of the argumented Truck constructor
 	
 	//This function sets the truck's name
@@ -61,41 +42,6 @@ public class Truck extends Vehicle {
 		return super.getVehicleName();											//Returns the Truck's name from the Vehicle base
 	}//End of getTruckName()
 	
-	//This function sets the truck type
-	public void setTruckType(TruckTypes s)
-	{
-		if(this.type==null || !this.type.equals(s))
-		{
-			type = s;															//Set the truck type
-			MarkDirty();														//Make this Truck as dirty
-		}//End of the valid type if
-	}//End of setTruckType(TruckTypes s)
-	
-	//This function sets the truck type using a String
-	public void setTruckType(String s)
-	{
-		if(this.type==null || !this.type.toString().equals(s))
-		{
-			type = loadTruckType(s);											//Set the truck type
-			MarkDirty();														//Make this Truck dirty
-		}//End of the valid if
-	}//End of the setTruckType(String s)
-	
-	//This function returns the truck type
-	public String getTruckType()
-	{
-		return type.toString();													//Return the truck type
-	}//End of getTruckType()
-	
-	//This function loads a TruckType using a String
-	private TruckTypes loadTruckType(String s)
-	{
-		if(s.equals(TruckTypes.Semi.toString()))
-			return TruckTypes.Semi;												//Return Semi
-		return TruckTypes.Other;												//Return Other
-			
-	}//End of loadTruckType(String s)
-	
 	//This function overrides the parent's Update function and will handle changes made to the Truck object in the database
 	@Override
 	public void Update() 
@@ -106,13 +52,11 @@ public class Truck extends Vehicle {
 			if(isNew())
 			{
 				//If the Truck is new insert it into the database by executing the following
-				executeCommand("Insert into Truck (TruckName,Contractor,Longitude,Latitude,LocationName,TruckType,Capacity,Status) Values ('"+
-						getTruckName() + "','" + getContractor() + "','"+ this.getLongitude()+"','"+this.getLatitude() + "','" + this.getLocationName() + "','" + this.getTruckType()+ "','"+
-						this.getCapacity()+"','"+this.getStatus()+"')");
+				executeCommand("Insert into Truck (TruckName,Carrier,Status) Values ('"+
+						getTruckName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
 				//Grab this Truck from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select TruckID from Truck where TruckName = '" + this.getTruckName() + "' AND Contractor = '"+this.getContractor()+
-						"' AND Longitude = '" + this.getLongitude() + "' AND Latitude = '" + this.getLatitude() + "' AND LocationName = '" + this.getLocationName() + 
-						"' AND TruckType = '" + this.getTruckType() + "' AND Capacity = '" +this.getCapacity() + "' AND Status = '" + this.getStatus()+"'");
+				ArrayList<Map<String,Object>> temp =executeQuery("Select TruckID from Truck where TruckName = '" + this.getTruckName() + "' AND Carrier = '"+this.getCarrier().getId()+
+						"' AND Status = '" + this.getStatus()+"'");
 				//If this Truck exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
@@ -126,9 +70,8 @@ public class Truck extends Vehicle {
 				if(isDirty())
 				{
 					//If the Truck is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Truck Set TruckName = '" + this.getTruckName() + "' , Contractor = '"+this.getContractor()+
-						"' , Longitude = '" + this.getLongitude() + "' , Latitude = '" + this.getLatitude() + "' , LocationName = '" + this.getLocationName() + 
-						"' , TruckType = '" + this.getTruckType() + "' , Capacity = '" +this.getCapacity() + "' , Status = '" + this.getStatus() + "' Where TruckID = " +this.id);
+					executeCommand("Update Truck Set TruckName = '" + this.getTruckName() + "' , Carrier = '"+this.getCarrier().getId()+
+						 "' , Status = '" + this.getStatus() + "' Where TruckID = " +this.id);
 					MarkClean();																	//Mark the Truck as clean
 				}//End of isDirty if
 			}//End of isOld else
@@ -199,12 +142,9 @@ public class Truck extends Vehicle {
 		{
 			//This code grabs each element that will be found in the database on the Truck table and set the appropriate values for a new Truck
 			Truck t = new Truck((Integer)data.get("TruckID"));
-			t.setTruckName((String)data.get("TruckName"));//data;//rs.getString("TruckName"));
-			t.setCapacity((Integer)data.get("Capacity"));//rs.getInt("Capacity"));
-			t.setContractor((String)data.get("Contractor"));//rs.getString("Contractor"));
-			t.setLocation(Double.parseDouble(data.get("Latitude").toString()),Double.parseDouble(data.get("Longitude").toString()),(String)data.get("LocationName"));//,rs.getString("LocationName"));
-			t.setTruckType((String)data.get("TruckType"));//rs.getString("TruckType"));
-			t.setStatus((String)data.get("Status"));//rs.getString("Status"));		
+			t.setTruckName((String)data.get("TruckName"));
+			t.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
+			t.setStatus((String)data.get("Status"));	
 			t.MarkClean();																//Mark the Truck as clean
 			return t;
 			

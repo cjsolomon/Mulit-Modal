@@ -16,39 +16,20 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Rail extends Vehicle {
-
-	//This is the enumeration of the different types of Rails available
-	public static enum RailType 
-	{
-			Standard("Standard"),
-			Other("OTHER");
-			private String type;
-			RailType(String s)
-			{
-				type=s;
-			}//End fo the RailType constructor
-			@Override public String toString()
-			{
-				return type;
-			}//End of the overridden toString()
-			
-	}//End of the RailType enumeration
-	
-	private RailType type;											//The type of this Rail
 	
 	//This is the default Rail constructor
 	public Rail()
 	{
-		setTravelType(TravelTypes.Rail);							//Set the TravelType to Rail
+		super.setTravelMode(Vehicle.TravelModes.Rail);				//Set the TravelMode to Rail
 		MarkNew();													//Mark this Rail as new
 	}//End of default Rail constructor
 	
 	//This is the argumented Rail constructor that takes an id
 	public Rail(int id)
 	{
-		setTravelType(TravelTypes.Rail);							//Set the TravelType to Rail
+		super.setTravelMode(Vehicle.TravelModes.Rail);				//Set the TravelMode to Rail
 		this.id=id;													//Set the id
-																	//SHOULD WE ALSO SET THIS TO NEW OR DIRTY??
+																	
 	}//End of the argumented constructor Rail(int id)
 	
 	//This function sets the Rail's name
@@ -67,41 +48,6 @@ public class Rail extends Vehicle {
 		return super.getVehicleName();								//Return the Rail's name as a vehicle
 	}//End of getRailName()
 	
-	//This function sets the Rail's type
-	public void setRailType(RailType s)
-	{
-		if(type==null || !this.type.equals(s))
-		{
-			type = s;												//Set the Rail's type
-			MarkDirty();											//Mark the Rail as dirty
-		}//End of valid type if
-	}//End of setRailType(RailType s)
-	
-	//This function sets the Rail's type using a String
-	public void setRailType(String s)
-	{
-		if(type==null || !this.type.toString().equals(s))
-		{
-			type = loadRailType(s);									//Set the Rail's type
-			MarkDirty();											//Mark the Rail as dirty
-		}//End of valid type if
-	}//End of setRailType(String s)
-	
-	//This function returns the RailType
-	public String getRailType()
-	{
-		return type.toString();										//Return the RailType
-	}//End of getRailType()
-	
-	//This function will convert a string to a valid RailType
-	private RailType loadRailType(String s)
-	{
-		if(s.equals(RailType.Standard.toString()))
-			return RailType.Standard;								//Return Standard
-		return RailType.Other;										//Return Other
-			
-	}//End of loadRailType(String s)
-	
 	//This function overrides the parent's Update function and will handle changes made to the Rail object in the database
 	@Override
 	public void Update() 
@@ -112,13 +58,11 @@ public class Rail extends Vehicle {
 			if(isNew())
 			{
 				//If the Rail is new insert it into the database by executing the following
-				executeCommand("Insert into rail (RailName,Contractor,Longitude,Latitude,LocationName,RailType,Capacity,Status) Values ('"+
-						getRailName() + "','" + getContractor() + "','"+ this.getLongitude()+"','"+this.getLatitude() + "','" + this.getLocationName() + "','" + this.getRailType()+ "','"+
-						this.getCapacity()+"','"+this.getStatus()+"')");
+				executeCommand("Insert into rail (RailName,Carrier,Status) Values ('"+
+						getRailName() + "','" + this.getCarrier().getId() +"','"+this.getStatus()+"')");
 				//Grab this Rail from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select RailID from rai where RailName = '" + this.getRailName() + "' AND Contractor = '"+this.getContractor()+
-						"' AND Longitude = '" + this.getLongitude() + "' AND Latitude = '" + this.getLatitude() + "' AND LocationName = '" + this.getLocationName() + 
-						"' AND RailType = '" + this.getRailType() + "' AND Capacity = '" +this.getCapacity() + "' AND Status = '" + this.getStatus()+"'");
+				ArrayList<Map<String,Object>> temp =executeQuery("Select RailID from rail where RailName = '" + this.getRailName() + "' AND Carrier = '"+this.getCarrier().getId()+
+						 "' AND Status = '" + this.getStatus()+"'");
 				//If this rail exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
@@ -132,9 +76,8 @@ public class Rail extends Vehicle {
 				if(isDirty())
 				{
 					//If the Rail is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Rail Set RailName = '" + this.getRailName() + "' , Contractor = '"+this.getContractor()+
-						"' , Longitude = '" + this.getLongitude() + "' , Latitude = '" + this.getLatitude() + "' , LocationName = '" + this.getLocationName() + 
-						"' , RailType = '" + this.getRailType() + "' , Capacity = '" +this.getCapacity() + "' , Status = '" + this.getStatus() + "' Where RailID = " +this.id);
+					executeCommand("Update Rail Set RailName = '" + this.getRailName() + "' , Carrier = '"+this.getCarrier().getId()+
+						 "' , Status = '" + this.getStatus() + "' Where RailID = " +this.id);
 					MarkClean();													//Mark the Rail as clean
 				}//End of isDirty else
 			}//End of isOld else
@@ -206,10 +149,7 @@ public class Rail extends Vehicle {
 			Rail r = new Rail((Integer)data.get("RailID"));
 			//b.setId();
 			r.setRailName((String)data.get("RailName"));
-			r.setCapacity((Integer)data.get("Capacity"));
-			r.setContractor((String)data.get("Contractor"));
-			r.setLocation(Double.parseDouble(data.get("Latitude").toString()), Double.parseDouble(data.get("Longitude").toString()),(String)data.get("LocationName"));
-			r.setRailType((String)data.get("RailType"));
+			r.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 			r.setStatus((String)data.get("Status"));		
 			r.MarkClean();															//Mark the Rail as clean
 			return r;

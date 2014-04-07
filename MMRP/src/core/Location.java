@@ -3,7 +3,7 @@ import java.sql.SQLException;
 import java.util.*;
 public class Location extends BaseClass {
 
-	private ArrayList<Vehicle.TravelTypes> travelTypes;
+	private ArrayList<Vehicle.TravelModes> travelModes;
 	private int id;
 	private double latitude;
 	private double longitude;
@@ -13,14 +13,14 @@ public class Location extends BaseClass {
 	private ArrayList<Vehicle> vehiclesAtLocation;
 	public Location()
 	{
-		travelTypes=new ArrayList<Vehicle.TravelTypes>();
+		travelModes=new ArrayList<Vehicle.TravelModes>();
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkNew();
 	}
 	public Location(int id)
 	{
 		this.id=id;
-		travelTypes=new ArrayList<Vehicle.TravelTypes>();
+		travelModes=new ArrayList<Vehicle.TravelModes>();
 	}
 	
 	public int getID()
@@ -83,18 +83,18 @@ public class Location extends BaseClass {
 		return this.longitude;
 	}
 	
-	public void addTravelMode(Vehicle.TravelTypes mode)
+	public void addTravelMode(Vehicle.TravelModes mode)
 	{
-		if(!travelTypes.contains(mode))
+		if(!travelModes.contains(mode))
 		{
-			travelTypes.add(mode);
+			travelModes.add(mode);
 			MarkDirty();
 		}
 	}
 	
-	public boolean travelTypeAvailable(Vehicle.TravelTypes mode)
+	public boolean travelTypeAvailable(Vehicle.TravelModes mode)
 	{
-		if(travelTypes.contains(mode))
+		if(travelModes.contains(mode))
 		{
 			return true;
 		}
@@ -125,21 +125,21 @@ public class Location extends BaseClass {
 		{
 			String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1";
 			
-			for(int i =1;i<travelTypes.size();i++)
+			for(int i =1;i<travelModes.size();i++)
 				sql+=",TravelType"+(i+1);
 		
-			sql+=") Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelTypes.get(0).toString()+"'";
+			sql+=") Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString()+"'";
 			
-			for(int i =1;i<travelTypes.size();i++)
-				sql+=",'"+travelTypes.get(i).toString()+"'";
+			for(int i =1;i<travelModes.size();i++)
+				sql+=",'"+travelModes.get(i).toString()+"'";
 			
 			sql+=")";
 			
 			executeCommand(sql);
 			
-			sql="Select LocationID from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "' TravelType1 ='"+ travelTypes.get(0).toString()+"'";
-			for(int i =1;i<travelTypes.size();i++)
-				sql+=" AND TravelType"+(i+1)+"='"+travelTypes.get(i).toString()+"'";
+			sql="Select LocationID from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "' TravelType1 ='"+ travelModes.get(0).toString()+"'";
+			for(int i =1;i<travelModes.size();i++)
+				sql+=" AND TravelType"+(i+1)+"='"+travelModes.get(i).toString()+"'";
 			
 			ArrayList<Map<String,Object>> temp =executeQuery(sql);
 			if(temp.size()>0)
@@ -155,10 +155,10 @@ public class Location extends BaseClass {
 			if(isDirty())
 			{
 				String sql ="Update Location Set Name = '" + this.getName() + "' , Latitude = '"+this.getLatitude()+
-						"' , Longitude = '" + this.getLongitude() + "' , TravelType1 = '" + this.travelTypes.get(0).toString()+ "'";
-				for(int i = 1; i< this.travelTypes.size();i++)
+						"' , Longitude = '" + this.getLongitude() + "' , TravelType1 = '" + this.travelModes.get(0).toString()+ "'";
+				for(int i = 1; i< this.travelModes.size();i++)
 				{
-					sql+= " , TravelType"+(i+1)+" = '" + travelTypes.get(i).toString() + "'";
+					sql+= " , TravelType"+(i+1)+" = '" + travelModes.get(i).toString() + "'";
 				}
 				
 				sql += " Where LocationID = "+this.id;
@@ -226,23 +226,23 @@ public class Location extends BaseClass {
 		temp.setName((String)data.get("Name"));//rs.getString("Name"));
 		temp.setCountry((String)data.get("Country"));
 		temp.setState((String)data.get("State"));
-		temp.addTravelMode(Vehicle.loadType((String)data.get("TravelType1")));//rs.getString("TravelType1")));
+		temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType1")));//rs.getString("TravelType1")));
 		if((String)data.get("TravelType2")!=null)
 		{
-			temp.addTravelMode(Vehicle.loadType((String)data.get("TravelType1")));
+			temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType1")));
 			if((String)data.get("TravelType3")!=null)
 			{
-				temp.addTravelMode(Vehicle.loadType((String)data.get("TravelType3")));
+				temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType3")));
 				if((String)data.get("TravelType4")!=null)
 				{
-					temp.addTravelMode(Vehicle.loadType((String)data.get("TravelType4")));
+					temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType4")));
 				}
 				if((String)data.get("TravelType5")!=null)
 				{
-					temp.addTravelMode(Vehicle.loadType((String)data.get("TravelType5")));
+					temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType5")));
 					if((String)data.get("TravelType6")!=null)
 					{
-						temp.addTravelMode(Vehicle.loadType((String)data.get("TravelType6")));
+						temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType6")));
 					}
 				}
 			}

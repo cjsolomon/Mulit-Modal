@@ -183,10 +183,10 @@ public class Segment extends BaseClass {
 	//This function sets the Segment's Vehicle
 	public void setVehicle(Vehicle v)
 	{
-		if(this.VehicleID!=v.getId() || this.mode==null || !this.mode.equals(v.getTravelType()))
+		if(this.VehicleID!=v.getId() || this.mode==null || !this.mode.equals(v.getTravelMode()))
 		{
 			this.VehicleID=v.getId();							//Set the vehicle id
-			mode=v.getTravelType();								//Set the travel type
+			mode=v.getTravelMode();								//Set the travel type
 			MarkDirty();										//Mark the Segment as dirty
 		}//End of valid vehicle if
 	}//End of setVehicle(Vehicle v)
@@ -219,7 +219,7 @@ public class Segment extends BaseClass {
 	public Vehicle getVehicle()
 	{
 		//Load the Vehicle from the database based on the type of the Vehicle
-		switch(Vehicle.loadType(mode))
+		switch(Vehicle.loadMode(mode))
 		{
 			case Truck:
 				return Truck.Load(this.VehicleID);		//Return Truck

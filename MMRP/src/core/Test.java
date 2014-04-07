@@ -553,7 +553,7 @@ public class Test extends BaseClass
 				w.write("\nTruckID: "+t.getId());
 				w.write("\n\tTruck Name: "+t.getTruckName());
 				w.write("\n\tTruck Type: "+t.getTruckType());
-				w.write("\n\tContractor: " + t.getContractor());
+				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
 				w.write("\n");
@@ -567,7 +567,7 @@ public class Test extends BaseClass
 				w.write("\nPlaneID: "+t.getId());
 				w.write("\n\tPlane Name: "+t.getPlaneName());
 				w.write("\n\tPlane Type: "+t.getPlaneType());
-				w.write("\n\tContractor: " + t.getContractor());
+				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
 				w.write("\n");
@@ -581,7 +581,7 @@ public class Test extends BaseClass
 				w.write("\nRailID: "+t.getId());
 				w.write("\n\tRail Name: "+t.getRailName());
 				w.write("\n\tRail Type: "+t.getRailType());
-				w.write("\n\tContractor: " + t.getContractor());
+				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
 				w.write("\n");
@@ -595,7 +595,7 @@ public class Test extends BaseClass
 				w.write("\nCargoShipID: "+t.getId());
 				w.write("\n\tCargo Ship Name: "+t.getCargoName());
 				w.write("\n\tCargo Ship Type: "+t.getCargoType());
-				w.write("\n\tContractor: " + t.getContractor());
+				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tContainers: " + t.getNumOfContainers());
 				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
