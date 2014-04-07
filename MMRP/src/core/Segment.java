@@ -24,14 +24,17 @@ public class Segment extends BaseClass {
 	private int VehicleID;										//The id of the vehicle on this segment
 	private String mode;										//The mode of transport
 	private double distance;									//The distance between the start and endpoints
-	private double cost;										//The cost to travel along this segment 
-	private int departureTime;									//The time the vehicle departs
-	private int arrivalTime;									//The time the vehicle arrives
+	private int departureTime;									//The estimated time the vehicle departs
+	private int arrivalTime;									//The estimated time the vehicle arrives
+	private int earliestArrivalTime;							//This is the earliest arrival time
+	private int latestArrivalTime;								//This is the latest arrival time
+	private int earliestDepartureTime;							//This is the earliest departure time
+	private int latestDepartureTime;							//This is the latest departure time
 	private ShippingRate shippingRate;							//This is the shipping rate over the Segment
 	private String lanes;
 	public ArrayList<Shipment> onBoard;
 	
-	private static final int LOWEST_ARRIVAL_TIME = 0;			//This is the lowest possible arrival time
+	private static final int HIGEST_ARRIVAL_TIME = 86400;		//This is the higest possible arrival time
 	private static final int LOWEST_DEPARTURE_TIME = 0;			//This is the lowest possible departure time
 	
 	/**
@@ -116,14 +119,17 @@ public class Segment extends BaseClass {
 	public void setEstimatedArrivalTime(int newArrivalTime)
 	{
 		//Some error checking
-		if(newArrivalTime < LOWEST_ARRIVAL_TIME){
-			Log.writeLogSevere("The new estimate arrival time was set too low, so it has been corrected to " +
-		LOWEST_ARRIVAL_TIME + ".");
-			newArrivalTime = LOWEST_ARRIVAL_TIME;
-		}else if(newArrivalTime < this.departureTime){
-			Log.writeLogSevere("The new estimate arrival time was set below the departure time, so it has been corrected to " +
-					this.departureTime + ".");
-			newArrivalTime = this.departureTime;
+		
+		if(newArrivalTime < this.earliestArrivalTime){
+			Log.writeLogSevere("The new estimate arrival time was set below the earliest arrival time, so it has been corrected to " +
+					this.earliestArrivalTime + ".");
+			newArrivalTime = this.earliestArrivalTime;
+		}
+		
+		if(newArrivalTime > this.latestArrivalTime){
+			Log.writeLogSevere("The new estimate arrival time was set above the latest arrival time, so it has been corrected to " +
+					this.latestArrivalTime + ".");
+			newArrivalTime = this.latestArrivalTime;
 		}
 
 		if(this.arrivalTime!=newArrivalTime)
@@ -137,26 +143,29 @@ public class Segment extends BaseClass {
 	 * This function returns the estimated arrival time of the vehicle traveling over this Segment
 	 * @return Returns the estimated arrival time of the vehicle traveling over this Segment
 	 */
-	public int getArrivalTime()
+	public int getEstimatedArrivalTime()
 	{
 		return this.arrivalTime;								//Return the arrivalTime
-	}//End of getArrivalTime()
+	}//End of getEstimatedArrivalTime()
 	
 	/**
 	 * This function sets the estimated departure time of the vehicle on this Segment
 	 * @param newDepartureTime This is the new estimated departure time for the vehicle on this Segment
 	 */
-	public void setDepartureTime(int newDepartureTime)
+	public void setEstimatedDepartureTime(int newDepartureTime)
 	{
 		//Some error checking
-		if(newDepartureTime < LOWEST_DEPARTURE_TIME){
-			Log.writeLogSevere("The new estimate departure time was set too low, so it has been corrected to " +
-					LOWEST_DEPARTURE_TIME + ".");
-			newDepartureTime = LOWEST_DEPARTURE_TIME;
-		}else if(newDepartureTime > this.arrivalTime){
-			Log.writeLogSevere("The new estimate departure time was set above the arrival time, so it has been corrected to " +
-					this.arrivalTime + ".");
-			newDepartureTime = this.arrivalTime;
+		
+		if(newDepartureTime < this.earliestDepartureTime){
+			Log.writeLogSevere("The new estimate departure time was set below the earliest depature time, so it has been corrected to " +
+					earliestDepartureTime + ".");
+			newDepartureTime = earliestDepartureTime;
+		}
+		
+		if(newDepartureTime > this.latestDepartureTime){
+			Log.writeLogSevere("The new estimate departure time was set above the latest departure time, so it has been corrected to " +
+					this.latestDepartureTime + ".");
+			newDepartureTime = this.latestDepartureTime;
 		}
 		
 		if(this.departureTime!=newDepartureTime)
@@ -164,16 +173,136 @@ public class Segment extends BaseClass {
 			this.departureTime=newDepartureTime;				//Set the departureTime
 			MarkDirty();										//Mark this Segment as dirty
 		}//End of update if
-	}//End of setDepartureTime(int newDepartureTime)
+	}//End of setEstimatedDepartureTime(int newDepartureTime)
 	
 	/**
 	 * This function returns the estimated departure time of the vehicle from the start location
 	 * @return Returns the estimated departure time for the vehicle from the start location
 	 */
-	public int getDepartureTime()
+	public int getEstimatedDepartureTime()
 	{
 		return this.departureTime;								//Return departureTime
-	}//End of getDepartureTime()
+	}//End of getEstimatedDepartureTime()
+	
+	/**
+	 * This function returns the earliest arrival time of the vehicle at the end location
+	 * @return Returns the earliest arrival time of the vehicle at the end location
+	 */
+	public int getEarliestArrivalTime() {
+		return earliestArrivalTime;
+	}//End of getEarliestArrivalTime()
+
+	/**
+	 * This function sets the earliest arrival time of the vehicle at the end location
+	 * @param earliestArrivalTime This is the new earliest arrival time of the vehicle at the end location
+	 */
+	public void setEarliestArrivalTime(int earliestArrivalTime) {
+		
+		//Some error checking
+		if(earliestArrivalTime > this.arrivalTime){
+			Log.writeLogSevere("The new earliest arrival time was set above the arrival time, so it has been corrected to " +
+					this.arrivalTime + ".");
+			earliestArrivalTime = this.arrivalTime;
+		}
+		
+		if(earliestArrivalTime < this.latestDepartureTime){
+			Log.writeLogSevere("The new earliest arrival time was set below the latest depature time, so it has been corrected to " +
+					this.latestDepartureTime + ".");
+			earliestArrivalTime = this.latestDepartureTime;
+		}
+		
+		this.earliestArrivalTime = earliestArrivalTime;
+	}//End of setEarliestArrivalTime(int earliestArrivalTime)
+
+	/**
+	 * This function returns the latest arrival time of the vehicle at the end location
+	 * @return Returns the latest arrival time of the vehicle at the end location
+	 */
+	public int getLatestArrivalTime() {
+		return latestArrivalTime;
+	}//End of getLatestArrivalTime()
+
+	/**
+	 * This function sets the latest arrival time of the vehicle at the end location
+	 * @param latestArrivalTime This is the new latest arrival time of the vehicle at the end location
+	 */
+	public void setLatestArrivalTime(int latestArrivalTime) {
+		
+		//Some error checking
+		if(latestArrivalTime < this.arrivalTime){
+			Log.writeLogSevere("The new latest arrival time was set below the estimated arrival time, so it has been corrected to " +
+					this.arrivalTime + ".");
+			latestArrivalTime = this.arrivalTime;
+		}
+				
+		if(latestArrivalTime > HIGEST_ARRIVAL_TIME){
+			Log.writeLogSevere("The new latest arrival time was set too high, so it has been corrected to " +
+					HIGEST_ARRIVAL_TIME + ".");
+			latestArrivalTime = HIGEST_ARRIVAL_TIME;
+		}
+				
+		this.latestArrivalTime = latestArrivalTime;
+	}//End of setLatestArrivalTime(int latestArrivalTime)
+
+	/**
+	 * This function returns the earliest departure time of the vehicle from the start location
+	 * @return Returns the earliest departure time of the vehicle from the start location
+	 */
+	public int getEarliestDepartureTime() {
+		return earliestDepartureTime;
+	}//End of getEarliestDepartureTime()
+
+	/**
+	 * This function sets the earliest departure time for the vehicle from the start location
+	 * @param earliestDepartureTime This is the new earliest departure time for the vehicle from the start location
+	 */
+	public void setEarliestDepartureTime(int earliestDepartureTime) {
+		
+		//Some error checking
+		if(earliestDepartureTime > this.departureTime){
+			Log.writeLogSevere("The new earliest depature time was set above the depature time, so it has been corrected to " +
+					this.departureTime + ".");
+			earliestDepartureTime = this.departureTime;
+		}
+				
+		if(earliestDepartureTime < LOWEST_DEPARTURE_TIME){
+			Log.writeLogSevere("The new earliest depature time was set too low, so it has been corrected to " +
+					LOWEST_DEPARTURE_TIME + ".");
+			earliestDepartureTime = LOWEST_DEPARTURE_TIME;
+		}
+		
+		this.earliestDepartureTime = earliestDepartureTime;
+	}//End of setEarliestDepartureTime(int earliestDepartureTime)
+	
+	/**
+	 * This function returns the latest departure time for the vehicle from the start location
+	 * @return Returns the latest departure time for the vehicle from the start location
+	 */
+	public int getLatestDepartureTime() { 
+		return latestDepartureTime;
+	}//End of getLatestDepartureTime()
+
+	/**
+	 * This function sets the latest departure time for the vehicle from the start location
+	 * @param latestDepartureTime This is the new latest departure time for the vehicle from the start location
+	 */
+	public void setLatestDepartureTime(int latestDepartureTime) {
+		
+		//Some error checking
+		if(latestDepartureTime > this.earliestArrivalTime){
+			Log.writeLogSevere("The new latest departure time was set above the earliest arrival time, so it has been corrected to " +
+					this.earliestArrivalTime + ".");
+			latestDepartureTime = this.earliestArrivalTime;
+		}
+				
+		if(latestDepartureTime < this.departureTime){
+			Log.writeLogSevere("The new latest depature time was set below the estimate depature time, so it has been corrected to " +
+					this.departureTime + ".");
+			latestDepartureTime = this.departureTime;
+		}
+		
+		this.latestDepartureTime = latestDepartureTime;
+	}//End of setLatestDepartureTime(int latestDepartureTime)
 	
 	/**
 	 * This function sets the starting location of this Segment
@@ -400,8 +529,12 @@ public class Segment extends BaseClass {
 		s.setEndLocation((Integer)data.get("ToLocationID"));
 		s.setVehicle((Integer)data.get("VehicleID"),(String)data.get("ModeType"));
 		s.setDistance(Double.parseDouble(data.get("Distance").toString()));
-		s.setDepartureTime((Integer)data.get("TimeOfDeparture"));
+		s.setEstimatedDepartureTime((Integer)data.get("TimeOfDeparture"));
 		s.setEstimatedArrivalTime((Integer)data.get("TimeOfArrival"));
+		s.setEarliestArrivalTime((Integer)data.get("EarliestArrivalTime"));
+		s.setEarliestDepartureTime((Integer)data.get("EarliestDepartureTime"));
+		s.setLatestArrivalTime((Integer)data.get("LatestArrivalTime"));
+		s.setLatestDepartureTime((Integer)data.get("LatestDepatureTime"));
 		s.setLane((String)data.get("Lane"));
 		s.setShippingRate(ShippingRate.Load((Integer)data.get("ShippingRateID")));
 		s.MarkClean();													//Mark the Segment as clean
@@ -558,19 +691,24 @@ public class Segment extends BaseClass {
 			if(isNew())
 			{
 				//If the Segment is new insert it into the database by executing the following
-				executeCommand("Insert into Segment (FromLocationID,ToLocationID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID) Values ('"+
+				executeCommand("Insert into Segment (FromLocationID,ToLocationID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime) Values ('"+
 						this.getStartLocationID()+"','"+this.getEndLocationID()+"','"+this.getVehicleID()+"','"+this.getTravelMode()+"','"+this.getDistance()+"','"+
-					    this.getDepartureTime()+"','"+this.getArrivalTime()+"','"+this.getLane() +"','"+this.getShippingRate().getId() +"')");
+					    this.getEstimatedDepartureTime()+"','"+this.getEstimatedArrivalTime()+"','"+this.getLane() +"','"+this.getShippingRate().getId() +
+					    "','"+this.getEarliestArrivalTime() +"','"+this.getLatestArrivalTime() +"','"+this.getEarliestDepartureTime() +"','"+this.getLatestDepartureTime() +"')");
 				//Grab this Segment from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select SegmentID from Segment where FromLocationID ='"+ this.getStartLocationID()+"' "+
 						"AND ToLocationID ='" + this.getEndLocationID() +"' "+
 						"AND VehicleID='" + this.getVehicleID()+"' "+
 						"And ModeType='" + this.getTravelMode()+"' "+
 						"And Distance='"+this.getDistance()+"' "+
-						"And TimeOfDeparture ='"+this.getDepartureTime()+"' "+
+						"And TimeOfDeparture ='"+this.getEstimatedDepartureTime()+"' "+
 						"And Lane ='"+this.getLane()+"' "+
+						"And EarliestArrivalTime ='"+this.getEarliestArrivalTime()+"' "+
+						"And LatestArrivalTime ='"+this.getLatestArrivalTime()+"' "+
+						"And EarliestDepartureTime ='"+this.getLatestDepartureTime()+"' "+
+						"And LatestDepartureTime ='"+this.getLatestDepartureTime()+"' "+
 						"And ShippingRateID ='"+this.getShippingRate().getId()+"' "+
-						"And TimeOfArrival = '"+this.getArrivalTime()+"'");
+						"And TimeOfArrival = '"+this.getEstimatedArrivalTime()+"'");
 				//If this Segment exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
@@ -589,10 +727,14 @@ public class Segment extends BaseClass {
 							"AND VehicleID='" + this.getVehicleID()+"' "+
 							"And ModeType='" + this.getTravelMode()+"' "+
 							"And Distance='"+this.getDistance()+"' "+
-							"And TimeOfDeparture ='"+this.getDepartureTime()+"' "+
+							"And TimeOfDeparture ='"+this.getEstimatedDepartureTime()+"' "+
 							"And Lane ='"+this.getLane()+"' "+
 							"And ShippingRateID ='"+this.getShippingRate().getId()+"' "+
-							"And TimeOfArrival = '"+this.getArrivalTime()+"' Where SegmentID="+this.id);
+							"And EarliestArrivalTime ='"+this.getEarliestArrivalTime()+"' "+
+							"And LatestArrivalTime ='"+this.getLatestArrivalTime()+"' "+
+							"And EarliestDepartureTime ='"+this.getEarliestDepartureTime()+"' "+
+							"And LatestDepatureTime ='"+this.getLatestDepartureTime()+"' "+
+							"And TimeOfArrival = '"+this.getEstimatedArrivalTime()+"' Where SegmentID="+this.id);
 					MarkClean();													//Mark the Segment as clean
 				}//End of isDirty if
 			}//End of isOld else

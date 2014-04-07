@@ -551,7 +551,7 @@ public class Test extends BaseClass
 			{
 				Truck t = veh.get(i);
 				w.write("\nTruckID: "+t.getId());
-				w.write("\n\tTruck Name: "+t.getTruckName());
+				w.write("\n\tTruck Name: "+t.getVehicleName());
 				w.write("\n\tTruck Type: "+t.getTruckType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tCapacity: " + t.getCapacity());
@@ -565,7 +565,7 @@ public class Test extends BaseClass
 			{
 				Plane t = veh1.get(i);
 				w.write("\nPlaneID: "+t.getId());
-				w.write("\n\tPlane Name: "+t.getPlaneName());
+				w.write("\n\tPlane Name: "+t.getVehicleName());
 				w.write("\n\tPlane Type: "+t.getPlaneType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tCapacity: " + t.getCapacity());
@@ -579,7 +579,7 @@ public class Test extends BaseClass
 			{
 				Rail t = veh2.get(i);
 				w.write("\nRailID: "+t.getId());
-				w.write("\n\tRail Name: "+t.getRailName());
+				w.write("\n\tRail Name: "+t.getVehicleName());
 				w.write("\n\tRail Type: "+t.getRailType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tCapacity: " + t.getCapacity());
@@ -593,7 +593,7 @@ public class Test extends BaseClass
 			{
 				Cargo t = veh3.get(i);
 				w.write("\nCargoShipID: "+t.getId());
-				w.write("\n\tCargo Ship Name: "+t.getCargoName());
+				w.write("\n\tCargo Ship Name: "+t.getVehicleName());
 				w.write("\n\tCargo Ship Type: "+t.getCargoType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
 				w.write("\n\tContainers: " + t.getNumOfContainers());
