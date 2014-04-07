@@ -50,7 +50,7 @@ public abstract class Vehicle extends BaseClass {
 		
 	}//End of Status enumeration
 
-	protected Contractor contractor;					//The contractor for the vehicle
+	protected Carrier carrier;						//The contractor for the vehicle
 	protected String name;							//The name of the vehicle
 	protected Status status;						//The current status of the vehicle
 	protected TravelTypes type;						//The type of vehicle
@@ -194,9 +194,9 @@ public abstract class Vehicle extends BaseClass {
 		* This function sets the contractor of the vehicle
 		* @param c Contractor of the vehicle
 		*/
-		public void setContractor(Contractor c)
+		public void setContractor(Carrier c)
 		{
-				contractor=c;											//Set the contractor
+				carrier=c;											//Set the contractor
 				MarkDirty();											//Mark the vehicle as dirty
 		}//End of setContractor(Contractor c)
 		
