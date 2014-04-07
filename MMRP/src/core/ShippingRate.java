@@ -146,7 +146,7 @@ public class ShippingRate extends BaseClass{
 			return carrier;
 		}
 		
-		//This function overrides the parent's Update function and will handle changes made to the Rail object in the database
+		//This function overrides the parent's Update function and will handle changes made to the ShippingRate object in the database
 		@Override
 		public void Update() 
 		{
@@ -155,28 +155,44 @@ public class ShippingRate extends BaseClass{
 				//toDo: set id on insert set update statement
 				if(isNew())
 				{
-					//If the Rail is new insert it into the database by executing the following
-					executeCommand("Insert into rail (RailName,Carrier,Status) Values ('"+
-							getRailName() + "','" + this.getCarrier().getId() +"','"+this.getStatus()+"')");
-					//Grab this Rail from the database
-					ArrayList<Map<String,Object>> temp =executeQuery("Select RailID from rail where RailName = '" + this.getRailName() + "' AND Carrier = '"+this.getCarrier().getId()+
-							 "' AND Status = '" + this.getStatus()+"'");
-					//If this rail exists on the database mark it as old and clean
+					//If the ShippingRate is new insert it into the database by executing the following
+					executeCommand("Insert into shippingrate (ShippingRateID, CarrierID, StartLocation, EndLocation, TravelType, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
+							this.getId() + "','" + this.getCarrier().getId() +"','"+this.getStartLocation()
+							+ this.getEndLocation() +"','"+ this.getType() +"','"+ this.getWeight1() +"','"
+							+ this.getRate1() +"','"+ this.getWeight2() +"','"+ this.getRate2() +"','"
+							+ this.getWeight3() +"','"+ this.getRate3() +"','"+ this.getMileRate() +"','"
+							+ this.getFlatRate() +"','"+ this.getRank() +"')");
+					//Grab this ShippingRate from the database
+					ArrayList<Map<String,Object>> temp =executeQuery("Select ShippingRateID from shippingrate where CarrierID = '" + 
+					this.getCarrier().getId() + "' AND StartLocation = '"+this.getStartLocation() +
+					"' AND EndLocation = '"+this.getEndLocation() + "' AND TravelType = '"+this.getType() +
+					"' AND Weight1 = '"+this.getWeight1() + "' AND Rate1 = '"+this.getRate1() +
+					"' AND Weight2 = '"+this.getWeight2() + "' AND Rate2 = '"+this.getRate2() +
+					"' AND Weight3 = '"+this.getWeight3() + "' AND Rate2 = '"+this.getRate3() +
+					"' AND MileRate = '"+this.getMileRate() + "' AND FlatRate = '"+this.getFlatRate() +
+					"' AND Rank = '"+this.getRank()  +"'");
+					//If this ShippingRate exists on the database mark it as old and clean
 					if(temp.size()>0)
 					{
-						this.id = (Integer)temp.get(0).get("RailID");					//Set this Rail id to the id in the database
-						MarkClean();													//Mark this Rail as clean
-						MarkOld();														//Mark this Rail as old
+						this.id = (Integer)temp.get(0).get("ShippingRateID");			//Set this ShippingRate id to the id in the database
+						MarkClean();													//Mark this ShippingRate as clean
+						MarkOld();														//Mark this ShippingRate as old
 					}//End of found something if
 				}//End of isNew if
 				else
 				{
 					if(isDirty())
 					{
-						//If the Rail is not new, but is dirty then it needs to be updated by the following SQL command
-						executeCommand("Update Rail Set RailName = '" + this.getRailName() + "' , Carrier = '"+this.getCarrier().getId()+
-							 "' , Status = '" + this.getStatus() + "' Where RailID = " +this.id);
-						MarkClean();													//Mark the Rail as clean
+						//If the ShippingRate is not new, but is dirty then it needs to be updated by the following SQL command
+						executeCommand("Update ShippingRate Set CarrierID = '" + this.getCarrier().getId() + 
+								"' , StartLocation = '"+this.getStartLocation() + "' , EndLocation = '" + this.getEndLocation() +
+								"' , TravelType = '"+this.getType() + "' , Weight1 = '" + this.getWeight1() +
+								"' , Rate1 = '"+this.getRate1() + "' , Weight2 = '" + this.getWeight2() +
+								"' , Rate2 = '"+this.getRate2() + "' , Weight3 = '" + this.getWeight3() +
+								"' , Rate3 = '"+this.getRate3() + "' , MileRate = '" + this.getMileRate() +
+								"' , FlatRate = '"+this.getFlatRate() + "' , Rank = '" + this.getRank() +
+								"' Where ShippingRateID = " +this.id);
+						MarkClean();													//Mark the ShippingRate as clean
 					}//End of isDirty else
 				}//End of isOld else
 			}//End of try block
@@ -187,13 +203,13 @@ public class ShippingRate extends BaseClass{
 			
 		}//End of the overridden Update()
 
-		//This is the overridden Delete function of the parent class and will remove this Rail from the database
+		//This is the overridden Delete function of the parent class and will remove this ShippingRate from the database
 		@Override
 		public  void Delete() 
 		{
 			try
 			{
-				executeCommand("Delete from Rail Where RailID = " + this.id);			//Delete the Rail
+				executeCommand("Delete from ShippingRate Where ShippingRateID = " + this.id);			//Delete the ShippingRate
 			}//End of try block
 			catch(Exception ex)
 			{
@@ -202,16 +218,15 @@ public class ShippingRate extends BaseClass{
 
 		}//End of overridden Delete()
 
-		public static Rail Load(int id)
+		public static ShippingRate Load(int id)
 		{
 			try
 			{
-				ArrayList<Map<String,Object>> temp = executeQuery("Select * from Rail where RailID = " + id);
+				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRate where ShippingRateID = " + id);
 				if(temp.size()>0)
 				{
-					Rail r = BuildFromDataRow(temp.get(0));
-					r.getSchedule();
-					return r;
+					ShippingRate sr = BuildFromDataRow(temp.get(0));
+					return sr;
 				}
 				return null;
 			}
@@ -221,17 +236,16 @@ public class ShippingRate extends BaseClass{
 			}
 	 		return null;
 		}
-		public static ArrayList<Rail> LoadAll(String where)
+		public static ArrayList<ShippingRate> LoadAll(String where)
 		{
-			ArrayList<Rail> returnList = new ArrayList<Rail>();
+			ArrayList<ShippingRate> returnList = new ArrayList<ShippingRate>();
 			try 
 			{
-				ArrayList<Map<String,Object>> temp = executeQuery("Select * from Rail " +  where);
+				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRate " +  where);
 				for(int i = 0; i<temp.size();i++)
 				{
-					Rail r = BuildFromDataRow(temp.get(i));
-					r.getSchedule();
-					returnList.add(r);
+					ShippingRate sr = BuildFromDataRow(temp.get(i));
+					returnList.add(sr);
 				}
 			}
 			catch(Exception ex)
@@ -241,21 +255,27 @@ public class ShippingRate extends BaseClass{
 			return returnList;
 		}
 		//This function builds objects from returned data from SQL queries against our database
-			public static Rail BuildFromDataRow(Map<String,Object> data) throws SQLException
+			public static ShippingRate BuildFromDataRow(Map<String,Object> data) throws SQLException
 			{
-				//This code grabs each element that will be found in the database on the Rail table and set the appropriate values for a new Rail
-				Rail r = new Rail((Integer)data.get("RailID"));
-				//b.setId();
-				r.setRailName((String)data.get("RailName"));
-				r.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
-				r.setStatus((String)data.get("Status"));		
-				r.MarkClean();															//Mark the Rail as clean
-				return r;
+				//This code grabs each element that will be found in the database on the ShippingRate table and set the appropriate values for a new ShippingRate
+				ShippingRate sr = new ShippingRate((Integer)data.get("ShippingRateID"));
+				sr.setCarrier(Carrier.Load((Integer)data.get("CarrierID")));
+				sr.setStartLocation(Location.Load((Integer)data.get("StartLocation")));
+				sr.setEndLocation(Location.Load((Integer)data.get("EndLocation")));
+				sr.setType(TravelType.Load((Integer)data.get("TravelType")));
+				sr.setWeight1((Double)data.get("Weight1"));
+				sr.setRate1((Double)data.get("Rate1"));
+				sr.setWeight2((Double)data.get("Weight2"));
+				sr.setRate2((Double)data.get("Rate2"));
+				sr.setWeight3((Double)data.get("Weight3"));
+				sr.setRate3((Double)data.get("Rate3"));
+				sr.setMileRate((Double)data.get("MileRate"));
+				sr.setFlatRate((Double)data.get("FlatRate"));
+				sr.setRank((Integer)data.get("Rank"));
+				sr.MarkClean();															//Mark the ShippingRate as clean
+				return sr;
 				
 			}//End of BuildFromDataRow(Map<String,Object> data)
-		@Override
-		public String toString()
-		{
-			return getRailName();
+
 	
 }//End of ShippingRate class

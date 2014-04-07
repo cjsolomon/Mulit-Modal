@@ -34,29 +34,6 @@ public class Bike extends Vehicle {
 	}//End of Bike(int id)
 	
 	/**
-	 * Sets the name of the Bike
-	 * @param s Name of the bike
-	 */
-	public void setBikeName(String s)
-	{
-		if(name==null || !this.name.equals(s))
-		{
-			super.setVehicleName(s);					//Set the name of the Bike (as a vehicle)
-		}//End of valid name if
-	
-	}//End of setBikeName(String s)
-	
-	/**
-	 * Returns the name of the Bike
-	 * @return String name of the Bike
-	 */
-	public String getBikeName()
-	{
-		return super.getVehicleName();					//Return the name of the Bike (from vehicle)
-	}//End of getBikeName()
-	
-	
-	/**
 	 * Updates the database entry for this object.
 	 * 
 	 * If the object is new it will be inserted into the database.
@@ -72,10 +49,10 @@ public class Bike extends Vehicle {
 			{
 				//If the bike is new insert it into the database by executing the following
 				executeCommand("Insert into Bike (BikeName,Carrier,Status) Values ('"+
-				this.getBikeName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
+				this.getVehicleName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
 				
 				//Grab this bike from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select BikeID from Bike where BikeName = '" + this.getBikeName() + "' AND Carrier = '"+this.getCarrier().getId() +
+				ArrayList<Map<String,Object>> temp =executeQuery("Select BikeID from Bike where BikeName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId() +
 				"' AND Status = '" + this.getStatus()+"'");
 				//If this bike exists on the database mark it as old and clean
 				if(temp.size()>0)
@@ -90,7 +67,7 @@ public class Bike extends Vehicle {
 				if(isDirty())
 				{
 					//If the Bike is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Bike Set BikeName = '" + this.getBikeName() + "' , Carrier = '"+this.getCarrier().getId() +
+					executeCommand("Update Bike Set BikeName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId() +
 					"' , Status = '" + this.getStatus() + "' Where BikeID = " +this.id);
 					MarkClean();												//Now mark the bike as clean
 				}//End of isDirty if
@@ -178,21 +155,14 @@ public class Bike extends Vehicle {
 	{
 	
 		//This code grabs each element that will be found in the database on the Bikes table and set the appropriate values for a new Bike
-		Bike b = new Bike((Integer)data.get("BikeID"));//rs.getInt("BikeID"));
-		b.setBikeName((String)data.get("BikeName"));//rs.getString("BikeName"));
+		Bike b = new Bike((Integer)data.get("BikeID"));
+		b.setVehicleName((String)data.get("BikeName"));
 		b.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
-		b.setStatus((String)data.get("Status"));//rs.getString("Status"));		
+		b.setStatus((String)data.get("Status"));		
 		b.MarkClean();
 		return b;
 		
 	}//End of BuildFromDataRow(Map<String,Object> data)
 	
-	//This function overrides the toString function and returns the name of the Bike
-	@Override
-	public String toString()
-	{
-		return getBikeName();								//Return the name of the Bike
-	}//End of the overridden toString()
-
 
 }

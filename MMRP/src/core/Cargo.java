@@ -31,22 +31,6 @@ public class Cargo extends Vehicle {
 																		
 	}//End of arguemented Cargo constructor
 	
-	//This function sets the name of the Cargo
-	public void setCargoName(String s)
-	{
-		if(name==null || !this.name.equals(s))
-		{
-			super.setVehicleName(s);									//Set the name of the Cargo (as a Vehicle)
-		}//End of valid name if
-		
-	}//End of setCargoName(String s)
-	
-	//This function returns the name of the Cargo
-	public String getCargoName()
-	{
-		return super.getVehicleName();									//Return the name (from the Vehicle parent)
-	}//End of getCargoName()
-	
 	//This function overrides the parent's Update function and will handle changes made to the Cargo object in the database
 	@Override
 	public void Update() 
@@ -57,9 +41,9 @@ public class Cargo extends Vehicle {
 		{
 			//If the cargo is new insert it into the database by executing the following
 			executeCommand("Insert into CargoShip (ShipName,Carrier,Status) Values ('"+
-					getCargoName() + "','" +this.getCarrier().getId()+"','" +this.getStatus()+"')");
+					getVehicleName() + "','" +this.getCarrier().getId()+"','" +this.getStatus()+"')");
 			//Grab this cargo from the database
-			ArrayList<Map<String,Object>> temp =executeQuery("Select ShipID from CargoShip where ShipName = '" + this.getCargoName() + "' AND Carrier = '"+this.getCarrier().getId()+
+			ArrayList<Map<String,Object>> temp =executeQuery("Select ShipID from CargoShip where ShipName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId()+
 					 "' AND Status = '" + this.getStatus()+"'");
 			//If this cargo exists on the database mark it as old and clean
 			if(temp.size()>0)
@@ -75,7 +59,7 @@ public class Cargo extends Vehicle {
 			if(isDirty())
 			{
 				//If the Cargo is not new, but is dirty then it needs to be updated by the following SQL command
-				executeCommand("Update CargoShip Set ShipName = '" + this.getCargoName() + "' , Carrier = '"+this.getCarrier().getId()+
+				executeCommand("Update CargoShip Set ShipName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
 					"' , Status = '" + this.getStatus() +"' Where ShipID = " +this.id);
 				MarkClean();													//Mark the cargo as clean
 			}//End of isDirty if
@@ -145,9 +129,8 @@ public class Cargo extends Vehicle {
 	public static Cargo BuildFromDataRow(Map<String,Object> data) throws SQLException
 	{
 		//This code grabs each element that will be found in the database on the Cargo table and set the appropriate values for a new Cargo
-		Cargo c = new Cargo((Integer)data.get("ShipID"));//rs.getInt("ShipID"));
-		//b.setId();
-		c.setCargoName((String)data.get("ShipName"));
+		Cargo c = new Cargo((Integer)data.get("ShipID"));
+		c.setVehicleName((String)data.get("ShipName"));
 		c.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		c.setStatus((String)data.get("Status"));
 		c.MarkClean();
@@ -155,13 +138,6 @@ public class Cargo extends Vehicle {
 		
 	}//End of the BuildFromDataRow(Map<String, Object> data)
 	
-	//This function overrides the toString function and returns the name of the Cargo
-	@Override
-	public String toString()
-	{
-		return getCargoName();											//Return the cargo name
-	}//End of the overridden toString()
-
 
 
 }

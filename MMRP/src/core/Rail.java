@@ -32,22 +32,6 @@ public class Rail extends Vehicle {
 																	
 	}//End of the argumented constructor Rail(int id)
 	
-	//This function sets the Rail's name
-	public void setRailName(String s)
-	{
-		if(name==null || !this.name.equals(s))
-		{
-			super.setVehicleName(s);								//Set the Rail's name (as a vehicle)
-		}//End of valid name if
-		
-	}//End of setRailName(String s)
-	
-	//This function returns the Rail's name
-	public String getRailName()
-	{
-		return super.getVehicleName();								//Return the Rail's name as a vehicle
-	}//End of getRailName()
-	
 	//This function overrides the parent's Update function and will handle changes made to the Rail object in the database
 	@Override
 	public void Update() 
@@ -59,9 +43,9 @@ public class Rail extends Vehicle {
 			{
 				//If the Rail is new insert it into the database by executing the following
 				executeCommand("Insert into rail (RailName,Carrier,Status) Values ('"+
-						getRailName() + "','" + this.getCarrier().getId() +"','"+this.getStatus()+"')");
+						getVehicleName() + "','" + this.getCarrier().getId() +"','"+this.getStatus()+"')");
 				//Grab this Rail from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select RailID from rail where RailName = '" + this.getRailName() + "' AND Carrier = '"+this.getCarrier().getId()+
+				ArrayList<Map<String,Object>> temp =executeQuery("Select RailID from rail where RailName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId()+
 						 "' AND Status = '" + this.getStatus()+"'");
 				//If this rail exists on the database mark it as old and clean
 				if(temp.size()>0)
@@ -76,7 +60,7 @@ public class Rail extends Vehicle {
 				if(isDirty())
 				{
 					//If the Rail is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Rail Set RailName = '" + this.getRailName() + "' , Carrier = '"+this.getCarrier().getId()+
+					executeCommand("Update Rail Set RailName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
 						 "' , Status = '" + this.getStatus() + "' Where RailID = " +this.id);
 					MarkClean();													//Mark the Rail as clean
 				}//End of isDirty else
@@ -147,18 +131,12 @@ public class Rail extends Vehicle {
 		{
 			//This code grabs each element that will be found in the database on the Rail table and set the appropriate values for a new Rail
 			Rail r = new Rail((Integer)data.get("RailID"));
-			//b.setId();
-			r.setRailName((String)data.get("RailName"));
+			r.setVehicleName((String)data.get("RailName"));
 			r.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 			r.setStatus((String)data.get("Status"));		
 			r.MarkClean();															//Mark the Rail as clean
 			return r;
 			
 		}//End of BuildFromDataRow(Map<String,Object> data)
-	@Override
-	public String toString()
-	{
-		return getRailName();
-	}
 
 }//End of Rail class

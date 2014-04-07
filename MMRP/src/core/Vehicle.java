@@ -299,5 +299,10 @@ public abstract class Vehicle extends BaseClass {
 	{
 		shipments.remove(s);
 	}
+	
+	@Override
+	public String toString(){
+		return this.name;
+	}
 
 }

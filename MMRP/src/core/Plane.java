@@ -32,23 +32,6 @@ public class Plane extends Vehicle {
 																			
 	}//End of the Plane(int id) constructor
 	
-	//This function will set the plane's name
-	public void setPlaneName(String s)
-	{
-		if(name==null || !this.name.equals(s))
-		{
-			super.setVehicleName(s);										//Set the plane's name (as a Vehicle)
-		}//End of valid name if
-		
-	}//End of setPlaneName(String s)
-	
-	//This function returns the name of the Plane
-	public String getPlaneName()
-	{
-		return super.getVehicleName();										//Return the name of the Plane (from Vehicle)
-	}//End of getPlaneName()
-	
-	
 	//This function overrides the parent's Update function and will handle changes made to the Plane object in the database
 	@Override
 	public void Update() 
@@ -60,9 +43,9 @@ public class Plane extends Vehicle {
 			{
 				//If the plane is new insert it into the database by executing the following
 				executeCommand("Insert into Plane (PlaneName,Carrier,Status) Values ('"+
-						getPlaneName() + "','" + this.getCarrier().getId()+"','"+this.getStatus()+"')");
+						getVehicleName() + "','" + this.getCarrier().getId()+"','"+this.getStatus()+"')");
 				//Grab this plane from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select PlaneID from Plane where PlaneName = '" + this.getPlaneName() + "' AND Carrier = '"+this.getCarrier().getId()+
+				ArrayList<Map<String,Object>> temp =executeQuery("Select PlaneID from Plane where PlaneName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId()+
 						"' AND Status = '" + this.getStatus()+"'");
 				//If this plane exists on the database mark it as old and clean
 				if(temp.size()>0)
@@ -77,7 +60,7 @@ public class Plane extends Vehicle {
 				if(isDirty())
 				{
 					//If the Plane is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Plane Set PlaneName = '" + this.getPlaneName() + "' , Carrier = '"+this.getCarrier().getId()+
+					executeCommand("Update Plane Set PlaneName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
 						 "' , Status = '" + this.getStatus() + "' Where Plane = " +this.id);
 					MarkClean();
 				}//End of isDirty if
@@ -148,7 +131,7 @@ public class Plane extends Vehicle {
 	{
 		//This code grabs each element that will be found in the database on the Plane table and set the appropriate values for a new Plane
 		Plane p = new Plane((Integer)data.get("PlaneID"));
-		p.setPlaneName((String)data.get("PlaneName"));
+		p.setVehicleName((String)data.get("PlaneName"));
 		p.setCarrier(Carrier.Load((Integer)data.get("Contractor")));
 		p.setStatus((String)data.get("Status"));	
 		p.MarkClean();
@@ -156,11 +139,4 @@ public class Plane extends Vehicle {
 		
 	}//End of BuildDataFromRow(Map<String,Object> data)
 	
-	//This function overrides the toString function and returns the name of the Plane
-	@Override
-	public String toString()
-	{
-		return getPlaneName();													//Return the plane name
-	}//End of overridden toString()
-
 }

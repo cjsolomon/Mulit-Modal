@@ -30,18 +30,6 @@ public class Truck extends Vehicle {
 																				
 	}//End of the argumented Truck constructor
 	
-	//This function sets the truck's name
-	public void setTruckName(String s)
-	{
-			super.setVehicleName(s);											//Set the Truck's name (as a Vehicle)
-	}//End of settruckName(String s)
-	
-	//This function returns the Truck's name
-	public String getTruckName()
-	{
-		return super.getVehicleName();											//Returns the Truck's name from the Vehicle base
-	}//End of getTruckName()
-	
 	//This function overrides the parent's Update function and will handle changes made to the Truck object in the database
 	@Override
 	public void Update() 
@@ -53,9 +41,9 @@ public class Truck extends Vehicle {
 			{
 				//If the Truck is new insert it into the database by executing the following
 				executeCommand("Insert into Truck (TruckName,Carrier,Status) Values ('"+
-						getTruckName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
+						getVehicleName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
 				//Grab this Truck from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select TruckID from Truck where TruckName = '" + this.getTruckName() + "' AND Carrier = '"+this.getCarrier().getId()+
+				ArrayList<Map<String,Object>> temp =executeQuery("Select TruckID from Truck where TruckName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId()+
 						"' AND Status = '" + this.getStatus()+"'");
 				//If this Truck exists on the database mark it as old and clean
 				if(temp.size()>0)
@@ -70,7 +58,7 @@ public class Truck extends Vehicle {
 				if(isDirty())
 				{
 					//If the Truck is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Truck Set TruckName = '" + this.getTruckName() + "' , Carrier = '"+this.getCarrier().getId()+
+					executeCommand("Update Truck Set TruckName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
 						 "' , Status = '" + this.getStatus() + "' Where TruckID = " +this.id);
 					MarkClean();																	//Mark the Truck as clean
 				}//End of isDirty if
@@ -142,18 +130,12 @@ public class Truck extends Vehicle {
 		{
 			//This code grabs each element that will be found in the database on the Truck table and set the appropriate values for a new Truck
 			Truck t = new Truck((Integer)data.get("TruckID"));
-			t.setTruckName((String)data.get("TruckName"));
+			t.setVehicleName((String)data.get("TruckName"));
 			t.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 			t.setStatus((String)data.get("Status"));	
 			t.MarkClean();																//Mark the Truck as clean
 			return t;
 			
 		}//End of BuildFromDataRow(Map<String,Object> data)
-		
-		//This function overrides the toString function and returns the name of the Truck
-		@Override
-		public String toString()
-		{
-			return getTruckName();														//Return the name of the Truck
-		}//End of overridden toString()
+
 }
