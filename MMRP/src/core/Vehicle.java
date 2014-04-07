@@ -7,27 +7,27 @@ import java.util.ArrayList;
 
 
 public abstract class Vehicle extends BaseClass {
-	//This is an enumeration for the different TravelTypes that the shipment may use
-	public static enum TravelTypes 
+	//This is an enumeration for the different TravelModes that the shipment may use
+	public static enum TravelModes 
 	{
 			Truck ("TRUCK"),
 			Rail("RAIL"),
 			Cargo("CARGO"),
 			Plane("PLANE"),
 			Bike("BIKE");
-			private String type;
-			TravelTypes(String s)
+			private String mode;
+			TravelModes(String s)
 			{
-				type=s;
+				mode=s;
 			}
 			@Override public String toString()
 			{
-				return type;
+				return mode;
 			}
 
-	}//End of TravelTypes enumeration
+	}//End of TravelModes enumeration
 	
-	//Modifier Variables For Each Carrier.  Tries to introduce real world differences between contractors
+	//Modifier Variables For Each Carrier.  Tries to introduce real world differences between carriers
 	public static double [] COST_MODIFIER_PLANE = {0.8,0.9,1.0,1.1,1.2};
 	
 	
@@ -50,55 +50,55 @@ public abstract class Vehicle extends BaseClass {
 		
 	}//End of Status enumeration
 
-	protected Carrier carrier;						//The contractor for the vehicle
+	protected Carrier carrier;						//The carrier for the vehicle
 	protected String name;							//The name of the vehicle
 	protected Status status;						//The current status of the vehicle
-	protected TravelTypes type;						//The type of vehicle
-	protected int id;							//The unique vehicle ID
+	protected TravelModes mode;						//The type of vehicle
+	protected int id;								//The unique vehicle ID
 	private ArrayList<Shipment> shipments;
 	private ArrayList<Segment> schedule;
 	
 	/**
-	 * Sets the travel type of the vehicle 
-	 * @param t TravelType 
+	 * Sets the travel mode of the vehicle 
+	 * @param t TravelMode 
 	 */
-	protected void setTravelType(TravelTypes t)
+	protected void setTravelMode(TravelModes t)
 	{
-		if(type==null || !type.equals(t))				//Make sure we have a valid type
+		if(mode==null || !mode.equals(t))				//Make sure we have a valid type
 		{
-			type=t;										//Set the type to t
+			mode=t;										//Set the type to t
 			MarkDirty();								//Mark the vehicle as dirty
 		}//End of if statement
-	}//End of setTravelType(TravelType t)
+	}//End of setTravelMode(TravelType t)
 	/**
-	 * Sets the travel type of the vehicle from a string
-	 * @param t Travel Type name
+	 * Sets the travel mode of the vehicle from a string
+	 * @param t TravelMode name
 	 */
-	protected void setTravelType(String t)
+	protected void setTravelMode(String t)
 	{
-		if(type==null || !type.toString().equals(t))	//Make sure we have a valid type
+		if(mode==null || !mode.toString().equals(t))	//Make sure we have a valid type
 		{
-			type = loadType(t);							//Set the type of the vehicle
+			mode = loadMode(t);							//Set the type of the vehicle
 			MarkDirty();								//Mark the vehicle as dirty
 		}//End of if statement
-	}//End of setTravelType(String t)
+	}//End of setTravelMode(String t)
 		/**
-		* Converts string to a TravelType
-		* @param t Travel Type name
-		* @return TravelType 
+		* Converts string to a TravelModes
+		* @param t TravelMode name
+		* @return TravelMode 
 		*/
-		public static TravelTypes loadType(String t)
+		public static TravelModes loadMode(String t)
 		{
-			if(t.equals(TravelTypes.Bike.toString()))
-				return TravelTypes.Bike;
-			if(t.equals(TravelTypes.Cargo.toString()))
-				return TravelTypes.Cargo;
-			if(t.equals(TravelTypes.Plane.toString()))
-				return TravelTypes.Plane;
-			if(t.equals(TravelTypes.Rail.toString()))
-				return TravelTypes.Rail;
-			if(t.equals(TravelTypes.Truck.toString()))
-				return TravelTypes.Truck;
+			if(t.equals(TravelModes.Bike.toString()))
+				return TravelModes.Bike;
+			if(t.equals(TravelModes.Cargo.toString()))
+				return TravelModes.Cargo;
+			if(t.equals(TravelModes.Plane.toString()))
+				return TravelModes.Plane;
+			if(t.equals(TravelModes.Rail.toString()))
+				return TravelModes.Rail;
+			if(t.equals(TravelModes.Truck.toString()))
+				return TravelModes.Truck;
 			return null;
 		}//End of loadType(String t)
 		
@@ -106,9 +106,9 @@ public abstract class Vehicle extends BaseClass {
 		* This function returns the TravelType of the vehicle
 		* @return The TravelType of the vehicle
 		*/
-		public String getTravelType()
+		public String getTravelMode()
 		{
-			return type.toString();
+			return mode.toString();
 		}//End of getTravelType
 		
 		/**
@@ -191,23 +191,23 @@ public abstract class Vehicle extends BaseClass {
 		}//End of getStatus
 		
 		/**
-		* This function sets the contractor of the vehicle
-		* @param c Contractor of the vehicle
+		* This function sets the carrier of the vehicle
+		* @param c Carrier of the vehicle
 		*/
-		public void setContractor(Carrier c)
+		public void setCarrier(Carrier c)
 		{
-				carrier=c;											//Set the contractor
+				carrier=c;											//Set the carrier
 				MarkDirty();											//Mark the vehicle as dirty
-		}//End of setContractor(Contractor c)
+		}//End of setCarrier(Carrier c)
 		
 		/**
-		* This function returns the Contractor of the vehicle
-		* @return Contractor of the vehicle
+		* This function returns the Carrier of the vehicle
+		* @return Carrier of the vehicle
 		*/
-		public String getContractor()
+		public Carrier getCarrier()
 		{
-			return contractor;
-		}//End of getContractor()
+			return carrier;
+		}//End of getCarrier()
 		
 		/**
 		* This function sets the vehicle's name 
@@ -238,7 +238,7 @@ public abstract class Vehicle extends BaseClass {
 	public ArrayList<Segment> getSchedule()
 	{
 		if(schedule==null)
-			schedule=Segment.LoadAll("where ModeType = '"+type.toString()+"' and VehicleID= " + id);
+			schedule=Segment.LoadAll("where ModeType = '"+mode.toString()+"' and VehicleID= " + id);
 		return schedule;
 	}
 
@@ -288,7 +288,7 @@ public abstract class Vehicle extends BaseClass {
 		{
 			shipments=new ArrayList<Shipment>();
 		}
-		//todo Check capacity restraints... remove lower priorty shipment if necessary
+		//todo Check capacity restraints... remove lower priority shipment if necessary
 		shipments.add(s);
 	}
 	/**

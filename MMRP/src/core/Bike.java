@@ -9,26 +9,6 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Bike extends Vehicle {
-
-	public static enum BikeType 
-	{
-		Standard("Standard"),
-		Other("OTHER");
-		private String type;
-		//This contructor will allow the creation of new BikeTypes
-		BikeType(String s)
-		{
-			type=s;
-		}//End of BikeType constructor
-		//This overridden toString function will return the enumeration as a string
-		@Override public String toString()
-		{
-			return type;
-		}//End of toString()
-	
-	}//End of BikeType enumeration
-	
-	private BikeType type;								//The type of the bike
 	
 	/**
 	 * Default Constructor for Bike Class
@@ -37,7 +17,7 @@ public class Bike extends Vehicle {
 	 */
 	public Bike()
 	{
-		setTravelType(TravelTypes.Bike);				//Set the TravelType to Bike
+		super.setTravelMode(Vehicle.TravelModes.Bike);	//Set the TravelType to Bike
 		MarkNew();										//Mark this as a new object
 	}//End of Bike()
 	
@@ -48,7 +28,7 @@ public class Bike extends Vehicle {
 	 */
 	public Bike(int id)
 	{
-		setTravelType(TravelTypes.Bike);				//Set the TravelType to Bike
+		super.setTravelMode(Vehicle.TravelModes.Bike);
 		this.id=id;										//Set the bike id
 						//SHOULD THIS ALSO BE MARKED AS NEW OR ATLEAST DIRTY?
 	}//End of Bike(int id)
@@ -75,55 +55,6 @@ public class Bike extends Vehicle {
 		return super.getVehicleName();					//Return the name of the Bike (from vehicle)
 	}//End of getBikeName()
 	
-	/**
-	 * Sets the type of Bike
-	 * @param s BikeType
-	 * @see core.Bike.BikeType
-	 */
-	public void setBikeType(BikeType s)
-	{
-		if(type==null || !this.type.equals(s))
-		{	
-			type = s;									//Set the type of the Bike
-			MarkDirty();								//Mark the bike as dirty
-		}//End of valid BikeType if
-	}//End of setBikeType(BikeType s)
-	
-	/**
-	 * Sets the type of Bike
-	 * @param s String representation of BikeType
-	 */
-	public void setBikeType(String s)
-	{
-		if(type==null || !this.type.toString().equals(s))
-		{
-			type = loadBikeType(s);						//Set the type of the Bike
-			MarkDirty();								//Mark the Bike as dirty
-		}//End of valid BikeType if
-	}//End of setBikeType(String s)
-	
-	/**
-	 * Returns the String representation of BikeType
-	 * @return String representation of BikeType
-	 */
-	
-	public String getBikeType()
-	{
-		return type.toString();							//Return the BikeType as a String
-	}//End of getBiketype()
-	
-	/**
-	 * Private method that loads the corresponding BikeType for a String
-	 * @param s String representation of a BikeType
-	 * @return BikeType
-	 */
-	private BikeType loadBikeType(String s)
-	{
-		if(s.equals(BikeType.Standard.toString()))
-				return BikeType.Standard;					//Return Standard
-		return BikeType.Other;							//Return Other
-	
-	}//End of loadBikeType(String s)
 	
 	/**
 	 * Updates the database entry for this object.
@@ -140,14 +71,12 @@ public class Bike extends Vehicle {
 			if(isNew())
 			{
 				//If the bike is new insert it into the database by executing the following
-				executeCommand("Insert into Bike (BikeName,Contractor,Longitude,Latitude,LocationName,BikeType,Capacity,Status) Values ('"+
-				getBikeName() + "','" + getContractor() + "','"+ this.getLongitude()+"','"+this.getLatitude() + "','" + this.getLocationName() + "','" + this.getBikeType()+ "','"+
-				this.getCapacity()+"','"+this.getStatus()+"')");
+				executeCommand("Insert into Bike (BikeName,Contractor,Status) Values ('"+
+				this.getBikeName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
 				
 				//Grab this bike from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select BikeID from Bike where BikeName = '" + this.getBikeName() + "' AND Contractor = '"+this.getContractor()+
-				"' AND Longitude = '" + this.getLongitude() + "' AND Latitude = '" + this.getLatitude() + "' AND LocationName = '" + this.getLocationName() + 
-				"' AND BikeType = '" + this.getBikeType() + "' AND Capacity = '" +this.getCapacity() + "' AND Status = '" + this.getStatus()+"'");
+				ArrayList<Map<String,Object>> temp =executeQuery("Select BikeID from Bike where BikeName = '" + this.getBikeName() + "' AND Contractor = '"+this.getCarrier().getId() +
+				"' AND Status = '" + this.getStatus()+"'");
 				//If this bike exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
@@ -161,9 +90,8 @@ public class Bike extends Vehicle {
 				if(isDirty())
 				{
 					//If the Bike is not new, but is dirty then it needs to be updated by the following SQL command
-					executeCommand("Update Bike Set BikeName = '" + this.getBikeName() + "' , Contractor = '"+this.getContractor()+
-					"' , Longitude = '" + this.getLongitude() + "' , Latitude = '" + this.getLatitude() + "' , LocationName = '" + this.getLocationName() + 
-					"' , BikeType = '" + this.getBikeType() + "' , Capacity = '" +this.getCapacity() + "' , Status = '" + this.getStatus() + "' Where BikeID = " +this.id);
+					executeCommand("Update Bike Set BikeName = '" + this.getBikeName() + "' , Contractor = '"+this.getCarrier().getId() +
+					"' , Status = '" + this.getStatus() + "' Where BikeID = " +this.id);
 					MarkClean();												//Now mark the bike as clean
 				}//End of isDirty if
 			}//End of isOld else
@@ -252,10 +180,7 @@ public class Bike extends Vehicle {
 		//This code grabs each element that will be found in the database on the Bikes table and set the appropriate values for a new Bike
 		Bike b = new Bike((Integer)data.get("BikeID"));//rs.getInt("BikeID"));
 		b.setBikeName((String)data.get("BikeName"));//rs.getString("BikeName"));
-		b.setCapacity((Integer)data.get("Capacity"));//rs.getInt("Capacity"));
-		b.setContractor((String)data.get("Contractor"));//rs.getString("Contractor"));
-		b.setLocation(Double.parseDouble(data.get("Latitude").toString()),Double.parseDouble(data.get("Longitude").toString()),(String)data.get("LocationName"));
-		b.setBikeType((String)data.get("BikeType"));//rs.getString("BikeType"));
+		b.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		b.setStatus((String)data.get("Status"));//rs.getString("Status"));		
 		b.MarkClean();
 		return b;
