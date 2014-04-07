@@ -27,25 +27,6 @@ public abstract class Vehicle extends BaseClass {
 
 	}//End of TravelTypes enumeration
 	
-	//This is an enumeration for the different Contractors that a vehicle may belong to
-	public static enum Contractors 
-	{
-			UPS("UPS"),
-			DHL("DHL"),
-			FedEX("FEDEX"),
-			USPS("USPS");
-			private String contractor;
-			Contractors(String s)
-			{
-				contractor=s;
-			}
-			@Override public String toString()
-			{
-				return contractor;
-			}
-			
-	}//End of Contractors enumeration
-	
 	//Modifier Variables For Each Carrier.  Tries to introduce real world differences between contractors
 	public static double [] COST_MODIFIER_PLANE = {0.8,0.9,1.0,1.1,1.2};
 	
@@ -69,15 +50,11 @@ public abstract class Vehicle extends BaseClass {
 		
 	}//End of Status enumeration
 
-	protected Contractors contractor;					//The contractor for the vehicle
-	protected double longitude;							//The longitude of the vehicle
-	protected double latitude;							//The latitude of the vehicle
-	protected String name;								//The name of the vehicle
-	protected String locationName;						//The name of the location the vehicle is currently at
-	protected int capacity;								//The amount the vehicle can carry
-	protected Status status;							//The current status of the vehicle
-	protected TravelTypes type;							//The type of vehicle
-	protected int id;									//The unique vehicle ID
+	protected Contractor contractor;					//The contractor for the vehicle
+	protected String name;							//The name of the vehicle
+	protected Status status;						//The current status of the vehicle
+	protected TravelTypes type;						//The type of vehicle
+	protected int id;							//The unique vehicle ID
 	private ArrayList<Shipment> shipments;
 	private ArrayList<Segment> schedule;
 	
@@ -217,56 +194,11 @@ public abstract class Vehicle extends BaseClass {
 		* This function sets the contractor of the vehicle
 		* @param c Contractor of the vehicle
 		*/
-		public void setContractor(Contractors c)
+		public void setContractor(Contractor c)
 		{
-			if(contractor==null || !contractor.equals(c))				//Make sure it is a valid contractor
-			{
 				contractor=c;											//Set the contractor
 				MarkDirty();											//Mark the vehicle as dirty
-			}//End of valid contractor if
 		}//End of setContractor(Contractor c)
-		
-		/**
-		* This function sets the status of the vehicle from a string
-		* @param s string Contractor of the vehicle
-		*/
-		public void setContractor(String c)
-		{
-			if(contractor==null || !contractor.toString().equals(c))	//Make sure it is a valid contractor
-			{
-				contractor=loadContractor(c);							//Set the contractor for the vehicle
-				MarkDirty();											//Mark the vehicle as dirty
-			}//End of valid contractor if
-		}//End of setContractor(String c)
-		
-		/**
-		* This function converts a string to a Contractor type 
-		* @param val string Contractor of the vehicle
-		* @return Contractor type
-		*/
-		public static Contractors loadContractor(String val)
-		{
-			if(val.equals(Contractors.DHL.toString()))
-			{
-				return Contractors.DHL;
-			}//End of DHL if
-			else
-			{
-				if(val.equals(Contractors.FedEX.toString()))
-				{
-					return Contractors.FedEX;
-				}//End of FedEx if
-				else
-				{
-					if(val.equals(Contractors.UPS.toString()))
-					{
-						return Contractors.UPS;
-					}//End of UPS if
-					else
-						return Contractors.USPS;
-				}//End of !FEdEx else
-			}//End of !DHL else
-		}//End of loadContractor(String val)
 		
 		/**
 		* This function returns the Contractor of the vehicle
@@ -274,104 +206,8 @@ public abstract class Vehicle extends BaseClass {
 		*/
 		public String getContractor()
 		{
-			return contractor.toString();
+			return contractor;
 		}//End of getContractor()
-		
-		/**
-		* This function sets the location (latitude and longitude) and the name of the vehicle
-		* @param lat Latitude, lon Longitude, name Name of Location
-		*/
-		public void setLocation(double lat, double lon, String name)
-		{
-			if(this.latitude!=lat || this.longitude!=lon || this.locationName==null ||!this.locationName.equals(name))
-			{
-				latitude=lat;								//Set the latitude
-				longitude=lon;								//Set the longitude
-				locationName=name;							//Set the locationName
-				MarkDirty();								//Mark the vehicle as dirty
-			}//End of valid location if
-		}//End of the setLocation(double lat, double lon, String name)
-		
-		/**
-		* This function sets the location of the vehicle
-		* @param lat Latitude, lon Longitude 
-		*/
-		public void setLocation(double lat, double lon)
-		{
-			if(this.latitude!=lat || this.longitude!=lon)
-			{
-				latitude=lat;								//Set the latitude
-				longitude=lon;								//Set the longitude
-				locationName="";							//Set the locationName to en empty string
-				MarkDirty();								//Mark the vehicle as dirty
-			}//End of valid location input if
-		}//End of setLocation(double lat, double lon)
-		
-		/**
-		* This function sets the longitude of the vehicle
-		* @param lon Longitude of the vehicle
-		*/
-		public void setLongitude(double lon)
-		{
-			if(this.longitude!=lon)
-			{
-				longitude=lon;								//Set the longitude
-				MarkDirty();								//Mark the vehicle as dirty
-			}//End of update longitude if
-		}//End of the setLongitude(double lon)
-		
-		/**
-		* This function sets the Latitude of the vehicle
-		* @param lat Latitude of the vehicle
-		*/
-		public void setLatitude(double lat)
-		{
-			if(this.latitude!=lat)
-			{
-				this.latitude=lat;							//Set the latitude
-				MarkDirty();								//Mark the vehicle as dirty
-			}//End of update latitude if
-		}//End of setLatitude(double lat)
-		
-		/**
-		* This function returns the Longitude of the vehicle
-		* @return Longitude of the vehicle
-		*/
-		public double getLongitude()
-		{
-			return longitude;								//Return the longitude
-		}//End of getLongitude()
-		
-		/**
-		* This function returns the Latitude of the vehicle
-		* @return Latitude of the vehicle
-		*/
-		public double getLatitude()
-		{
-			return latitude;								//Return the latitude
-		}//End of getLatitude()
-		
-		/**
-		* This function sets the location name of the vehicle
-		* @param name String name of the location
-		*/
-		public void setLocationName(String name)
-		{
-			if(this.locationName==null || !this.locationName.equals(name))
-			{
-				this.locationName=name;						//Set the locationName
-				MarkDirty();								//Mark the vehicle as dirty
-			}//End of valid locationName if
-		}//End of setLocationName(String name)
-		
-		/**
-		* This function returns the Longitude of the vehicle
-		* @return String name of the location of the vehicle
-		*/
-		public String getLocationName()
-		{
-			return locationName;							//Return the locationName
-		}//End of getLocationName
 		
 		/**
 		* This function sets the vehicle's name 
@@ -394,28 +230,6 @@ public abstract class Vehicle extends BaseClass {
 		{
 			return name;									//Return the name
 		}//End of getVehicleName()
-		
-		/**
-		* This function sets the capacity of the vehicle
-		* @param Capacity of the vehicle
-		*/
-		public void setCapacity(int capac)
-		{
-			if(capacity!=capac)
-			{
-				capacity=capac;								//Set the capacity
-				MarkDirty();								//Mark the vehicle as dirty
-			}//End of update capacity if
-		}//End of setCapacity(int capac)
-		
-		/**
-		* This function returns the capacity of the vehicle
-		* @return Capacity of the vehicle
-		*/
-		public int getCapacity()
-		{
-			return capacity;								//Return the capacity
-		}//End of getCapacity()
 		
 		//Abtract Functions
 		abstract void Update();
