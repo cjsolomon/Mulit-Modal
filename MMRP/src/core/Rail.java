@@ -161,6 +161,4 @@ public class Rail extends Vehicle {
 		return getRailName();
 	}
 
-
-
-}
+}//End of Rail class
