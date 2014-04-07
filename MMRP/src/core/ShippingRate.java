@@ -21,132 +21,243 @@ public class ShippingRate extends BaseClass{
 	private double flatRate;
 	private int rank;
 	
-	//This is the default ShippingRate constructor
+	/**
+	 * This is the default ShippingRate constructor
+	 */
 		public ShippingRate()
 		{
 			MarkNew();													//Mark this ShippingRate as new
 		}//End of default ShippingRate constructor
 		
-		//This is the argumented ShippingRate constructor that takes an id
+		/**
+		 * This is the argumented ShippingRate constructor
+		 * @param id The new id of the ShippingRate
+		 */
 		public ShippingRate(int id)
 		{
 			this.id=id;													//Set the id
 																		
 		}//End of the argumented constructor ShippingRate(int id)
 		
+		/**
+		 * This function returns the id of the ShippingRate
+		 * @return Returns the id the of ShippingRate
+		 */
 		public int getId(){
 			return id;
 		}
 		
+		/**
+		 * This function returns the start location of the ShippingRate
+		 * @return Returns the start location of the ShippingRate
+		 */
 		public Location getStartLocation() {
 			return startLocation;
 		}
 
+		/**
+		 * This function sets the start location of the ShippingRate
+		 * @param startLocation This is the new start location
+		 */
 		public void setStartLocation(Location startLocation) {
 			this.startLocation = startLocation;
 		}
 
+		/**
+		 * This function returns the end location of the ShippingRate
+		 * @return Returns the end location of the ShippingRate
+		 */
 		public Location getEndLocation() {
 			return endLocation;
 		}
 
+		/**
+		 * This function sets the end location of the ShippingRate
+		 * @param endLocation This is the new end location
+		 */
 		public void setEndLocation(Location endLocation) {
 			this.endLocation = endLocation;
 		}
 
+		/**
+		 * This function returns the TravelType of the ShippingRate
+		 * @return Returns the TravelType of the ShippingRate
+		 */
 		public TravelType getType() {
 			return type;
 		}
 
+		/**
+		 * This function sets the TravelType for the ShippingRate
+		 * @param type This is the new TravelType
+		 */
 		public void setType(TravelType type) {
 			this.type = type;
 		}
 
+		/**
+		 * This function returns weight1 for the ShippingRate
+		 * @return Returns the weight1 for the ShippingRate
+		 */
 		public double getWeight1() {
 			return weight1;
 		}
 
+		/**
+		 * This function sets the weight1 for the ShippingRate
+		 * @param weight1 This is the new weight1 for the ShippingRate
+		 */
 		public void setWeight1(double weight1) {
 			this.weight1 = weight1;
 		}
 
+		/**
+		 * This function sets the weight2 for the ShippingRate
+		 * @return Returns the weight2 for the ShippingRate
+		 */
 		public double getWeight2() {
 			return weight2;
 		}
 
+		/**
+		 * This function sets the weight2 for the ShippingRate
+		 * @param weight1 This is the new weight2 for the ShippingRate
+		 */
 		public void setWeight2(double weight2) {
 			this.weight2 = weight2;
 		}
-
+		
+		/**
+		 * This function sets the weight3 for the ShippingRate
+		 * @return Returns the weight3 for the ShippingRate
+		 */
 		public double getWeight3() {
 			return weight3;
 		}
 
+		/**
+		 * This function sets the weight3 for the ShippingRate
+		 * @param weight1 This is the new weight3 for the ShippingRate
+		 */
 		public void setWeight3(double weight3) {
 			this.weight3 = weight3;
 		}
 
+		/**
+		 * This function returns the rate1 for the ShippingRate
+		 * @return Returns the rate1 for the ShippingRate
+		 */
 		public double getRate1() {
 			return rate1;
 		}
 
+		/**
+		 * This function sets the rate1 for the ShippingRate
+		 * @param rate1 This is the new rate1 for the ShippingRate
+		 */
 		public void setRate1(double rate1) {
 			this.rate1 = rate1;
 		}
 
+		/**
+		 * This function returns the rate2 for the ShippingRate
+		 * @return Returns the rate2 for the ShippingRate
+		 */
 		public double getRate2() {
 			return rate2;
 		}
 
+		/**
+		 * This function sets the rate2 for the ShippingRate
+		 * @param rate1 This is the new rate2 for the ShippingRate
+		 */
 		public void setRate2(double rate2) {
 			this.rate2 = rate2;
 		}
 
+		/**
+		 * This function returns the rate3 for the ShippingRate
+		 * @return Returns the rate3 for the ShippingRate
+		 */
 		public double getRate3() {
 			return rate3;
 		}
 
+		/**
+		 * This function sets the rate3 for the ShippingRate
+		 * @param rate1 This is the new rate3 for the ShippingRate
+		 */
 		public void setRate3(double rate3) {
 			this.rate3 = rate3;
 		}
 
+		/**
+		 * This function returns the MileRate for the ShippingRate
+		 * @return Returns the MileRate for the ShippingRate
+		 */
 		public double getMileRate() {
 			return mileRate;
 		}
 
+		/**
+		 * This function sets the MileRate for the ShippingRate
+		 * @param rate1 This is the new Milerate for the ShippingRate
+		 */
 		public void setMileRate(double mileRate) {
 			this.mileRate = mileRate;
 		}
 
+		/**
+		 * This function returns the FlatRate for the ShippingRate
+		 * @return Returns the FlatRate for the ShippingRate
+		 */
 		public double getFlatRate() {
 			return flatRate;
 		}
 
+		/**
+		 * This function sets the FlatRate for the ShippingRate
+		 * @param rate1 This is the new FlatRate for the ShippingRate
+		 */
 		public void setFlatRate(double flatRate) {
 			this.flatRate = flatRate;
 		}
 
+		/**
+		 * This function returns the rank for the ShippingRate
+		 * @return Returns the rank for the ShippingRate
+		 */
 		public int getRank() {
 			return rank;
 		}
 
+		/**
+		 * This function sets the rank for the ShippingRate
+		 * @param rate1 This is the new rank for the ShippingRate
+		 */
 		public void setRank(int rank) {
 			this.rank = rank;
 		}
 
-		public void setId(int id) {
-			this.id = id;
-		}
-
+		/**
+		 * This function sets the Carrier for the ShippingRate
+		 * @param rate1 This is the new carrier for the ShippingRate
+		 */
 		public void setCarrier(Carrier carrier) {
 			this.carrier = carrier;
 		}
 		
+		/**
+		 * This function returns the Carrier for the ShippingRate
+		 * @return Returns the Carrier for the ShippingRate
+		 */
 		public Carrier getCarrier() {
 			return carrier;
 		}
 		
-		//This function overrides the parent's Update function and will handle changes made to the ShippingRate object in the database
+		/**
+		 * This function overrides the parent's Update function and will handle changes made to the ShippingRate object in the database
+		 */
 		@Override
 		public void Update() 
 		{
@@ -203,7 +314,9 @@ public class ShippingRate extends BaseClass{
 			
 		}//End of the overridden Update()
 
-		//This is the overridden Delete function of the parent class and will remove this ShippingRate from the database
+		/**
+		 * This is the overridden Delete function of the parent class and will remove this ShippingRate from the database
+		 */
 		@Override
 		public  void Delete() 
 		{
@@ -218,6 +331,11 @@ public class ShippingRate extends BaseClass{
 
 		}//End of overridden Delete()
 
+		/**
+		 * This function loads a ShippingRate from the database based on its ID
+		 * @param id This is the ID of the ShippingRate to load
+		 * @return Returns the loaded ShippingRate object
+		 */
 		public static ShippingRate Load(int id)
 		{
 			try
@@ -236,6 +354,12 @@ public class ShippingRate extends BaseClass{
 			}
 	 		return null;
 		}
+		
+		/**
+		 * This function loads an ArrayList of ShippingRate objects from the database based on a passed in Where clause of an SQL statement
+		 * @param where This is the where clause specifying which ShippingRates to load from the database
+		 * @return Returns an ArrayList of ShippingRate objects based on the passed in Where clause
+		 */
 		public static ArrayList<ShippingRate> LoadAll(String where)
 		{
 			ArrayList<ShippingRate> returnList = new ArrayList<ShippingRate>();
@@ -254,7 +378,13 @@ public class ShippingRate extends BaseClass{
 			}
 			return returnList;
 		}
-		//This function builds objects from returned data from SQL queries against our database
+		
+		/**
+		 * This function builds objects from returned data from SQL queries against our database
+		 * @param data This is the data from which the object will be build
+		 * @return Returns a ShippingRate object based on the passed in data
+		 * @throws SQLException
+		 */
 			public static ShippingRate BuildFromDataRow(Map<String,Object> data) throws SQLException
 			{
 				//This code grabs each element that will be found in the database on the ShippingRate table and set the appropriate values for a new ShippingRate
