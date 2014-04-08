@@ -48,23 +48,23 @@ public class AStarAlg {
 			leafs.remove(currentLeaf);
 			if(currentLeaf.getLocationID()==shpmnt.getToLocationID())
 			{
-				if(Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() > shpmnt.getLatestArrivalTime() || Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() < shpmnt.getEarliestArrivalTime() )
+				if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shpmnt.getLatestArrivalTime() || Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() < shpmnt.getEarliestArrivalTime() )
 				{
 					int currentDif;
 					if(best!=null)
 					{
-						if(Segment.Load(best.getSegmentID()).getArrivalTime() > shpmnt.getLatestArrivalTime())
-							currentDif=Math.abs(Segment.Load(best.getSegmentID()).getArrivalTime() - shpmnt.getLatestArrivalTime());
+						if(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() > shpmnt.getLatestArrivalTime())
+							currentDif=Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getLatestArrivalTime());
 						else
-							currentDif = Math.abs(Segment.Load(best.getSegmentID()).getArrivalTime() - shpmnt.getEarliestArrivalTime());
+							currentDif = Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getEarliestArrivalTime());
 					}
 					else
 						currentDif=0;
 					int thisDif;
-					if(Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() > shpmnt.getLatestArrivalTime())// Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() < shpmnt.getEarliestTime() )
-						thisDif=Math.abs(Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() - shpmnt.getLatestArrivalTime());
+					if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shpmnt.getLatestArrivalTime())// Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() < shpmnt.getEarliestTime() )
+						thisDif=Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getLatestArrivalTime());
 					else
-						thisDif = Math.abs(Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() - shpmnt.getEarliestArrivalTime());
+						thisDif = Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getEarliestArrivalTime());
 					
 					if(best==null || thisDif<currentDif)
 					{
@@ -90,7 +90,7 @@ public class AStarAlg {
 			}
 			
 			
-				int startTime = (currentLeaf.getSegmentID()==-1)?shpmnt.getEarliestDepartureTime():Segment.Load(currentLeaf.getSegmentID()).getArrivalTime();
+				int startTime = (currentLeaf.getSegmentID()==-1)?shpmnt.getEarliestDepartureTime():Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime();
 				ArrayList<Segment> possibleDestinations = Segment.LoadAllAtLocation(currentLeaf.getLocationID(), startTime);
 				
 				//Check for previously visitedLocations
@@ -151,7 +151,7 @@ public class AStarAlg {
 				System.out.println("TroubleArea");
 				
 				}
-			if(test.getVehicle().getCapacity()<test.estimateCapacity()+shpmnt.getSize())
+			if(possible.get(i).getTravelType().getActCap()<test.estimateCapacity()+shpmnt.getSize())
 				toRemove.add(test);
 		}
 		
@@ -170,8 +170,8 @@ public class AStarAlg {
 			double cost=currentLeaf.getCost();
 			double distanceToDestination = getDistance(test.getEndLocationID(),shpmnt.getToLocationID());
 			double distanceTravel = test.getDistance();
-			double time = test.getDepartureTime()-test.getArrivalTime();
-			double segmentCost = test.getCost();
+			double time = test.getEstimatedDepartureTime()-test.getEstimatedArrivalTime();
+			double segmentCost = possible.get(i).getShippingRate().getFlatRate();
 			
 			cost+= (distanceToDestination*this.DISTTOGO)+(distanceTravel*this.DISTTRAVLED)+(time*this.timeRatio)+(segmentCost * this.costRatio);
 			

@@ -1,15 +1,18 @@
 package Routing;
+
 import java.util.ArrayList;
-import MMRP.Vehicle;
+import core.Vehicle;
+import core.Location;
+import core.Segment;
+import core.Shipment;
 
 public class TravelByType{
 
 	ArrayList<Segment> route;
-	Vehicle.TravelTypes mode;
+	Vehicle.TravelModes mode;
 	WeightedMetric metric;
 	int currentTime;
 	Shipment shipment;
-	Random rand;
 	int percentChanceOfDirectPath;
 	int percentChanceOfBestRoute;
 	boolean pathFound;
@@ -17,19 +20,17 @@ public class TravelByType{
 	
 	public TravelByType(){
 		route = new ArrayList<Segment>();
-		mode = Vehicl.TravelTypes.Truck;
+		mode = Vehicle.TravelModes.Truck;
 		metric = new WeightedMetric();
 		currentTime = 0;
-		rand =  new Random();
-		percetnChanceOfDirectPath = 30;
+		percentChanceOfDirectPath = 30;
 		percentChanceOfBestRoute =  50;
 		pathFound = false;
 		maxTries = 1000;
 	}//End of TravelByType() default constructor
 	
-	public TravelByType(Vehicle.TravelTypes travelMode, WeightedMetric metric, Shipment shipment){
+	public TravelByType(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment){
 		route = new ArrayList<Segment>();
-		rand =  new Random();
 		this.mode = travelMode;
 		this.metric = metric;
 		this.shipment = shipment;
@@ -39,9 +40,8 @@ public class TravelByType{
 		maxTries = 1000;
 	}//End of TravelByType() 3-argument constructor
 	
-	public TravelByType(Vehicle.TravelTypes travelMode, WeightedMetric metric, Shipment shipment, int directPathChance, int bestRouteChance, int maximumTries){
+	public TravelByType(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment, int directPathChance, int bestRouteChance, int maximumTries){
 		route = new ArrayList<Segment>();
-		rand =  new Random();
 		this.mode = travelMode;
 		this.metric = metric;
 		this.shipment = shipment;
@@ -54,11 +54,11 @@ public class TravelByType{
 	public ArrayList<Segment> getPath(){
 		//First check to see if we have a direct path between the start and end point
 		ArrayList<Segment> route =  new ArrayList<Segment>();
-		ArrayList<Segment> paths = validPaths(grabSegmentsBetween(shipment.getFromLocationID(), shipment.getToLocationID()));
+		ArrayList<Segment> paths = validPaths(grabSegmentsBetween(shipment.loadStartLocation(), shipment.loadEndLocation()));
 		
 		int currentLocationID = shipment.getFromLocationID();
 		
-		if(path.size() > 0){
+		if(paths.size() > 0){
 			//We have a valid path so choose the best segment to travel along
 			route.add(metric.getLowestWeightedCostSegment(paths));
 			pathFound = true;
@@ -68,9 +68,9 @@ public class TravelByType{
 			int tries = 0;
 			while(tries < maxTries && !pathFound){
 				//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
-				if(rand.nextInt % 100 < precentChanceOfDirectPath){
+				if(Math.floor(Math.random() * 100) < percentChanceOfDirectPath){
 					//We will attempt to find a directPath between this location and the end location
-					paths = validPaths(grabSegmentsBetween(currentLocationID, shipment.getToLocationID()));
+					paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 					if(paths.size() > 0){
 						//We have a direct path from the start to the finish so choose the best one and return it
 						route.add(metric.getLowestWeightedCostSegment(paths));
@@ -79,18 +79,18 @@ public class TravelByType{
 				}else{
 					//Grab all the Segments starting at this location
 					paths = validPaths(grabSegmentsStartingAt(currentLocationID));
-					if(paths.size  > 0){
+					if(paths.size()  > 0){
 						//We have valid paths we can use
 						Segment nextSegment;
 						//Now we check to see if we want to use the best possbile path or not
-						if(rand.nextInt() * 100 > percentChanceOfBestRoute){
+						if(Math.floor(Math.random() * 100) > percentChanceOfBestRoute){
 							//Choose the best route to travel along
 							nextSegment = metric.getLowestWeightedCostSegment(paths);
 							route.add(nextSegment);
 							currentLocationID = nextSegment.getEndLocationID();
 						}else{
 							//Choose a random path to travel along
-							nextSegment = paths.get(rand.nextInt() * paths.size());
+							nextSegment = paths.get((int)Math.floor(Math.random() * paths.size()));
 							route.add(nextSegment);
 							currentLocationID = nextSegment.getEndLocationID();
 							
@@ -101,6 +101,8 @@ public class TravelByType{
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
 						}//End of unsuccessful path rewinding if
+						//Set the currentLocationID to the end of the path
+						currentLocationID = route.get(route.size()-1).getEndLocationID();
 					}//End of no valid paths else
 					
 					//Check to see if we are done
@@ -116,7 +118,7 @@ public class TravelByType{
 		//Check to see if we exited because we succeeded or because we failed
 		if(!pathFound){
 			//We failed
-			route.empty();
+			route.clear();
 		}//End of failure if
 			
 		return route;
@@ -130,7 +132,7 @@ public class TravelByType{
 	}//End of grabSegmentsStartingAt(Location start)
 	
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ snid +"' AND EndingLocation ='" + enid +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ start.getID() +"' AND EndingLocation ='" + end.getID() +"';");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
@@ -139,8 +141,8 @@ public class TravelByType{
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
-			if(segmentsToCheck.get(i).getDepartureTime() < currentTime || segmentsToCheck.get(i).getVehicle().capacity < shipment.capacity || 
-				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode){
+			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
+				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode.toString()){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 			}//End of time, size and status restraint if
@@ -150,14 +152,13 @@ public class TravelByType{
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)
 	
 	public boolean rewindPath(ArrayList<Segment> rewindPath){
-		if(rewindPath.size > 1){
+		if(rewindPath.size() > 1){
 			//We can rewind the path
 			rewindPath.remove(rewindPath.size()-1);
-			currentLocationID = rewindPath.get(rewindPath.size()-1).getEndLocationID();
 			return true;
 		}else{
 			//We cannot rewind the path
-			rewindPath.empty();
+			rewindPath.clear();
 			return false;
 		}
 	}//End of rewindPath(ArrayList<Segment> rewindPath)

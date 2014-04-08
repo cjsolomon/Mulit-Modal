@@ -1,5 +1,8 @@
 package Routing;
 
+import core.Segment;
+import java.util.ArrayList;
+
 public class WeightedMetric{
 
 	int distance;
@@ -79,7 +82,7 @@ public class WeightedMetric{
 		return this.costNWeight;
 	}//End of getWeightedCost()
 	
-	public void setDistance(double distanceValue){
+	public void setDistance(int distanceValue){
 		//Some error checking
 		if(distanceValue < MIN_DISTANCE){
 			System.out.println("The distance value passed in was too low, the distance has be set to " + MIN_DISTANCE);
@@ -91,9 +94,9 @@ public class WeightedMetric{
 		distance = distanceValue;
 		this.normalize();
 		
-	}//End of setDistance(double distanceValue)
+	}//End of setDistance(int distanceValue)
 	
-	public void setTime(double timeValue){
+	public void setTime(int timeValue){
 		//Some error checking
 		if(timeValue < MIN_TIME){
 			System.out.println("The time value passed in was too low, the time has be set to " + MIN_TIME);
@@ -105,9 +108,9 @@ public class WeightedMetric{
 		time = timeValue;
 		this.normalize();
 		
-	}//End of setTime(double timeValue)
+	}//End of setTime(int timeValue)
 	
-	public void setCost(double costValue){
+	public void setCost(int costValue){
 		//Some error checking
 		if(costValue < MIN_COST){
 			System.out.println("The cost value passed in was too low, the cost has be set to " + MIN_COST);
@@ -119,7 +122,7 @@ public class WeightedMetric{
 		cost = costValue;
 		this.normalize();
 		
-	}//End of setCost(double costValue)
+	}//End of setCost(int costValue)
 	
 	private void normalize(){
 		double normalLength = Math.sqrt(Math.pow((distance * distance + time * time + cost * cost),2));
@@ -129,22 +132,22 @@ public class WeightedMetric{
 	}//End of normalize()
 	
 	public double getWeightedCost(Segment segment){
-		return segment.getCost() * costNWeight + segment.getDistance() * distNWeight + (segment.getArrivalTime() - segment.getDepartureTime()) * timeNWeight;
+		return segment.getShippingRate().getFlatRate() * costNWeight + segment.getDistance() * distNWeight + (segment.getEstimatedArrivalTime() - segment.getEstimatedDepartureTime()) * timeNWeight;
 	}//End of getWeightedCost(Segment segment)
 	
 	public Segment getLowestWeightedCostSegment(ArrayList<Segment> segments){
-		double lowest = segments.get(0).getCost() * costNWeight + 
+		double lowest = segments.get(0).getShippingRate().getFlatRate() * costNWeight + 
 						segments.get(0).getDistance() * distNWeight + 
-					   (segments.get(0).getArrivalTime() - segments.get(0).getDepartureTime()) * timeNWeight;
+					   (segments.get(0).getEstimatedArrivalTime() - segments.get(0).getEstimatedDepartureTime()) * timeNWeight;
 		int lowestIndex = 0;
 		for(int i=0; i< segments.size(); i++){
-			if((segments.get(i).getCost() * costNWeight + 
+			if((segments.get(i).getShippingRate().getFlatRate() * costNWeight + 
 				segments.get(i).getDistance() * distNWeight + 
-				(segments.get(i).getArrivalTime() - segments.get(i).getDepartureTime()) * timeNWeight) < lowest){
+				(segments.get(i).getEstimatedArrivalTime() - segments.get(i).getEstimatedDepartureTime()) * timeNWeight) < lowest){
 				lowestIndex = i;
-				lowest = (segments.get(i).getCost() * costNWeight + 
+				lowest = (segments.get(i).getShippingRate().getFlatRate() * costNWeight + 
 						segments.get(i).getDistance() * distNWeight + 
-						(segments.get(i).getArrivalTime() - segments.get(i).getDepartureTime()) * timeNWeight);
+						(segments.get(i).getEstimatedArrivalTime() - segments.get(i).getEstimatedDepartureTime()) * timeNWeight);
 			}//End of new lower if
 		}//End of checking for loop
 				

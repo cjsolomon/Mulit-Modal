@@ -11,7 +11,11 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.AbstractTableModel;
 
+import GUI.VehicleCargoForm;
 import GUI.VehiclePanel;
+import GUI.VehiclePlaneForm;
+import GUI.VehicleRailForm;
+import GUI.VehicleTruckForm;
 
 import java.awt.Dimension;
 import java.awt.Point;
@@ -66,10 +70,10 @@ public class TestingWindow {
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(41, 51, 581, 331);
-		tabbedPane.addTab("Truck",new VehiclePanel("Truck"));
-		tabbedPane.addTab("Rail",new VehiclePanel("Rail"));
-		tabbedPane.addTab("Cargo",new VehiclePanel("Cargo"));
-		tabbedPane.addTab("Plane",new VehiclePanel("Plane"));
+		tabbedPane.addTab("Truck",new VehicleTruckForm());
+		tabbedPane.addTab("Rail",new VehicleRailForm());
+		tabbedPane.addTab("Cargo",new VehicleCargoForm());
+		tabbedPane.addTab("Plane",new VehiclePlaneForm());
 		frame.getContentPane().add(tabbedPane);
 		//JButton testButton = new JButton("Truck1");
 		//testButton.addActionListener( new ActionListener() {

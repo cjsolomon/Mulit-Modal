@@ -1,6 +1,9 @@
 package Routing;
+
 import java.util.ArrayList;
-import MMRP.Vehicle;
+import core.Segment;
+import core.Location;
+import core.Shipment;
 
 public class NodeCrawler{
 
@@ -16,35 +19,28 @@ public class NodeCrawler{
 	ArrayList<Segment> route;
 	int currentTime;
 	Shipment shipment;
-	Random rand;
 	boolean pathFound;
 	int maxTries;
 	int precentChanceOfDirectPath;
 	
 	public NodeCrawler(){
 		route = new ArrayList<Segment>();
-		metric = new WeightedMetric();
 		currentTime = 0;
-		rand =  new Random();
 		pathFound = false;
 		maxTries = 1000;
 		precentChanceOfDirectPath = 50;
 	}//End of NodeCrawler() default constructor
 	
-	public NodeCrawler(Vehicle.TravelTypes travelMode, Shipment shipment){
+	public NodeCrawler(Shipment shipment){
 		route = new ArrayList<Segment>();
-		rand =  new Random();
-		this.mode = travelMode;
 		this.shipment = shipment;
 		pathFound = false;
 		maxTries = 1000;
 		precentChanceOfDirectPath = 50;
 	}//End of NodeCrawler() 3-argument constructor
 	
-	public NodeCrawler(Vehicle.TravelTypes travelMode, Shipment shipment, int chanceOfDirectPath, int maximumTries){
+	public NodeCrawler(Shipment shipment, int chanceOfDirectPath, int maximumTries){
 		route = new ArrayList<Segment>();
-		rand =  new Random();
-		this.mode = travelMode;
 		this.shipment = shipment;
 		pathFound = false;
 		maxTries = maximumTries;
@@ -62,33 +58,35 @@ public class NodeCrawler{
 		int tries = 0;
 		while(tries < maxTries && !pathFound){
 			//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
-			if(rand.nextInt % 100 < precentChanceOfDirectPath){
+			if(Math.floor(Math.random() * 100) < precentChanceOfDirectPath){
 				//We will attempt to find a directPath between this location and the end location
-				paths = validPaths(grabSegmentsBetween(currentLocationID, shipment.getToLocationID()));
+				paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 				if(paths.size() > 0){
 					//Choose a random path to travel along
-					nextSegment = paths.get(rand.nextInt() * paths.size());
+					Segment nextSegment = paths.get((int)Math.floor(Math.random() * paths.size()));
 					route.add(nextSegment);
 					pathFound = true;
 				}//End of direct path if
 			}else{
 				//Grab all the Segments starting at this location
 				paths = validPaths(grabSegmentsStartingAt(currentLocationID));
-				if(paths.size  > 0){
+				if(paths.size()  > 0){
 					//We have valid paths we can use
 					Segment nextSegment;
 					//Choose a random path to travel along
-					nextSegment = paths.get(rand.nextInt() * paths.size());
+					nextSegment = paths.get((int)Math.floor(Math.random() * paths.size()));
 					route.add(nextSegment);
 					currentLocationID = nextSegment.getEndLocationID();
 					
 					}//End of not-best route path
-				}else{
+				else{
 					//We have no valid path from this point so we must rewind the path
 					if(!rewindPath(route)){
 						//we could not rewind the path, therefore we could not find a path
 						tries = maxTries;
 					}//End of unsuccessful path rewinding if
+					//Set the currentLocationID to the end of the path
+					currentLocationID = route.get(route.size()-1).getEndLocationID();
 				}//End of no valid paths else
 				
 				if(currentLocationID == shipment.getToLocationID()){
@@ -104,7 +102,7 @@ public class NodeCrawler{
 		//Check to see if we exited because we succeeded or because we failed
 		if(!pathFound){
 			//We failed
-			route.empty();
+			route.clear();
 		}//End of failure if
 			
 		return route;
@@ -118,7 +116,7 @@ public class NodeCrawler{
 	}//End of grabSegmentsStartingAt(Location start)
 	
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ snid +"' AND EndingLocation ='" + enid +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ start.getID() +"' AND EndingLocation ='" + end.getID() +"';");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
@@ -127,7 +125,7 @@ public class NodeCrawler{
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
-			if(segmentsToCheck.get(i).getDepartureTime() < currentTime || segmentsToCheck.get(i).getVehicle().capacity < shipment.capacity || 
+			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
 				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING"){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
@@ -138,14 +136,13 @@ public class NodeCrawler{
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)
 	
 	public boolean rewindPath(ArrayList<Segment> rewindPath){
-		if(rewindPath.size > 1){
+		if(rewindPath.size() > 1){
 			//We can rewind the path
 			rewindPath.remove(rewindPath.size()-1);
-			currentLocationID = rewindPath.get(rewindPath.size()-1).getEndLocationID();
 			return true;
 		}else{
 			//We cannot rewind the path
-			rewindPath.empty();
+			rewindPath.clear();
 			return false;
 		}
 	}//End of rewindPath(ArrayList<Segment> rewindPath)

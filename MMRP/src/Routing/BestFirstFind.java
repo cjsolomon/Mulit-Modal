@@ -1,6 +1,9 @@
 package Routing;
 import java.util.ArrayList;
-import MMRP.Vehicle;
+import core.Vehicle;
+import core.Segment;
+import core.Shipment;
+import core.Location;
 
 public class BestFirstFind{
 
@@ -13,27 +16,24 @@ public class BestFirstFind{
          * 6) If we have reached the end node we are done, else repeat from 3
          */
 	ArrayList<Segment> route;
-	Vehicle.TravelTypes mode;
+	Vehicle.TravelModes mode;
 	WeightedMetric metric;
 	int currentTime;
 	Shipment shipment;
-	Random rand;
 	boolean pathFound;
 	int maxTries;
 	
 	public BestFirstFind(){
 		route = new ArrayList<Segment>();
-		mode = Vehicl.TravelTypes.Truck;
+		mode = Vehicle.TravelModes.Truck;
 		metric = new WeightedMetric();
 		currentTime = 0;
-		rand =  new Random();
 		pathFound = false;
 		maxTries = 1000;
 	}//End of BestFirstFind() default constructor
 	
-	public BestFirstFind(Vehicle.TravelTypes travelMode, WeightedMetric metric, Shipment shipment){
+	public BestFirstFind(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment){
 		route = new ArrayList<Segment>();
-		rand =  new Random();
 		this.mode = travelMode;
 		this.metric = metric;
 		this.shipment = shipment;
@@ -41,9 +41,8 @@ public class BestFirstFind{
 		maxTries = 1000;
 	}//End of BestFirstFind() 3-argument constructor
 	
-	public BestFirstFind(Vehicle.TravelTypes travelMode, WeightedMetric metric, Shipment shipment, int maximumTries){
+	public BestFirstFind(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment, int maximumTries){
 		route = new ArrayList<Segment>();
-		rand =  new Random();
 		this.mode = travelMode;
 		this.metric = metric;
 		this.shipment = shipment;
@@ -54,11 +53,11 @@ public class BestFirstFind{
 	public ArrayList<Segment> getPath(){
 		//First check to see if we have a direct path between the start and end point
 		ArrayList<Segment> route =  new ArrayList<Segment>();
-		ArrayList<Segment> paths = validPaths(grabSegmentsBetween(shipment.getFromLocationID(), shipment.getToLocationID()));
+		ArrayList<Segment> paths = validPaths(grabSegmentsBetween(shipment.loadStartLocation(), shipment.loadEndLocation()));
 		
 		int currentLocationID = shipment.getFromLocationID();
 		
-		if(path.size() > 0){
+		if(paths.size() > 0){
 			//We have a valid path so choose the best segment to travel along
 			route.add(metric.getLowestWeightedCostSegment(paths));
 			pathFound = true;
@@ -68,7 +67,7 @@ public class BestFirstFind{
 			int tries = 0;
 			while(tries < maxTries && !pathFound){
 				//Attempt to find a direct path from the currentLocation to the end using the best path possible
-				paths = validPaths(grabSegmentsBetween(currentLocationID, shipment.getToLocationID()));
+				paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 				if(paths.size() > 0){
 					//We have a direct path from the start to the finish so choose the best one and return it
 					route.add(metric.getLowestWeightedCostSegment(paths));
@@ -77,7 +76,7 @@ public class BestFirstFind{
 				else{
 					//Grab all the Segments starting at this location
 					paths = validPaths(grabSegmentsStartingAt(currentLocationID));
-					if(paths.size  > 0){
+					if(paths.size()  > 0){
 						//We have valid paths we can use
 						Segment nextSegment;
 						//Choose the best route to travel along
@@ -90,6 +89,8 @@ public class BestFirstFind{
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
 						}//End of unsuccessful path rewinding if
+						//Set the currentLocationID to the end of the path
+						currentLocationID = route.get(route.size()-1).getEndLocationID();
 					}//End of no valid paths else
 					
 					//Check to see if we are done
@@ -105,7 +106,7 @@ public class BestFirstFind{
 		//Check to see if we exited because we succeeded or because we failed
 		if(!pathFound){
 			//We failed
-			route.empty();
+			route.clear();
 		}//End of failure if
 			
 		return route;
@@ -119,7 +120,7 @@ public class BestFirstFind{
 	}//End of grabSegmentsStartingAt(Location start)
 	
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ snid +"' AND EndingLocation ='" + enid +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ start.getID() +"' AND EndingLocation ='" + end.getID() +"';");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
@@ -128,8 +129,8 @@ public class BestFirstFind{
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
-			if(segmentsToCheck.get(i).getDepartureTime() < currentTime || segmentsToCheck.get(i).getVehicle().capacity < shipment.capacity || 
-				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode){
+			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
+				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode.toString()){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 			}//End of time, size and status restraint if
@@ -139,14 +140,13 @@ public class BestFirstFind{
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)
 	
 	public boolean rewindPath(ArrayList<Segment> rewindPath){
-		if(rewindPath.size > 1){
+		if(rewindPath.size() > 1){
 			//We can rewind the path
 			rewindPath.remove(rewindPath.size()-1);
-			currentLocationID = rewindPath.get(rewindPath.size()-1).getEndLocationID();
 			return true;
 		}else{
 			//We cannot rewind the path
-			rewindPath.empty();
+			rewindPath.clear();
 			return false;
 		}
 	}//End of rewindPath(ArrayList<Segment> rewindPath)
