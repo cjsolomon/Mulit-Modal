@@ -11,6 +11,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.Carrier;
 import core.Truck;
 import core.Vehicle;
 
@@ -27,6 +28,7 @@ public class VehicleTruckForm extends JPanel {
 	JTextField nameText;
 	VehicleSegmentTable vst;
 	//private Vehicle t;
+	private ArrayList<Carrier> carriers = Carrier.LoadAll("");
 	private Truck t;
 	private JTabbedPane tabbedPane;
 	private JPanel basic;
@@ -39,7 +41,10 @@ public class VehicleTruckForm extends JPanel {
 	private JButton btnCancel;
 	public VehicleTruckForm()
 	{
-		String[] contractor = {Vehicle.Contractors.DHL.toString(),Vehicle.Contractors.FedEX.toString(),Vehicle.Contractors.UPS.toString(),Vehicle.Contractors.USPS.toString()};
+		String[] contractor = new String[carriers.size()];
+		for(int i = 0; i < carriers.size(); i++){
+			contractor[i] = carriers.get(i).getCarrierName();
+		}
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("69px:grow"),
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -117,8 +122,10 @@ public class VehicleTruckForm extends JPanel {
 		contractorLabel.setText("Contractor");
 		basic.add(contractorLabel, "2, 4, right, center");
 		tabbedPane.addTab("Basic", basic);
-			//add(contractorLabel, "2, 20, center, center");
-			contractorDropDown = new JComboBox(Vehicle.Contractors.values());
+		contractorDropDown = new JComboBox();
+		for(int i = 0; i < carriers.size(); i++){
+			contractorDropDown.addItem(carriers.get(i).getCarrierName());
+		}
 			contractorDropDown.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e)
 				{
@@ -132,7 +139,6 @@ public class VehicleTruckForm extends JPanel {
 			contractorTextReadOnly.setEditable(false);
 			basic.add(contractorTextReadOnly, "4, 4, fill, default");
 			contractorTextReadOnly.setColumns(10);
-			contractorDropDown.setSelectedItem(Vehicle.Contractors.DHL);
 			basic.add(contractorDropDown, "6, 4, left, top");
 			this.statusLabel=new JLabel("Status");
 			//	add(nameText,"4, 22, left, top");
@@ -210,9 +216,9 @@ public class VehicleTruckForm extends JPanel {
 	}
 	private void setTruck()
 	{
-		this.nameTextReadOnly.setText(t.getTruckName().toString());
+		this.nameTextReadOnly.setText(t.getVehicleName());
 		this.statusTextReadOnly.setText(t.getStatus());
-		this.contractorTextReadOnly.setText(t.getContractor());
+		this.contractorTextReadOnly.setText(t.getCarrier().getCarrierName());
 		//this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(t.getContractor()));
 		//this.nameText.setText(t.getTruckName());
 	}
@@ -233,8 +239,8 @@ public class VehicleTruckForm extends JPanel {
 	private void setEditable()
 	{
 		this.status.setSelectedItem(Vehicle.loadStatus(t.getStatus()));
-		this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(t.getContractor()));
-		this.nameText.setText(t.getTruckName());
+		this.contractorDropDown.setSelectedItem(t.getCarrier().getCarrierName());
+		this.nameText.setText(t.getVehicleName());
 		
 		this.btnCancel.setVisible(true);
 		this.btnSave.setVisible(true);

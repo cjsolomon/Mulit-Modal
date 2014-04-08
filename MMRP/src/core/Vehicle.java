@@ -58,6 +58,7 @@ public abstract class Vehicle extends BaseClass {
 	private ArrayList<Shipment> shipments;
 	private ArrayList<Segment> schedule;
 	
+	
 	/**
 	 * Sets the travel mode of the vehicle 
 	 * @param t TravelMode 
@@ -226,7 +227,7 @@ public abstract class Vehicle extends BaseClass {
 		* This function returns the name of the vehicle
 		* @return name of the vehicle
 		*/
-		protected String getVehicleName()
+		public String getVehicleName()
 		{
 			return name;									//Return the name
 		}//End of getVehicleName()
@@ -300,9 +301,13 @@ public abstract class Vehicle extends BaseClass {
 		shipments.remove(s);
 	}
 	
+	/**
+	 * This function returns the name of the vehicle
+	 */
 	@Override
 	public String toString(){
 		return this.name;
 	}
+	
 
-}
+}//End of the Vehicle Class

@@ -1,5 +1,7 @@
 package GUI;
 
+import java.util.ArrayList;
+
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -11,6 +13,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
 import core.Cargo;
+import core.Carrier;
 import core.Plane;
 import core.Rail;
 import core.Truck;
@@ -25,9 +28,13 @@ public class VehicleForm extends JPanel {
 	private Rail r;
 	private Cargo c;
 	private Plane p;
+	private ArrayList<Carrier> carriers = Carrier.LoadAll("");
 	public VehicleForm()
 	{
-		String[] contractor = {Vehicle.Contractors.DHL.toString(),Vehicle.Contractors.FedEX.toString(),Vehicle.Contractors.UPS.toString(),Vehicle.Contractors.USPS.toString()};
+		String[] contractor = new String[carriers.size()];
+		for(int i = 0; i < carriers.size(); i++){
+			contractor[i] = carriers.get(i).getCarrierName();
+		}
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("48px"),
 				ColumnSpec.decode("69px"),
@@ -45,8 +52,10 @@ public class VehicleForm extends JPanel {
 		 contractorLabel = new JLabel();
 		contractorLabel.setText("Contractor");
 		add(contractorLabel, "2, 2, center, center");
-		contractorDropDown = new JComboBox(Vehicle.Contractors.values());
-		contractorDropDown.setSelectedItem(Vehicle.Contractors.DHL);
+		contractorDropDown = new JComboBox();
+		for(int i = 0; i < carriers.size(); i++){
+			contractorDropDown.addItem(carriers.get(i).getCarrierName());
+		}
 		add(contractorDropDown, "4, 2, left, top");
 		 nameLabel = new JLabel("Name");
 		nameText = new JTextField(20);
@@ -123,22 +132,22 @@ public class VehicleForm extends JPanel {
 	}
 	private void setRail()
 	{
-		this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(r.getContractor()));
-		this.nameText.setText(r.getRailName());
+		this.contractorDropDown.setSelectedItem(r.getCarrier().getCarrierName());
+		this.nameText.setText(r.getVehicleName());
 	}
 	private void setTruck()
 	{
-		this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(t.getContractor()));
-		this.nameText.setText(t.getTruckName());
+		this.contractorDropDown.setSelectedItem(t.getCarrier().getCarrierName());
+		this.nameText.setText(t.getVehicleName());
 	}
 	private void setPlane()
 	{
-		this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(p.getContractor()));
-		this.nameText.setText(p.getPlaneName());
+		this.contractorDropDown.setSelectedItem(p.getCarrier().getCarrierName());
+		this.nameText.setText(p.getVehicleName());
 	}
 	private void setCargo()
 	{
-		this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(c.getContractor()));
-		this.nameText.setText(c.getCargoName());
+		this.contractorDropDown.setSelectedItem(c.getCarrier().getCarrierName());
+		this.nameText.setText(c.getVehicleName());
 	}
 }

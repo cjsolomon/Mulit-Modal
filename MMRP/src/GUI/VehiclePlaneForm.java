@@ -12,6 +12,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.Carrier;
 import core.Plane;
 import core.Vehicle;
 
@@ -25,13 +26,17 @@ public class VehiclePlaneForm extends JPanel {
 	JTextField nameText;
 	VehicleSegmentTable vst;
 	//private Vehicle t;
+	private ArrayList<Carrier> carriers = Carrier.LoadAll("");
 	private Plane p;
 	private JTabbedPane tabbedPane;
 	private JPanel basic;
 	private JComboBox<String> status;
 	public VehiclePlaneForm()
 	{
-		String[] contractor = {Vehicle.Contractors.DHL.toString(),Vehicle.Contractors.FedEX.toString(),Vehicle.Contractors.UPS.toString(),Vehicle.Contractors.USPS.toString()};
+		String[] contractor = new String[carriers.size()];
+		for(int i = 0; i < carriers.size(); i++){
+			contractor[i] = carriers.get(i).getCarrierName();
+		}
 		setLayout(new FormLayout(new ColumnSpec[] {
 				ColumnSpec.decode("48px"),
 				ColumnSpec.decode("69px:grow"),
@@ -104,7 +109,10 @@ public class VehiclePlaneForm extends JPanel {
 		basic.add(contractorLabel, "2, 4, left, center");
 		tabbedPane.addTab("Basic", basic);
 		//add(contractorLabel, "2, 20, center, center");
-		contractorDropDown = new JComboBox(Vehicle.Contractors.values());
+		contractorDropDown = new JComboBox();
+		for(int i = 0; i < carriers.size(); i++){
+			contractorDropDown.addItem(carriers.get(i).getCarrierName());
+		}
 		contractorDropDown.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -113,7 +121,6 @@ public class VehiclePlaneForm extends JPanel {
 					nameText.setText(name);
 			}
 		});
-		contractorDropDown.setSelectedItem(Vehicle.Contractors.DHL);
 		basic.add(contractorDropDown, "4, 4, left, top");
 			this.statusLabel=new JLabel("Status");
 			//	add(nameText,"4, 22, left, top");
@@ -162,8 +169,8 @@ public class VehiclePlaneForm extends JPanel {
 	}
 	private void setPlane()
 	{
-		this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(p.getContractor()));
-		this.nameText.setText(p.getPlaneName());
+		this.contractorDropDown.setSelectedItem(p.getCarrier().getCarrierName());
+		this.nameText.setText(p.getVehicleName());
 	}
 	private String setName(){
 		int randomInt;

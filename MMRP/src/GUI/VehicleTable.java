@@ -129,13 +129,13 @@ public class VehicleTable extends JTable {
 			if(column.equals("ID"))
 				return t.getId();
 			if(column.equals("Carrier"))
-				return t.getContractor();
+				return t.getCarrier();
 			if(column.equals("StartingLocation"))
 				return 0;
 			if(column.equals("EndingLocation"))
 				return 0;
 			if(column.equals("Type"))
-				return t.getTravelType();
+				return t.getTravelMode();
 			return null;
 		}
 		@Override

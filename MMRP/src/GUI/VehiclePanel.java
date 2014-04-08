@@ -112,13 +112,13 @@ public class VehiclePanel extends JPanel {
 		tf=new VehicleTruckForm();
 		tf.setVisible(false);
 		
-		comboBox = new JComboBox(Vehicle.TravelTypes.values());
+		comboBox = new JComboBox(Vehicle.TravelModes.values());
 		comboBox.setSize(500, 50);
 		comboBox.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
-				switch((Vehicle.TravelTypes)comboBox.getSelectedItem())
+				switch((Vehicle.TravelModes)comboBox.getSelectedItem())
 				{
 				case Truck:
 					tf.showPanel();

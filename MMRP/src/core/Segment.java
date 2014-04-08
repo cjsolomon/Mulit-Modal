@@ -21,7 +21,7 @@ public class Segment extends BaseClass {
 	private int id;												//The Segment id
 	private int toID;											//The endpoint id
 	private int fromID;											//The startpoint id
-	private int VehicleID;										//The id of the vehicle on this segment
+	private Vehicle vehicle;									//The vehicle on this segment
 	private String mode;										//The mode of transport
 	private double distance;									//The distance between the start and endpoints
 	private int departureTime;									//The estimated time the vehicle departs
@@ -31,6 +31,7 @@ public class Segment extends BaseClass {
 	private int earliestDepartureTime;							//This is the earliest departure time
 	private int latestDepartureTime;							//This is the latest departure time
 	private ShippingRate shippingRate;							//This is the shipping rate over the Segment
+	private TravelType travelType;								//This is the travelType used over this Segment
 	private String lanes;
 	public ArrayList<Shipment> onBoard;
 	
@@ -398,38 +399,13 @@ public class Segment extends BaseClass {
 	 */
 	public void setVehicle(Vehicle vehicle)
 	{
-		if(this.VehicleID!=vehicle.getId() || this.mode==null || !this.mode.equals(vehicle.getTravelMode()))
+		if(this.vehicle!=vehicle || this.mode==null || !this.mode.equals(vehicle.getTravelMode()))
 		{
-			this.VehicleID=vehicle.getId();						//Set the vehicle id
-			mode=vehicle.getTravelMode();						//Set the travel type
-			MarkDirty();										//Mark the Segment as dirty
+			this.vehicle=vehicle;							//Set the vehicle
+			mode=vehicle.getTravelMode();					//Set the travel type
+			MarkDirty();									//Mark the Segment as dirty
 		}//End of valid vehicle if
 	}//End of setVehicle(Vehicle vehicle)
-	
-	/**
-	 * This function sets the Segment's Vehicle using an id and travel mode
-	 * @param vehicleID This is the ID of the vehicle that will travel along this Segment 
-	 * @param travelMode This is the travel mode of the vehicle
-	 */
-	public void setVehicle(int vehicleID,String travelMode)
-	{
-		//todo:ADD check on travel mode: if not exist do nothing
-		if(this.VehicleID!=vehicleID || this.mode==null || !this.mode.equals(travelMode))
-		{
-			this.VehicleID=vehicleID;							//Set the vehicle id
-			mode=travelMode;									//Set the travel type
-			MarkDirty();										//Mark the Segment as dirty
-		}//End of valid vehicle if
-	}//End of setVehicle(int vehicleID,String travelMode)
-	
-	/**
-	 * This function returns the vehicle id
-	 * @return Returns the ID of the vehicle traveling along this segment
-	 */
-	public int getVehicleID()
-	{
-		return this.VehicleID;									//Return the vehicle id
-	}//End of getVehicleID()
 	
 	/**
 	 * This function returns the Travel Mode on this Segment
@@ -450,19 +426,43 @@ public class Segment extends BaseClass {
 		switch(Vehicle.loadMode(mode))
 		{
 			case Truck:
-				return Truck.Load(this.VehicleID);		//Return Truck
+				return Truck.Load(this.vehicle.getId());		//Return Truck
 			case Rail:
-				return Rail.Load(this.VehicleID);		//Return Rail 
+				return Rail.Load(this.vehicle.getId());		//Return Rail 
 			case Cargo:
-				return Cargo.Load(this.VehicleID);		//Return Cargo
+				return Cargo.Load(this.vehicle.getId());		//Return Cargo
 			case Plane:
-				return Plane.Load(this.VehicleID);		//Return Plane
+				return Plane.Load(this.vehicle.getId());		//Return Plane
 			case Bike:
-				return Bike.Load(this.VehicleID);		//Return Bike
+				return Bike.Load(this.vehicle.getId());		//Return Bike
 		
 		}//End of switch
 		return null;
 	}//End of getVehicle()
+	
+	/**
+	 * This function sets the vehicle traveling over the Segment based on an ID from the database and the TravelMode of the vehicle
+	 * @param id This is the ID of the vehicle to load from the database
+	 * @param mode This is the mode of travel of the vehicle
+	 */
+	public void setVehicle(int id, Vehicle.TravelModes mode)
+	{
+		//Load the Vehicle from the database based on the type of the Vehicle
+		switch(mode)
+		{
+			case Truck:
+				this.vehicle = Truck.Load(id);		//Return Truck
+			case Rail:
+				this.vehicle = Rail.Load(id);		//Return Rail 
+			case Cargo:
+				this.vehicle = Cargo.Load(id);		//Return Cargo
+			case Plane:
+				this.vehicle = Plane.Load(id);		//Return Plane
+			case Bike:
+				this.vehicle = Bike.Load(id);		//Return Bike
+		
+		}//End of switch
+	}//End of  setVehicle(int id, Vehicle.TravelModes mode)
 	
 	/**
 	 * This function sets the lane of travel on the Segment
@@ -485,6 +485,26 @@ public class Segment extends BaseClass {
 	{
 		return lanes;
 	}//End of getLane()
+	
+	/**
+	 * This function returns the TravelType of the vehicle over this Segment
+	 * @return Returns the TravelType of the vehicle over the Segment
+	 */
+	public TravelType getTravelType() {
+		return travelType;
+	}//End of getTravelType()
+	
+	/**
+	 * This function sets the TravelType for the vehicle over the Segment
+	 * @param travelType This is the new TravelType of the vehicle over the Segment
+	 */
+	public void setTravelType(TravelType travelType) {
+		
+		//NEED SOME ERROR CHECKING HERE TO MAKE SURE IT IS A VALID TRAVEL TYPE FOR THIS VEHICLE
+		
+		this.travelType = travelType;
+	}//End of setTravelType(TravelType travelType)
+	
 	
 	/**
 	 * This function returns all the Segments specified in the given where clause
@@ -527,7 +547,7 @@ public class Segment extends BaseClass {
 		Segment s = new Segment((Integer)data.get("SegmentID"));
 		s.setStartLocation((Integer)data.get("FromLocationID"));
 		s.setEndLocation((Integer)data.get("ToLocationID"));
-		s.setVehicle((Integer)data.get("VehicleID"),(String)data.get("ModeType"));
+		s.setVehicle((Integer)data.get("VehicleID"),(Vehicle.TravelModes.valueOf((String)data.get("ModeType"))));
 		s.setDistance(Double.parseDouble(data.get("Distance").toString()));
 		s.setEstimatedDepartureTime((Integer)data.get("TimeOfDeparture"));
 		s.setEstimatedArrivalTime((Integer)data.get("TimeOfArrival"));
@@ -692,13 +712,13 @@ public class Segment extends BaseClass {
 			{
 				//If the Segment is new insert it into the database by executing the following
 				executeCommand("Insert into Segment (FromLocationID,ToLocationID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime) Values ('"+
-						this.getStartLocationID()+"','"+this.getEndLocationID()+"','"+this.getVehicleID()+"','"+this.getTravelMode()+"','"+this.getDistance()+"','"+
+						this.getStartLocationID()+"','"+this.getEndLocationID()+"','"+this.vehicle.getId()+"','"+this.getTravelMode()+"','"+this.getDistance()+"','"+
 					    this.getEstimatedDepartureTime()+"','"+this.getEstimatedArrivalTime()+"','"+this.getLane() +"','"+this.getShippingRate().getId() +
 					    "','"+this.getEarliestArrivalTime() +"','"+this.getLatestArrivalTime() +"','"+this.getEarliestDepartureTime() +"','"+this.getLatestDepartureTime() +"')");
 				//Grab this Segment from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select SegmentID from Segment where FromLocationID ='"+ this.getStartLocationID()+"' "+
 						"AND ToLocationID ='" + this.getEndLocationID() +"' "+
-						"AND VehicleID='" + this.getVehicleID()+"' "+
+						"AND VehicleID='" + this.vehicle.getId()+"' "+
 						"And ModeType='" + this.getTravelMode()+"' "+
 						"And Distance='"+this.getDistance()+"' "+
 						"And TimeOfDeparture ='"+this.getEstimatedDepartureTime()+"' "+
@@ -724,7 +744,7 @@ public class Segment extends BaseClass {
 					//If the Segment is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update Segment Set FromLocationID ='"+ this.getStartLocationID()+"' "+
 							"AND ToLocationID ='" + this.getEndLocationID() +"' "+
-							"AND VehicleID='" + this.getVehicleID()+"' "+
+							"AND VehicleID='" + this.vehicle.getId()+"' "+
 							"And ModeType='" + this.getTravelMode()+"' "+
 							"And Distance='"+this.getDistance()+"' "+
 							"And TimeOfDeparture ='"+this.getEstimatedDepartureTime()+"' "+

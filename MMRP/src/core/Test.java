@@ -1,8 +1,6 @@
 package core;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
 
 import java.io.*;
 public class Test extends BaseClass 
@@ -62,9 +60,9 @@ public class Test extends BaseClass
 	}
 		public void getDistance()
 	{
-		double[][] arr = new double[10][10];
+		//double[][] arr = new double[10][10];
 		//calculates the great circle distance between two points using the haversine formula.  Originally published by Roger Sinnott - Sky & Telescope magazine
-		int earthRadius = 6371;			//radius of the earth in kilometers
+		//int earthRadius = 6371;			//radius of the earth in kilometers
 		/*
 		for(int i =1; i<=10;i++)
 		{
@@ -184,7 +182,7 @@ public class Test extends BaseClass
 			for(int i = 0; i<veh.size();i++)
 			{
 				Truck t = veh.get(i);
-				w.write("\n"+t.getTruckName()+"\n\n");
+				w.write("\n"+t.getVehicleName()+"\n\n");
 				ArrayList<Segment> segs =t.getSchedule();
 				ArrayList<Shipment> old=new ArrayList<Shipment>();
 				ArrayList<Shipment> newShips=new ArrayList<Shipment>();
@@ -217,7 +215,7 @@ public class Test extends BaseClass
 					{
 						w.write(","+end.getState());
 					}
-					w.write("\n\t\tCapacity: " + t.getCapacity()+"\tActual: " + s.estimateCapacity());
+					w.write("\n\t\tCapacity: " + s.getTravelType().getActCap()+"\tActual: " + s.estimateCapacity());
 					//getPickedUp shipments
 					for(int n = 0; n<newShips.size();n++)
 					{
@@ -247,7 +245,7 @@ public class Test extends BaseClass
 			for(int i = 0; i<veh1.size();i++)
 			{
 				Plane t = veh1.get(i);
-				w.write("\n"+t.getPlaneName()+"\n\n");
+				w.write("\n"+t.getVehicleName()+"\n\n");
 				ArrayList<Segment> segs =t.getSchedule();
 				ArrayList<Shipment> old=new ArrayList<Shipment>();
 				ArrayList<Shipment> newShips=new ArrayList<Shipment>();
@@ -279,7 +277,7 @@ public class Test extends BaseClass
 					{
 						w.write(","+end.getState());
 					}
-					w.write("\n\t\tCapacity: " + t.getCapacity()+"\tActual: " + s.estimateCapacity());
+					w.write("\n\t\tCapacity: " + s.getTravelType().getActCap()+"\tActual: " + s.estimateCapacity());
 					//getPickedUp shipments
 					for(int n = 0; n<newShips.size();n++)
 					{
@@ -310,7 +308,7 @@ public class Test extends BaseClass
 			for(int i = 0; i<veh2.size();i++)
 			{
 				Rail t = veh2.get(i);
-				w.write("\n"+t.getRailName()+"\n\n");
+				w.write("\n"+t.getVehicleName()+"\n\n");
 				ArrayList<Segment> segs =t.getSchedule();
 				
 				ArrayList<Shipment> old=new ArrayList<Shipment>();
@@ -343,7 +341,7 @@ public class Test extends BaseClass
 					{
 						w.write(","+end.getState());
 					}
-					w.write("\n\t\tCapacity: " + t.getCapacity()+"\tActual: " + s.estimateCapacity());
+					w.write("\n\t\tCapacity: " + s.getTravelType().getActCap()+"\tActual: " + s.estimateCapacity());
 					//getPickedUp shipments
 					for(int n = 0; n<newShips.size();n++)
 					{
@@ -373,7 +371,7 @@ public class Test extends BaseClass
 			for(int i = 0; i<veh3.size();i++)
 			{
 				Cargo t = veh3.get(i);
-				w.write("\n"+t.getCargoName()+"\n\n");
+				w.write("\n"+t.getVehicleName()+"\n\n");
 				ArrayList<Segment> segs =t.getSchedule();
 				ArrayList<Shipment> old=new ArrayList<Shipment>();
 				ArrayList<Shipment> newShips=new ArrayList<Shipment>();
@@ -405,7 +403,7 @@ public class Test extends BaseClass
 					{
 						w.write(","+end.getState());
 					}
-					w.write("\n\t\tCapacity: " + t.getCapacity()+"\tActual: " + s.estimateCapacity());
+					w.write("\n\t\tCapacity: " + s.getTravelType().getActCap()+"\tActual: " + s.estimateCapacity());
 					//getPickedUp shipments
 					for(int n = 0; n<newShips.size();n++)
 					{
@@ -463,7 +461,7 @@ public class Test extends BaseClass
 					w2.write("\n\t" + s.getStartLocation().getName() + " to " + s.getEndLocation().getName() + " via " + v.getVehicleName());
 					
 				}
-				w2.write("\n\n\tArrival: " + hist.get(hist.size()-1).getSegment().getArrivalTime()+"\n\n\n\n");
+				w2.write("\n\n\tArrival: " + hist.get(hist.size()-1).getSegment().getEstimatedArrivalTime()+"\n\n\n\n");
 				//if(segs.size()!=0)
 				//{
 				//for(int j = 0; j<segs.size();j++)
@@ -552,9 +550,7 @@ public class Test extends BaseClass
 				Truck t = veh.get(i);
 				w.write("\nTruckID: "+t.getId());
 				w.write("\n\tTruck Name: "+t.getVehicleName());
-				w.write("\n\tTruck Type: "+t.getTruckType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
-				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
 				w.write("\n");
 			}
@@ -566,9 +562,7 @@ public class Test extends BaseClass
 				Plane t = veh1.get(i);
 				w.write("\nPlaneID: "+t.getId());
 				w.write("\n\tPlane Name: "+t.getVehicleName());
-				w.write("\n\tPlane Type: "+t.getPlaneType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
-				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
 				w.write("\n");
 			}
@@ -580,9 +574,7 @@ public class Test extends BaseClass
 				Rail t = veh2.get(i);
 				w.write("\nRailID: "+t.getId());
 				w.write("\n\tRail Name: "+t.getVehicleName());
-				w.write("\n\tRail Type: "+t.getRailType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
-				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
 				w.write("\n");
 			}
@@ -594,10 +586,7 @@ public class Test extends BaseClass
 				Cargo t = veh3.get(i);
 				w.write("\nCargoShipID: "+t.getId());
 				w.write("\n\tCargo Ship Name: "+t.getVehicleName());
-				w.write("\n\tCargo Ship Type: "+t.getCargoType());
 				w.write("\n\tContractor: " + t.getCarrier().getCarrierName());
-				w.write("\n\tContainers: " + t.getNumOfContainers());
-				w.write("\n\tCapacity: " + t.getCapacity());
 				w.write("\n\tStatus: "+t.getStatus());
 				w.write("\n");
 			}
