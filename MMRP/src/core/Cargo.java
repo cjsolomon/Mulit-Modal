@@ -22,7 +22,10 @@ public class Cargo extends Vehicle {
 	public Cargo()
 	{
 		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
+		this.MarkClean();
 		MarkNew();														//Mark this cargo as new
+		this.carrier = new Carrier(1);
+		this.name = new String("Default");
 	}//End of Cargo()
 	
 	/**
