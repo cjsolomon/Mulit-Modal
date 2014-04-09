@@ -30,7 +30,7 @@ public class Location extends BaseClass {
 	{
 		this.id=id;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
-<<<<<<< HEAD
+
 	}//End of Location(int id)
 	
 	/**
@@ -41,20 +41,11 @@ public class Location extends BaseClass {
 	{
 		return id;
 	}//End of getID()
-	 
+
 	/**
-	 * This function will set the latitude of the Location
-	 * @param lat This is the new latitude of the Location
+	 * This function will set the latitude for the Location
+	 * @param lat This is the new latitude for the Location
 	 */
-=======
-	}
-
-	public int getID()
-	{
-		return id;
-	}
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	public void setLatitude(double lat)
 	{
 		//NEED ERROR CHECKING
@@ -63,7 +54,7 @@ public class Location extends BaseClass {
 			this.latitude=lat;
 			MarkDirty();
 		}
-<<<<<<< HEAD
+
 	}//End of setLatitude(double lat)
 	
 	/**
@@ -79,15 +70,6 @@ public class Location extends BaseClass {
 	 * This function sets the state of the Location
 	 * @param st This is the new state of the Location
 	 */
-=======
-	}
-
-	public double getLatitude()
-	{
-		return this.latitude;
-	}
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	public void setState(String st)
 	{
 		//NEED ERROR CHECKING
@@ -96,7 +78,6 @@ public class Location extends BaseClass {
 			this.state = st; 
 			MarkDirty();
 		}
-<<<<<<< HEAD
 	}//End of setState(String st)
 	
 	/**
@@ -112,15 +93,6 @@ public class Location extends BaseClass {
 	 * This function sets the Country of the Location
 	 * @param nation This is the new Country for the Location
 	 */
-=======
-	}
-
-	public String getState() 
-	{
-		return this.state;
-	}
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	public void setCountry(String nation)
 	{
 		//NEED ERROR CHECKING
@@ -129,7 +101,6 @@ public class Location extends BaseClass {
 			this.country = nation;
 			MarkDirty();
 		}
-<<<<<<< HEAD
 	}//End of setCountry(String nation)
 	
 	/**
@@ -145,15 +116,6 @@ public class Location extends BaseClass {
 	 * This function will set the longitude of the Location
 	 * @param lon This is the new longitude of the location 
 	 */
-=======
-	}
-
-	public String getCountry()
-	{
-		return this.country;
-	}
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	public void setLongitude(double lon)
 	{
 		//NEED SOME ERROR CHECKING
@@ -171,17 +133,12 @@ public class Location extends BaseClass {
 	public double getLongitude()
 	{
 		return this.longitude;
-<<<<<<< HEAD
 	}//End of getLongitude()
 	
 	/**
 	 * This function adds a Travel Mode option to this Location
 	 * @param mode This is the new Travel Mode to add to this Location
 	 */
-=======
-	}
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	public void addTravelMode(Vehicle.TravelModes mode)
 	{
 		//DO WE NEED ANY ERROR CHECKING HERE?
@@ -190,7 +147,6 @@ public class Location extends BaseClass {
 			travelModes.add(mode);
 			MarkDirty();
 		}
-<<<<<<< HEAD
 	}//End of addTravelMode(Vehicle.TravelModes mode)
 	
 	/**
@@ -198,10 +154,6 @@ public class Location extends BaseClass {
 	 * @param mode This is Travel Mode that will be checked to see if it is available at this location
 	 * @return Returns a boolean indicating if the Travel Mode given is available at this Location
 	 */
-=======
-	}
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	public boolean travelTypeAvailable(Vehicle.TravelModes mode)
 	{
 		if(travelModes.contains(mode))
@@ -209,7 +161,6 @@ public class Location extends BaseClass {
 			return true;
 		}
 		return false;
-<<<<<<< HEAD
 	}//End of travelTypeAvailable(Vehicle.TravelModes mode)
 	
 	/**
@@ -217,11 +168,6 @@ public class Location extends BaseClass {
 	 * @param newName This is the new name of the Location
 	 */
 	public void setName(String newName)
-=======
-	}
-
-	public void setName(String s)
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	{
 		//NEED ERROR CHECKING
 		if(name==null || !name.equals(newName))
@@ -229,7 +175,6 @@ public class Location extends BaseClass {
 			name=newName;
 			MarkDirty();
 		}
-<<<<<<< HEAD
 	}//End of setName(String newName)
 	
 	/**
@@ -245,16 +190,6 @@ public class Location extends BaseClass {
 	 * This is the overridden Update function for the Location
 	 * <p>This function will update the Location in the database
 	 */
-=======
-	}
-
-	public String getName()
-	{
-		return name;
-	}
-
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	@Override
 	public boolean Update() 
 	{
@@ -312,13 +247,8 @@ public class Location extends BaseClass {
 			System.out.println("Error " + ex);
 			return false;
 		}
-<<<<<<< HEAD
 		
 	}//End of Update()
-=======
-
-	}
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 
 	/**
 	 * This is the overridden Delete function, it will remove this Location from the database
@@ -357,7 +287,6 @@ public class Location extends BaseClass {
 		{
 			System.out.println("Error " + ex);
 		}
-<<<<<<< HEAD
  		return null;
 	}//End of Load(int id)
 	
@@ -366,11 +295,6 @@ public class Location extends BaseClass {
 	 * @param where This is the where clause that determines which Locations to load from the database
 	 * @return Returns an ArrayList of Locations loaded from the database determined by the where clause
 	 */
-=======
-		return null;
-	}
-
->>>>>>> b08f1c476f22c81d956d099701700c922639a0ee
 	public static ArrayList<Location> LoadAll(String where)
 	{
 		ArrayList<Location> temp = new ArrayList<Location>();

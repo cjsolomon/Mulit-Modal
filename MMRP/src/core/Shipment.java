@@ -385,27 +385,44 @@ public class Shipment extends BaseClass {
 		return this.congestionByPass;
 	}//End of getCongestionByPass()
 	
-
+	/**
+	 * This function sets the hazmat status for the Shipment
+	 * @param s This is the new hazmat status
+	 */
 	public void setHazmat(String s)
 	{
+		//NEEDS ERROR CHECKING
 		if(this.hazmatConstraints==null || !this.hazmatConstraints.equals(s))
 		{
 			this.hazmatConstraints=s;
 			MarkDirty();
 		}
-	}
+	}//End of setHazmat(String s)
+	
+	/**
+	 * This function returns the Shipment's hazmat status
+	 * @return Returns the Shipment's hazmat status
+	 */
 	public String getHazmat()
 	{
 		return this.hazmatConstraints;
-	}
-	public void setMaxStops(int s)
+	}//End of getHazmat()
+	
+	/**
+	 * This function sets the maximum number of stop locations for the Shipment
+	 * @param maxStop This is the new maximum number of stops
+	 */
+	public void setMaxStops(int maxStop)
 	{
-		if(this.maxStops!=s)
+		//NEED TO ADD ERROR CHECKING
+		if(this.maxStops!=maxStop)
 		{
-			maxStops=s;
+			maxStops=maxStop;
 			MarkDirty();
 		}
-	}
+	}//End of setMaxStops(int s)
+	
+	
 	public int getMaxStops()
 	{
 		return maxStops;
