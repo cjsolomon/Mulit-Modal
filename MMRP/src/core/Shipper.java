@@ -5,106 +5,184 @@ import java.util.Map;
 
 public class Shipper extends BaseClass {
 	
-	private int _id;
-	private int _locationID;
-	private String _prefCarriers;
-	private String _companyName;
-	private String _contactName;
-	private String _phone;
-	private String _email;
+	private int id;
+	private int locationID;
+	private String prefCarriers;
+	private String companyName;
+	private String contactName;
+	private String phone;
+	private String email;
 	
+	/**
+	 * This is the default Shipper constructor
+	 */
 	public Shipper()
 	{
 		MarkNew();
-	}
+	}//End of Shipper()
+	
+	/**
+	 * This is the argumented Shipper constructor
+	 * @param id This is the id of the new Shipper constructor
+	 */
 	public Shipper(int id)
 	{
-		this._id=id;
+		this.id=id;
 		MarkOld();
-	}
+	}//End of Shipper(int id)
+	
 	//Setters & getters
-	public int id()
+	/**
+	 * This function returns the id of the Shipper
+	 */
+	public int getID()
 	{
-		return _id;
-	}
-	public void LocationID(int id)
+		return id;
+	}//End of id()
+	
+	/**
+	 * This function sets the location id for the Shipper
+	 * @param id This is the new id for the Shipper
+	 */
+	public void setLocationID(int id)
 	{
-		if(this._locationID!=id)
+		//NEEDS ERROR CHECK
+		if(this.locationID!=id)
 		{
-			this._locationID=id;
+			this.locationID=id;
 			MarkDirty();
 		}
-	}
-	public int LocationID()
+	}//End of LocationID(int id)
+	
+	/**
+	 * This function returns the Shipper location id
+	 * @return Returns the Shipper location id
+	 */
+	public int getLocationID()
 	{
-		return this._locationID;
-	}
-	public void PrefferedCarriers(String s)
+		return this.locationID;
+	}//End of LocationID()
+	
+	/** 
+	 * This function will set preferred carriers for the Shipper
+	 * @param newPreferredCarriers This is the new preferred carriers for the Shipper
+	 */
+	public void setPrefferedCarriers(String newPreferredCarriers)
 	{
-		if(this._prefCarriers==null || !this._prefCarriers.equals(s))
+		//NEEDS SOME ERROR CHECKING
+		if(this.prefCarriers==null || !this.prefCarriers.equals(newPreferredCarriers))
 		{
-			this._prefCarriers=s;
+			this.prefCarriers=newPreferredCarriers;
 			MarkDirty();
 		}
-	}
-	public String PrefferedCarriers()
-	{
-		return this._prefCarriers;
-	}
+	}//End of PrefferedCarriers(String newPreferredCarriers)
 	
-	public void CompanyName(String s)
+	/**
+	 * This function returns the preferred carriers for the Shipper
+	 * @return Returns the preferred carriers for the Shipper
+	 */
+	public String getPrefferedCarriers()
 	{
-		if(this._companyName==null || !this._companyName.equals(s))
+		return this.prefCarriers;
+	}//End of PrefferedCarriers()
+	
+	/**
+	 * This function sets the company name for the Shipper
+	 * @param newCompanyName This is the new company name for the Shipper
+	 */
+	public void setCompanyName(String newCompanyName)
+	{
+		//NEEDS ERROR CHECKING
+		if(this.companyName==null || !this.companyName.equals(newCompanyName))
 		{
-			this._companyName=s;
+			this.companyName=newCompanyName;
 			MarkDirty();
 		}
-	}
+	}//End of CompanyName(String newCompanyName)
 	
-	public String CompanyName()
+	/**
+	 * This function returns the company name for the Shipper 
+	 * @return Returns the company name for the Shipper
+	 */
+	public String getCompanyName()
 	{
-		return this._companyName;
-	}
+		return this.companyName;
+	}//End of CompanyName()
 	
-	public void ContactName(String s)
+	/**
+	 * This function sets the contact name for the Shipper
+	 * @param newContactName This is the new contact name for the Shipper
+	 */
+	public void setContactName(String newContactName)
 	{
-		if(this._contactName==null || !this._contactName.equals(s))
+		//NEED SOME ERROR CHECKING
+		if(this.contactName==null || !this.contactName.equals(newContactName))
 		{
-			this._contactName=s;
+			this.contactName=newContactName;
 			MarkDirty();
 		}
-	}
+	}//End of ContactName(String newContactName)
 	
-	public String ContactName()
+	/**
+	 * This function returns the contact name for the Shipper
+	 * @return Returns the contact name for the Shipper
+	 */
+	public String getContactName()
 	{
-		return this._contactName;
-	}
-	public void Phone(String s)
+		return this.contactName;
+	}//End of ContactName()
+	
+	/**
+	 * This function sets the phone number for the Shipper 
+	 * @param newPhoneNumber This is the new phone number for the Shipper
+	 */
+	public void setPhoneNumber(String newPhoneNumber)
 	{
-		if(this._phone==null|| !this._phone.equals(s))
+		//NEED ERROR CHECKING
+		if(this.phone==null|| !this.phone.equals(newPhoneNumber))
 		{
-			this._phone=s;
+			this.phone=newPhoneNumber;
 			MarkDirty();
 		}
-	}
-	public String Phone()
-	{
-		return this._phone;
-	}
+	}//End of Phone(String newPhoneNumber)
 	
-	public void Email(String s)
+	/**
+	 * This function returns the phone number for the Shipper
+	 * @return Returns the phone number for the Shipper
+	 */
+	public String getPhoneNumber()
 	{
-		if(this._email==null || ! this._email.equals(s))
+		return this.phone;
+	}//End of Phone()
+	
+	/**
+	 * This function sets the email address for the Shipper
+	 * @param newEmailAddress This is the new email address for the Shipper
+	 */
+	public void setEmailAddress(String newEmailAddress)
+	{
+		//NEED ERROR CHECKING
+		if(this.email==null || ! this.email.equals(newEmailAddress))
 		{
-			this._email=s;
+			this.email=newEmailAddress;
 			MarkDirty();
 		}
-	}
-	public String Email()
-	{
-		return this.Email();
-	}
+	}//End of Email(String newEmailAddress)
 	
+	/**
+	 * This function returns the email address of the Shipper
+	 * @return Returns the email address of the Shipper
+	 */
+	public String getEmailAddress()
+	{
+		return this.email;
+	}//End of getEmailAddress()
+	
+	/**
+	 * This function loads a Shipper from the database
+	 * @param id This is the id of the Shipper to load from the database
+	 * @return Returns a Shipper from the database based on the given id
+	 */
 	public static Shipper Load(int id)
 	{
 		try
@@ -119,8 +197,13 @@ public class Shipper extends BaseClass {
 			System.out.println("Error " + ex);
 			return null;
 		}
-	}
+	}//End of Load(int id)
 	
+	/**
+	 * This function will return an ArrayList of Shippers from the database based on the given where clause
+	 * @param where This is the clause that determines which Shippers to load from the database
+	 * @return Returns an ArrayList of Shippers loaded from the database based on the given where clause
+	 */
 	public static ArrayList<Shipper> LoadAll(String where)
 	{
 		try
@@ -138,19 +221,29 @@ public class Shipper extends BaseClass {
 			System.out.println("Error " + ex);
 			return null;
 		}
-	}
+	}//End of  LoadAll(String where)
+	
+	/**
+	 * This function will build a new Shipper object from the passed in data
+	 * @param data This is the data that will be used to build the new Shipper object
+	 * @return Returns the Shipper object built from the given data
+	 */
 	public static Shipper BuildFromDataRow(Map<String,Object> data)
 	{
 		Shipper s = new Shipper((Integer)data.get("ShipperID"));
-		s.LocationID((Integer)data.get("locationID"));
-		s.PrefferedCarriers((String)data.get("prefCarriers"));
-		s.CompanyName((String)data.get("CompanyName"));
-		s.ContactName((String)data.get("ContactName"));
-		s.Phone((String)data.get("phone"));
-		s.Email((String)data.get("email"));
+		s.setLocationID((Integer)data.get("locationID"));
+		s.setPrefferedCarriers((String)data.get("prefCarriers"));
+		s.setCompanyName((String)data.get("CompanyName"));
+		s.setContactName((String)data.get("ContactName"));
+		s.setPhoneNumber((String)data.get("phone"));
+		s.setEmailAddress((String)data.get("email"));
 		s.MarkClean();
 		return s;
-	}
+	}//End of BuildFromDataRow(Map<String,Object> data)
+	
+	/**
+	 * This function will update the Shipper in the database
+	 */
 	@Override
 	boolean Update() {
 		if(isNew())
@@ -159,20 +252,20 @@ public class Shipper extends BaseClass {
 			try
 			{
 				executeCommand("Insert into Shipper (locationID,prefCarriers,CompanyName,ContactName,phone,email) Values ('"+
-						this._locationID+"','"+this._prefCarriers+"','"+this._companyName+"','"+this._contactName+"','"+this._phone+"','"+
-						this._email+"')");
+						this.locationID+"','"+this.prefCarriers+"','"+this.companyName+"','"+this.contactName+"','"+this.phone+"','"+
+						this.email+"')");
 				//Grab this Segment from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select ShipperID from Shipper where locationID ='"+ this._locationID+"' "+
-						"AND prefCarriers ='" + this._prefCarriers +"' "+
-						"AND CompanyName ='" + this._companyName+"' "+
-						"And ContactName='" + this._contactName+"' "+
-						"And phone='"+this._phone+"' "+
-						"And email ='"+this._email+"'");
+				ArrayList<Map<String,Object>> temp =executeQuery("Select ShipperID from Shipper where locationID ='"+ this.locationID+"' "+
+						"AND prefCarriers ='" + this.prefCarriers +"' "+
+						"AND CompanyName ='" + this.companyName+"' "+
+						"And ContactName='" + this.contactName+"' "+
+						"And phone='"+this.phone+"' "+
+						"And email ='"+this.email+"'");
 						
 				//If this Segment exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
-					this._id = (Integer)temp.get(0).get("ShipperID");				//Set the Segment id to the id from the database
+					this.id = (Integer)temp.get(0).get("ShipperID");				//Set the Segment id to the id from the database
 					MarkClean();													//Mark the Segment as clean
 					MarkOld();														//Mark the Segment as old
 				}//End of found something if
@@ -191,13 +284,13 @@ public class Shipper extends BaseClass {
 			{
 				try
 				{
-				executeCommand("Update Shipper Set locationID ='"+ this._locationID+"' "+
-						"AND prefCarriers ='" + this._prefCarriers +"' "+
-						"AND CompanyName ='" + this._companyName+"' "+
-						"And ContactName='" + this._contactName+"' "+
-						"And phone='"+this._phone+"' "+
-						"And email ='"+this._email+"' "+
-						"Where ShipperID = '" +this._id +"'");
+				executeCommand("Update Shipper Set locationID ='"+ this.locationID+"' "+
+						"AND prefCarriers ='" + this.prefCarriers +"' "+
+						"AND CompanyName ='" + this.companyName+"' "+
+						"And ContactName='" + this.contactName+"' "+
+						"And phone='"+this.phone+"' "+
+						"And email ='"+this.email+"' "+
+						"Where ShipperID = '" +this.id +"'");
 				
 				
 				//If the Segment is not new, but is dirty then it needs to be updated by the following SQL command
@@ -213,17 +306,17 @@ public class Shipper extends BaseClass {
 			}//End of isDirty if
 		}//End of isOld else
 		return true;
-	}//End of try block
+	}//End of Update()
 	
 
-	/* (non-Javadoc)
-	 * @see core.BaseClass#Delete()
+	/**
+	 * This function will delete the Shipper from the database
 	 */
 	@Override
 	boolean Delete() {
 		try
 		{
-			executeCommand("Delete from Shipper where ShipperID = '" + this._id+"'");
+			executeCommand("Delete from Shipper where ShipperID = '" + this.id+"'");
 			return true;
 		}
 		catch(Exception ex)
@@ -232,6 +325,6 @@ public class Shipper extends BaseClass {
 			return false;
 		}
 
-	}
+	}//End of Delete()
 
-}
+}//End of Shipper Class
