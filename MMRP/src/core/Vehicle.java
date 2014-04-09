@@ -7,7 +7,10 @@ import java.util.ArrayList;
 
 
 public abstract class Vehicle extends BaseClass {
-	//This is an enumeration for the different TravelModes that the shipment may use
+	
+	/**
+	 * This is an enumeration for the different TravelModes that the shipment may use
+	 */
 	public static enum TravelModes 
 	{
 			Truck ("TRUCK"),
@@ -32,7 +35,9 @@ public abstract class Vehicle extends BaseClass {
 	
 	
 	
-	//This is an enumeration for the different states that a vehicle may find itself in
+	/**
+	 * This is an enumeration for the different states that a vehicle may find itself in
+	 */
 	public static enum Status
 	{
 		Running("RUNNING"),
@@ -61,181 +66,189 @@ public abstract class Vehicle extends BaseClass {
 	
 	/**
 	 * Sets the travel mode of the vehicle 
-	 * @param t TravelMode 
+	 * @param newTravelMode This is the new travel mode for the Vehicle
 	 */
-	protected void setTravelMode(TravelModes t)
+	protected void setTravelMode(TravelModes newTravelMode)
 	{
-		if(mode==null || !mode.equals(t))				//Make sure we have a valid type
+		//NEED ERROR CHECKING
+		if(mode==null || !mode.equals(newTravelMode))				//Make sure we have a valid type
 		{
-			mode=t;										//Set the type to t
+			mode=newTravelMode;										//Set the type to t
 			MarkDirty();								//Mark the vehicle as dirty
 		}//End of if statement
-	}//End of setTravelMode(TravelType t)
+	}//End of setTravelMode(TravelType newTravelMode)
+	
 	/**
 	 * Sets the travel mode of the vehicle from a string
-	 * @param t TravelMode name
+	 * @param newTravelMode This is the new travel mode for the Vehicle
 	 */
-	protected void setTravelMode(String t)
+	protected void setTravelMode(String newTravelMode)
 	{
-		if(mode==null || !mode.toString().equals(t))	//Make sure we have a valid type
+		//NEED SOME ERROR CHECKING
+		if(mode==null || !mode.toString().equals(newTravelMode))	//Make sure we have a valid type
 		{
-			mode = loadMode(t);							//Set the type of the vehicle
+			mode = loadMode(newTravelMode);							//Set the type of the vehicle
 			MarkDirty();								//Mark the vehicle as dirty
 		}//End of if statement
 	}//End of setTravelMode(String t)
-		/**
-		* Converts string to a TravelModes
-		* @param t TravelMode name
-		* @return TravelMode 
-		*/
-		public static TravelModes loadMode(String t)
-		{
-			if(t.equals(TravelModes.Bike.toString()))
-				return TravelModes.Bike;
-			if(t.equals(TravelModes.Cargo.toString()))
-				return TravelModes.Cargo;
-			if(t.equals(TravelModes.Plane.toString()))
-				return TravelModes.Plane;
-			if(t.equals(TravelModes.Rail.toString()))
-				return TravelModes.Rail;
-			if(t.equals(TravelModes.Truck.toString()))
-				return TravelModes.Truck;
-			return null;
-		}//End of loadType(String t)
 		
-		/**
-		* This function returns the TravelType of the vehicle
-		* @return The TravelType of the vehicle
-		*/
-		public String getTravelMode()
-		{
-			return mode.toString();
-		}//End of getTravelType
+	/**
+	* Converts string to a TravelMode
+	* @param t TravelMode name
+	* @return TravelMode 
+	*/
+	public static TravelModes loadMode(String t)
+	{
+		if(t.equals(TravelModes.Bike.toString()))
+			return TravelModes.Bike;
+		if(t.equals(TravelModes.Cargo.toString()))
+			return TravelModes.Cargo;
+		if(t.equals(TravelModes.Plane.toString()))
+			return TravelModes.Plane;
+		if(t.equals(TravelModes.Rail.toString()))
+			return TravelModes.Rail;
+		if(t.equals(TravelModes.Truck.toString()))
+			return TravelModes.Truck;
+		return null;
+	}//End of loadType(String t)
 		
-		/**
-		* This function sets the id of the vehicle
-		* @param ID of the vehicle
-		*/
-		public void setId(int id)
+	/**
+	* This function returns the TravelType of the vehicle
+	* @return The TravelType of the vehicle
+	*/
+	public String getTravelMode()
+	{
+		return mode.toString();
+	}//End of getTravelType
+		
+	/**
+	* This function sets the id of the vehicle
+	* @param ID of the vehicle
+	*/
+	public void setId(int id)
+	{
+		this.id=id;											//Set the id
+		MarkDirty();										//Mark the vehicle as dirty
+	}//End of setId(int id)
+		
+	/**
+	* This function returns the id of the vehicle
+	* @return ID of the vehicle
+	*/
+	public int  getId()
+	{
+		return id;				
+	}//End of getId()
+		
+	/**
+	* This function sets the status of the vehicle
+	* @param s Status of the vehicle
+	*/
+	public void setStatus(Status s)
+	{
+		if(status == null || status!=(s))
 		{
-			this.id=id;											//Set the id
+			status=s;										//Set the status
+			MarkDirty();									//Mark the vehicle as dirty
+		}//End of the if statement
+	}//End of setStatus(Status s)
+		
+	/**
+	* This function sets the status of the vehicle based on a string
+	* @param s string Status of the vehicle
+	*/
+	public void setStatus(String s)
+	{
+		if(status==null || !status.toString().equals(s))
+		{
+			status=loadStatus(s);								//Set the status of the vehicle
 			MarkDirty();										//Mark the vehicle as dirty
-		}//End of setId(int id)
+		}
+	}//End of the setStatus(String s) function
 		
-		/**
-		* This function returns the id of the vehicle
-		* @return ID of the vehicle
-		*/
-		public int  getId()
+	//This function will take a string and return the appropriate status
+	/**
+	* This function returns a status based on the string passed
+	* @param val String value for status
+	* @return Status type 
+	*/
+	public static Status loadStatus(String val)
+	{
+		if(val.equals(Status.Delayed.toString()))
 		{
-			return id;				
-		}//End of getId()
-		
-		/**
-		* This function sets the status of the vehicle
-		* @param s Status of the vehicle
-		*/
-		public void setStatus(Status s)
+			return Status.Delayed;
+		}//End of if value == delayed
+		else
 		{
-			if(status == null || status!=(s))
+			if(val.equals(Status.Disabled.toString()))
 			{
-				status=s;										//Set the status
-				MarkDirty();									//Mark the vehicle as dirty
-			}//End of the if statement
-		}//End of setStatus(Status s)
-		
-		/**
-		* This function sets the status of the vehicle based on a string
-		* @param s string Status of the vehicle
-		*/
-		public void setStatus(String s)
-		{
-			if(status==null || !status.toString().equals(s))
-			{
-				status=loadStatus(s);								//Set the status of the vehicle
-				MarkDirty();										//Mark the vehicle as dirty
-			}
-		}//End of the setStatus(String s) function
-		
-		//This function will take a string and return the appropriate status
-		/**
-		* This function returns a status based on the string passed
-		* @param val String value for status
-		* @return Status type 
-		*/
-		public static Status loadStatus(String val)
-		{
-			if(val.equals(Status.Delayed.toString()))
-			{
-				return Status.Delayed;
-			}//End of if value == delayed
+				return Status.Disabled;
+			}//End of if value ==  disabled
 			else
 			{
-				if(val.equals(Status.Disabled.toString()))
-				{
-					return Status.Disabled;
-				}//End of if value ==  disabled
-				else
-				{
-					return Status.Running;
-				}//End of value == running else
-			}//End of value != delayed else
-		}//End of loadStatus(String val)
+				return Status.Running;
+			}//End of value == running else
+		}//End of value != delayed else
+	}//End of loadStatus(String val)
 		
-		/**
-		* This function returns the status of the vehicle
-		* @return Status of the vehicle
-		*/
-		public String getStatus()
+	/**
+	* This function returns the status of the vehicle
+	* @return Status of the vehicle
+	*/
+	public String getStatus()
+	{
+		return status.toString();
+	}//End of getStatus
+		
+	/**
+	* This function sets the carrier of the vehicle
+	* @param c Carrier of the vehicle
+	*/
+	public void setCarrier(Carrier c)
+	{
+			carrier=c;											//Set the carrier
+			MarkDirty();											//Mark the vehicle as dirty
+	}//End of setCarrier(Carrier c)
+		
+	/**
+	* This function returns the Carrier of the vehicle
+	* @return Carrier of the vehicle
+	*/
+	public Carrier getCarrier()
+	{
+		return carrier;
+	}//End of getCarrier()
+		
+	/**
+	* This function sets the vehicle's name 
+	* @param name String name of the vehicle
+	*/
+	protected void setVehicleName(String name)
+	{
+		if(this.name==null || !this.name.equals(name) )
 		{
-			return status.toString();
-		}//End of getStatus
+			this.name=name;								//Set the vehicle name
+			MarkDirty();								//Mark the vehicle as dirty
+		}//End of valid name if
+	}//End of setVehicleName(String name)
 		
-		/**
-		* This function sets the carrier of the vehicle
-		* @param c Carrier of the vehicle
-		*/
-		public void setCarrier(Carrier c)
-		{
-				carrier=c;											//Set the carrier
-				MarkDirty();											//Mark the vehicle as dirty
-		}//End of setCarrier(Carrier c)
+	/**
+	* This function returns the name of the vehicle
+	* @return name of the vehicle
+	*/
+	public String getVehicleName()
+	{
+		return name;									//Return the name
+	}//End of getVehicleName()
 		
-		/**
-		* This function returns the Carrier of the vehicle
-		* @return Carrier of the vehicle
-		*/
-		public Carrier getCarrier()
-		{
-			return carrier;
-		}//End of getCarrier()
-		
-		/**
-		* This function sets the vehicle's name 
-		* @param name String name of the vehicle
-		*/
-		protected void setVehicleName(String name)
-		{
-			if(this.name==null || !this.name.equals(name) )
-			{
-				this.name=name;								//Set the vehicle name
-				MarkDirty();								//Mark the vehicle as dirty
-			}//End of valid name if
-		}//End of setVehicleName(String name)
-		
-		/**
-		* This function returns the name of the vehicle
-		* @return name of the vehicle
-		*/
-		public String getVehicleName()
-		{
-			return name;									//Return the name
-		}//End of getVehicleName()
-		
-		//Abtract Functions
-		abstract boolean Update();
-		abstract boolean Delete();
+	//Abtract Functions
+	abstract boolean Update();
+	abstract boolean Delete();
 	
+	/**
+	 * This function will return an ArrayList of Segments of all the that the Vehicle will visit
+	 * @return Returns an Arraylist of the Segments 
+	 */
 	public ArrayList<Segment> getSchedule()
 	{
 		if(schedule==null)
