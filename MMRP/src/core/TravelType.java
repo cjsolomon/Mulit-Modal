@@ -16,82 +16,118 @@ public class TravelType extends BaseClass {
 	private double maxWeight;
 	private String serviceType;
 	private boolean radiation;
-	private boolean refridgeration;
+	private boolean refrigeration;
 	private boolean hazmat;
 	private boolean explosives;
 	private boolean tracking;
 	
 	
-	//The default TravelType constructor
+	/**
+	 * The default TravelType constructor
+	 */
 	public TravelType()
 	{
 		MarkNew();																//Mark the Truck as new
 	}//End of the default TravelType constructor
 	
-	//This is the argumented TravelType constructor
+	/**
+	 * This is the argumented TravelType constructor
+	 * @param id This is the id of the new TravelType
+	 */
 	public TravelType(int id)
 	{
 		this.vehicleTypeID=id;													//Set the TravelType id
 
 	}//End of the argumented TravelType constructor
 	
-	//This function will return the vehicle type's id
+	/**
+	 * This function will return the vehicle type's id
+	 * @return Returns the vehicle's type id
+	 */
 	public int getVehicleTypeID()
 	{
 		return vehicleTypeID;													//Returns the vehicle type id
 	}//End of getVehicleTypeID()
 	
-	//This function sets the travel type's name
-	public void setTravelTypeName(String s)
+	/**
+	 * This function sets the travel type's name
+	 * @param newName This is the new Travel Type's name
+	 */
+	public void setTravelTypeName(String newName)
 	{
-		vehicleTypeName = s;													//Set the TravelType's name 
-	}//End of setTravelTypeName(String s)
+		vehicleTypeName = newName;													//Set the TravelType's name 
+	}//End of setTravelTypeName(String newName)
 	
-	//This function returns the TravelType name
+	/**
+	 * This function returns the TravelType name
+	 * @return Returns the TravelType's name
+	 */
 	public String getTravelTypeName()
 	{
 		return vehicleTypeName;													//Returns the TravelType's name 
 	}//End of getTravelTypeName()
 	
-	//This function sets the travel type's mode
-	public void setTravelTypeMode(String s)
+	/**
+	 * This function sets the travel type's mode
+	 * @param newMode This sets the vehicle's travel mode
+	 */
+	public void setTravelTypeMode(String newMode)
 	{
-		vehicleMode = s;													//Set the TravelType's mode
-	}//End of setTravelTypeMode(String s)
+		vehicleMode = newMode;													//Set the TravelType's mode
+	}//End of setTravelTypeMode(String newMode)
 		
-	//This function returns the TravelType mode
+	/**
+	 * This function returns the TravelType mode
+	 * @return Returns the TravelTypes mode
+	 */
 	public String getTravelTypeMode()
 	{
 		return vehicleMode;													//Returns the TravelType's mode
 	}//End of getTravelTypeMode()
 	
-	//This function sets the travel type's mode
-	public void setTrailer1(String s)
+	/**
+	 * This function sets the trailer1
+	 * @param newTrailer1 This is the new trailer1
+	 */
+	public void setTrailer1(String newTrailer1)
 	{
-		trailer1 = s;														//Set the TravelType's trailer1
-	}//End of setTrailer1(String s)
+		trailer1 = newTrailer1;														//Set the TravelType's trailer1
+	}//End of setTrailer1(String newTrailer1)
 			
-	//This function returns the TravelType mode
+	/**
+	 * This function returns the TravelType trailer1
+	 * @return Returns the trailer1 for this TravelType
+	 */
 	public String getTrailer1()
 	{
 		return trailer1;													//Returns the TravelType's trailer1
 	}//End of getTrailer1()
 	
-	//This function sets the travel type's mode
-	public void setTrailer2(String s)
+	/**
+	 * This function sets the trailer1
+	 * @param newTrailer2 This is the new trailer2
+	 */
+	public void setTrailer2(String newTrailer2)
 	{
-		trailer2 = s;														//Set the TravelType's trailer2
-	}//End of setTrailer2(String s)
+		trailer2 = newTrailer2;														//Set the TravelType's trailer2
+	}//End of setTrailer2(String newTrailer2)
 				
-	//This function returns the TravelType mode
+	/**
+	 * This function returns the TravelType trailer2
+	 * @return Returns the trailer2 for this TravelType
+	 */
 	public String getTrailer2()
 	{
 		return trailer2;													//Returns the TravelType's trailer2
 	}//End of getTrailer2()
 	
-	//This function sets the travel type's minimum capacity
+	/**
+	 * This function sets the travel type's minimum capacity
+	 * @param minCapacity This is the new minumum capacity for the TravelType
+	 */
 	public void setMinCap(double minCapacity)
 	{
+		//NEED ERROR CHECKING
 		if(minCapacity < 0){
 			System.out.println("Minumum Capacity was set below zero so the minimum capacity has defaulted to 0");
 			minCapacity = 0;
@@ -99,15 +135,22 @@ public class TravelType extends BaseClass {
 		minCap = minCapacity;												//Set the TravelType's minimum capacity
 	}//End of setMinCap(double minCapacity)
 	
-	//This function returns the TravelType mode
+	/**
+	 * This function returns the TravelType's minimum capacity
+	 * @return Returns the minimum capacity
+	 */
 	public double getMinCap()
 	{
 		return minCap;														//Returns the TravelType's minimum capacity
 	}//End of getMinCap()
 	
-	//This function sets the travel type's maximum capacity
+	/**
+	 * This function sets the travel type's maximum capacity
+	 * @param maxCapacity This is the maximum capacity of the TravelType
+	 */
 	public void setMaxCap(double maxCapacity)
 	{
+		//NEEDS ERROR CHECKING
 		if(maxCapacity < 0){
 			System.out.println("Maximum Capacity was set below zero so the maximum capacity has defaulted to 0");
 			maxCapacity = 0;
@@ -115,15 +158,22 @@ public class TravelType extends BaseClass {
 		maxCap = maxCapacity;												//Set the TravelType's maximum capacity
 	}//End of setMaxCap(double maxCapacity)
 		
-	//This function returns the TravelType maximum capacity
+	/**
+	 * This function returns the TravelType maximum capacity
+	 * @return Returns the maximum capacity for the TravelType
+	 */
 	public double getMaxCap()
 	{
 		return maxCap;														//Returns the TravelType's maximum capacity
 	}//End of getMaxCap()
 	
-	//This function sets the travel type's actual capacity
+	/**
+	 * This function sets the TravelType's actual capacity
+	 * @param actCapacity This is the actual capacity for the TravelType
+	 */
 	public void setActCap(double actCapacity)
 	{
+		//FIX THIS ERROR CHECKING
 		if(actCapacity < 0){
 			System.out.println("Actual Capacity was set below 0% so the actual capacity has defaulted to 0%");
 			actCapacity = 0;
@@ -135,15 +185,22 @@ public class TravelType extends BaseClass {
 		actCap = actCapacity;												//Set the TravelType's actual capacity
 	}//End of setActCap(double actCapacity)
 			
-	//This function returns the TravelType actual capacity
+	/**
+	 * This function returns the TravelType actual capacity
+	 * @return Returns the actual capacity of the TravelType
+	 */
 	public double getActCap()
 	{
 		return actCap;														//Returns the TravelType's actual capacity
 	}//End of getActCap()
 	
-	//This function sets the travel type's maximum weight
+	/**
+	 * This function sets the travel type's maximum weight
+	 * @param weight This is the new maximum weight of the TravelType
+	 */
 	public void setMaxWeight(double weight)
 	{
+		//FIX THIS ERROR CHECKING
 		if(maxWeight < 0){
 			System.out.println("Maximum weight was set below 0 so the maximum weight has defaulted to 0");
 			maxWeight = 0;
@@ -151,115 +208,161 @@ public class TravelType extends BaseClass {
 		maxWeight = weight;												//Set the TravelType's maximum weight
 	}//End of setMaxWeight(double weight)
 				
-	//This function returns the TravelType maximum weight
+	/**
+	 * This function returns the TravelType maximum weight
+	 * @return Returns the maximum weight for the TravelType
+	 */
 	public double getMaxWeight()
 	{
 		return maxWeight;												//Returns the TravelType's maximum weight
 	}//End of getMaxWeight()
 	
-	//This function sets the TravelType's Service Type
+	/**
+	 * This function sets the TravelType's Service Type
+	 * @param service This is the new service type for the TravelType
+	 */
 	public void setServiceType(String service)
 	{
 		serviceType = service;											//Set the TravelType's service type
 	}//End of setServiceType(String service)
 	
-	//This function will return the TravelType's Service Type
+	/**
+	 * This function will return the TravelType's Service Type
+	 * @return Returns the service type for the TravelType
+	 */
 	public String getServiceType()
 	{
 		return serviceType;												//Returns the TravelType's Service Type
 	}//End of getServiceType()
 	
-	//This function will set the radiation field to true
+	/**
+	 * This function will set the radiation field to true
+	 */
 	public void setRadTrue()
 	{
 		radiation = true;												//Sets the radiation field to true
 	}//End of setRadTrue()
 	
-	//This function will set the radiation field to false
+	/**
+	 * This function will set the radiation field to false
+	 */
 	public void setRadFalse()
 	{
 		radiation = false;												//Sets the radiation field to false
 	}//End of setRadFalse()
 	
-	//This function will return the state of the radiation field
+	/**
+	 * This function will return the state of the radiation field
+	 * @return
+	 */
 	public boolean getRadiation()
 	{
 		return radiation;												//Returns the radiation field
 	}//End of getRadiation()
 	
-	//This function will set the refridgeration field to true
+	/**
+	 * This function will set the refrigeration field to true
+	 */
 	public void setRefTrue()
 	{
-		this.refridgeration = true;										//Sets the refridgeration field to true
+		this.refrigeration = true;										//Sets the refridgeration field to true
 	}//End of setRefTrue()
 		
-	//This function will set the refridgeration field to false
+	/**
+	 * This function will set the refrigeration field to false
+	 */
 	public void setRefFalse()
 	{
-		refridgeration = false;											//Sets the refridgeration field to false
+		refrigeration = false;											//Sets the refridgeration field to false
 	}//End of setRadFalse()
 		
-	//This function will return the state of the radiation field
+	/**
+	 * This function will return the state of the radiation field
+	 * @return Returns a boolean indicating if the TravelType can handle refrigeration
+	 */
 	public boolean getRefridgeration()
 	{
-		return refridgeration;											//Returns the refridgeration field
+		return refrigeration;											//Returns the refridgeration field
 	}//End of getRefridgeration()
 	
-	//This function will set the hazmat field to true
+	/**
+	 * This function will set the hazmat field to true
+	 */
 	public void setHazTrue()
 	{
 		this.hazmat = true;												//Sets the hazmat field to true
 	}//End of setHazTrue()
 			
-	//This function will set the hazmat field to false
+	/**
+	 * This function will set the hazmat field to false
+	 */
 	public void setHazFalse()
 	{
 		hazmat = false;													//Sets the hazmat field to false
 	}//End of setHazFalse()
 			
-	//This function will return the state of the hazmat field
+	/**
+	 * This function will return the state of the hazmat field
+	 * @return Returns a boolean indicating if the TravelType can handle hazardous material
+	 */
 	public boolean getHazmat()
 	{
 		return hazmat;													//Returns the hazmat field
 	}//End of getHazmat()
 	
-	//This function will set the explosives field to true
+	/**
+	 * This function will set the explosives field to true
+	 */
 	public void setExpTrue()
 	{
 		this.explosives= true;											//Sets the explosives field to true
 	}//End of setExpTrue()
 				
-	//This function will set the explosives field to false
+	/**
+	 * This function will set the explosives field to false
+	 */
 	public void setExpFalse()
 	{
 		explosives = false;												//Sets the explosives field to false
 	}//End of setExpFalse()
 				
-	//This function will return the state of the explosives field
+	/**
+	 * This function will return the state of the explosives field
+	 * @return Returns a boolean indicating if the TravelType can handle explosive material
+	 */
 	public boolean getExplosives()
 	{
 		return explosives;												//Returns the explosives field
 	}//End of getExplosives()
 	
-	//This function will set the tracking field to true
+	/**
+	 * This function will set the tracking field to true
+	 */
 	public void setTrackingTrue()
 	{
 		this.tracking= true;											//Sets the tracking field to true
 	}//End of setTrackingTrue()
 					
-	//This function will set the tracking field to false
+	/**
+	 * This function will set the tracking field to false
+	 */
 	public void setTrackingFalse()
 	{
 		tracking = false;												//Sets the tracking field to false
 	}//End of setTrackingFalse()
 					
-	//This function will return the state of the tracking field
+	/**
+	 * This function will return the state of the tracking field
+	 * @return Returns a boolean indicating if the TravelType offers tracking
+	 */
 	public boolean getTracking()
 	{
 		return tracking;												//Returns the tracking field
 	}//End of getTracking()
 	
-	//This function overrides the parent's Update function and will handle changes made to the Truck object in the database
+	/**
+	 * This function overrides the parent's Update function and will handle changes made to the Truck object in the database
+	 */
 	@Override
 	public boolean Update() 
 	{
@@ -310,7 +413,9 @@ public class TravelType extends BaseClass {
 		
 	}//End of overridden Update()
 
-	//This is the overridden Delete function of the parent class and will remove this Truck from the database
+	/**
+	 * This is the overridden Delete function of the parent class and will remove this Truck from the database
+	 */
 	@Override
 	public  boolean Delete() 
 	{
@@ -327,7 +432,11 @@ public class TravelType extends BaseClass {
 
 	}//End of the overridden Delete()
 
-
+	/**
+	 * This function will load a TravelType from the database
+	 * @param id This is the id of the TravelType to load from the database
+	 * @return Returns a TravelType loaded from the database
+	 */
 	public static TravelType Load(int id)
 	{
 		try
@@ -345,7 +454,13 @@ public class TravelType extends BaseClass {
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
+	
+	/**
+	 * This function returns an ArrayList of TravelTypes loaded from the database based on the given where clause
+	 * @param where This is the clause that determines which TravelTypes to load from the database
+	 * @return Returns an ArrayList of TravelTypes determined by the where clause
+	 */
 	public static ArrayList<TravelType> LoadAll(String where)
 	{
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
@@ -363,8 +478,14 @@ public class TravelType extends BaseClass {
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
-	//This function builds objects from returned data from SQL queries against our database
+	}//End of LoadAll(String where)
+	
+	/**
+	 * This function builds objects from returned data from SQL queries against our database
+	 * @param data This is the data that will be used to build the TravelType
+	 * @return Returns a new TravelType built from the passed in data
+	 * @throws SQLException
+	 */
 		public static TravelType BuildFromDataRow(Map<String,Object> data) throws SQLException
 		{
 			//This code grabs each element that will be found in the database on the TravelType table and set the appropriate values for a new TravelType
@@ -408,7 +529,9 @@ public class TravelType extends BaseClass {
 			
 		}//End of BuildFromDataRow(Map<String,Object> data)
 		
-		//This function overrides the toString function and returns the name of the Truck
+		/**
+		 * This function overrides the toString function and returns the name of the Truck
+		 */
 		@Override
 		public String toString()
 		{
