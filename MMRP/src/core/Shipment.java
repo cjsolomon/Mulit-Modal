@@ -422,92 +422,164 @@ public class Shipment extends BaseClass {
 		}
 	}//End of setMaxStops(int s)
 	
-	
+	/**
+	 * This function will return the maximum number of stops the Shipment is allowed
+	 * @return Returns the maximum number of stops the Shipment is allowed
+	 */
 	public int getMaxStops()
 	{
 		return maxStops;
-	}
+	}//End of getMaxStops()
 	
+	/**
+	 * This function will return the loading rate of the Shipment
+	 * @return Returns the loading rate for the Shipment
+	 */
 	public int getLoadingRate()
 	{
 		return this.loadingRate;
-	}
-	public void setLoadingRate(int r)
+	}//End of getLoadingRate()
+	
+	/**
+	 * This function will set the loading rate for the Shipment
+	 * @param newLoadingRate This is the new loading rate for teh Shipment
+	 */
+	public void setLoadingRate(int newLoadingRate)
 	{
-		if(this.loadingRate!=r)
+		//NEED ERROR CHECKING
+		if(this.loadingRate!=newLoadingRate)
 		{
-			this.loadingRate=r;
+			this.loadingRate=newLoadingRate;
 			MarkDirty();
 		}
-	}
+	}//End of setLoadingRate(int newLoadingRate)
 	
+	/**
+	 * This function returns the unloading type for the Shipment
+	 * @return Returns the unloading type for the Shipment
+	 */
 	public String getUnloadType()
 	{
 		return this.unloadingType;
-	}
-	public void setUnloadType(String t)
+	}//End of getUnloadType()
+	
+	/**
+	 * This function sets the unloading type for the Shipment
+	 * @param newUnloadingType This is the new unloading type of the Shipment
+	 */
+	public void setUnloadType(String newUnloadingType)
 	{
-		if(this.unloadingType==null||!unloadingType.equals(t))
+		//NEEDS ERROR CHECKING
+		if(this.unloadingType==null||!unloadingType.equals(newUnloadingType))
 		{
-			this.unloadingType=t;
+			this.unloadingType=newUnloadingType;
 			MarkDirty();
 		}
-	}
-	public void setLoadingType(String t)
+	}//End of setUnloadType(String newUnloadingType)
+	
+	/**
+	 * This function will set the loading type for the Shipment
+	 * @param newLoadingType This is the new loading type for the Shipment
+	 */
+	public void setLoadingType(String newLoadingType)
 	{
-		if(this.loadingType==null || !this.loadingType.equals(t))
+		//NEEDS ERROR CHECKING
+		if(this.loadingType==null || !this.loadingType.equals(newLoadingType))
 		{
-			this.loadingType=t;
+			this.loadingType=newLoadingType;
 			MarkDirty();
 		}
-	}
-	public void setTrailerType(String t)
+	}//End of setLoadingType(String t)
+	
+	/**
+	 * This function sets the trailer type for the Shipment
+	 * @param newTrailerType This is the new trailer type for the Shipment
+	 */
+	public void setTrailerType(String newTrailerType)
 	{
-		if(this.trailerType==null || !this.trailerType.equals(t))
+		//Error checking
+		if(this.trailerType==null || !this.trailerType.equals(newTrailerType))
 		{
-			this.trailerType=t;
+			this.trailerType=newTrailerType;
 			MarkDirty();
 		}
-	}
+	}//End of setTrailerType(String newTrailerType)
+	
+	/**
+	 * This function returns the trailer type for the Shipment
+	 * @return Returns the trailer type of the Shipment
+	 */
 	public String getTrailerType()
 	{
 		return this.trailerType;
-	}
+	}//End of getTrailerType()
 	
-	public void setPrefCarrier(String s)
+	/**
+	 * This function sets the Carrier's preference for the Shipment
+	 * @param newCarrierPref This is the new Carrier's preference for the Shipment
+	 */
+	public void setPrefCarrier(String newCarrierPref)
 	{
-		if(this.prefCarriers==null || !this.prefCarriers.equals(s))
+		//NEED ERROR CHECKING
+		if(this.prefCarriers==null || !this.prefCarriers.equals(newCarrierPref))
 		{
-			this.prefCarriers=s;
+			this.prefCarriers=newCarrierPref;
 			MarkDirty();
 		}
-	}
+	}//End of setPrefCarrier(String newCarrierPref)
+	
+	/**
+	 * This function will return the Carrier's preference for the Shipment
+	 * @return Returns the Carrier's preference for the Shipment
+	 */
 	public String getPrefCarriers()
 	{
 		return this.prefCarriers;
-	}
+	}//End of getPrefCarriers()
+	
+	/**
+	 * This function sets the history of the Shipment
+	 * @param hist This is the new history for the Shipment
+	 */
 	public void setHistory(ArrayList<ShipmentHistory> hist)
 	{
+		//Need some error checking and fleshing out
 		history=hist;
 		for(int i = 0; i<hist.size();i++)
 		{
 			
 		}
-	}
-	public void setWeight(int w)
+	}//End of setHistory(ArrayList<ShipmentHistory> hist)
+	
+	/**
+	 * This function sets the weight of the Shipment
+	 * @param newWeight This is the newWeight for the Shipment
+	 */
+	public void setWeight(int newWeight)
 	{
-		if(this.weight!=w)
+		if(this.weight!=newWeight)
 		{
-			this.weight=w;
+			this.weight=newWeight;
 			MarkDirty();
 		}
-	}
+	}//End of setWeight(int newWeight)
+	
+	/**
+	 * This function returns the weight of the Shipment
+	 * @return Returns the weight of the Shipment
+	 */
 	public int getWeight()
 	{
 		return this.weight;
-	}
+	}//End of getWeight()
+	
+	/**
+	 * This function sets the history of the Shipment based on segments its visited
+	 * @param hist This is an ArrayList of Segments that the shipment has/will visit and will build a history from
+	 */
 	public void setHistoryFromSegments(ArrayList<Segment> hist)
 	{
+		//Need some error checking
 		history=new ArrayList<ShipmentHistory>();
 		for(int i = 0; i<hist.size();i++)
 		{
@@ -518,19 +590,40 @@ public class Shipment extends BaseClass {
 			temp.Update();
 			history.add(temp);
 		}
-	}
+	}//End of setHistoryFromSegments(ArrayList<Segment> hist)
+	
+	/**
+	 * This function will return the ShipmentHistory of the Shipment
+	 * @return Returns an ArrayList of ShipmentHistory Objects for the Shipment
+	 */
 	public ArrayList<ShipmentHistory> getHistory()
 	{
 		return history;
-	}
+	}//End of ArrayList<ShipmentHistory> getHistory()
+	
+	/**
+	 * Thus function returns the start location of the Shipment
+	 * @return Returns the start location object of the Shipment
+	 */
 	public Location loadStartLocation()
 	{
 		return Location.Load(fromLocationID);
-	}
+	}//End of loadStartLocation()
+	
+	/**
+	 * This function returns the end location of the Shipment
+	 * @return Returns the end location object of the Shipment
+	 */
 	public Location loadEndLocation()
 	{
 		return Location.Load(toLocationID);
-	}
+	}//End of loadEndLocation()
+	
+	/**
+	 * This function loads a Shipment from the database based on the given id
+	 * @param id This is the id of the Shipment to load from the database
+	 * @return Returns the Shipment loaded from the database based on the given id
+	 */
 	public static Shipment Load(int id)
 	{
 		try
@@ -549,8 +642,13 @@ public class Shipment extends BaseClass {
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
 	
+	/**
+	 * This function will return an ArrayList of Shipments from the database based on the given where clause
+	 * @param where This is the clause that will determine which Shipments to load from the database
+	 * @return Returns an ArrayList of Shipments loaded from the database based on the given where clause
+	 */
 	public static ArrayList<Shipment> LoadAll(String where)
 	{
 		ArrayList<Shipment> returnList = new ArrayList<Shipment>();
@@ -570,20 +668,18 @@ public class Shipment extends BaseClass {
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
+	}//End of LoadAll(String where)
 	
+	/**
+	 * This function will load all the Shipments at the given Segment
+	 * @param segID This is the id of the Segment that will return all the Shipments on it
+	 * @return Returns an ArrayList of Shipments on the given Segment
+	 */
 	public static ArrayList<Shipment> LoadAllForSegment(int segID)
 	{
 		ArrayList<Shipment> returnList = new ArrayList<Shipment>();
 		try 
 		{
-			/*
-			 * SELECT * FROM `multi-modal`.shipment where shipmentID in
-(
-	Select shipmentID from `multi-modal`.shipmentHistory where segmentID=104
-
-);
-			 */
 			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment where shipmentID in ( Select shipmentID from shipmentHistory where segmentID = " +  segID+")");
 			for(int i = 0; i<temp.size();i++)
 			{
@@ -597,7 +693,14 @@ public class Shipment extends BaseClass {
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
+	}//End of LoadAllForSegment(int segID)
+	
+	/**
+	 * This function will build a new Shipment object based on the passed in data
+	 * @param data This is the data that will be used to build a new Shipment
+	 * @return Returns a Shipment object built from the passed in data
+	 * @throws SQLException
+	 */
 	public static Shipment BuildFromDataRow(Map<String,Object> data) throws SQLException
 	{
 		Shipment s = new Shipment((Integer)data.get("ShipmentID"));
@@ -619,8 +722,16 @@ public class Shipment extends BaseClass {
 			s.setTimeToUnload((Integer)data.get("unloadingTime"));
 		if((Integer)data.get("shipper")!=null)
 			s.setShipperID((Integer)data.get("shipper"));
-		s.setTollRoads((Boolean)data.get("takeTollRoads"));
-		s.setCongestionByPass((Boolean)data.get("localCongestionByPass"));
+		if((Boolean)data.get("takeTollRoads")){
+			s.setTollRoadsTrue();
+		}else{
+			s.setTollRoadsFalse();
+		}
+		if((Boolean)data.get("localCongestionByPass")){
+			s.setCongestionByPassTrue();
+		}else{
+			s.setCongestionByPassFalse();
+		}
 		s.setTrailerType((String)data.get("trailerType"));
 		s.setLoadingType((String)data.get("loadingType"));
 		s.setUnloadType((String)data.get("unloadingType"));
@@ -631,7 +742,11 @@ public class Shipment extends BaseClass {
 		s.MarkClean();
 		return s;
 		
-	}
+	}//End of BuildFromDataRow(Map<String,Object> data)
+	
+	/**
+	 * This function will update the Shipment on the database
+	 */
 	@Override
 	boolean Update() {
 		try
@@ -719,8 +834,11 @@ public class Shipment extends BaseClass {
 			return false;
 		}//End of catch block
 
-	}
+	}//End of Update()
 
+	/**
+	 * This function will delete the shipment from the database
+	 */
 	@Override
 	boolean Delete() {
 		try
@@ -734,13 +852,17 @@ public class Shipment extends BaseClass {
 			return false;
 		}
 
-	}
+	}//End of Delete()
+	
+	/**
+	 * This function will delete the entire history of the Shipment
+	 */
 	public void DeleteAllHistory()
 	{
 		for(int i=0;i<history.size();i++)
 		{
 			history.get(i).Delete();
 		}
-	}
+	}//End of DeleteAllHistory()
 
-}
+}//End of Shipment Class
