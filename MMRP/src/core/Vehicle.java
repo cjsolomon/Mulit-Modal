@@ -233,8 +233,8 @@ public abstract class Vehicle extends BaseClass {
 		}//End of getVehicleName()
 		
 		//Abtract Functions
-		abstract void Update();
-		abstract void Delete();
+		abstract boolean Update();
+		abstract boolean Delete();
 	
 	public ArrayList<Segment> getSchedule()
 	{
