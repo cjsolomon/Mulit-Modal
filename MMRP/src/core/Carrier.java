@@ -28,6 +28,13 @@ public class Carrier extends BaseClass
 	private int costModifierRail;
 	private int costModifierPlane;
 	
+	private final int maxSafetyRating = 100;
+	private final int minSafetyRating = 0;
+	private final int maxAuthorize = 5;
+	private final int minAuthorize = 0;
+	private final double minModifier = 0.0;
+	private final double maxModifier = 1.0;
+	
 	/**
 	 * Default constructor for a Carrier
 	 */
@@ -162,10 +169,11 @@ public class Carrier extends BaseClass
 	 * @param areaCode This is the new area code for the Carrier
 	 */
 	public void setAreaCode(String areaCode) {
-		//NEED SOME ERROR CHECKING
-		if(this.areaCode != areaCode){
-			this.areaCode = areaCode;
-			MarkDirty();
+		if(FormatChecker.isValidAreaCode(areaCode)){
+			if(this.areaCode != areaCode){
+				this.areaCode = areaCode;
+				MarkDirty();
+			}
 		}
 	}//End of setAreaCode(String areaCode)
 	
@@ -182,10 +190,12 @@ public class Carrier extends BaseClass
 	 * @param faxNumber This is the new fax number for the Carrier
 	 */
 	public void setFaxNumber(String faxNumber) {
-		//NEED SOME ERROR CHECKING
 		if(this.faxNumber != faxNumber){
-			this.faxNumber = faxNumber;
-			MarkDirty();
+			if(FormatChecker.isValidPhone(faxNumber))
+			{
+				this.faxNumber = faxNumber;
+				MarkDirty();
+			}
 		}
 	}//End of setFaxNumber(String faxNumber)
 	
@@ -202,10 +212,12 @@ public class Carrier extends BaseClass
 	 * @param emailAddress This is the Carrier's new email address
 	 */
 	public void setEmailAddress(String emailAddress) {
-		//NEED SOME ERROR CHECKING
 		if(this.emailAddress != emailAddress){
-			this.emailAddress = emailAddress;
-			MarkDirty();
+			if(FormatChecker.isValidEmail(emailAddress))
+			{
+				this.emailAddress = emailAddress;
+				MarkDirty();
+			}
 		}
 	}//End of setEmailAddress(String emailAddress)
 	
@@ -222,9 +234,15 @@ public class Carrier extends BaseClass
 	 * @param safetyRating This is the new safety rating for the Carrier
 	 */
 	public void setSafetyRating(int safetyRating) {
-		//NEED SOME ERROR CHECKING
 		if(this.safetyRating != safetyRating){
-			this.safetyRating = safetyRating;
+			if(FormatChecker.inRange(safetyRating, minSafetyRating, maxSafetyRating))
+			{
+				this.safetyRating = safetyRating;
+			}
+			else
+			{
+				this.safetyRating = 0;
+			}
 			MarkDirty();
 		}
 	}//End of setSafetyRating(int safetyRating)
@@ -242,9 +260,11 @@ public class Carrier extends BaseClass
 	 * @param authorize This is the new authorization value for the Carrier
 	 */
 	public void setAuthorize(int authorize) {
-		//NEED ERROR CHECKING
 		if(this.authorize != authorize){
-			this.authorize = authorize;
+			if(FormatChecker.inRange(authorize, minAuthorize, maxAuthorize))
+				this.authorize = authorize;
+			else
+				this.authorize = 0;
 			MarkDirty();
 		}
 	}//End of setAuthorize(int authorize)

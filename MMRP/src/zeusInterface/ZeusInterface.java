@@ -15,7 +15,7 @@ public class ZeusInterface {
 	 * @return zeusTruck
 	 * This function returns a Zeus Truck. Must be passed an MMRP Truck and the current Segment 
 	 */
-	static zeus.Truck generateZeusTruck(core.Truck mmrpTruck, core.Segment currSeg)
+	public static zeus.Truck generateZeusTruck(core.Truck mmrpTruck, core.Segment currSeg)
 	{
 		zeus.VRPTruckType tt = generateTruckType(currSeg);  //Construct a Zeus-Truck Type for this truck
 		//float x = mmrpTruck.getCarrier().getLatitude();
@@ -29,7 +29,7 @@ public class ZeusInterface {
 	 * @param segment
 	 * @return Truck Type
 	 */
-	static zeus.VRPTruckType generateTruckType(core.Segment seg)
+	public static zeus.VRPTruckType generateTruckType(core.Segment seg)
 	{
 		zeus.VRPTruckType type = new zeus.VRPTruckType();
 		float capacity = (float)seg.getTravelType().getMaxCap();
@@ -51,7 +51,7 @@ public class ZeusInterface {
 	 * @return zeusShipment
 	 * This function converts a MMRP Shipment into a Zeus Shipment 
 	 */
-	static zeus.Shipment translateToZeus(core.Shipment mmrpShipment)
+	public static zeus.Shipment translateToZeus(core.Shipment mmrpShipment)
 	{
 		zeus.Shipment zeusShipment = new zeus.Shipment();
 		/**TODO
