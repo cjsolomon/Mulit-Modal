@@ -10,8 +10,8 @@ public class Test extends BaseClass
 	}
 	
 	public Test Load(){return null;}
-	public void Update(){};
-	public void Delete(){};
+	public boolean Update(){return true;};
+	public boolean Delete(){return true;};
 	public void printRandmonness()
 	{
 

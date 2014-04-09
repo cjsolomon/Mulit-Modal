@@ -700,9 +700,10 @@ public class Segment extends BaseClass {
 		
 	/**
 	 * This function overrides the parent's Update function and will handle changes made to the Segment object in the database
+	 * @return 
 	 */
 	@Override
-	public void Update() 
+	public boolean Update() 
 	{
 		//MORE COMMENTS. CATDOG FOR THE WIN!!!!
 		try
@@ -758,10 +759,12 @@ public class Segment extends BaseClass {
 					MarkClean();													//Mark the Segment as clean
 				}//End of isDirty if
 			}//End of isOld else
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);										//Print out the error
+			return false;
 		}//End of catch block
 			
 	}//End of the overridden Update()
@@ -792,17 +795,20 @@ public class Segment extends BaseClass {
 	
 	/**
 	 * This is the overridden Delete function of the parent class and will remove this Segment from the database
+	 * @return 
 	 */
 	@Override
-	public  void Delete() 
+	public  boolean Delete() 
 	{
 		try
 		{
 			executeCommand("Delete from Segment Where SegmentID = " + this.id);			//Delete the Segment
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);										//Print out the error
+			return false;
 		}//End of catch block
 
 	}//End of the overridden Delete()

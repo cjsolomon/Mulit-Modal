@@ -32,7 +32,7 @@ public class Truck extends Vehicle {
 	
 	//This function overrides the parent's Update function and will handle changes made to the Truck object in the database
 	@Override
-	public void Update() 
+	public boolean Update() 
 	{
 		try
 		{
@@ -63,25 +63,29 @@ public class Truck extends Vehicle {
 					MarkClean();																	//Mark the Truck as clean
 				}//End of isDirty if
 			}//End of isOld else
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);														//Print the error
+			return false;
 		}//End of catch block
 		
 	}//End of overridden Update()
 
 	//This is the overridden Delete function of the parent class and will remove this Truck from the database
 	@Override
-	public  void Delete() 
+	public  boolean Delete() 
 	{
 		try
 		{
 			executeCommand("Delete from Truck Where TruckID = " + this.id);							//Delete this Truck
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);														//Print the error
+			return false;
 		}//End of catch block
 
 	}//End of the overridden Delete()

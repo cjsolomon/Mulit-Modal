@@ -22,12 +22,12 @@ public class Location extends BaseClass {
 		this.id=id;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
 	}
-	
+
 	public int getID()
 	{
 		return id;
 	}
-	
+
 	public void setLatitude(double lat)
 	{
 		if(this.latitude!=lat)
@@ -36,12 +36,12 @@ public class Location extends BaseClass {
 			MarkDirty();
 		}
 	}
-	
+
 	public double getLatitude()
 	{
 		return this.latitude;
 	}
-	
+
 	public void setState(String st)
 	{
 		if(state==null || !this.state.equals(st)) 
@@ -50,12 +50,12 @@ public class Location extends BaseClass {
 			MarkDirty();
 		}
 	}
-	
+
 	public String getState() 
 	{
 		return this.state;
 	}
-	
+
 	public void setCountry(String nation)
 	{
 		if(country==null || !this.country.equals(nation))
@@ -64,12 +64,12 @@ public class Location extends BaseClass {
 			MarkDirty();
 		}
 	}
-	
+
 	public String getCountry()
 	{
 		return this.country;
 	}
-	
+
 	public void setLongitude(double lon)
 	{
 		if(this.longitude!=lon)
@@ -82,7 +82,7 @@ public class Location extends BaseClass {
 	{
 		return this.longitude;
 	}
-	
+
 	public void addTravelMode(Vehicle.TravelModes mode)
 	{
 		if(!travelModes.contains(mode))
@@ -91,7 +91,7 @@ public class Location extends BaseClass {
 			MarkDirty();
 		}
 	}
-	
+
 	public boolean travelTypeAvailable(Vehicle.TravelModes mode)
 	{
 		if(travelModes.contains(mode))
@@ -100,7 +100,7 @@ public class Location extends BaseClass {
 		}
 		return false;
 	}
-	
+
 	public void setName(String s)
 	{
 		if(name==null || !name.equals(s))
@@ -109,81 +109,85 @@ public class Location extends BaseClass {
 			MarkDirty();
 		}
 	}
-	
+
 	public String getName()
 	{
 		return name;
 	}
-	
+
 
 	@Override
-	public void Update() 
+	public boolean Update() 
 	{
 		try
 		{
-		if(isNew())
-		{
-			String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1";
-			
-			for(int i =1;i<travelModes.size();i++)
-				sql+=",TravelType"+(i+1);
-		
-			sql+=") Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString()+"'";
-			
-			for(int i =1;i<travelModes.size();i++)
-				sql+=",'"+travelModes.get(i).toString()+"'";
-			
-			sql+=")";
-			
-			executeCommand(sql);
-			
-			sql="Select LocationID from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "' TravelType1 ='"+ travelModes.get(0).toString()+"'";
-			for(int i =1;i<travelModes.size();i++)
-				sql+=" AND TravelType"+(i+1)+"='"+travelModes.get(i).toString()+"'";
-			
-			ArrayList<Map<String,Object>> temp =executeQuery(sql);
-			if(temp.size()>0)
+			if(isNew())
 			{
-				this.id = (Integer)temp.get(0).get("ShipID");
-				
-			}
-			MarkClean();
-			MarkOld();
-		}
-		else
-		{
-			if(isDirty())
-			{
-				String sql ="Update Location Set Name = '" + this.getName() + "' , Latitude = '"+this.getLatitude()+
-						"' , Longitude = '" + this.getLongitude() + "' , TravelType1 = '" + this.travelModes.get(0).toString()+ "'";
-				for(int i = 1; i< this.travelModes.size();i++)
-				{
-					sql+= " , TravelType"+(i+1)+" = '" + travelModes.get(i).toString() + "'";
-				}
-				
-				sql += " Where LocationID = "+this.id;
+				String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1";
+
+				for(int i =1;i<travelModes.size();i++)
+					sql+=",TravelType"+(i+1);
+
+				sql+=") Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString()+"'";
+
+				for(int i =1;i<travelModes.size();i++)
+					sql+=",'"+travelModes.get(i).toString()+"'";
+
+				sql+=")";
+
 				executeCommand(sql);
+
+				sql="Select LocationID from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "' TravelType1 ='"+ travelModes.get(0).toString()+"'";
+				for(int i =1;i<travelModes.size();i++)
+					sql+=" AND TravelType"+(i+1)+"='"+travelModes.get(i).toString()+"'";
+
+				ArrayList<Map<String,Object>> temp =executeQuery(sql);
+				if(temp.size()>0)
+				{
+					this.id = (Integer)temp.get(0).get("ShipID");
+
+				}
 				MarkClean();
+				MarkOld();
 			}
-		}
+			else
+			{
+				if(isDirty())
+				{
+					String sql ="Update Location Set Name = '" + this.getName() + "' , Latitude = '"+this.getLatitude()+
+							"' , Longitude = '" + this.getLongitude() + "' , TravelType1 = '" + this.travelModes.get(0).toString()+ "'";
+					for(int i = 1; i< this.travelModes.size();i++)
+					{
+						sql+= " , TravelType"+(i+1)+" = '" + travelModes.get(i).toString() + "'";
+					}
+
+					sql += " Where LocationID = "+this.id;
+					executeCommand(sql);
+					MarkClean();
+				}
+			}
+			return true;
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			return false;
 		}
-		
+
 	}
 
 	@Override
-	public  void Delete() 
+	public  boolean Delete() 
 	{
 		try
 		{
 			executeCommand("Delete From location where locationID = " + id);
+			return true;
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error "+ ex);
+			return false;
 		}
 
 	}
@@ -200,9 +204,9 @@ public class Location extends BaseClass {
 		{
 			System.out.println("Error " + ex);
 		}
- 		return null;
+		return null;
 	}
-	
+
 	public static ArrayList<Location> LoadAll(String where)
 	{
 		ArrayList<Location> temp = new ArrayList<Location>();
@@ -248,7 +252,7 @@ public class Location extends BaseClass {
 			}
 		}
 		temp.MarkClean();
-		
+
 		return temp;
 	}
 	public void VehcileArriving(Vehicle v)

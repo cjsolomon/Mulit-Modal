@@ -275,9 +275,10 @@ public class Carrier extends BaseClass
 	 * 
 	 * If the object is new it will be inserted into the database.
 	 * If the object is dirty, the database entry will be updated
+	 * @return 
 	 */
 	@Override
-	public void Update() 
+	public boolean Update() 
 	{
 		try
 		{
@@ -307,6 +308,7 @@ public class Carrier extends BaseClass
 					MarkClean();												
 					MarkOld();													
 				}//End of entry found if
+				
 			}//End of isNew if
 			else
 			{
@@ -322,23 +324,27 @@ public class Carrier extends BaseClass
 				MarkClean();												
 				}//End of isDirty if
 			}//End of isOld else
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);									//Print out the error
+			return false;
 		}//End of catch block
 	
 	}//End of overridden Update()
 	
 	@Override
-	void Delete() {
+	boolean Delete() {
 		try
 		{
-			executeCommand("Delete from Carriers Where CarrierID = " + this.id);					
+			executeCommand("Delete from Carriers Where CarrierID = " + this.id);	
+			return true;
 		}//End of the try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);	
+			return false;
 		}
 
 	}
