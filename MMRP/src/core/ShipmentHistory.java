@@ -10,62 +10,116 @@ public class ShipmentHistory extends BaseClass {
 	private int shipmentID;
 	private int nodeNumber;
 	
+	/**
+	 * This is the default constructor for the ShipmentHistory
+	 */
 	public ShipmentHistory()
 	{
 		MarkNew();
-	}
+	}//End of ShipmentHistory()
+	
+	/**
+	 * This is the argumented constructor for the ShipmentHistory
+	 * @param id This is the new id for the ShipmentHistory
+	 */
 	public ShipmentHistory(int id)
 	{
 		this.id=id;
 		MarkOld();
-	}
+	}//End of ShipmentHistory(int id)
 	
+	/**
+	 * This function will set the Segment's id for this ShipmentHistory
+	 * @param id This is the new Segment id for the ShipmentHistory
+	 */
 	public void setSegmentID(int id)
 	{
+		//NEED SOME ERROR CHECKING
 		if(this.segmentID!=id)
 		{
 			segmentID=id;
 			MarkDirty();
 		}
-	}
+	}//End of setSegmentID(int id)
+	
+	/**
+	 * This function will return the id of the Segment for this ShipmentHistory
+	 * @return Returns the Segment id for the ShipmentHistory
+	 */
 	public int getSegmentID()
 	{
 		return segmentID;
-	}
+	}//End of getSegmentID()
+	
+	/**
+	 * This function will return the Segment for this ShipmentHistory
+	 * @return Returns the Segment for this ShipmentHistory
+	 */
 	public Segment getSegment()
 	{
 		return Segment.Load(this.segmentID);
-	}
+	}//End of getSegment()
 	
+	/**
+	 * This function sets the Shipment id
+	 * @param id This is the new Shipment id
+	 */
 	public void setShipmentID(int id)
 	{
+		//NEED SOME ERROR CHECKING
 		if(this.shipmentID!=id)
 		{
 			shipmentID=id;
 			MarkDirty();
 		}
-	}
+	}//End of setShipmentID(int id)
+	
+	/**
+	 * This function returns the Shipment id for the ShipmentHistory
+	 * @return Returns the Shipment id 
+	 */
 	public int getShipmentID()
 	{
 		return this.shipmentID;
-	}
+	}//End of getShipmentID()
+	
+	/**
+	 * This function returns the Shipment object for this ShipmentHistory
+	 * @return Returns the Shipment
+	 */
 	public Shipment getShipment()
 	{
 		return Shipment.Load(this.shipmentID);
-	}
-	public void setNodeNumber(int i)
+	}//End of getShipment()
+	
+	/**
+	 * This function sets the node number for the ShipmentHistory
+	 * @param newNodeNumber This is the new node number for the ShipmentHistory
+	 */
+	public void setNodeNumber(int newNodeNumber)
 	{
-		if(this.nodeNumber!=i)
+		//NEED ERROR CHECKING
+		if(this.nodeNumber!=newNodeNumber)
 		{
-			nodeNumber=i;
+			nodeNumber=newNodeNumber;
 			MarkDirty();
 		}
-	}
+	}//End of setNodeNumber(int newNodeNumber)
+	
+	/**
+	 * This function returns the node number for the ShipmentHistory
+	 * @return Returns the node number 
+	 */
 	public int getNodeNumber()
 	{
 		return nodeNumber;
-	}
+	}//End of getNodeNumber()
 	
+	/**
+	 * This function will return an ArrayList of ShipmentHistory for a given Shipment id
+	 * @param id This is the id of the Shipment that will be used to retreive all the ShipmentHistory
+	 * @return Returns an ArrayList of ShipmentHistory for the given Shipment
+	 */
 	public static ArrayList<ShipmentHistory> LoadAllForShipment(int id)
 	{
 		ArrayList<ShipmentHistory> returnList = new ArrayList<ShipmentHistory>();
@@ -83,7 +137,13 @@ public class ShipmentHistory extends BaseClass {
 			System.out.println("Error " + ex);
 		}
 		return null;
-	}
+	}//End of LoadAllForShipment(int id)
+	
+	/**
+	 * This function will build a new ShipmentHistory object from the passed in data
+	 * @param data This is the data that will be used to build the ShipmentHistory
+	 * @return Returns a new ShipmentHistory build from the passed in data
+	 */
 	public static ShipmentHistory BuildFromDataRow(Map<String,Object> data)
 	{
 		ShipmentHistory sh = new ShipmentHistory(Integer.parseInt(data.get("ShipmentHistoryID").toString()));
@@ -92,7 +152,11 @@ public class ShipmentHistory extends BaseClass {
 		sh.setNodeNumber((Integer)data.get("NodeNumber"));
 		sh.MarkClean();
 		return sh;
-	}
+	}//End of BuildFromDataRow(Map<String,Object> data)
+	
+	/**
+	 * This function will update the ShipmentHistory in the database
+	 */
 	@Override
 	boolean Update() {
 		try
@@ -131,8 +195,11 @@ public class ShipmentHistory extends BaseClass {
 			System.out.println("Error " + ex);													//Print out the error
 			return false;
 		}//End of catch block
-	}
+	}//End of Update()
 
+	/**
+	 * This function will delete the ShipmentHistory from the database
+	 */
 	@Override
 	boolean Delete() {
 		try
@@ -146,6 +213,6 @@ public class ShipmentHistory extends BaseClass {
 			return false;
 		}
 
-	}
+	}//End of Delete()
 
-}
+}//End of ShipmentHistory Class
