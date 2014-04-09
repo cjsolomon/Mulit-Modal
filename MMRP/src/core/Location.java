@@ -12,14 +12,27 @@ public class Location extends BaseClass {
 	private String country; 
 	private ArrayList<Vehicle> vehiclesAtLocation;
 	
+	//Default Variables
+	private final double DEFAULT_LATITUDE = 0;
+	private final double DEFAULT_LONGITUDE = 0;
+	private final String DEFAULT_LOCATION_NAME = "defaultLocationName";
+	private final String DEFAULT_STATE = "PA";
+	private final String DEFAULT_COUNTRY = "USA";
+	
 	/**
 	 * This is the default constructor for the Location object
 	 */
 	public Location()
 	{
+		this.country = DEFAULT_COUNTRY;
+		this.latitude = DEFAULT_LATITUDE;
+		this.longitude = DEFAULT_LONGITUDE;
+		this.name = DEFAULT_LOCATION_NAME;
+		this.state = DEFAULT_STATE;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkNew();
+		MarkClean();
 	}//End of default Location constructor
 	
 	/**
@@ -29,7 +42,15 @@ public class Location extends BaseClass {
 	public Location(int id)
 	{
 		this.id=id;
+		this.country = DEFAULT_COUNTRY;
+		this.latitude = DEFAULT_LATITUDE;
+		this.longitude = DEFAULT_LONGITUDE;
+		this.name = DEFAULT_LOCATION_NAME;
+		this.state = DEFAULT_STATE;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
+		vehiclesAtLocation=new ArrayList<Vehicle>();
+		MarkNew();
+		MarkClean();
 
 	}//End of Location(int id)
 	

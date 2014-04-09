@@ -17,13 +17,20 @@ import java.util.Map;
 
 public class Plane extends Vehicle {
 	
+	//Default Variables
+	private final String DEFAULT_PLANE_NAME = "defaultPlaneName";
+	
 	/**
 	 * This is the plane default constructor
 	 */
 	public Plane()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Plane);						//Set the TravelMode to Plane
-		MarkNew();															//Mark the Plane as new
+		super.setTravelMode(Vehicle.TravelModes.Plane);					//Set the TravelMode to Plane
+		this.setCarrier(new Carrier());									//Set the default Plane Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Plane status to RUNNING
+		this.name = DEFAULT_PLANE_NAME;									//Set the Plane name					
+		this.MarkNew();													//Mark the Plane as new
+		this.MarkClean();												//Mark the Plane as clean
 	}//End of Plane default constructor
 	
 	/**
@@ -32,8 +39,13 @@ public class Plane extends Vehicle {
 	 */
 	public Plane(int id)
 	{
-		super.setTravelMode(Vehicle.TravelModes.Plane);						//Set the TravelMode to Plane
-		this.id=id;															//Set the Plane's id
+		this.id=id;														//Set the Plane's id
+		super.setTravelMode(Vehicle.TravelModes.Plane);					//Set the TravelMode to Plane
+		this.setCarrier(new Carrier());									//Set the default Plane Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Plane status to RUNNING
+		this.name = DEFAULT_PLANE_NAME;									//Set the Plane name					
+		this.MarkNew();													//Mark the Plane as new
+		this.MarkClean();												//Mark the Plane as clean
 																			
 	}//End of the Plane(int id) constructor
 	

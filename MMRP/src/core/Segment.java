@@ -38,13 +38,41 @@ public class Segment extends BaseClass {
 	private static final int HIGEST_ARRIVAL_TIME = 86400;		//This is the higest possible arrival time
 	private static final int LOWEST_DEPARTURE_TIME = 0;			//This is the lowest possible departure time
 	
+	//Default Variables
+	private static final int DEFAULT_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_DEPARTURE_TIME = 0;
+	private static final double DEFAULT_DISTANCE = 100;
+	private static final int DEFAULT_EARLIEST_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_EARLIEST_DEPARTURE_TIME = 0;
+	private static final int DEFAULT_START_LOCATION_ID = 1;
+	private static final String DEFAULT_LANES = "defaultLanes";
+	private static final int DEFAULT_LATEST_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 0;
+	private static final String DEFAULT_MODE = "defaultMode";
+	private static final int DEFAULT_END_LOCATION_ID = 2;
+	
 	/**
 	 * This is the default constructor for the Segment
 	 */
 	public Segment()
 	{
+		this.arrivalTime = DEFAULT_ARRIVAL_TIME;
+		this.departureTime = DEFAULT_DEPARTURE_TIME;
+		this.distance = DEFAULT_DISTANCE;
+		this.earliestArrivalTime = DEFAULT_EARLIEST_ARRIVAL_TIME;
+		this.earliestDepartureTime = DEFAULT_EARLIEST_DEPARTURE_TIME;
+		this.fromID = DEFAULT_START_LOCATION_ID;
+		this.lanes = DEFAULT_LANES;
+		this.latestArrivalTime = DEFAULT_LATEST_ARRIVAL_TIME;
+		this.latestDepartureTime = DEFAULT_LATEST_DEPARTURE_TIME;
+		this.mode = DEFAULT_MODE;
+		this.shippingRate = new ShippingRate();
+		this.toID = DEFAULT_END_LOCATION_ID;
+		this.travelType = new TravelType();
+		this.vehicle = new Truck();
+		this.onBoard=new ArrayList<Shipment>();
 		MarkNew();												//Mark this Segment as new
-		onBoard=new ArrayList<Shipment>();
+		MarkClean();
 	}//End of the default Segment constructor
 	
 	/**
@@ -54,8 +82,23 @@ public class Segment extends BaseClass {
 	public Segment(int id)
 	{
 		this.id=id;												//Set the Segment id
-																//SHOULD WE ALSO SET THIS TO NEW OR DIRTY??
-		onBoard=new ArrayList<Shipment>();
+		this.arrivalTime = DEFAULT_ARRIVAL_TIME;
+		this.departureTime = DEFAULT_DEPARTURE_TIME;
+		this.distance = DEFAULT_DISTANCE;
+		this.earliestArrivalTime = DEFAULT_EARLIEST_ARRIVAL_TIME;
+		this.earliestDepartureTime = DEFAULT_EARLIEST_DEPARTURE_TIME;
+		this.fromID = DEFAULT_START_LOCATION_ID;
+		this.lanes = DEFAULT_LANES;
+		this.latestArrivalTime = DEFAULT_LATEST_ARRIVAL_TIME;
+		this.latestDepartureTime = DEFAULT_LATEST_DEPARTURE_TIME;
+		this.mode = DEFAULT_MODE;
+		this.shippingRate = new ShippingRate();
+		this.toID = DEFAULT_END_LOCATION_ID;
+		this.travelType = new TravelType();
+		this.vehicle = new Truck();
+		this.onBoard=new ArrayList<Shipment>();
+		MarkNew();												//Mark this Segment as new
+		MarkClean();
 	}//End of the arguemented Segment constructor
 
 	/**

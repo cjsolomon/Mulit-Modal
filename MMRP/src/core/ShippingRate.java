@@ -21,12 +21,37 @@ public class ShippingRate extends BaseClass{
 	private double flatRate;
 	private int rank;
 	
+	//Default Variables
+	private static final double DEFAULT_WEIGHT1 = 10;
+	private static final double DEFAULT_WEIGHT2 = 20;
+	private static final double DEFAULT_WEIGHT3 = 30;
+	private static final double DEFAULT_RATE1 = 10;
+	private static final double DEFAULT_RATE2 = 20;
+	private static final double DEFAULT_RATE3 = 30;
+	private static final double DEFAULT_MILE_RATE = 10;
+	private static final double DEFAULT_FLAT_RATE = 1;
+	private static final int DEFAULT_RANK = 1;
+	
 	/**
 	 * This is the default ShippingRate constructor
 	 */
 		public ShippingRate()
 		{
+			this.carrier = new Carrier();
+			this.endLocation = new Location();
+			this.flatRate = DEFAULT_FLAT_RATE;
+			this.mileRate = DEFAULT_MILE_RATE;
+			this.rank = DEFAULT_RANK;
+			this.rate1 = DEFAULT_RATE1;
+			this.rate2 = DEFAULT_RATE2;
+			this.rate3 = DEFAULT_RATE3;
+			this.startLocation = new Location();
+			this.type = new TravelType();
+			this.weight1 = DEFAULT_WEIGHT1;
+			this.weight2 = DEFAULT_WEIGHT2;
+			this.weight3 = DEFAULT_WEIGHT3;
 			MarkNew();													//Mark this ShippingRate as new
+			MarkClean();
 		}//End of default ShippingRate constructor
 		
 		/**
@@ -36,6 +61,21 @@ public class ShippingRate extends BaseClass{
 		public ShippingRate(int id)
 		{
 			this.id=id;													//Set the id
+			this.carrier = new Carrier();
+			this.endLocation = new Location();
+			this.flatRate = DEFAULT_FLAT_RATE;
+			this.mileRate = DEFAULT_MILE_RATE;
+			this.rank = DEFAULT_RANK;
+			this.rate1 = DEFAULT_RATE1;
+			this.rate2 = DEFAULT_RATE2;
+			this.rate3 = DEFAULT_RATE3;
+			this.startLocation = new Location();
+			this.type = new TravelType();
+			this.weight1 = DEFAULT_WEIGHT1;
+			this.weight2 = DEFAULT_WEIGHT2;
+			this.weight3 = DEFAULT_WEIGHT3;
+			MarkNew();													//Mark this ShippingRate as new
+			MarkClean();
 																		
 		}//End of the argumented constructor ShippingRate(int id)
 		

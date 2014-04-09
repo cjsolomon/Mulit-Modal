@@ -35,12 +35,49 @@ public class Carrier extends BaseClass
 	private final double minModifier = 0.0;
 	private final double maxModifier = 1.0;
 	
+	//DEFAULT VALUES
+	private final String DEFAULT_AREA_CODE = "0";
+	private final int DEFAULT_AUTHORIZE = 0;
+	private final String DEFAULT_CARRIER_CODE = "defaultCarrierCode";
+	private final String DEFAULT_CARRIER_NAME = "defaultCarrierName";
+	private final String DEFAULT_CONTRACT_DATE = "January 1 1970";
+	private final int DEFAULT_COST_MOD_BIKE = 1;
+	private final int DEFAULT_COST_MOD_CARGO = 1;
+	private final int DEFAULT_COST_MOD_PLANE = 1;
+	private final int DEFAULT_COST_MOD_TRUCK = 1;
+	private final int DEFAULT_COST_MOD_RAIL = 1;
+	private final String DEFAULT_EMAIL_ADDRESS = "default@default.com";
+	private final String DEFAULT_FAX_NUMBER = "123-456-7890";
+	private final String DEFAULT_INS_END_DATE = "January 1 1970";
+	private final String DEFAULT_SAFETY_RATE_DATE = "January 1 1970";
+	private final int DEFAULT_SAFETY_RATING = 1;
+	
+	
+	
 	/**
 	 * Default constructor for a Carrier
 	 */
 	public Carrier()
 	{
-		MarkNew();
+		this.areaCode = DEFAULT_AREA_CODE;
+		this.authorize = DEFAULT_AUTHORIZE;
+		this.carrierCode = DEFAULT_CARRIER_CODE;
+		this.carrierName = DEFAULT_CARRIER_NAME;
+		this.contractDate = DEFAULT_CONTRACT_DATE;
+		this.costModifierBike = DEFAULT_COST_MOD_BIKE;
+		this.costModifierCargoShip = DEFAULT_COST_MOD_CARGO;
+		this.costModifierPlane = DEFAULT_COST_MOD_PLANE;
+		this.costModifierTruck = DEFAULT_COST_MOD_TRUCK;
+		this.costModifierRail = DEFAULT_COST_MOD_RAIL;
+		this.emailAddress = DEFAULT_EMAIL_ADDRESS;
+		this.faxNumber = DEFAULT_FAX_NUMBER;
+		this.insEndDate = DEFAULT_INS_END_DATE;
+		this.safetyRateDate = DEFAULT_SAFETY_RATE_DATE;
+		this.safetyRating = DEFAULT_SAFETY_RATING;
+		this.sendByEmail = false;
+		this.sendByFax = false;
+		this.MarkNew();
+		this.MarkClean();
 	}//End of default Carrier constructor
 	
 	/**
@@ -50,6 +87,25 @@ public class Carrier extends BaseClass
 	public Carrier(int id)
 	{
 		this.id = id;
+		this.areaCode = DEFAULT_AREA_CODE;
+		this.authorize = DEFAULT_AUTHORIZE;
+		this.carrierCode = DEFAULT_CARRIER_CODE;
+		this.carrierName = DEFAULT_CARRIER_NAME;
+		this.contractDate = DEFAULT_CONTRACT_DATE;
+		this.costModifierBike = DEFAULT_COST_MOD_BIKE;
+		this.costModifierCargoShip = DEFAULT_COST_MOD_CARGO;
+		this.costModifierPlane = DEFAULT_COST_MOD_PLANE;
+		this.costModifierTruck = DEFAULT_COST_MOD_TRUCK;
+		this.costModifierRail = DEFAULT_COST_MOD_RAIL;
+		this.emailAddress = DEFAULT_EMAIL_ADDRESS;
+		this.faxNumber = DEFAULT_FAX_NUMBER;
+		this.insEndDate = DEFAULT_INS_END_DATE;
+		this.safetyRateDate = DEFAULT_SAFETY_RATE_DATE;
+		this.safetyRating = DEFAULT_SAFETY_RATING;
+		this.sendByEmail = false;
+		this.sendByFax = false;
+		this.MarkNew();
+		this.MarkClean();
 	}//End of argumented Carrier constructor
 	
 	/**

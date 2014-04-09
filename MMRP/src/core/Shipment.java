@@ -32,12 +32,57 @@ public class Shipment extends BaseClass {
 	//TODO: prefCarriers should probably be a property of a shipper not a shipment
 	private String prefCarriers;
 	
+	//Default Variables
+	private static final int DEFAULT_START_LOCATION_ID = 1;
+	private static final int DEFAULT_END_LOCATION_ID = 2;
+	private static final int DEFAULT_PRIORITY = 1;
+	private static final int DEFAULT_SIZE = 50;
+	private static final int DEFAULT_WEIGHT = 100;
+	private static final int DEFAULT_EARLIEST_ARRIVAL = 50;
+	private static final int DEFAULT_LATEST_ARRIVAL = 50;
+	private static final int DEFAULT_EARLIEST_DEPARTURE = 0;
+	private static final int DEFAULT_LATEST_DEPARTURE = 0;
+	private static final int DEFAULT_TIME_TO_LOAD = 0;
+	private static final int DEFAULT_TIME_TO_UNLOAD = 0;
+	private static final int DEFAULT_SHIPPER_ID = 1;
+	private static final int DEFAULT_MAX_STOPS = 100;
+	private static final String DEFAULT_HAZMAT_CONSTRAINTS = "defaultHazmatConstraints";
+	private static final int DEFAULT_LOADING_RATE = 1;
+	private static final String DEFAULT_TRAILER_TYPE = "defaultTrailerType";
+	private static final String DEFAULT_LOADING_TYPE = "defaultLoadingType";
+	private static final String DEFAULT_UNLOADING_TYPE = "defaultUnloadingType";
+	private static final String DEFAULT_PREFERRED_CARRIERS = "defaultPreferredCarriers";
+ 
+	
 	/**
 	 * This is the default constructor for the Shipment object
 	 */
 	public Shipment()
 	{
-		MarkNew();
+		this.congestionByPass = false;
+		this.earliestArrival = DEFAULT_EARLIEST_ARRIVAL;
+		this.earliestDeparture = DEFAULT_EARLIEST_DEPARTURE;
+		this.fromLocationID = DEFAULT_START_LOCATION_ID;
+		this.hazmatConstraints = DEFAULT_HAZMAT_CONSTRAINTS;
+		this.latestArrival = DEFAULT_LATEST_ARRIVAL;
+		this.latestDeparture = DEFAULT_LATEST_DEPARTURE;
+		this.loadingRate = DEFAULT_LOADING_RATE;
+		this.loadingType = DEFAULT_LOADING_TYPE;
+		this.maxStops = DEFAULT_MAX_STOPS;
+		this.prefCarriers = DEFAULT_PREFERRED_CARRIERS;
+		this.priority = DEFAULT_PRIORITY;
+		this.shipperID = DEFAULT_SHIPPER_ID;
+		this.size = DEFAULT_SIZE;
+		this.timeToLoad = DEFAULT_TIME_TO_LOAD;
+		this.timeToUnload = DEFAULT_TIME_TO_UNLOAD;
+		this.tollRoads = false;
+		this.toLocationID = DEFAULT_END_LOCATION_ID;
+		this.trailerType = DEFAULT_TRAILER_TYPE;
+		this.unloadingType = DEFAULT_UNLOADING_TYPE;
+		this.weight = DEFAULT_WEIGHT;
+		this.currentLocation = DEFAULT_START_LOCATION_ID;
+		this.MarkNew();
+		this.MarkClean();
 	}//End of the default Shipment constructor
 	
 	/**
@@ -47,7 +92,30 @@ public class Shipment extends BaseClass {
 	public Shipment(int id)
 	{
 		this.id=id;
-		MarkOld();
+		this.congestionByPass = false;
+		this.earliestArrival = DEFAULT_EARLIEST_ARRIVAL;
+		this.earliestDeparture = DEFAULT_EARLIEST_DEPARTURE;
+		this.fromLocationID = DEFAULT_START_LOCATION_ID;
+		this.hazmatConstraints = DEFAULT_HAZMAT_CONSTRAINTS;
+		this.latestArrival = DEFAULT_LATEST_ARRIVAL;
+		this.latestDeparture = DEFAULT_LATEST_DEPARTURE;
+		this.loadingRate = DEFAULT_LOADING_RATE;
+		this.loadingType = DEFAULT_LOADING_TYPE;
+		this.maxStops = DEFAULT_MAX_STOPS;
+		this.prefCarriers = DEFAULT_PREFERRED_CARRIERS;
+		this.priority = DEFAULT_PRIORITY;
+		this.shipperID = DEFAULT_SHIPPER_ID;
+		this.size = DEFAULT_SIZE;
+		this.timeToLoad = DEFAULT_TIME_TO_LOAD;
+		this.timeToUnload = DEFAULT_TIME_TO_UNLOAD;
+		this.tollRoads = false;
+		this.toLocationID = DEFAULT_END_LOCATION_ID;
+		this.trailerType = DEFAULT_TRAILER_TYPE;
+		this.unloadingType = DEFAULT_UNLOADING_TYPE;
+		this.weight = DEFAULT_WEIGHT;
+		this.currentLocation = DEFAULT_START_LOCATION_ID;
+		this.MarkNew();
+		this.MarkClean();
 	}//End of the Shipment(int id) constructor
 	
 	/**

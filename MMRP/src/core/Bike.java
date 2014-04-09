@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Bike extends Vehicle {
+	
+	//Default Variables
+	private final String DEFAULT_BIKE_NAME = "defaultBikeName";
 
 	/**
 	 * Default Constructor for Bike Class
@@ -17,8 +20,12 @@ public class Bike extends Vehicle {
 	 */
 	public Bike()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Bike);	//Set the TravelMode to Bike
-		MarkNew();										//Mark this as a new object
+		super.setTravelMode(Vehicle.TravelModes.Bike);					//Set the TravelMode to Bike
+		this.setCarrier(new Carrier());									//Set the default Bike's Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Bike's status to RUNNING
+		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
+		this.MarkNew();													//Mark the Bike as new
+		this.MarkClean();												//Mark the Bike as clean
 	}//End of Bike()
 
 	//This is the arguemented Bike constructor to set the id of the Bike
@@ -28,8 +35,13 @@ public class Bike extends Vehicle {
 	 */
 	public Bike(int id)
 	{
-		super.setTravelMode(Vehicle.TravelModes.Bike);
-		this.id=id;										//Set the bike id
+		this.id=id;														//Set the bike id
+		super.setTravelMode(Vehicle.TravelModes.Bike);					//Set the TravelMode to Bike
+		this.setCarrier(new Carrier());									//Set the default Bike's Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Bike's status to RUNNING
+		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
+		this.MarkNew();													//Mark the Bike as new
+		this.MarkClean();												//Mark the Bike as clean
 
 	}//End of Bike(int id)
 

@@ -15,13 +15,20 @@ import java.util.ArrayList;
 import java.util.Map;
 public class Truck extends Vehicle {											
 	
+	//Default Variables
+	private final String DEFAULT_TRUCK_NAME = "defaultTruckName";
+	
 	/**
 	 * The default Truck constructor
 	 */
 	public Truck()
 	{
 		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
-		MarkNew();														//Mark the Truck as new
+		this.setCarrier(new Carrier());									//Set the default Truck Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Truck status to RUNNING
+		this.name = DEFAULT_TRUCK_NAME;									//Set the Truck name					
+		this.MarkNew();													//Mark the Truck as new
+		this.MarkClean();												//Mark the Truck as clean
 	}//End of the default Truck constructor
 	
 	/**
@@ -30,8 +37,13 @@ public class Truck extends Vehicle {
 	 */
 	public Truck(int id)
 	{
-		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
 		this.id=id;														//Set the Truck's id
+		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
+		this.setCarrier(new Carrier());									//Set the default Truck Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Truck status to RUNNING
+		this.name = DEFAULT_TRUCK_NAME;									//Set the Truck name					
+		this.MarkNew();													//Mark the Truck as new
+		this.MarkClean();												//Mark the Truck as clean
 																				
 	}//End of the argumented Truck constructor
 	

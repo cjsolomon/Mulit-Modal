@@ -13,11 +13,26 @@ public class Shipper extends BaseClass {
 	private String phone;
 	private String email;
 	
+	//Default Variables
+	private static final String DEFAULT_COMPANY_NAME = "defaultCompanyName";
+	private static final String DEFAULT_CONTACT_NAME = "defaultContactName";
+	private static final String DEFAULT_EMAIL_ADDRESS = "defaultEmailAddress";
+	private static final int DEFAULT_LOCATION_ID = 1;
+	private static final String DEFAULT_PHONE_NUMBER = "123-456-7890";
+	private static final String DEFAULT_PREFERRED_CARRIERS = "defaultPreferredCarriers";
+	
 	/**
 	 * This is the default Shipper constructor
 	 */
 	public Shipper()
 	{
+		this.companyName = DEFAULT_COMPANY_NAME;
+		this.contactName = DEFAULT_CONTACT_NAME;
+		this.email = DEFAULT_EMAIL_ADDRESS;
+		this.locationID = DEFAULT_LOCATION_ID;
+		this.phone = DEFAULT_PHONE_NUMBER;
+		this.prefCarriers = DEFAULT_PREFERRED_CARRIERS;
+		MarkClean();
 		MarkNew();
 	}//End of Shipper()
 	
@@ -28,7 +43,14 @@ public class Shipper extends BaseClass {
 	public Shipper(int id)
 	{
 		this.id=id;
-		MarkOld();
+		this.companyName = DEFAULT_COMPANY_NAME;
+		this.contactName = DEFAULT_CONTACT_NAME;
+		this.email = DEFAULT_EMAIL_ADDRESS;
+		this.locationID = DEFAULT_LOCATION_ID;
+		this.phone = DEFAULT_PHONE_NUMBER;
+		this.prefCarriers = DEFAULT_PREFERRED_CARRIERS;
+		MarkClean();
+		MarkNew();
 	}//End of Shipper(int id)
 	
 	//Setters & getters

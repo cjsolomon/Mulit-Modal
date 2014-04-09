@@ -17,13 +17,20 @@ import java.util.Map;
 
 public class Rail extends Vehicle {
 	
+	//Default Variables
+	private final String DEFAULT_RAIL_NAME = "defaultRailName";
+	
 	/**
 	 * This is the default Rail constructor
 	 */
 	public Rail()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Rail);				//Set the TravelMode to Rail
-		MarkNew();													//Mark this Rail as new
+		super.setTravelMode(Vehicle.TravelModes.Rail);					//Set the TravelMode to Rail
+		this.setCarrier(new Carrier());									//Set the default Rail Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Rail status to RUNNING
+		this.name = DEFAULT_RAIL_NAME;									//Set the Rail name					
+		this.MarkNew();													//Mark the Rail as new
+		this.MarkClean();												//Mark the Rail as clean
 	}//End of default Rail constructor
 	
 	/**
@@ -32,8 +39,13 @@ public class Rail extends Vehicle {
 	 */
 	public Rail(int id)
 	{
-		super.setTravelMode(Vehicle.TravelModes.Rail);				//Set the TravelMode to Rail
-		this.id=id;													//Set the id
+		this.id=id;														//Set the id
+		super.setTravelMode(Vehicle.TravelModes.Rail);					//Set the TravelMode to Rail
+		this.setCarrier(new Carrier());									//Set the default Rail Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Rail status to RUNNING
+		this.name = DEFAULT_RAIL_NAME;									//Set the Rail name					
+		this.MarkNew();													//Mark the Rail as new
+		this.MarkClean();												//Mark the Rail as clean
 																	
 	}//End of the argumented constructor Rail(int id)
 	

@@ -16,16 +16,20 @@ import java.util.Map;
 
 public class Cargo extends Vehicle {
 	
+	//Default Variables
+	private final String DEFAULT_CARGO_NAME = "defaultCargoName";
+	
 	/**
 	 * This is the default Cargo constructor
 	 */
 	public Cargo()
 	{
 		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
-		this.MarkClean();
-		MarkNew();														//Mark this cargo as new
-		this.carrier = new Carrier(1);
-		this.name = new String("Default");
+		this.setCarrier(new Carrier());									//Set the default Cargo's Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Cargo's status to RUNNING
+		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
+		this.MarkNew();													//Mark the Cargo as new
+		this.MarkClean();												//Mark the Cargo as clean
 	}//End of Cargo()
 	
 	/**
@@ -34,9 +38,13 @@ public class Cargo extends Vehicle {
 	 */
 	public Cargo(int id)
 	{
-		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
 		this.id=id;														//Set the id of the Cargo to the given value
-																		
+		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
+		this.setCarrier(new Carrier());									//Set the default Cargo's Carrier
+		this.setStatus(Vehicle.Status.Running);							//Set the Cargo's status to RUNNING
+		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
+		this.MarkNew();													//Mark the Cargo as new
+		this.MarkClean();												//Mark the Cargo as clean	
 	}//End of arguemented Cargo constructor
 	
 	/**
