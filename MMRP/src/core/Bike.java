@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 public class Bike extends Vehicle {
-	
+
 	/**
 	 * Default Constructor for Bike Class
 	 * <p>
@@ -20,7 +20,7 @@ public class Bike extends Vehicle {
 		super.setTravelMode(Vehicle.TravelModes.Bike);	//Set the TravelMode to Bike
 		MarkNew();										//Mark this as a new object
 	}//End of Bike()
-	
+
 	//This is the arguemented Bike constructor to set the id of the Bike
 	/**
 	 * Constructor for Bike Class when object is loaded from Database
@@ -30,9 +30,9 @@ public class Bike extends Vehicle {
 	{
 		super.setTravelMode(Vehicle.TravelModes.Bike);
 		this.id=id;										//Set the bike id
-						
+
 	}//End of Bike(int id)
-	
+
 	/**
 	 * Updates the database entry for this object.
 	 * 
@@ -40,20 +40,20 @@ public class Bike extends Vehicle {
 	 * If the object is dirty, the database entry will be updated
 	 */
 	@Override
-	public void Update() 
+	public boolean Update() 
 	{
 		try
 		{
-		//toDo: set id on insert set update statement
+			//toDo: set id on insert set update statement
 			if(isNew())
 			{
 				//If the bike is new insert it into the database by executing the following
 				executeCommand("Insert into Bike (BikeName,Carrier,Status) Values ('"+
-				this.getVehicleName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
-				
+						this.getVehicleName() + "','" + this.getCarrier().getId() + "','"+this.getStatus()+"')");
+
 				//Grab this bike from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select BikeID from Bike where BikeName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId() +
-				"' AND Status = '" + this.getStatus()+"'");
+						"' AND Status = '" + this.getStatus()+"'");
 				//If this bike exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
@@ -68,33 +68,38 @@ public class Bike extends Vehicle {
 				{
 					//If the Bike is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update Bike Set BikeName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId() +
-					"' , Status = '" + this.getStatus() + "' Where BikeID = " +this.id);
+							"' , Status = '" + this.getStatus() + "' Where BikeID = " +this.id);
 					MarkClean();												//Now mark the bike as clean
 				}//End of isDirty if
 			}//End of isOld else
+			return true;	//Indicates that the update was successful
 		}//End of try block
+		
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);									//Print out the error
+			return false;	//Indicates the update was not successful
 		}//End of catch block
-	
+
 	}//End of overridden Update()
-	
+
 	/**
 	 * Deletes the bike from the database
 	 */
 	@Override
-	public  void Delete() 
+	public  boolean Delete() 
 	{
 		try
 		{
 			executeCommand("Delete from Bike Where BikeID = " + this.id);		//Delete this Bike from the database
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{	
 			System.out.println("Error " + ex);									//Print out the error
+			return false;
 		}//End of catch block
-	
+
 	}//End of overridden Delete()
 	/**
 	 * Static method that loads a bike from the databse
@@ -118,7 +123,7 @@ public class Bike extends Vehicle {
 		{
 			System.out.println("Error " + ex);
 		}
- 		return null;
+		return null;
 	}
 	/**
 	 * Loads all the bikes from a database meeting conditions
@@ -130,7 +135,7 @@ public class Bike extends Vehicle {
 		ArrayList<Bike> returnList = new ArrayList<Bike>();
 		try 
 		{
-			
+
 			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Bike " +  where);
 			for(int i = 0; i<temp.size();i++)
 			{
@@ -153,7 +158,7 @@ public class Bike extends Vehicle {
 	 */
 	public static Bike BuildFromDataRow(Map<String,Object> data) throws SQLException
 	{
-	
+
 		//This code grabs each element that will be found in the database on the Bikes table and set the appropriate values for a new Bike
 		Bike b = new Bike((Integer)data.get("BikeID"));
 		b.setVehicleName((String)data.get("BikeName"));
@@ -161,8 +166,8 @@ public class Bike extends Vehicle {
 		b.setStatus((String)data.get("Status"));		
 		b.MarkClean();
 		return b;
-		
+
 	}//End of BuildFromDataRow(Map<String,Object> data)
-	
+
 
 }

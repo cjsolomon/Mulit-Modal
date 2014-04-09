@@ -177,8 +177,8 @@ public abstract class BaseClass {
 	}//End of executeCommand(String sql)
 	
 	//Abstract Functions
-	abstract void Update();
-	abstract void Delete();
+	abstract boolean Update();
+	abstract boolean Delete();
 
 }//End of BaseClass
 

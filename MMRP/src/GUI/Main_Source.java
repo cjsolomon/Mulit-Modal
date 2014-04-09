@@ -121,7 +121,7 @@ public class Main_Source {
 		btnVehicles.setMnemonic(KeyEvent.VK_V);
 		frmMmrp.getContentPane().add(btnVehicles, "2, 6, fill, fill");
 
-		JButton btnExit = new JButton("Exit");
+		final JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Exit MMRP");
 		frmMmrp.getContentPane().add(btnExit, "2, 8, fill, fill");
 		btnExit.setMnemonic(KeyEvent.VK_E);

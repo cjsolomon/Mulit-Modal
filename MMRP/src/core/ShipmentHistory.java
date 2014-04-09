@@ -94,7 +94,7 @@ public class ShipmentHistory extends BaseClass {
 		return sh;
 	}
 	@Override
-	void Update() {
+	boolean Update() {
 		try
 		{
 			//toDo: set id on insert set update statement
@@ -124,22 +124,26 @@ public class ShipmentHistory extends BaseClass {
 					MarkClean();
 				}//End of isDirty if
 			}//End of isOld else
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);													//Print out the error
+			return false;
 		}//End of catch block
 	}
 
 	@Override
-	void Delete() {
+	boolean Delete() {
 		try
 		{
 			executeCommand("Delete from ShipmentHistory where ShipmentHistoryID = '"+this.id+"'");
+			return true;
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error "+ex);
+			return false;
 		}
 
 	}

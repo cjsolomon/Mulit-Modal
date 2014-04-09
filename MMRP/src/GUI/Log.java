@@ -61,9 +61,7 @@ public class Log {
 	public static void writeLogWarning(String message) {
 		logg.log(Level.WARNING, message);
 	}
-	public static void writeLogFine(String message) {
-		logg.log(Level.FINE, message);
-	}
+
 	
 }
 

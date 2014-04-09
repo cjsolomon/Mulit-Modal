@@ -152,7 +152,7 @@ public class Shipper extends BaseClass {
 		return s;
 	}
 	@Override
-	void Update() {
+	boolean Update() {
 		if(isNew())
 		{
 			//If the Segment is new insert it into the database by executing the following
@@ -176,10 +176,12 @@ public class Shipper extends BaseClass {
 					MarkClean();													//Mark the Segment as clean
 					MarkOld();														//Mark the Segment as old
 				}//End of found something if
+				return true;
 			}
 			catch(Exception ex)
 			{
 				System.out.println("Error " +ex);
+				return false;
 			}
 			
 		}//End of isNew if
@@ -201,13 +203,16 @@ public class Shipper extends BaseClass {
 				//If the Segment is not new, but is dirty then it needs to be updated by the following SQL command
 		
 				MarkClean();													//Mark the Segment as clean
+				
 				}
 				catch(Exception ex)
 				{
 					System.out.println("Error " +ex);
+					return false;
 				}
 			}//End of isDirty if
 		}//End of isOld else
+		return true;
 	}//End of try block
 	
 
@@ -215,14 +220,16 @@ public class Shipper extends BaseClass {
 	 * @see core.BaseClass#Delete()
 	 */
 	@Override
-	void Delete() {
+	boolean Delete() {
 		try
 		{
 			executeCommand("Delete from Shipper where ShipperID = '" + this._id+"'");
+			return true;
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error " +ex);
+			return false;
 		}
 
 	}

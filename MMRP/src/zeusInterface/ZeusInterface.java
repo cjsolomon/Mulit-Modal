@@ -11,24 +11,29 @@ package zeusInterface;
 public class ZeusInterface {
 	/**
 	 * 
-	 * @param mmrpTruck
+	 * @param mmrpTruck, currentSegment 
 	 * @return zeusTruck
-	 * This function converts a MMRP Truck into a Zeus Truck 
+	 * This function returns a Zeus Truck. Must be passed an MMRP Truck and the current Segment 
 	 */
-	static zeus.Truck translateToZeus(core.Truck mmrpTruck)
+	static zeus.Truck generateZeusTruck(core.Truck mmrpTruck, core.Segment currSeg)
 	{
-		zeus.VRPTruckType tt = generateTruckType(mmrpTruck);  //Construct a Zeus-Truck Type for this truck
-		float x = (float)mmrpTruck.getLatitude();
-		float y = (float)mmrpTruck.getLongitude();
-		zeus.Truck zeusTruck = new zeus.Truck(tt, x, y);   //Initialize the Truck, with the proper TruckType
+		zeus.VRPTruckType tt = generateTruckType(currSeg);  //Construct a Zeus-Truck Type for this truck
+		//float x = mmrpTruck.getCarrier().getLatitude();
+		//float y = mmrpTruck.getCarrier().getLongitude();
+		zeus.Truck zeusTruck = new zeus.Truck(tt, 0, 0);   //Initialize the Truck, with the proper TruckType
 		//Depot X and Y???
 		return zeusTruck;  //Return the Zeus Truck
 	}
-	
-	static zeus.VRPTruckType generateTruckType(core.Truck mmrpTruck)
+	/**
+	 * 
+	 * @param segment
+	 * @return Truck Type
+	 */
+	static zeus.VRPTruckType generateTruckType(core.Segment seg)
 	{
 		zeus.VRPTruckType type = new zeus.VRPTruckType();
-		type.setMaxCapacity(mmrpTruck.getCapacity());
+		float capacity = (float)seg.getTravelType().getMaxCap();
+		type.setMaxCapacity(capacity);
 		//setMaxServiceType(str customer type)
 		//setTruckNo(int)
 		//setMaxDuration(double)

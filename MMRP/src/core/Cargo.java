@@ -40,7 +40,7 @@ public class Cargo extends Vehicle {
 	 * This function overrides the parent's Update function and will handle changes made to the Cargo object in the database
 	 */
 	@Override
-	public void Update() 
+	public boolean Update() 
 	{
 		try
 		{
@@ -71,10 +71,12 @@ public class Cargo extends Vehicle {
 				MarkClean();													//Mark the cargo as clean
 			}//End of isDirty if
 		}//End of isOld else
+		return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);									//Print out the error
+			return false;
 		}//End of catch block
 		
 	}//End of overridden Update()
@@ -83,15 +85,17 @@ public class Cargo extends Vehicle {
 	 * This is the overridden Delete function of the parent class and will remove this Cargo from the database
 	 */
 	@Override
-	public  void Delete() 
+	public  boolean Delete() 
 	{
 		try
 		{
 			executeCommand("Delete From CargoShip where ShipID = " + id);			//Delete this Cargo from the database
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
 			System.out.println("Error "+ ex);									//Print out the error
+			return false;
 		}//End of catch block
 
 	}//End of overridden Delete()
