@@ -11,87 +11,147 @@ public class Location extends BaseClass {
 	private String state; 
 	private String country; 
 	private ArrayList<Vehicle> vehiclesAtLocation;
+	
+	/**
+	 * This is the default constructor for the Location object
+	 */
 	public Location()
 	{
 		travelModes=new ArrayList<Vehicle.TravelModes>();
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkNew();
-	}
+	}//End of default Location constructor
+	
+	/**
+	 * This is the Location constructor that will take an ID to assign to the new Location object
+	 * @param id This is the id that will be assigned to the new Location
+	 */
 	public Location(int id)
 	{
 		this.id=id;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
-	}
+	}//End of Location(int id)
 	
+	/**
+	 * This function will return the ID of the Location
+	 * @return Returns the Location's ID
+	 */
 	public int getID()
 	{
 		return id;
-	}
-	
+	}//End of getID()
+	 
+	/**
+	 * This function will set the latitude of the Location
+	 * @param lat This is the new latitude of the Location
+	 */
 	public void setLatitude(double lat)
 	{
+		//NEED ERROR CHECKING
 		if(this.latitude!=lat)
 		{
 			this.latitude=lat;
 			MarkDirty();
 		}
-	}
+	}//End of setLatitude(double lat)
 	
+	/**
+	 * This function returns the latitude of the Location
+	 * @return Returns the latitude of the location
+	 */
 	public double getLatitude()
 	{
 		return this.latitude;
-	}
+	}//End of getLatitude()
 	
+	/**
+	 * This function sets the state of the Location
+	 * @param st This is the new state of the Location
+	 */
 	public void setState(String st)
 	{
+		//NEED ERROR CHECKING
 		if(state==null || !this.state.equals(st)) 
 		{
 			this.state = st; 
 			MarkDirty();
 		}
-	}
+	}//End of setState(String st)
 	
+	/**
+	 * This function will return the state of the Location
+	 * @return Returns the state of the Location
+	 */
 	public String getState() 
 	{
 		return this.state;
-	}
+	}//End of getState()
 	
+	/**
+	 * This function sets the Country of the Location
+	 * @param nation This is the new Country for the Location
+	 */
 	public void setCountry(String nation)
 	{
+		//NEED ERROR CHECKING
 		if(country==null || !this.country.equals(nation))
 		{
 			this.country = nation;
 			MarkDirty();
 		}
-	}
+	}//End of setCountry(String nation)
 	
+	/**
+	 * This function returns the Country of the Location
+	 * @return Returns the country of this Location
+	 */
 	public String getCountry()
 	{
 		return this.country;
-	}
+	}//End of getCountry()
 	
+	/**
+	 * This function will set the longitude of the Location
+	 * @param lon This is the new longitude of the location 
+	 */
 	public void setLongitude(double lon)
 	{
+		//NEED SOME ERROR CHECKING
 		if(this.longitude!=lon)
 		{
 			this.longitude=lon;
 			MarkDirty();
 		}
-	}
+	}//End of setLongitude(double lon)
+	
+	/**
+	 * This function returns the longitude of the Location
+	 * @return Returns the longitude of the location
+	 */
 	public double getLongitude()
 	{
 		return this.longitude;
-	}
+	}//End of getLongitude()
 	
+	/**
+	 * This function adds a Travel Mode option to this Location
+	 * @param mode This is the new Travel Mode to add to this Location
+	 */
 	public void addTravelMode(Vehicle.TravelModes mode)
 	{
+		//DO WE NEED ANY ERROR CHECKING HERE?
 		if(!travelModes.contains(mode))
 		{
 			travelModes.add(mode);
 			MarkDirty();
 		}
-	}
+	}//End of addTravelMode(Vehicle.TravelModes mode)
 	
+	/**
+	 * This function will return if the given Travel Mode is available at this Location
+	 * @param mode This is Travel Mode that will be checked to see if it is available at this location
+	 * @return Returns a boolean indicating if the Travel Mode given is available at this Location
+	 */
 	public boolean travelTypeAvailable(Vehicle.TravelModes mode)
 	{
 		if(travelModes.contains(mode))
@@ -99,23 +159,35 @@ public class Location extends BaseClass {
 			return true;
 		}
 		return false;
-	}
+	}//End of travelTypeAvailable(Vehicle.TravelModes mode)
 	
-	public void setName(String s)
+	/**
+	 * This function sets the name of the Location
+	 * @param newName This is the new name of the Location
+	 */
+	public void setName(String newName)
 	{
-		if(name==null || !name.equals(s))
+		//NEED ERROR CHECKING
+		if(name==null || !name.equals(newName))
 		{
-			name=s;
+			name=newName;
 			MarkDirty();
 		}
-	}
+	}//End of setName(String newName)
 	
+	/**
+	 * This function returns the name of the Location
+	 * @return Returns the name of the Location
+	 */
 	public String getName()
 	{
 		return name;
-	}
+	}//End of getName()
 	
-
+	/**
+	 * This is the overridden Update function for the Location
+	 * <p>This function will update the Location in the database
+	 */
 	@Override
 	public void Update() 
 	{
@@ -172,8 +244,11 @@ public class Location extends BaseClass {
 			System.out.println("Error " + ex);
 		}
 		
-	}
+	}//End of Update()
 
+	/**
+	 * This is the overridden Delete function, it will remove this Location from the database
+	 */
 	@Override
 	public  void Delete() 
 	{
@@ -186,7 +261,13 @@ public class Location extends BaseClass {
 			System.out.println("Error "+ ex);
 		}
 
-	}
+	}//End of Delete()
+	
+	/**
+	 * This function will load the Location from the database using the given id
+	 * @param id This is the id of the Location to load from the database
+	 * @return This is the Location loaded from the database based on the id
+	 */
 	public static Location Load(int id)
 	{
 		try
@@ -201,8 +282,13 @@ public class Location extends BaseClass {
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
 	
+	/**
+	 * This function will return an ArrayList of Locations from the database based on the given where clause
+	 * @param where This is the where clause that determines which Locations to load from the database
+	 * @return Returns an ArrayList of Locations loaded from the database determined by the where clause
+	 */
 	public static ArrayList<Location> LoadAll(String where)
 	{
 		ArrayList<Location> temp = new ArrayList<Location>();
@@ -217,7 +303,14 @@ public class Location extends BaseClass {
 			System.out.println("Error " + ex);
 		}
 		return temp;
-	}
+	}//End of LoadAll (String where)
+	
+	/**
+	 * This function will build a new Location object from the passed in data
+	 * @param data This is the data that will be used to build the Location object
+	 * @return Returns a new Location from the passed in data
+	 * @throws SQLException
+	 */
 	private static Location BuildFromDataRow(Map<String,Object> data)throws SQLException
 	{
 		Location temp = new Location((Integer)data.get("LocationID"));
@@ -250,14 +343,24 @@ public class Location extends BaseClass {
 		temp.MarkClean();
 		
 		return temp;
-	}
-	public void VehcileArriving(Vehicle v)
+	}//End of BuildFromDataRow(Map<String,Object> data)
+	
+	/**
+	 * This function adds an incoming vehicle to the Location
+	 * @param arrivingVehicle This is the vehicle arriving at the Location
+	 */
+	public void VehicleArriving(Vehicle arrivingVehicle)
 	{
-		this.vehiclesAtLocation.add(v);
-	}
-	public void VehicleDeparting(Vehicle v)
+		this.vehiclesAtLocation.add(arrivingVehicle);
+	}//End of VehicleArriving(Vehicle arrivingVehicle)
+	
+	/**
+	 * This function removes a departing vehicle from the Location
+	 * @param departingVehicle This is the vehicle leaving from the Location
+	 */
+	public void VehicleDeparting(Vehicle departingVehicle)
 	{
-		this.vehiclesAtLocation.remove(v);
-	}
+		this.vehiclesAtLocation.remove(departingVehicle);
+	}//End of VehicleDeparting(Vehicle departingVehicle)
 
-}
+}//End of Location Class

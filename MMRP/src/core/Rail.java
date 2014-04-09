@@ -17,14 +17,19 @@ import java.util.Map;
 
 public class Rail extends Vehicle {
 	
-	//This is the default Rail constructor
+	/**
+	 * This is the default Rail constructor
+	 */
 	public Rail()
 	{
 		super.setTravelMode(Vehicle.TravelModes.Rail);				//Set the TravelMode to Rail
 		MarkNew();													//Mark this Rail as new
 	}//End of default Rail constructor
 	
-	//This is the argumented Rail constructor that takes an id
+	/**
+	 * This is the argumented Rail constructor that takes an id
+	 * @param id This is the new id of the Rail
+	 */
 	public Rail(int id)
 	{
 		super.setTravelMode(Vehicle.TravelModes.Rail);				//Set the TravelMode to Rail
@@ -32,7 +37,9 @@ public class Rail extends Vehicle {
 																	
 	}//End of the argumented constructor Rail(int id)
 	
-	//This function overrides the parent's Update function and will handle changes made to the Rail object in the database
+	/**
+	 * This function overrides the parent's Update function and will handle changes made to the Rail object in the database
+	 */
 	@Override
 	public void Update() 
 	{
@@ -73,7 +80,9 @@ public class Rail extends Vehicle {
 		
 	}//End of the overridden Update()
 
-	//This is the overridden Delete function of the parent class and will remove this Rail from the database
+	/**
+	 * This is the overridden Delete function of the parent class and will remove this Rail from the database
+	 */
 	@Override
 	public  void Delete() 
 	{
@@ -88,6 +97,11 @@ public class Rail extends Vehicle {
 
 	}//End of overridden Delete()
 
+	/**
+	 * This function will load a Rail from the database based on the passed in id
+	 * @param id This is the id of the Rail to load from the database
+	 * @return Returns the Rail object loaded from the database
+	 */
 	public static Rail Load(int id)
 	{
 		try
@@ -106,7 +120,13 @@ public class Rail extends Vehicle {
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
+	
+	/**
+	 * This function will return an ArrayList of Rail objects from the database based on the where clause
+	 * @param where This clause determines which Rails to load from the database
+	 * @return Returns an ArrayList of Rail objects from the database based on the given where clause
+	 */
 	public static ArrayList<Rail> LoadAll(String where)
 	{
 		ArrayList<Rail> returnList = new ArrayList<Rail>();
@@ -125,18 +145,21 @@ public class Rail extends Vehicle {
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
-	//This function builds objects from returned data from SQL queries against our database
-		public static Rail BuildFromDataRow(Map<String,Object> data) throws SQLException
-		{
-			//This code grabs each element that will be found in the database on the Rail table and set the appropriate values for a new Rail
-			Rail r = new Rail((Integer)data.get("RailID"));
-			r.setVehicleName((String)data.get("RailName"));
-			r.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
-			r.setStatus((String)data.get("Status"));		
-			r.MarkClean();															//Mark the Rail as clean
-			return r;
+	}//End of LoadAll(String where)
+	
+	/**
+	 * This function builds objects from returned data from SQL queries against our database
+	 */
+	public static Rail BuildFromDataRow(Map<String,Object> data) throws SQLException
+	{
+		//This code grabs each element that will be found in the database on the Rail table and set the appropriate values for a new Rail
+		Rail r = new Rail((Integer)data.get("RailID"));
+		r.setVehicleName((String)data.get("RailName"));
+		r.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
+		r.setStatus((String)data.get("Status"));		
+		r.MarkClean();															//Mark the Rail as clean
+		return r;
 			
-		}//End of BuildFromDataRow(Map<String,Object> data)
+	}//End of BuildFromDataRow(Map<String,Object> data)
 
 }//End of Rail class

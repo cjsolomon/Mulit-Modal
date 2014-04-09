@@ -16,14 +16,19 @@ import java.util.Map;
 
 public class Cargo extends Vehicle {
 	
-	//This is the default Cargo constructor
+	/**
+	 * This is the default Cargo constructor
+	 */
 	public Cargo()
 	{
 		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
 		MarkNew();														//Mark this cargo as new
 	}//End of Cargo()
 	
-	//This function will create a new Cargo object with the given id
+	/**
+	 * This function will create a new Cargo object with the given id
+	 * @param id This is the new ID of the Cargo
+	 */
 	public Cargo(int id)
 	{
 		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
@@ -31,7 +36,9 @@ public class Cargo extends Vehicle {
 																		
 	}//End of arguemented Cargo constructor
 	
-	//This function overrides the parent's Update function and will handle changes made to the Cargo object in the database
+	/**
+	 * This function overrides the parent's Update function and will handle changes made to the Cargo object in the database
+	 */
 	@Override
 	public void Update() 
 	{
@@ -72,7 +79,9 @@ public class Cargo extends Vehicle {
 		
 	}//End of overridden Update()
 
-	//This is the overridden Delete function of the parent class and will remove this Cargo from the database
+	/**
+	 * This is the overridden Delete function of the parent class and will remove this Cargo from the database
+	 */
 	@Override
 	public  void Delete() 
 	{
@@ -87,6 +96,11 @@ public class Cargo extends Vehicle {
 
 	}//End of overridden Delete()
 
+	/**
+	 * This function will load a Cargo object from the database based on the given id
+	 * @param id This is the ID of the Cargo object to load from the database
+	 * @return Returns the Cargo object from the database
+	 */
 	public static Cargo Load(int id)
 	{
 		try
@@ -105,7 +119,13 @@ public class Cargo extends Vehicle {
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
+	
+	/**
+	 * This function loads an ArrayList of Cargo objects from the database based on the passed in where clause
+	 * @param where This is the where clause that specifies which Cargo objects to load from the database
+	 * @return Returns an ArrayList of Cargo objects from the database
+	 */
 	public static ArrayList<Cargo> LoadAll(String where)
 	{
 		ArrayList<Cargo> returnList = new ArrayList<Cargo>();
@@ -124,8 +144,14 @@ public class Cargo extends Vehicle {
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
-	//This function builds objects from returned data from SQL queries against our database
+	}//End of LoadAll(String where)
+	
+	/**
+	 * This function builds objects from returned data from SQL queries against our database
+	 * @param data This is the data that will be used to build the Cargo object
+	 * @return Returns a new cargo object built from the passed in data
+	 * @throws SQLException
+	 */
 	public static Cargo BuildFromDataRow(Map<String,Object> data) throws SQLException
 	{
 		//This code grabs each element that will be found in the database on the Cargo table and set the appropriate values for a new Cargo
@@ -138,6 +164,4 @@ public class Cargo extends Vehicle {
 		
 	}//End of the BuildFromDataRow(Map<String, Object> data)
 	
-
-
-}
+}//End of Cargo class

@@ -34,7 +34,8 @@ public class Carrier extends BaseClass
 	public Carrier()
 	{
 		MarkNew();
-	}
+	}//End of default Carrier constructor
+	
 	/**
 	 * Constructor for Carrier Class when object is loaded from Database
 	 * @param id CarrierId in database table
@@ -42,237 +43,372 @@ public class Carrier extends BaseClass
 	public Carrier(int id)
 	{
 		this.id = id;
-	}
+	}//End of argumented Carrier constructor
+	
 	/**
-	 * @return the id
+	 * This function returns the id of the Carrier object
+	 * @return Returns the Carrier ID
 	 */
 	public int getId() {
 		return id;
-	}
+	}//End of getId()
+
 	/**
-	 * @param id the id to set
-	 */
-	public void setId(int id) {
-		this.id = id;
-		MarkDirty();
-	}
-	/**
-	 * @return the carrierCode
+	 * This function returns the carrier code
+	 * @return Returns the carrier code
 	 */
 	public String getCarrierCode() {
 		return carrierCode;
-	}
+	}//End of getCarrierCode()
+	
 	/**
-	 * @param carrierCode the carrierCode to set
+	 * This function sets the carrier code
+	 * @param carrierCode The new Carrier code
 	 */
 	public void setCarrierCode(String carrierCode) {
-		this.carrierCode = carrierCode;
-		MarkDirty();
-	}
+		//NEED ERROR CHECKING
+		if(this.carrierCode != carrierCode){
+			this.carrierCode = carrierCode;
+			MarkDirty();
+		}
+	}//End of setCarrierCode(String carrierCode)
+	
 	/**
-	 * @return the carrierName
+	 * This function will return the Carrier's name
+	 * @return Returns the Carrier's name
 	 */
 	public String getCarrierName() {
 		return carrierName;
-	}
+	}//End of getCarrierName()
+	
 	/**
-	 * @param carrierName the carrierName to set
+	 * This function sets the Carrier's name
+	 * @param carrierName The new Carrier name
 	 */
 	public void setCarrierName(String carrierName) {
-		this.carrierName = carrierName;
-		MarkDirty();
-	}
+		//NEED SOME ERROR CHECKING
+		if(this.carrierName != carrierName){
+			this.carrierName = carrierName;
+			MarkDirty();
+		}
+	}//End of setCarrierName(String carrierName)
+	
 	/**
-	 * @return the sendByFax
+	 * This function returns if the Carrier can be reached by fax
+	 * @return Returns a boolean indicating if the Carrier can be reached by fax or not
 	 */
 	public Boolean isSendByFax() {
 		return sendByFax;
-	}
+	}//End of isSendByFax()
+	
 	/**
-	 * @param sendByFax the sendByFax to set
+	 * This function sets the Carrier to be reachable by fax
 	 */
-	public void setSendByFax(Boolean sendByFax) {
-		this.sendByFax = sendByFax;
-		MarkDirty();
-	}
+	public void setSendByFaxTrue() {
+		if(!sendByFax){
+			this.sendByFax = true;
+			MarkDirty();
+		}
+	}//End of setSendByFaxTrue()
+	
 	/**
-	 * @return the sendByEmail
+	 * This function sets the Carrier to be unreachable by fax
+	 */
+	public void setSendByFaxFalse() {
+		if(sendByFax){
+			this.sendByFax = false;
+			MarkDirty();
+		}
+	}//End of setSendByFaxFalse()
+	
+	/**
+	 * This function will return if the Carrier is reachable by email
+	 * @return Returns a boolean indicating if the Carrier can be reached by email
 	 */
 	public Boolean isSendByEmail() {
 		return sendByEmail;
-	}
+	}//End of isSendByEmail()
+	
 	/**
-	 * @param sendByEmail the sendByEmail to set
+	 * This function will set the Carrier to be reachable by email
 	 */
-	public void setSendByEmail(Boolean sendByEmail) {
-		this.sendByEmail = sendByEmail;
-		MarkDirty();
-	}
+	public void setSendByEmailTrue() {
+		if(!sendByEmail){
+			this.sendByEmail = true;
+			MarkDirty();
+		}
+	}//End of setSendByEmailTrue()
+	
 	/**
-	 * @return the areaCode
+	 * This function will set the Carrier to be unreachable by email
+	 */
+	public void setSendByEmailFalse() {
+		if(sendByEmail){
+			this.sendByEmail = false;
+			MarkDirty();
+		}
+	}//End of setSendByEmailFalse()
+	
+	/**
+	 * This function returns the area code of the Carrier
+	 * @return Returns the area code of the Carrier
 	 */
 	public String getAreaCode() {
 		return areaCode;
-	}
+	}//End of getAreaCode()
+	
 	/**
-	 * @param areaCode the areaCode to set
+	 * This function sets the area code for the Carrier
+	 * @param areaCode This is the new area code for the Carrier
 	 */
 	public void setAreaCode(String areaCode) {
-		this.areaCode = areaCode;
-		MarkDirty();
-	}
+		//NEED SOME ERROR CHECKING
+		if(this.areaCode != areaCode){
+			this.areaCode = areaCode;
+			MarkDirty();
+		}
+	}//End of setAreaCode(String areaCode)
+	
 	/**
-	 * @return the faxNumber
+	 * This function returns the fax number of the Carrier
+	 * @return Returns the Carrier's fax number
 	 */
 	public String getFaxNumber() {
 		return faxNumber;
-	}
+	}//End of getFaxNumber()
+	
 	/**
-	 * @param faxNumber the faxNumber to set
+	 * This function sets the fax number for the Carrier
+	 * @param faxNumber This is the new fax number for the Carrier
 	 */
 	public void setFaxNumber(String faxNumber) {
-		this.faxNumber = faxNumber;
-		MarkDirty();
-	}
+		//NEED SOME ERROR CHECKING
+		if(this.faxNumber != faxNumber){
+			this.faxNumber = faxNumber;
+			MarkDirty();
+		}
+	}//End of setFaxNumber(String faxNumber)
+	
 	/**
-	 * @return the emailAddress
+	 * This function will return the Carrier's email address
+	 * @return Returns the Carrier's email address
 	 */
 	public String getEmailAddress() {
 		return emailAddress;
-	}
+	}//End of getEmailAddress()
+	
 	/**
-	 * @param emailAddress the emailAddress to set
+	 * This function sets the Carrier's email address
+	 * @param emailAddress This is the Carrier's new email address
 	 */
 	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
-		MarkDirty();
-	}
+		//NEED SOME ERROR CHECKING
+		if(this.emailAddress != emailAddress){
+			this.emailAddress = emailAddress;
+			MarkDirty();
+		}
+	}//End of setEmailAddress(String emailAddress)
+	
 	/**
-	 * @return the safetyRating
+	 * This function returns the Carrier's safety rating
+	 * @return Returns the Carrier's safety rating
 	 */
 	public int getSafetyRating() {
 		return safetyRating;
-	}
+	}//End of getSafetyRating()
+	
 	/**
-	 * @param safetyRating the safetyRating to set
+	 * This function sets the safety rating for the Carrier
+	 * @param safetyRating This is the new safety rating for the Carrier
 	 */
 	public void setSafetyRating(int safetyRating) {
-		this.safetyRating = safetyRating;
-		MarkDirty();
-	}
+		//NEED SOME ERROR CHECKING
+		if(this.safetyRating != safetyRating){
+			this.safetyRating = safetyRating;
+			MarkDirty();
+		}
+	}//End of setSafetyRating(int safetyRating)
+	
 	/**
-	 * @return the authorize
+	 * This function will return the authorization status of the Carrier
+	 * @return Returns the value of authorization for the Carrier
 	 */
 	public int getAuthorize() {
 		return authorize;
-	}
+	}//End of getAuthorize()
+	
 	/**
-	 * @param authorize the authorize to set
+	 * This function sets the authorization value for the Carrier
+	 * @param authorize This is the new authorization value for the Carrier
 	 */
 	public void setAuthorize(int authorize) {
-		this.authorize = authorize;
-		MarkDirty();
-	}
+		//NEED ERROR CHECKING
+		if(this.authorize != authorize){
+			this.authorize = authorize;
+			MarkDirty();
+		}
+	}//End of setAuthorize(int authorize)
+	
 	/**
-	 * @return the insEndDate
+	 * This function returns the Carrier's ins date
+	 * @return Returns the ins date of the Carrier
 	 */
 	public String getInsEndDate() {
 		return insEndDate;
-	}
+	}//End of getInsEndDate()
+	
 	/**
-	 * @param insEndDate the insEndDate to set
+	 * This function sets the Carrier's ins date
+	 * @param insEndDate This is the new Carrier's ins date
 	 */
 	public void setInsEndDate(String insEndDate) {
-		this.insEndDate = insEndDate;
-		MarkDirty();
-	}
+		//NEED SOME ERROR CHECKING
+		if(this.insEndDate != insEndDate){
+			this.insEndDate = insEndDate;
+			MarkDirty();
+		}
+	}//End of setInsEndDate(String insEndDate)
+	
 	/**
-	 * @return the costModifierCargoShip
+	 * This function returns the Carriers cost modifier for Cargo ships
+	 * @return Returns the cost modifier for Cargo ships
 	 */
 	public int getCostModifierCargoShip() {
 		return costModifierCargoShip;
-	}
+	}//End of getCostModifierCargoShip()
+	
 	/**
-	 * @param costModifierCargoShip the costModifierCargoShip to set
+	 * This function sets the cost modifier for cargo ships
+	 * @param costModifierCargoShip This is the new cost modifier for cargo ships
 	 */
 	public void setCostModifierCargoShip(int costModifierCargoShip) {
-		this.costModifierCargoShip = costModifierCargoShip;
-	}
+		//Need some error checking
+		if(this.costModifierCargoShip != costModifierCargoShip){
+			this.costModifierCargoShip = costModifierCargoShip;
+			MarkDirty();
+		}
+	}//End of setCostModifierCargoShip(int costModifierCargoShip)
+	
 	/**
-	 * @return the costModifierTruck
+	 * This function returns the cost modifier for trucks for the Carrier
+	 * @return Returns the cost modifier for trucks
 	 */
 	public int getCostModifierTruck() {
 		return costModifierTruck;
-	}
+	}//End of getCostModifierTruck()
+	
 	/**
-	 * @param costModifierTruck the costModifierTruck to set
+	 * This function will set the truck cost modifier for the Carrier
+	 * @param costModifierTruck The new truck cost modifer for the Carrier
 	 */
 	public void setCostModifierTruck(int costModifierTruck) {
-		this.costModifierTruck = costModifierTruck;
-	}
+		if(this.costModifierTruck != costModifierTruck){
+			this.costModifierTruck = costModifierTruck;
+			MarkDirty();
+		}
+	}//End of setCostModifierTruck(int costModifierTruck)
+	
 	/**
-	 * @return the costModifierBike
+	 * This function will return the cost modifier for bikes
+	 * @return Returns the bike cost modifier for the Carrier
 	 */
 	public int getCostModifierBike() {
 		return costModifierBike;
-	}
+	}//End of getCostModifierBike() 
+	
 	/**
-	 * @param costModifierBike the costModifierBike to set
+	 * This function will set the bike cost modifier for the Carrier
+	 * @param costModifierBike The new bike cost modifier for the Carrier
 	 */
 	public void setCostModifierBike(int costModifierBike) {
-		this.costModifierBike = costModifierBike;
-	}
+		if(this.costModifierBike != costModifierBike){
+			this.costModifierBike = costModifierBike;
+			MarkDirty();
+		}
+	}//End of setCostModifierBike(int costModifierBike)
+	
 	/**
-	 * @return the costModifierRail
+	 * This function will return the rail cost modifier for the Carrier
+	 * @return Returns the rail cost modifier for the Carrier
 	 */
 	public int getCostModifierRail() {
 		return costModifierRail;
-	}
+	}//End of getCostModifierRail()
+	
 	/**
-	 * @param costModifierRail the costModifierRail to set
+	 * This function sets the rail cost modifier for the Carrier
+	 * @param costModifierRail The new rail cost modifier for the Carrier
 	 */
 	public void setCostModifierRail(int costModifierRail) {
-		this.costModifierRail = costModifierRail;
-	}
+		if(this.costModifierRail != costModifierRail){
+			this.costModifierRail = costModifierRail;
+			MarkDirty();
+		}
+	}//End of setCostModifierRail(int costModifierRail)
+	
 	/**
-	 * @return the costModifierPlane
+	 * This function returns the plane cost modifier for the Carrier
+	 * @return Returns the plane cost modifier for the Carrier
 	 */
 	public int getCostModifierPlane() {
 		return costModifierPlane;
-	}
+	}//End of getCostModifierPlane()
+	
 	/**
-	 * @param costModifierPlane the costModifierPlane to set
+	 * This function sets the plane cost modifier for the Carrier
+	 * @param costModifierPlane The new plane cost modifier for the Carrier
 	 */
 	public void setCostModifierPlane(int costModifierPlane) {
-		this.costModifierPlane = costModifierPlane;
-	}
+		//NEED ERROR CHECKING
+		if(this.costModifierPlane != costModifierPlane){
+			this.costModifierPlane = costModifierPlane;
+			MarkDirty();
+		}
+	}//End of setCostModifierPlane(int costModifierPlane)
+	
 	/**
-	 * @return the safetyRateDate
+	 * This function returns the safety rating of the Carrier
+	 * @return Returns the safety rating of the Carrier
 	 */
 	public String getSafetyRateDate() {
 		return safetyRateDate;
-	}
+	}//End of getSafetyRateDate()
+	
 	/**
-	 * @param safetyRateDate the safetyRateDate to set
+	 * This function sets the Carrier's safety rating
+	 * @param safetyRateDate This is the Carrier's new safety rating
 	 */
 	public void setSafetyRateDate(String safetyRateDate) {
-		this.safetyRateDate = safetyRateDate;
-	}
+		//Need some error checking
+		if(this.safetyRateDate != safetyRateDate){
+			this.safetyRateDate = safetyRateDate;
+			MarkDirty();
+		}
+	}//End of setSafetyRateDate(String safetyRateDate)
+	
 	/**
-	 * @return the contractDate
+	 * This function will return the Carrier's contract date
+	 * @return Returns the contract date of the Carrier
 	 */
 	public String getContractDate() {
 		return contractDate;
-	}
+	}//End of getContractDate()
+	
 	/**
-	 * @param contractDate the contractDate to set
+	 * This function sets the Carrier's contract date
+	 * @param contractDate This is the Carrier's new contract date
 	 */
 	public void setContractDate(String contractDate) {
-		this.contractDate = contractDate;
-	}
+		//Need error checking
+		if(this.contractDate != contractDate){
+			this.contractDate = contractDate;
+			MarkDirty();
+		}
+	}//End of setContractDate(String contractDate)
+	
 	/**
-	 * Updates the database entry for this object.
-	 * 
+	 * This function updates the database entry for this object.
+	 * <p>
 	 * If the object is new it will be inserted into the database.
 	 * If the object is dirty, the database entry will be updated
 	 */
@@ -330,6 +466,9 @@ public class Carrier extends BaseClass
 	
 	}//End of overridden Update()
 	
+	/**
+	 * This function is the overridden delete, it will remove this Carrier from the database
+	 */
 	@Override
 	void Delete() {
 		try
@@ -341,7 +480,13 @@ public class Carrier extends BaseClass
 			System.out.println("Error " + ex);	
 		}
 
-	}
+	}//End of Delete()
+	
+	/**
+	 * This function will load a Carrier object from the database based on the given ID
+	 * @param id This is the id of the Carrier to load from the database
+	 * @return Returns a new Carrier object populated with the information from the database
+	 */
 	public static Carrier Load(int id)
 	{
 		try
@@ -359,7 +504,13 @@ public class Carrier extends BaseClass
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
+	
+	/**
+	 * This function will return an ArrayList of Carriers loaded from the database based on the passed in where clause
+	 * @param where This is the where clause specifying the Carriers to load from the database
+	 * @return Returns an ArrayList of Carrier objects from the database specified in the where clause
+	 */
 	public static ArrayList<Carrier> LoadAll(String where)
 	{
 		ArrayList<Carrier> returnList = new ArrayList<Carrier>();
@@ -377,7 +528,14 @@ public class Carrier extends BaseClass
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
+	}//End of LoadAll(String where)
+	
+	/**
+	 * This function builds a Carrier object from the passed in data
+	 * @param data This is the data used to build a new Carrier
+	 * @return Returns the new Carrier object initialized from the passed in data
+	 * @throws SQLException
+	 */
 	public static Carrier BuildFromDataRow(Map<String,Object> data) throws SQLException
 	{
 		Carrier c = new Carrier((Integer)data.get("CarrierID"));
@@ -411,11 +569,20 @@ public class Carrier extends BaseClass
 		}
 		if((Boolean)data.get("SendByFax") != null)
 		{
-			c.setSendByFax((Boolean)data.get("SendByFax"));
+			if((Boolean)data.get("SendByFax")){	
+				c.setSendByFaxTrue();
+			}else
+			{
+				c.setSendByFaxFalse();
+			}
 		}
 		if((Boolean)data.get("SendByEmail") != null)
 		{
-			c.setSendByEmail((Boolean)data.get("SendByEmail"));
+			if((Boolean)data.get("SendByEmail")){
+				c.setSendByEmailTrue();
+			}else{
+				c.setSendByEmailFalse();
+			}
 		}
 		if((String)data.get("AreaCode") != null)
 		{
@@ -454,4 +621,4 @@ public class Carrier extends BaseClass
 		
 	}//End of the BuildFromDataRow(Map<String, Object> data)
 	
-}
+}//End of Carrier Class

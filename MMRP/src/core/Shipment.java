@@ -32,174 +32,360 @@ public class Shipment extends BaseClass {
 	//TODO: prefCarriers should probably be a property of a shipper not a shipment
 	private String prefCarriers;
 	
+	/**
+	 * This is the default constructor for the Shipment object
+	 */
 	public Shipment()
 	{
 		MarkNew();
-	}
+	}//End of the default Shipment constructor
+	
+	/**
+	 * This is the argumented Shipment constructor
+	 * @param id This is the id of the new Shipment
+	 */
 	public Shipment(int id)
 	{
 		this.id=id;
 		MarkOld();
-	}
+	}//End of the Shipment(int id) constructor
+	
+	/**
+	 * This function returns the current location id of the Shipment
+	 * @return Returns the current location id of the shipment
+	 */
 	public int getCurrentLocationID()
 	{
 		return currentLocation;
-	}
+	}//End of getCurrentLocationID()
+	
+	/**
+	 * This function sets the current location id of the Shipment
+	 * @param locationID This is the new current location ID
+	 */
 	public void setCurrentLocation(int loc)
 	{
+		//NEED ERROR CHECKING
 		if(this.currentLocation!=loc)
 		{
 			currentLocation=loc;
 			MarkDirty();
 		}
-	}
+	}//End of setCurrentLocation(int loc)
+	
+	/**
+	 * This function returns the start location id of the shipment
+	 * @return Returns the start location id of the shipment
+	 */
 	public int getFromLocationID() {
 		return fromLocationID;
-	}
+	}//End of getFromLocationID()
+	
+	/**
+	 * This function will set the start location ID
+	 * @param fromLocationID This is the new start location ID
+	 */
 	public void setFromLocationID(int fromLocationID) {
+		//NEED SOME ERROR CHECKING
 		if(this.fromLocationID!=fromLocationID)
 		{
 			this.fromLocationID = fromLocationID;
 			MarkDirty();
 		}
-	}
+	}//End of setFromLocationID(int fromLocationID)
+	
+	/**
+	 * This function returns the end location id
+	 * @return Returns the end location id
+	 */
 	public int getToLocationID() {
 		return toLocationID;
-	}
+	}//End of getToLocationID()
+	
+	/**
+	 * This function sets the end location id of the Shipment
+	 * @param toLocationID This is the new end location id
+	 */
 	public void setToLocationID(int toLocationID) {
+		//NEEDS SOME ERROR CHECKING
 		if(this.toLocationID != toLocationID)
 		{
 			this.toLocationID = toLocationID;
 			MarkDirty();
 		}
-	}
+	}//End of setToLocationID(int toLocationID)
+	
+	/**
+	 * This function returns the priority of the Shipment
+	 * @return Returns the priority of the Shipment
+	 */
 	public int getPriority() {
 		return priority;
-	}
+	}//End of getPriority()
+	
+	/**
+	 * This function will set the priority for the Shipment
+	 * @param priority This is the new priority for the Shipment
+	 */
 	public void setPriority(int priority) {
 		if(this.priority != priority)
 		{
 			this.priority = priority;
 			MarkDirty();
 		}
-	}
+	}//End of setPriority(int priority)
+	
+	/**
+	 * This function returns the size of the Shipment
+	 * @return Returns the size of the Shipment
+	 */
 	public int getSize() {
 		return size;
-	}
+	}//End of getSize()
+	
+	/**
+	 * This function sets the size of the Shipment
+	 * @param size This is the new size of the Shipment
+	 */
 	public void setSize(int size) {
+		//NEEDS ERROR CHECKING
 		if(this.size!=size)
 		{
 			this.size = size;
 			MarkDirty();
 		}
-	}
+	}//End of setSize(int size)
+	
+	/**
+	 * This function returns the earliest arrival time of the Shipment
+	 * @return Returns the earliest arrival time of the Shipment
+	 */
 	public int getEarliestArrivalTime() {
 		return earliestArrival;
-	}
+	}//End of getEarliestArrivalTime()
+	
+	/**
+	 * This function sets the earliest arrival time for the Shipment
+	 * @param time This is the new earliest arrival time for the Shipment
+	 */
 	public void setEarliestArrivalTime(int time) {
+		//NEED SOME ERROR CHECKING
 		if(this.earliestArrival!=time)
 		{
 			this.earliestArrival = time;
 			MarkDirty();
 		}
-	}
+	}//End of setEarliestArrivalTime(int time)
+	
+	/**
+	 * This function returns the latest arrival time of the Shipment
+	 * @return Returns the latest arrival time of the Shipment
+	 */
 	public int getLatestArrivalTime() {
 		return latestArrival;
-	}
+	}//End of getLatestArrivalTime()
+	
+	/**
+	 * This function sets the latest arrival time for the Shipment
+	 * @param time
+	 */
 	public void setLatestArrivalTime(int time) {
+		//NEED ERROR CHECKING
 		if(this.latestArrival!=time)
 		{
 			this.latestArrival = time;
 			MarkDirty();
 		}
-	}
+	}//End of setLatestArrivalTime(int time)
+	
+	/**
+	 * This function returns the earliest departure time for the Shipment
+	 * @return Returns the earliest departure time for the Shipment
+	 */
 	public int getEarliestDepartureTime() {
 		return earliestDeparture;
-	}
+	}//End of getEarliestDepartureTime()
+	
+	/**
+	 * This function sets the earliest departure time for the Shipment
+	 * @param departureTime This is the new earliest departure time for the Shipment
+	 */
 	public void setEarliestDepartureTime(int departureTime) {
+		//NEED ERROR CHECKING
 		if(this.earliestDeparture!=departureTime)
 		{
 			this.earliestDeparture = departureTime;
 			MarkDirty();
 		}
-	}
+	}//End of setEarliestDepartureTime(int departureTime)
+	
+	/**
+	 * This function returns the latest departure time for the Shipment
+	 * @return Returns the latest departure time for the Shipment
+	 */
 	public int getLatestDepartureTime()
 	{
 		return latestDeparture;
-	}
+	}//End of getLatestDepartureTime()
+	
+	/**
+	 * This function sets the latest departure time for the Shipment
+	 * @param departureTime This is the new latest departure time for the Shipment
+	 */
 	public void setLatestDepartureTime(int departureTime)
 	{
+		//NEEDS ERROR CHECKING
 		if(this.latestDeparture!=departureTime)
 		{
 			this.latestDeparture=departureTime;
 			MarkDirty();
 		}
-	}
+	}//End of setLatestDepartureTime(int departureTime)
+	
+	/**
+	 * This function returns the id of the Shipment
+	 * @return Returns the id of the Shipment
+	 */
 	public int getId() {
 		return id;
-	}
-
+	}//End of getId()
+	
+	/**
+	 * This function will return the time it takes to load the Shipment
+	 * @return Returns the time it will take to load the Shipment 
+	 */
 	public int getTimeToLoad()
 	{
 		return this.timeToLoad;
-	}
+	}//End of getTimeToLoad()
+	
+	/**
+	 * This function will set the time to load the Shipment
+	 * @param t This is the new time to load the Shipment
+	 */
 	public void setTimeToLoad(int t)
 	{
+		//NEED ERROR CHECKING
 		if(this.timeToLoad != t)
 		{
 			this.timeToLoad=t;
 			MarkDirty();
 		}
-	}
+	}//End of setTimeToLoad(int t)
+	
+	/**
+	 * This function returns the time to unload the Shipment
+	 * @return Returns the time to unload the Shipment
+	 */
 	public int getTimeToUnload()
 	{
 		return this.timeToUnload;
-	}
+	}//End of getTimeToUnload()
+	
+	/**
+	 * This function sets the time to unload the Shipment
+	 * @param t This is the new time to unload the Shipment
+	 */
 	public void setTimeToUnload(int t)
 	{
+		//NEEDS ERROR CHECKING
 		if(this.timeToUnload!=t)
 		{
 			this.timeToUnload=t;
 			MarkDirty();
 		}
-	}
+	}//End of setTimeToUnload(int t)
+	
+	/**
+	 * This function sets the shipper id for the Shipment
+	 * @param id This is the new Shipper id for the shipment
+	 */
 	public void setShipperID(int id)
 	{
+		//NEED ERROR CHECKING
 		if(this.shipperID!=id)
 		{
 			this.shipperID=id;
 			MarkDirty();
 		}
-	}
+	}//End of setShipperID(int id)
+	
+	/**
+	 * This function returns the shipper id of the Shipment
+	 * @return Returns the id of the shipper of the Shipment
+	 */
 	public int getShipperID()
 	{
 		return this.shipperID;
-	}
+	}//End of getShipperID()
 	
-	public void setTollRoads(Boolean r)
+	/**
+	 * This function allows the Shipment to take toll roads
+	 */
+	public void setTollRoadsTrue()
 	{
-		if(this.tollRoads!=r)
+		if(this.tollRoads!=true)
 		{
-			tollRoads=r;
+			tollRoads=true;
 			MarkDirty();
 		}
-	}
+	}//End of setTollRoadsTrue()
+	
+	/**
+	 * This function disallows the Shipment to take toll roads
+	 */
+	public void setTollRoadsFalse()
+	{
+		if(this.tollRoads!=false)
+		{
+			tollRoads=false;
+			MarkDirty();
+		}
+	}//End of setTollRoadsFalse()
+	
+	/**
+	 * This function will return whether or not the Shipment can take toll roads
+	 * @return Returns a boolean indicating if the Shipment can travel on toll roads or not
+	 */
 	public Boolean getTollRoads()
 	{
 		return tollRoads;
-	}
-	public void setCongestionByPass(Boolean c)
+	}//End of getTollRoads()
+	
+	/**
+	 * This function allow the Shipment to perform a congestion by pass
+	 */
+	public void setCongestionByPassTrue()
 	{
-		if(this.congestionByPass!=c)
+		if(this.congestionByPass!=true)
 		{
-			this.congestionByPass=c;
+			this.congestionByPass=true;
 			MarkDirty();
 		}
-	}
+	}//End of setCongestionByPassTrue()
+	
+	/**
+	 * This function disallow the Shipment to perform a congestion by pass
+	 */
+	public void setCongestionByPassFalse()
+	{
+		if(this.congestionByPass!=false)
+		{
+			this.congestionByPass=false;
+			MarkDirty();
+		}
+	}//End of setCongestionByPassFalse()
+	
+	/**
+	 * This function will return whether or not the Shipment can perform a congestion by pass
+	 * @return Returns a boolean indicating if the Shipment can perform a congestion by pass
+	 */
 	public Boolean getCongestionByPass()
 	{
 		return this.congestionByPass;
-	}
+	}//End of getCongestionByPass()
+	
+
 	public void setHazmat(String s)
 	{
 		if(this.hazmatConstraints==null || !this.hazmatConstraints.equals(s))

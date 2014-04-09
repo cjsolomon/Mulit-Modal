@@ -17,14 +17,19 @@ import java.util.Map;
 
 public class Plane extends Vehicle {
 	
-	//This is the plane default contructor
+	/**
+	 * This is the plane default constructor
+	 */
 	public Plane()
 	{
 		super.setTravelMode(Vehicle.TravelModes.Plane);						//Set the TravelMode to Plane
 		MarkNew();															//Mark the Plane as new
 	}//End of Plane default constructor
 	
-	//This is the Plane arugmented constructor that takes an id value
+	/**
+	 * This is the Plane argumented constructor that takes an id value
+	 * @param id This is the new id of the Plane object
+	 */
 	public Plane(int id)
 	{
 		super.setTravelMode(Vehicle.TravelModes.Plane);						//Set the TravelMode to Plane
@@ -32,7 +37,9 @@ public class Plane extends Vehicle {
 																			
 	}//End of the Plane(int id) constructor
 	
-	//This function overrides the parent's Update function and will handle changes made to the Plane object in the database
+	/**
+	 * This function overrides the parent's Update function and will handle changes made to the Plane object in the database
+	 */
 	@Override
 	public void Update() 
 	{
@@ -73,7 +80,9 @@ public class Plane extends Vehicle {
 		
 	}//End of overridden Update
 
-	//This is the overridden Delete function of the parent class and will remove this Plane from the database
+	/**
+	 * This is the overridden Delete function of the parent class and will remove this Plane from the database
+	 */
 	@Override
 	public  void Delete() 
 	{
@@ -87,6 +96,12 @@ public class Plane extends Vehicle {
 		}//End of the catch block
 
 	}//End of the overridden Delete function
+	
+	/**
+	 * This function will load a Plane from the database based on the given id
+	 * @param id This is id of the Plane to load from the database
+	 * @return Returns the Plan object loaded from the database based on the given id
+	 */
 	public static Plane Load(int id)
 	{
 		try
@@ -106,7 +121,13 @@ public class Plane extends Vehicle {
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
+	
+	/**
+	 * This function will return an ArrayList of Plane objects from the database based on the given where clause
+	 * @param where This is the clause that determines which Planes to laod from the database
+	 * @return Returns an ArrayList of Planes from the database based on the given where clause
+	 */
 	public static ArrayList<Plane> LoadAll(String where)
 	{
 		ArrayList<Plane> returnList = new ArrayList<Plane>();
@@ -125,8 +146,14 @@ public class Plane extends Vehicle {
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
-	//This function builds objects from returned data from SQL queries against our database
+	}//End of LoadAll(String where)
+	
+	/**
+	 * This function builds objects from returned data from SQL queries against our database
+	 * @param data This is the data used to build the Plane object
+	 * @return Returns the new Plane object built from the passed in data
+	 * @throws SQLException
+	 */
 	public static Plane BuildFromDataRow(Map<String,Object> data) throws SQLException
 	{
 		//This code grabs each element that will be found in the database on the Plane table and set the appropriate values for a new Plane
@@ -139,4 +166,4 @@ public class Plane extends Vehicle {
 		
 	}//End of BuildDataFromRow(Map<String,Object> data)
 	
-}
+}//End of Plane Class
