@@ -15,14 +15,19 @@ import java.util.ArrayList;
 import java.util.Map;
 public class Truck extends Vehicle {											
 	
-	//The default Truck constructor
+	/**
+	 * The default Truck constructor
+	 */
 	public Truck()
 	{
 		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
 		MarkNew();														//Mark the Truck as new
 	}//End of the default Truck constructor
 	
-	//This is the argumented Truck constructor
+	/**
+	 * This is the argumented Truck constructor
+	 * @param id This is the id of the new Truck 
+	 */
 	public Truck(int id)
 	{
 		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
@@ -30,7 +35,9 @@ public class Truck extends Vehicle {
 																				
 	}//End of the argumented Truck constructor
 	
-	//This function overrides the parent's Update function and will handle changes made to the Truck object in the database
+	/**
+	 * This function overrides the parent's Update function and will handle changes made to the Truck object in the database
+	 */
 	@Override
 	public boolean Update() 
 	{
@@ -73,7 +80,9 @@ public class Truck extends Vehicle {
 		
 	}//End of overridden Update()
 
-	//This is the overridden Delete function of the parent class and will remove this Truck from the database
+	/**
+	 * This is the overridden Delete function of the parent class and will remove this Truck from the database
+	 */
 	@Override
 	public  boolean Delete() 
 	{
@@ -90,7 +99,11 @@ public class Truck extends Vehicle {
 
 	}//End of the overridden Delete()
 
-
+	/**
+	 * This function will load a Truck from the database
+	 * @param id This is the id of the Truck to load from the database
+	 * @return Returns the Truck loaded from the database
+	 */
 	public static Truck Load(int id)
 	{
 		try
@@ -109,7 +122,13 @@ public class Truck extends Vehicle {
 			System.out.println("Error " + ex);
 		}
  		return null;
-	}
+	}//End of Load(int id)
+	
+	/**
+	 * This function returns an ArrayList of Trucks loaded from the database, based on the given where clause
+	 * @param where This is the where clause determining which Trucks to load from the database
+	 * @return Returns an ArrayList of Trucks loaded from the database based on the given where clause 
+	 */
 	public static ArrayList<Truck> LoadAll(String where)
 	{
 		ArrayList<Truck> returnList = new ArrayList<Truck>();
@@ -128,18 +147,23 @@ public class Truck extends Vehicle {
 			System.out.println("Error " + ex);
 		}
 		return returnList;
-	}
-	//This function builds objects from returned data from SQL queries against our database
-		public static Truck BuildFromDataRow(Map<String,Object> data) throws SQLException
-		{
-			//This code grabs each element that will be found in the database on the Truck table and set the appropriate values for a new Truck
-			Truck t = new Truck((Integer)data.get("TruckID"));
-			t.setVehicleName((String)data.get("TruckName"));
-			t.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
-			t.setStatus((String)data.get("Status"));	
-			t.MarkClean();																//Mark the Truck as clean
-			return t;
+	}//End of LoadAll(String where)
+	
+	/**
+	 * This function builds objects from returned data from SQL queries against our database
+	 * @param data This is the data that will be used to build the Truck object
+	 * @throws SQLException
+	 */
+	public static Truck BuildFromDataRow(Map<String,Object> data) throws SQLException
+	{
+		//This code grabs each element that will be found in the database on the Truck table and set the appropriate values for a new Truck
+		Truck t = new Truck((Integer)data.get("TruckID"));
+		t.setVehicleName((String)data.get("TruckName"));
+		t.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
+		t.setStatus((String)data.get("Status"));	
+		t.MarkClean();																//Mark the Truck as clean
+		return t;
 			
-		}//End of BuildFromDataRow(Map<String,Object> data)
+	}//End of BuildFromDataRow(Map<String,Object> data)
 
-}
+}//End of Truck Class
