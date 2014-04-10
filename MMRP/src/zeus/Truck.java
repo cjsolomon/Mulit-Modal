@@ -121,6 +121,10 @@ public class Truck
     return truckType;
   }
 
+  public void setTruckType(TruckType newType)
+  {
+	  truckType = newType;
+  }
   /**
    * This will return if the two trucks are of the same type
    * @param otherTruck truck to compare to this type

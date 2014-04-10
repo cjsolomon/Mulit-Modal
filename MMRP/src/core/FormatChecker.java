@@ -96,7 +96,7 @@ public class FormatChecker {
 	 */
 	static public boolean isValidDate(String day)
 	{
-		Pattern pattern = Pattern.compile("");
+		Pattern pattern = Pattern.compile("*");
 	    Matcher matcher = pattern.matcher(day);
 	    if (matcher.matches()) {
 	    	return true;

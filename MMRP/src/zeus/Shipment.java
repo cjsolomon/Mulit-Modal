@@ -341,20 +341,30 @@ public int tempDemand;
     return toLat;
   }
 
-  /**
-   * Returns the road segments toLong coordinate
-   * @return toLat
-   */
-  public double getToLongCoord() {
-    return toLong;
+  public void setToLatCoord(double toLatCoord)
+  {
+	  toLat = toLatCoord;
   }
-
+  
+  public double getToLongCoord() {
+	    return toLong;
+  }
+  
+  public void setToLongCoord(double toLongCoord)
+  {
+	  toLong = toLongCoord;
+  }
   /**
    * Returns the road segments fromLat coordinate
    * @return toLat
    */
   public double getFromLatCoord() {
     return fromLat;
+  }
+  
+  public void setFromLatCoord(double fromLatCoord)
+  {
+	  fromLat = fromLatCoord;
   }
 
   /**
@@ -363,6 +373,11 @@ public int tempDemand;
    */
   public double getFromLongCoord() {
     return fromLong;
+  }
+  
+  public void setFromLongCoord(double fromLongCoord)
+  {
+	  fromLong = fromLongCoord;
   }
 
   /**
