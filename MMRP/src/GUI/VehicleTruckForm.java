@@ -263,7 +263,8 @@ public class VehicleTruckForm extends JPanel {
 		while(!goodNumber)
 		{
 			randomInt = (int)Math.floor(Math.random()*10000);
-			name = this.contractorDropDown.getSelectedItem().toString() + "Truck" + randomInt;
+			//name = this.contractorDropDown.getSelectedItem().toString() + "Truck" + randomInt;
+			name = "Truck";
 			trucks = Truck.LoadAll("Where TruckName ='" +name + "'");
 			trycounter++;
 			if(!(trucks.size() > 0)){

@@ -180,7 +180,8 @@ public class VehicleCargoForm extends JPanel {
 		int trycounter=0;
 		while(!goodNumber){
 			randomInt = (int)Math.floor(Math.random()*10000);
-			name = this.contractorDropDown.getSelectedItem().toString() + "Cargo" + randomInt;
+			//name = this.contractorDropDown.getSelectedItem().toString() + "Cargo" + String.valueOf(randomInt);
+			name = "Cargo";
 			cargos = Cargo.LoadAll("Where ShipName ='" +name + "'");
 			trycounter++;
 			if(!(cargos.size() > 0)){

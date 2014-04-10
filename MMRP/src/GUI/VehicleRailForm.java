@@ -181,7 +181,8 @@ public class VehicleRailForm extends JPanel {
 		int trycounter=0;
 		while(!goodNumber){
 			randomInt = (int)Math.floor(Math.random()*10000);
-			name = this.contractorDropDown.getSelectedItem().toString() + "Rail" + randomInt;
+			//name = this.contractorDropDown.getSelectedItem().toString() + "Rail" + randomInt;
+			name = "Rail";
 			rails = Rail.LoadAll("Where RailName ='" +name + "'");
 			trycounter++;
 			if(!(rails.size() > 0)){

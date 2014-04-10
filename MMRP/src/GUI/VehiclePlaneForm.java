@@ -180,7 +180,8 @@ public class VehiclePlaneForm extends JPanel {
 		int trycounter=0;
 		while(!goodNumber){
 			randomInt = (int)Math.floor(Math.random()*10000);
-			name = this.contractorDropDown.getSelectedItem().toString() + "Plane" + randomInt;
+			//name = this.contractorDropDown.getSelectedItem().toString() + "Plane" + randomInt;
+			name = "Plane";
 			planes = Plane.LoadAll("Where PlaneName ='" +name + "'");
 			trycounter++;
 			if(!(planes.size() > 0)){
