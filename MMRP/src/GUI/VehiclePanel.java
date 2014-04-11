@@ -120,16 +120,16 @@ public class VehiclePanel extends JPanel {
 				hidePanels();
 				switch((Vehicle.TravelModes)comboBox.getSelectedItem())
 				{
-				case Truck:
+				case TRUCK:
 					tf.showPanel();
 					break;
-				case Rail:
+				case RAIL:
 					rf.showPanel();
 					break;
-				case Plane:
+				case PLANE:
 					pf.showPanel();
 					break;
-				case Cargo:
+				case CARGO:
 					cf.showPanel();
 					break;
 				}
@@ -254,7 +254,7 @@ public class VehiclePanel extends JPanel {
 				comboBox.setVisible(true);
 				//tf.showPanel();
 				tabbedPane.setVisible(false);
-				btnEdit.setVisible(false);
+				//btnEdit.setVisible(false);
 				btnDelete.setVisible(false);
 				btnNew.setVisible(false);
 				btnSave.setVisible(true);
@@ -274,7 +274,7 @@ public class VehiclePanel extends JPanel {
 			{
 				tf.setVisible(false);
 				tabbedPane.setVisible(true);
-				btnEdit.setVisible(true);
+				//btnEdit.setVisible(true);
 				btnDelete.setVisible(true);
 				btnNew.setVisible(true);
 				btnCancel.setVisible(false);

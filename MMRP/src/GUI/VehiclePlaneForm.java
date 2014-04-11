@@ -26,7 +26,7 @@ public class VehiclePlaneForm extends JPanel {
 	JTextField nameText;
 	VehicleSegmentTable vst;
 	//private Vehicle t;
-	private ArrayList<Carrier> carriers = Carrier.LoadAll("");
+	private ArrayList<Carrier> carriers = Carrier.LoadAll(";");
 	private Plane p;
 	private JTabbedPane tabbedPane;
 	private JPanel basic;

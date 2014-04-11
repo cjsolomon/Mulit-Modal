@@ -25,7 +25,7 @@ public class BestFirstFind{
 	
 	public BestFirstFind(){
 		route = new ArrayList<Segment>();
-		mode = Vehicle.TravelModes.Truck;
+		mode = Vehicle.TravelModes.TRUCK;
 		metric = new WeightedMetric();
 		currentTime = 0;
 		pathFound = false;
@@ -89,8 +89,10 @@ public class BestFirstFind{
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
 						}//End of unsuccessful path rewinding if
-						//Set the currentLocationID to the end of the path
-						currentLocationID = route.get(route.size()-1).getEndLocationID();
+						else{
+							//Set the currentLocationID to the end of the path
+							currentLocationID = route.get(route.size()-1).getEndLocationID();
+						}
 					}//End of no valid paths else
 					
 					//Check to see if we are done

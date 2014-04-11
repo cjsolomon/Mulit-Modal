@@ -20,7 +20,7 @@ public class Bike extends Vehicle {
 	 */
 	public Bike()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Bike);					//Set the TravelMode to Bike
+		super.setTravelMode(Vehicle.TravelModes.BIKE);					//Set the TravelMode to Bike
 		this.setCarrier(new Carrier());									//Set the default Bike's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Bike's status to RUNNING
 		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
@@ -36,7 +36,7 @@ public class Bike extends Vehicle {
 	public Bike(int id)
 	{
 		this.id=id;														//Set the bike id
-		super.setTravelMode(Vehicle.TravelModes.Bike);					//Set the TravelMode to Bike
+		super.setTravelMode(Vehicle.TravelModes.BIKE);					//Set the TravelMode to Bike
 		this.setCarrier(new Carrier());									//Set the default Bike's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Bike's status to RUNNING
 		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
@@ -126,7 +126,7 @@ public class Bike extends Vehicle {
 			if(temp.size()>0)
 			{
 				Bike b = BuildFromDataRow(temp.get(0));
-				b.getSchedule();
+				//b.getSchedule();
 				return b;
 			}
 			return null;

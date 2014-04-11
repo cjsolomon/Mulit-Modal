@@ -468,15 +468,15 @@ public class Segment extends BaseClass {
 		//Load the Vehicle from the database based on the type of the Vehicle
 		switch(Vehicle.loadMode(mode))
 		{
-			case Truck:
+			case TRUCK:
 				return Truck.Load(this.vehicle.getId());		//Return Truck
-			case Rail:
+			case RAIL:
 				return Rail.Load(this.vehicle.getId());		//Return Rail 
-			case Cargo:
+			case CARGO:
 				return Cargo.Load(this.vehicle.getId());		//Return Cargo
-			case Plane:
+			case PLANE:
 				return Plane.Load(this.vehicle.getId());		//Return Plane
-			case Bike:
+			case BIKE:
 				return Bike.Load(this.vehicle.getId());		//Return Bike
 		
 		}//End of switch
@@ -493,16 +493,21 @@ public class Segment extends BaseClass {
 		//Load the Vehicle from the database based on the type of the Vehicle
 		switch(mode)
 		{
-			case Truck:
+			case TRUCK:
 				this.vehicle = Truck.Load(id);		//Return Truck
-			case Rail:
+				break;
+			case RAIL:
 				this.vehicle = Rail.Load(id);		//Return Rail 
-			case Cargo:
+				break;
+			case CARGO:
 				this.vehicle = Cargo.Load(id);		//Return Cargo
-			case Plane:
+				break;
+			case PLANE:
 				this.vehicle = Plane.Load(id);		//Return Plane
-			case Bike:
+				break;
+			case BIKE:
 				this.vehicle = Bike.Load(id);		//Return Bike
+				break;
 		
 		}//End of switch
 	}//End of  setVehicle(int id, Vehicle.TravelModes mode)
@@ -556,6 +561,7 @@ public class Segment extends BaseClass {
 	 */
 	public static ArrayList<Segment> LoadAll(String where)
 	{
+		System.out.println("Loading all the segments from the where clause");
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try
 		{
@@ -590,14 +596,15 @@ public class Segment extends BaseClass {
 		Segment s = new Segment((Integer)data.get("SegmentID"));
 		s.setStartLocation((Integer)data.get("FromLocationID"));
 		s.setEndLocation((Integer)data.get("ToLocationID"));
-		s.setVehicle((Integer)data.get("VehicleID"),(Vehicle.TravelModes.valueOf((String)data.get("ModeType"))));
+		Vehicle.TravelModes newMode = Vehicle.TravelModes.valueOf((String)data.get("ModeType"));
+		s.setVehicle((Integer)data.get("VehicleID"),newMode);
 		s.setDistance(Double.parseDouble(data.get("Distance").toString()));
 		s.setEstimatedDepartureTime((Integer)data.get("TimeOfDeparture"));
 		s.setEstimatedArrivalTime((Integer)data.get("TimeOfArrival"));
 		s.setEarliestArrivalTime((Integer)data.get("EarliestArrivalTime"));
 		s.setEarliestDepartureTime((Integer)data.get("EarliestDepartureTime"));
 		s.setLatestArrivalTime((Integer)data.get("LatestArrivalTime"));
-		s.setLatestDepartureTime((Integer)data.get("LatestDepatureTime"));
+		s.setLatestDepartureTime((Integer)data.get("LatestDepartureTime"));
 		s.setLane((String)data.get("Lane"));
 		s.setShippingRate(ShippingRate.Load((Integer)data.get("ShippingRateID")));
 		s.MarkClean();													//Mark the Segment as clean

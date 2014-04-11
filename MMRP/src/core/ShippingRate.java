@@ -308,14 +308,14 @@ public class ShippingRate extends BaseClass{
 				if(isNew())
 				{
 					//If the ShippingRate is new insert it into the database by executing the following
-					executeCommand("Insert into shippingrate (ShippingRateID, CarrierID, StartLocation, EndLocation, TravelType, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
+					executeCommand("Insert into shippingrates (ShippingRateID, CarrierID, StartLocation, EndLocation, TravelType, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
 							this.getId() + "','" + this.getCarrier().getId() +"','"+this.getStartLocation()
 							+ this.getEndLocation() +"','"+ this.getType() +"','"+ this.getWeight1() +"','"
 							+ this.getRate1() +"','"+ this.getWeight2() +"','"+ this.getRate2() +"','"
 							+ this.getWeight3() +"','"+ this.getRate3() +"','"+ this.getMileRate() +"','"
 							+ this.getFlatRate() +"','"+ this.getRank() +"')");
 					//Grab this ShippingRate from the database
-					ArrayList<Map<String,Object>> temp =executeQuery("Select ShippingRateID from shippingrate where CarrierID = '" + 
+					ArrayList<Map<String,Object>> temp =executeQuery("Select ShippingRateID from shippingrates where CarrierID = '" + 
 					this.getCarrier().getId() + "' AND StartLocation = '"+this.getStartLocation() +
 					"' AND EndLocation = '"+this.getEndLocation() + "' AND TravelType = '"+this.getType() +
 					"' AND Weight1 = '"+this.getWeight1() + "' AND Rate1 = '"+this.getRate1() +
@@ -336,7 +336,7 @@ public class ShippingRate extends BaseClass{
 					if(isDirty())
 					{
 						//If the ShippingRate is not new, but is dirty then it needs to be updated by the following SQL command
-						executeCommand("Update ShippingRate Set CarrierID = '" + this.getCarrier().getId() + 
+						executeCommand("Update shippingrates Set CarrierID = '" + this.getCarrier().getId() + 
 								"' , StartLocation = '"+this.getStartLocation() + "' , EndLocation = '" + this.getEndLocation() +
 								"' , TravelType = '"+this.getType() + "' , Weight1 = '" + this.getWeight1() +
 								"' , Rate1 = '"+this.getRate1() + "' , Weight2 = '" + this.getWeight2() +
@@ -366,7 +366,7 @@ public class ShippingRate extends BaseClass{
 		{
 			try
 			{
-				executeCommand("Delete from ShippingRate Where ShippingRateID = " + this.id);			//Delete the ShippingRate
+				executeCommand("Delete from ShippingRates Where ShippingRateID = " + this.id);			//Delete the ShippingRate
 				return true;
 			}//End of try block
 			catch(Exception ex)
@@ -386,7 +386,7 @@ public class ShippingRate extends BaseClass{
 		{
 			try
 			{
-				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRate where ShippingRateID = " + id);
+				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRates where ShippingRateID = " + id);
 				if(temp.size()>0)
 				{
 					ShippingRate sr = BuildFromDataRow(temp.get(0));
@@ -411,7 +411,7 @@ public class ShippingRate extends BaseClass{
 			ArrayList<ShippingRate> returnList = new ArrayList<ShippingRate>();
 			try 
 			{
-				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRate " +  where);
+				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRates " +  where);
 				for(int i = 0; i<temp.size();i++)
 				{
 					ShippingRate sr = BuildFromDataRow(temp.get(i));

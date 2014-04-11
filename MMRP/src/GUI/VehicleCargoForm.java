@@ -27,7 +27,7 @@ public class VehicleCargoForm extends JPanel {
 	JTextField nameText;
 	VehicleSegmentTable vst;
 	//private Vehicle t;
-	private ArrayList<Carrier> carriers = Carrier.LoadAll("");
+	private ArrayList<Carrier> carriers = Carrier.LoadAll(";");
 	private Cargo c;
 	private JTabbedPane tabbedPane;
 	private JPanel basic;
@@ -106,7 +106,7 @@ public class VehicleCargoForm extends JPanel {
 		//nameText.setSize(69, Integer.parseInt(FormFactory.LINE_GAP_ROWSPEC.toString()));
 		//add(nameLabel,"2, 22, center, center");
 		contractorLabel = new JLabel();
-		contractorLabel.setText("Contractor");
+		contractorLabel.setText("Carrier");
 		basic.add(contractorLabel, "2, 4, left, center");
 		tabbedPane.addTab("Basic", basic);
 		//add(contractorLabel, "2, 20, center, center");

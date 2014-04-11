@@ -11,7 +11,7 @@ public class CargoTest {
 	@Test
 	public void testTravelMode() {
 		Cargo test_cargo = new Cargo();
-		Assert.assertEquals(Vehicle.TravelModes.Cargo.toString(), test_cargo.getTravelMode());
+		Assert.assertEquals(Vehicle.TravelModes.CARGO.toString(), test_cargo.getTravelMode());
 		
 	}
 	

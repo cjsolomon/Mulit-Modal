@@ -25,7 +25,7 @@ public class Rail extends Vehicle {
 	 */
 	public Rail()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Rail);					//Set the TravelMode to Rail
+		super.setTravelMode(Vehicle.TravelModes.RAIL);					//Set the TravelMode to Rail
 		this.setCarrier(new Carrier());									//Set the default Rail Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Rail status to RUNNING
 		this.name = DEFAULT_RAIL_NAME;									//Set the Rail name					
@@ -40,7 +40,7 @@ public class Rail extends Vehicle {
 	public Rail(int id)
 	{
 		this.id=id;														//Set the id
-		super.setTravelMode(Vehicle.TravelModes.Rail);					//Set the TravelMode to Rail
+		super.setTravelMode(Vehicle.TravelModes.RAIL);					//Set the TravelMode to Rail
 		this.setCarrier(new Carrier());									//Set the default Rail Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Rail status to RUNNING
 		this.name = DEFAULT_RAIL_NAME;									//Set the Rail name					
@@ -126,7 +126,7 @@ public class Rail extends Vehicle {
 			if(temp.size()>0)
 			{
 				Rail r = BuildFromDataRow(temp.get(0));
-				r.getSchedule();
+				//r.getSchedule();
 				return r;
 			}
 			return null;

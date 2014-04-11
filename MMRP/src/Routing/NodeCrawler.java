@@ -85,8 +85,10 @@ public class NodeCrawler{
 						//we could not rewind the path, therefore we could not find a path
 						tries = maxTries;
 					}//End of unsuccessful path rewinding if
-					//Set the currentLocationID to the end of the path
-					currentLocationID = route.get(route.size()-1).getEndLocationID();
+					else{
+						//Set the currentLocationID to the end of the path
+						currentLocationID = route.get(route.size()-1).getEndLocationID();
+					}
 				}//End of no valid paths else
 				
 				if(currentLocationID == shipment.getToLocationID()){
@@ -110,13 +112,13 @@ public class NodeCrawler{
 	}//End of getPath()
 
 	public ArrayList<Segment> grabSegmentsStartingAt(int startID){
-		ArrayList<Segment> startSegments=Segment.LoadAll("Where StartingLocation = '"+ startID);
+		ArrayList<Segment> startSegments=Segment.LoadAll("Where FromLocationID = '"+ startID + "';");
 		startSegments = validPaths(startSegments);
 		return startSegments;
 	}//End of grabSegmentsStartingAt(Location start)
 	
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ start.getID() +"' AND EndingLocation ='" + end.getID() +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)

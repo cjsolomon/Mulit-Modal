@@ -13,11 +13,11 @@ public abstract class Vehicle extends BaseClass {
 	 */
 	public static enum TravelModes 
 	{
-			Truck ("TRUCK"),
-			Rail("RAIL"),
-			Cargo("CARGO"),
-			Plane("PLANE"),
-			Bike("BIKE");
+			TRUCK ("TRUCK"),
+			RAIL("RAIL"),
+			CARGO("CARGO"),
+			PLANE("PLANE"),
+			BIKE("BIKE");
 			private String mode;
 			TravelModes(String s)
 			{
@@ -99,16 +99,16 @@ public abstract class Vehicle extends BaseClass {
 	*/
 	public static TravelModes loadMode(String t)
 	{
-		if(t.equals(TravelModes.Bike.toString()))
-			return TravelModes.Bike;
-		if(t.equals(TravelModes.Cargo.toString()))
-			return TravelModes.Cargo;
-		if(t.equals(TravelModes.Plane.toString()))
-			return TravelModes.Plane;
-		if(t.equals(TravelModes.Rail.toString()))
-			return TravelModes.Rail;
-		if(t.equals(TravelModes.Truck.toString()))
-			return TravelModes.Truck;
+		if(t.equals(TravelModes.BIKE.toString()))
+			return TravelModes.BIKE;
+		if(t.equals(TravelModes.CARGO.toString()))
+			return TravelModes.CARGO;
+		if(t.equals(TravelModes.PLANE.toString()))
+			return TravelModes.PLANE;
+		if(t.equals(TravelModes.RAIL.toString()))
+			return TravelModes.RAIL;
+		if(t.equals(TravelModes.TRUCK.toString()))
+			return TravelModes.TRUCK;
 		return null;
 	}//End of loadType(String t)
 		

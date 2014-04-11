@@ -19,7 +19,7 @@ public class NextAvailableVehicle{
 	
 	public NextAvailableVehicle(){
 		route = new ArrayList<Segment>();
-		mode = Vehicle.TravelModes.Truck;
+		mode = Vehicle.TravelModes.TRUCK;
 		metric = new WeightedMetric();
 		currentTime = 0;
 		pathFound = false;
@@ -124,6 +124,10 @@ public class NextAvailableVehicle{
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
 						}//End of unsuccessful path rewinding if
+						else{
+							//Set the currentLocationID to the end of the path
+							currentLocationID = route.get(route.size()-1).getEndLocationID();
+						}
 					}//End of no valid paths else
 					
 					//Set the currentLocationID to the end of the path

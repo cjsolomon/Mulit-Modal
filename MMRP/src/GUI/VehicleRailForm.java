@@ -28,7 +28,7 @@ public class VehicleRailForm extends JPanel {
 	VehicleSegmentTable vst;
 	//private Vehicle t;
 	private Rail r;
-	private ArrayList<Carrier> carriers = Carrier.LoadAll("");
+	private ArrayList<Carrier> carriers = Carrier.LoadAll(";");
 	private JTabbedPane tabbedPane;
 	private JPanel basic;
 	private JComboBox<String> status;

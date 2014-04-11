@@ -23,7 +23,7 @@ public class Truck extends Vehicle {
 	 */
 	public Truck()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
+		super.setTravelMode(Vehicle.TravelModes.TRUCK);					//Set the TravelMode to Truck
 		this.setCarrier(new Carrier());									//Set the default Truck Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Truck status to RUNNING
 		this.name = DEFAULT_TRUCK_NAME;									//Set the Truck name					
@@ -38,7 +38,7 @@ public class Truck extends Vehicle {
 	public Truck(int id)
 	{
 		this.id=id;														//Set the Truck's id
-		super.setTravelMode(Vehicle.TravelModes.Truck);					//Set the TravelMode to Truck
+		super.setTravelMode(Vehicle.TravelModes.TRUCK);					//Set the TravelMode to Truck
 		this.setCarrier(new Carrier());									//Set the default Truck Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Truck status to RUNNING
 		this.name = DEFAULT_TRUCK_NAME;									//Set the Truck name					
@@ -124,7 +124,7 @@ public class Truck extends Vehicle {
 			if(temp.size()>0)
 			{
 				Truck t = BuildFromDataRow(temp.get(0));
-				t.getSchedule();
+				//t.getSchedule();
 				return t;
 			}
 			return null;

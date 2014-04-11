@@ -507,7 +507,7 @@ public class Carrier extends BaseClass
 				"','"+getContractDate()+"','"+getInsEndDate()+"')");
 				
 				//Grab this Carrier from the database
-				ArrayList<Map<String,Object>> temp =executeQuery("Select CarrierID from Carrier where CarrierCode = '" + this.getCarrierCode() + "' AND CarrierName = '"+this.getCarrierName()+
+				ArrayList<Map<String,Object>> temp =executeQuery("Select CarrierID from Carriers where CarrierCode = '" + this.getCarrierCode() + "' AND CarrierName = '"+this.getCarrierName()+
 				"' AND CostModifierTruck = '" + this.getCostModifierTruck() + "' AND CostModifierBike = '" + this.getCostModifierBike() + "' AND CostModifierCargoShip = '" + this.getCostModifierCargoShip() +
 				"' AND CostModifierRail = '" + this.getCostModifierRail() + "' AND CostModifierPlane = '" + this.getCostModifierPlane() +
 				"' AND SendByFax = '" + this.isSendByFax() + "' AND SendByEmail = '" + this.isSendByEmail() + "' AND AreaCode = '" + this.getAreaCode() + 
@@ -526,7 +526,7 @@ public class Carrier extends BaseClass
 			{
 				if(isDirty())
 				{
-				executeQuery("Update Carrier set CarrierCode = '" + this.getCarrierCode() + "' , CarrierName = '"+this.getCarrierName()+
+				executeQuery("Update Carriers set CarrierCode = '" + this.getCarrierCode() + "' , CarrierName = '"+this.getCarrierName()+
 				"' , CostModifierTruck = '" + this.getCostModifierTruck() + "' , CostModifierBike = '" + this.getCostModifierBike() +"' , CostModifierCargoShip = '" + this.getCostModifierCargoShip() +
 				"' , CostModifierRail = '" + this.getCostModifierRail() + "' , CostModifierPlane = '" + this.getCostModifierPlane() +
 				"' , SendByFax = '" + this.isSendByFax() + "' , SendByEmail = '" + this.isSendByEmail() + "' , AreaCode = '" + this.getAreaCode() + 
@@ -598,7 +598,7 @@ public class Carrier extends BaseClass
 		ArrayList<Carrier> returnList = new ArrayList<Carrier>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carrier " +  where);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers " +  where);
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Carrier c = BuildFromDataRow(temp.get(i));
@@ -629,25 +629,25 @@ public class Carrier extends BaseClass
 		{
 			c.setCarrierCode((String)data.get("CarrierName"));
 		}
-		if((Integer)data.get("CostModifierTruck") != null)
+		if((Integer)data.get("costModifierTruck") != null)
 		{
-			c.setCostModifierTruck((Integer)data.get("CostModifierTruck"));
+			c.setCostModifierTruck((Integer)data.get("costModifierTruck"));
 		}
-		if((Integer)data.get("CostModifierBike") != null)
+		if((Integer)data.get("costModifierBike") != null)
 		{
-			c.setCostModifierBike((Integer)data.get("CostModifierBike"));
+			c.setCostModifierBike((Integer)data.get("costModifierBike"));
 		}
-		if((Integer)data.get("CostModifierCargoShip") != null)
+		if((Integer)data.get("costModifierCargoShip") != null)
 		{
-			c.setCostModifierCargoShip((Integer)data.get("CostModifierCargoShip"));
+			c.setCostModifierCargoShip((Integer)data.get("costModifierCargoShip"));
 		}
-		if((Integer)data.get("CostModifierRail") != null)
+		if((Integer)data.get("costModifierRail") != null)
 		{
-			c.setCostModifierRail((Integer)data.get("CostModifierRail"));
+			c.setCostModifierRail((Integer)data.get("costModifierRail"));
 		}
-		if((Integer)data.get("CostModifierPlane") != null)
+		if((Integer)data.get("costModifierPlane") != null)
 		{
-			c.setCostModifierPlane((Integer)data.get("CostModifierPlane"));
+			c.setCostModifierPlane((Integer)data.get("costModifierPlane"));
 		}
 		if((Boolean)data.get("SendByFax") != null)
 		{

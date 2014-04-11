@@ -25,7 +25,7 @@ public class Plane extends Vehicle {
 	 */
 	public Plane()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Plane);					//Set the TravelMode to Plane
+		super.setTravelMode(Vehicle.TravelModes.PLANE);					//Set the TravelMode to Plane
 		this.setCarrier(new Carrier());									//Set the default Plane Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Plane status to RUNNING
 		this.name = DEFAULT_PLANE_NAME;									//Set the Plane name					
@@ -40,7 +40,7 @@ public class Plane extends Vehicle {
 	public Plane(int id)
 	{
 		this.id=id;														//Set the Plane's id
-		super.setTravelMode(Vehicle.TravelModes.Plane);					//Set the TravelMode to Plane
+		super.setTravelMode(Vehicle.TravelModes.PLANE);					//Set the TravelMode to Plane
 		this.setCarrier(new Carrier());									//Set the default Plane Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Plane status to RUNNING
 		this.name = DEFAULT_PLANE_NAME;									//Set the Plane name					
@@ -127,7 +127,7 @@ public class Plane extends Vehicle {
 			{
 				
 				Plane p = BuildFromDataRow(temp.get(0));
-				p.getSchedule();
+				//p.getSchedule();
 				return p;
 			}
 			return null;
@@ -175,7 +175,7 @@ public class Plane extends Vehicle {
 		//This code grabs each element that will be found in the database on the Plane table and set the appropriate values for a new Plane
 		Plane p = new Plane((Integer)data.get("PlaneID"));
 		p.setVehicleName((String)data.get("PlaneName"));
-		p.setCarrier(Carrier.Load((Integer)data.get("Contractor")));
+		p.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		p.setStatus((String)data.get("Status"));	
 		p.MarkClean();
 		return p;

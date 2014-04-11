@@ -19,13 +19,21 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws IOException
 	{
 		ArrayList<Shipment> shipments = Shipment.LoadAll("");
-		for(int i = 0;i<shipments.size();i++)
+		//for(int i = 0;i<shipments.size();i++)
+		for(int i = 0; i< 1; i++)	
 		{
 			System.out.println("Starting " + (i+1));
+			/*System.out.println("Doing A Star Search");
 			Routing.AStarAlg alg = new Routing.AStarAlg(shipments.get(i));
 			ArrayList<Segment> route = alg.getPath();
 			shipments.get(i).DeleteAllHistory();
-			shipments.get(i).setHistoryFromSegments(route);
+			shipments.get(i).setHistoryFromSegments(route);*/
+			
+			System.out.println("Doing NodeCrawler");
+			Routing.NodeCrawler nodeCrawler = new Routing.NodeCrawler(shipments.get(i), 50, 100);
+			ArrayList<Segment> route2 =  nodeCrawler.getPath();
+			shipments.get(i).DeleteAllHistory();
+			shipments.get(i).setHistoryFromSegments(route2);
 			System.out.println("Done with " + (i+1));
 		}
 		printSolution();
@@ -431,7 +439,7 @@ public class Test extends BaseClass
 		}
 		public static void printSolution()throws IOException
 		{
-			File f = new File(".././Output/Shipments.txt");
+			File f = new File("Shipments2.txt");
 			Writer w2=null;
 			try
 			{
@@ -444,9 +452,11 @@ public class Test extends BaseClass
 				System.out.println("Error " +ex);
 			}
 			ArrayList<Shipment> shipments = Shipment.LoadAll("");
-			for(int i = 0; i< shipments.size();i++)
+			//for(int i = 0; i< shipments.size();i++)
+			for(int i = 0; i < 1; i++)
 			{
-				w2.write("Shipment " + (i+1)+ "    From: " +Location.Load(shipments.get(i).getFromLocationID()).getName() + "    To: "+Location.Load(shipments.get(i).getToLocationID()).getName()+"\n"); 
+				String execute = "Shipment " + (i+1)+ "    From: " +Location.Load(shipments.get(i).getFromLocationID()).getName() + "    To: "+Location.Load(shipments.get(i).getToLocationID()).getName()+"\n";
+				w2.write(execute); 
 				//Routing.AStarAlg alg = new Routing.AStarAlg(shipments.get(i));
 				
 				//ArrayList<Segment> segs = alg.getPath();

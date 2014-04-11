@@ -24,7 +24,7 @@ public class Cargo extends Vehicle {
 	 */
 	public Cargo()
 	{
-		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
+		super.setTravelMode(Vehicle.TravelModes.CARGO);					//Set the TravelMode to Cargo
 		this.setCarrier(new Carrier());									//Set the default Cargo's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Cargo's status to RUNNING
 		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
@@ -39,7 +39,7 @@ public class Cargo extends Vehicle {
 	public Cargo(int id)
 	{
 		this.id=id;														//Set the id of the Cargo to the given value
-		super.setTravelMode(Vehicle.TravelModes.Cargo);					//Set the TravelMode to Cargo
+		super.setTravelMode(Vehicle.TravelModes.CARGO);					//Set the TravelMode to Cargo
 		this.setCarrier(new Carrier());									//Set the default Cargo's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Cargo's status to RUNNING
 		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
@@ -124,7 +124,7 @@ public class Cargo extends Vehicle {
 			if(temp.size()>0)
 			{
 				Cargo c = BuildFromDataRow(temp.get(0));
-				c.getSchedule();
+				//c.getSchedule();
 				return c;
 			}
 			return null;
