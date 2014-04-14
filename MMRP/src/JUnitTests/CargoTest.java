@@ -52,6 +52,23 @@ public class CargoTest {
 		test_cargo.Update();
 		Cargo test_cargo2 = Cargo.LoadAll(new String("where ShipName = 'InsertLoadTest'")).get(0);
 		Assert.assertEquals(test_cargo.getVehicleName().toString().trim(), test_cargo2.getVehicleName().toString().trim());
+		Assert.assertEquals(test_cargo.getId(),test_cargo2.getId());
+		//Assert.assertEquals(test_cargo.getCarrier().toString().trim(),test_cargo2.getCarrier().toString().trim());
+		Assert.assertEquals(test_cargo.getStatus().toString().trim(), test_cargo2.getStatus().toString().trim());
+		Assert.assertEquals(test_cargo.isDirty(), test_cargo2.isDirty());
+		Assert.assertEquals(test_cargo.isNew(),test_cargo2.isNew());
+		Assert.assertEquals(test_cargo.getTravelMode().toString().trim(),test_cargo2.getTravelMode().toString().trim());
+		test_cargo.Delete();
+	}
+	
+	@Test
+	public void testDelete() {
+		Cargo test_cargo = new Cargo();
+		test_cargo.setVehicleName("deleteTest");
+		test_cargo.Update();
+		test_cargo.Delete();
+		Cargo test_cargo2 = Cargo.LoadAll(new String("where ShipName = 'DeleteTest'")).get(0);
+		
 	}
 	
 	
