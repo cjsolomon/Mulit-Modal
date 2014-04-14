@@ -646,10 +646,19 @@ public class Carrier extends BaseClass
 		try 
 		{
 			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers " +  where);
-			for(int i = 0 ; i<temp.size();i++)
+			if(temp.size() == 0)
 			{
-				Carrier c = BuildFromDataRow(temp.get(i));
+				Log.writeLogSevere("No Carrier that matches "+where+" returning default object instead.");
+				Carrier c = new Carrier();
 				returnList.add(c);
+			}
+			else
+			{
+				for(int i = 0 ; i<temp.size();i++)
+				{
+					Carrier c = BuildFromDataRow(temp.get(i));
+					returnList.add(c);
+				}
 			}
 		}
 		catch(Exception ex)

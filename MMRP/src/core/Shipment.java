@@ -793,11 +793,20 @@ public class Shipment extends BaseClass {
 		{
 			
 			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment " +  where);
-			for(int i = 0; i<temp.size();i++)
+			if(temp.size() == 0)
 			{
-				Shipment s =BuildFromDataRow(temp.get(i));
-				s.setHistory(ShipmentHistory.LoadAllForShipment(s.getId()));
+				Log.writeLogSevere("No shipment that matches description "+where+" returned default object");
+				Shipment s = new Shipment();
 				returnList.add(s);
+			}
+			else
+			{
+				for(int i = 0; i<temp.size();i++)
+				{
+					Shipment s =BuildFromDataRow(temp.get(i));
+					s.setHistory(ShipmentHistory.LoadAllForShipment(s.getId()));
+					returnList.add(s);
+				}
 			}
 		}
 		catch(Exception ex)

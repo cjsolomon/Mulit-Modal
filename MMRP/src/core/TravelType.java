@@ -3,6 +3,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
 
+import GUI.Log;
+
 public class TravelType extends BaseClass {
 
 	private int vehicleTypeID;
@@ -511,10 +513,19 @@ public class TravelType extends BaseClass {
 		try 
 		{
 			ArrayList<Map<String,Object>> temp =executeQuery("Select * from TravelType " +where );
-			for(int i = 0; i<temp.size();i++)
+			if(temp.size() == 0)
 			{
-				TravelType t = BuildFromDataRow(temp.get(i));
-				returnList.add(t);
+				Log.writeLogSevere("No Travel Type that matches "+where+" returning default object instead.");
+				TravelType c = new TravelType();
+				returnList.add(c);
+			}
+			else
+			{
+				for(int i = 0 ; i<temp.size();i++)
+				{
+					TravelType c = BuildFromDataRow(temp.get(i));
+					returnList.add(c);
+				}
 			}
 		}
 		catch(Exception ex)

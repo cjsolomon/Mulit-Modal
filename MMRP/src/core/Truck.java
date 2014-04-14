@@ -13,6 +13,8 @@ package core;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
+
+import GUI.Log;
 public class Truck extends Vehicle {											
 	
 	//Default Variables
@@ -147,11 +149,20 @@ public class Truck extends Vehicle {
 		try 
 		{
 			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Truck " +where );
-			for(int i = 0; i<temp.size();i++)
+			if(temp.size() == 0)
 			{
-				Truck t = BuildFromDataRow(temp.get(i));
-				t.getSchedule();
-				returnList.add(t);
+				Log.writeLogSevere("No Truck that matches "+where+" returning default object instead.");
+				Truck c = new Truck();
+				returnList.add(c);
+			}
+			else
+			{
+				for(int i = 0 ; i<temp.size();i++)
+				{
+					Truck c = BuildFromDataRow(temp.get(i));
+					c.getSchedule();
+					returnList.add(c);
+				}
 			}
 		}
 		catch(Exception ex)

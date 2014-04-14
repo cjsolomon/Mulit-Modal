@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import GUI.Log;
+
 public class Plane extends Vehicle {
 	
 	//Default Variables
@@ -150,11 +152,20 @@ public class Plane extends Vehicle {
 		try 
 		{
 			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Plane " +  where);
-			for(int i = 0; i<temp.size();i++)
+			if(temp.size() == 0)
 			{
-				Plane p = BuildFromDataRow(temp.get(i));
-				p.getSchedule();
-				returnList.add(p);
+				Log.writeLogSevere("No Plane that matches "+where+" returning default object instead.");
+				Plane c = new Plane();
+				returnList.add(c);
+			}
+			else
+			{
+				for(int i = 0 ; i<temp.size();i++)
+				{
+					Plane c = BuildFromDataRow(temp.get(i));
+					c.getSchedule();
+					returnList.add(c);
+				}
 			}
 		}
 		catch(Exception ex)

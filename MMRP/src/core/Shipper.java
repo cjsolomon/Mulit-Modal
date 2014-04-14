@@ -246,9 +246,18 @@ public class Shipper extends BaseClass {
 		{
 			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Shipper "+where);
 			ArrayList<Shipper> returnList=new ArrayList<Shipper>();
-			for(int i = 0;i<temp.size();i++ )
+			if(temp.size() == 0) 
 			{
-				returnList.add(BuildFromDataRow(temp.get(i)));
+				Log.writeLogSevere("No shipper that matches description "+where+" returned default object");
+				Shipper s = new Shipper();
+				returnList.add(s);
+			}
+			else 
+			{
+				for(int i = 0;i<temp.size();i++ )
+				{
+					returnList.add(BuildFromDataRow(temp.get(i)));
+				}
 			}
 			return returnList;
 		}
