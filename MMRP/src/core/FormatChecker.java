@@ -86,7 +86,7 @@ public class FormatChecker {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param day

@@ -3,6 +3,8 @@ package core;
 import java.util.ArrayList;
 import java.util.Map;
 
+import GUI.Log;
+
 public class Shipper extends BaseClass {
 	
 	private int id;
@@ -160,11 +162,17 @@ public class Shipper extends BaseClass {
 	 */
 	public void setPhoneNumber(String newPhoneNumber)
 	{
-		//NEED ERROR CHECKING
 		if(this.phone==null|| !this.phone.equals(newPhoneNumber))
 		{
-			this.phone=newPhoneNumber;
-			MarkDirty();
+			if(FormatChecker.isValidPhone(newPhoneNumber))
+			{
+				this.phone=newPhoneNumber;
+				MarkDirty();
+			}
+			else
+			{
+				Log.writeLogSevere("Invalid phone number format. Failed to set phone number.");
+			}
 		}
 	}//End of Phone(String newPhoneNumber)
 	
@@ -183,11 +191,17 @@ public class Shipper extends BaseClass {
 	 */
 	public void setEmailAddress(String newEmailAddress)
 	{
-		//NEED ERROR CHECKING
 		if(this.email==null || ! this.email.equals(newEmailAddress))
 		{
-			this.email=newEmailAddress;
-			MarkDirty();
+			if(FormatChecker.isValidEmail(newEmailAddress))
+			{
+				this.email=newEmailAddress;
+				MarkDirty();
+			}
+			else
+			{
+				Log.writeLogSevere("Invalid email format. Failed to set email address.");
+			}
 		}
 	}//End of Email(String newEmailAddress)
 	
