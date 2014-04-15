@@ -42,7 +42,7 @@ public class Truck extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Truck Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Truck status to RUNNING
 		this.name = DEFAULT_TRUCK_NAME;									//Set the Truck name					
-		this.MarkNew();													//Mark the Truck as new
+		this.MarkOld();													//Mark the Truck as new
 		this.MarkClean();												//Mark the Truck as clean
 																				
 	}//End of the argumented Truck constructor
@@ -174,6 +174,7 @@ public class Truck extends Vehicle {
 		t.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		t.setStatus((String)data.get("Status"));	
 		t.MarkClean();																//Mark the Truck as clean
+		t.MarkOld();
 		return t;
 			
 	}//End of BuildFromDataRow(Map<String,Object> data)

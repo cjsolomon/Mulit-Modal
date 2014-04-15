@@ -44,7 +44,7 @@ public class Rail extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Rail Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Rail status to RUNNING
 		this.name = DEFAULT_RAIL_NAME;									//Set the Rail name					
-		this.MarkNew();													//Mark the Rail as new
+		this.MarkOld();													//Mark the Rail as new
 		this.MarkClean();												//Mark the Rail as clean
 																	
 	}//End of the argumented constructor Rail(int id)
@@ -173,7 +173,8 @@ public class Rail extends Vehicle {
 		r.setVehicleName((String)data.get("RailName"));
 		r.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		r.setStatus((String)data.get("Status"));		
-		r.MarkClean();															//Mark the Rail as clean
+		r.MarkClean();	
+		r.MarkOld();
 		return r;
 			
 	}//End of BuildFromDataRow(Map<String,Object> data)
