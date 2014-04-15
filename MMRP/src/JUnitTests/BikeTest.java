@@ -80,7 +80,6 @@ public class BikeTest {
 		test_Bike.Update();
 		test_Bike.Delete();
 		ArrayList<Bike> bList = Bike.LoadAll(new String("where BikeName = 'deleteTest'"));
-		System.out.println(bList.size());
 		Assert.assertTrue(bList.isEmpty());
 		for (Bike delete : bList)
 			delete.Delete();	

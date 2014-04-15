@@ -80,7 +80,6 @@ public class RailTest {
 		test_Rail.Update();
 		test_Rail.Delete();
 		ArrayList<Rail> rList = Rail.LoadAll(new String("where RailName = 'deleteTest'"));
-		System.out.println(rList.size());
 		Assert.assertTrue(rList.isEmpty());
 		for (Rail delete : rList)
 			delete.Delete();	

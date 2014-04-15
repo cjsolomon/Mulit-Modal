@@ -80,7 +80,6 @@ public class TruckTest {
 		test_Truck.Update();
 		test_Truck.Delete();
 		ArrayList<Truck> tList = Truck.LoadAll(new String("where TruckName = 'deleteTest'"));
-		System.out.println(tList.size());
 		Assert.assertTrue(tList.isEmpty());
 		for (Truck delete : tList)
 			delete.Delete();	

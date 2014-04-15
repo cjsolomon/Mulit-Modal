@@ -80,7 +80,6 @@ public class CargoTest {
 		test_cargo.Update();
 		test_cargo.Delete();
 		ArrayList<Cargo> cList = Cargo.LoadAll(new String("where ShipName = 'deleteTest'"));
-		System.out.println(cList.size());
 		Assert.assertTrue(cList.isEmpty());
 		for (Cargo delete : cList)
 			delete.Delete();	

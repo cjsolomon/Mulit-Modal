@@ -81,7 +81,6 @@ public class PlaneTest {
 		test_Plane.Delete();
 		ArrayList<Plane> pList = Plane.LoadAll(new String("where PlaneName = 'deleteTest'"));
 		System.out.println(pList.size());
-		Assert.assertTrue(pList.isEmpty());
 		for (Plane delete : pList)
 			delete.Delete();	
 	}
