@@ -68,7 +68,7 @@ public class RailTest {
 				delete.Delete();
 		}
 		else {
-			Assert.assertEquals(false, true);
+			Assert.assertFalse(true);
 		}
 		
 	}

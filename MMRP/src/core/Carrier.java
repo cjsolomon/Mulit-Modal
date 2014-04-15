@@ -726,7 +726,7 @@ public class Carrier extends BaseClass
 	 * This function is the overridden delete, it will remove this Carrier from the database
 	 */
 	@Override
-	boolean Delete() {
+	public boolean Delete() {
 		try
 		{
 			executeCommand("Delete from Carriers Where CarrierID = " + this.id);	
