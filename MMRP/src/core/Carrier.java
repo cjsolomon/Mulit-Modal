@@ -39,21 +39,21 @@ public class Carrier extends BaseClass
 	private final int MAX_MODIFIER = 100;
 	
 	//DEFAULT VALUES
-	private final String DEFAULT_AREA_CODE = "0";
-	private final int DEFAULT_AUTHORIZE = 0;
-	private final String DEFAULT_CARRIER_CODE = "defaultCarrierCode";
-	private final String DEFAULT_CARRIER_NAME = "defaultCarrierName";
-	private final String DEFAULT_CONTRACT_DATE = "January 1 1970";
-	private final int DEFAULT_COST_MOD_BIKE = 1;
-	private final int DEFAULT_COST_MOD_CARGO = 1;
-	private final int DEFAULT_COST_MOD_PLANE = 1;
-	private final int DEFAULT_COST_MOD_TRUCK = 1;
-	private final int DEFAULT_COST_MOD_RAIL = 1;
-	private final String DEFAULT_EMAIL_ADDRESS = "default@default.com";
-	private final String DEFAULT_FAX_NUMBER = "123-456-7890";
-	private final String DEFAULT_INS_END_DATE = "January 1 1970";
-	private final String DEFAULT_SAFETY_RATE_DATE = "January 1 1970";
-	private final int DEFAULT_SAFETY_RATING = 1;
+	private static final String DEFAULT_AREA_CODE = "0";
+	private static final int DEFAULT_AUTHORIZE = 0;
+	private static final String DEFAULT_CARRIER_CODE = "defaultCarrierCode";
+	private static final String DEFAULT_CARRIER_NAME = "defaultCarrierName";
+	private static final String DEFAULT_CONTRACT_DATE = "January 1 1970";
+	private static final int DEFAULT_COST_MOD_BIKE = 1;
+	private static final int DEFAULT_COST_MOD_CARGO = 1;
+	private static final int DEFAULT_COST_MOD_PLANE = 1;
+	private static final int DEFAULT_COST_MOD_TRUCK = 1;
+	private static final int DEFAULT_COST_MOD_RAIL = 1;
+	private static final String DEFAULT_EMAIL_ADDRESS = "default@default.com";
+	private static final String DEFAULT_FAX_NUMBER = "123-456-7890";
+	private static final String DEFAULT_INS_END_DATE = "January 1 1970";
+	private static final String DEFAULT_SAFETY_RATE_DATE = "January 1 1970";
+	private static final int DEFAULT_SAFETY_RATING = 1;
 	
 	
 	
@@ -111,67 +111,71 @@ public class Carrier extends BaseClass
 		this.MarkClean();
 	}//End of argumented Carrier constructor
 	
+	/**
+	 * This function returns the default
+	 * @return
+	 */
 	public static int getDefaultCostModCargoship() {
 		return DEFAULT_COST_MOD_CARGOSHIP;
 	}
 
-	public String getDEFAULT_AREA_CODE() {
+	public static String getDEFAULT_AREA_CODE() {
 		return DEFAULT_AREA_CODE;
 	}
 
-	public int getDEFAULT_AUTHORIZE() {
+	public static int getDEFAULT_AUTHORIZE() {
 		return DEFAULT_AUTHORIZE;
 	}
 
-	public String getDEFAULT_CARRIER_CODE() {
+	public static String getDEFAULT_CARRIER_CODE() {
 		return DEFAULT_CARRIER_CODE;
 	}
 
-	public String getDEFAULT_CARRIER_NAME() {
+	public static String getDEFAULT_CARRIER_NAME() {
 		return DEFAULT_CARRIER_NAME;
 	}
 
-	public String getDEFAULT_CONTRACT_DATE() {
+	public static String getDEFAULT_CONTRACT_DATE() {
 		return DEFAULT_CONTRACT_DATE;
 	}
 
-	public int getDEFAULT_COST_MOD_BIKE() {
+	public static int getDEFAULT_COST_MOD_BIKE() {
 		return DEFAULT_COST_MOD_BIKE;
 	}
 
-	public int getDEFAULT_COST_MOD_CARGO() {
+	public static int getDEFAULT_COST_MOD_CARGO() {
 		return DEFAULT_COST_MOD_CARGO;
 	}
 
-	public int getDEFAULT_COST_MOD_PLANE() {
+	public static int getDEFAULT_COST_MOD_PLANE() {
 		return DEFAULT_COST_MOD_PLANE;
 	}
 
-	public int getDEFAULT_COST_MOD_TRUCK() {
+	public static int getDEFAULT_COST_MOD_TRUCK() {
 		return DEFAULT_COST_MOD_TRUCK;
 	}
 
-	public int getDEFAULT_COST_MOD_RAIL() {
+	public static int getDEFAULT_COST_MOD_RAIL() {
 		return DEFAULT_COST_MOD_RAIL;
 	}
 
-	public String getDEFAULT_EMAIL_ADDRESS() {
+	public static String getDEFAULT_EMAIL_ADDRESS() {
 		return DEFAULT_EMAIL_ADDRESS;
 	}
 
-	public String getDEFAULT_FAX_NUMBER() {
+	public static String getDEFAULT_FAX_NUMBER() {
 		return DEFAULT_FAX_NUMBER;
 	}
 
-	public String getDEFAULT_INS_END_DATE() {
+	public static String getDEFAULT_INS_END_DATE() {
 		return DEFAULT_INS_END_DATE;
 	}
 
-	public String getDEFAULT_SAFETY_RATE_DATE() {
+	public static String getDEFAULT_SAFETY_RATE_DATE() {
 		return DEFAULT_SAFETY_RATE_DATE;
 	}
 
-	public int getDEFAULT_SAFETY_RATING() {
+	public static int getDEFAULT_SAFETY_RATING() {
 		return DEFAULT_SAFETY_RATING;
 	}
 
