@@ -4,7 +4,6 @@ import org.junit.Test;
 import org.junit.Assert;
 import core.Cargo;
 import core.Vehicle;
-import core.BaseClass;
 
 public class CargoTest {
 

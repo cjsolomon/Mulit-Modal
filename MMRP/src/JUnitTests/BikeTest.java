@@ -4,7 +4,7 @@ import org.junit.Test;
 import org.junit.Assert;
 import core.Bike;
 import core.Vehicle;
-import core.BaseClass;
+
 
 public class BikeTest {
 
