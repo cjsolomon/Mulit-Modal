@@ -2,6 +2,10 @@ package core;
 
 import java.util.ArrayList;
 
+import Routing.WeightedMetric;
+import core.Vehicle;
+import Routing.BestFirstFind;
+import Routing.NodeCrawler;
 import java.io.*;
 public class Test extends BaseClass 
 {
@@ -19,8 +23,7 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws IOException
 	{
 		ArrayList<Shipment> shipments = Shipment.LoadAll("");
-		//for(int i = 0;i<shipments.size();i++)
-		for(int i = 0; i< 1; i++)	
+		for(int i = 0; i< shipments.size(); i++)	
 		{
 			System.out.println("Starting " + (i+1));
 			/*System.out.println("Doing A Star Search");
@@ -29,17 +32,33 @@ public class Test extends BaseClass
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route);*/
 			
-			System.out.println("Doing NodeCrawler");
-			Routing.NodeCrawler nodeCrawler = new Routing.NodeCrawler(shipments.get(i), 50, 100);
+			/*System.out.println("Doing NodeCrawler");
+			Routing.NodeCrawler nodeCrawler = new Routing.NodeCrawler(shipments.get(i), 50, 10);
 			ArrayList<Segment> route2 =  nodeCrawler.getPath();
 			shipments.get(i).DeleteAllHistory();
-			shipments.get(i).setHistoryFromSegments(route2);
+			shipments.get(i).setHistoryFromSegments(route2);*/
+			
+			/*Routing.BestFirstFind bestFind = new Routing.BestFirstFind(new WeightedMetric(1,1,1), shipments.get(i));
+			ArrayList<Segment> route3 =  bestFind.getPath();
+			shipments.get(i).DeleteAllHistory();
+			shipments.get(i).setHistoryFromSegments(route3);*/
+			
+			/*Routing.TravelByType travelBT =  new Routing.TravelByType(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
+			ArrayList<Segment> route4 =  travelBT.getPath();
+			shipments.get(i).DeleteAllHistory();
+			shipments.get(i).setHistoryFromSegments(route4);*/
+			
+			Routing.NextAvailableVehicle NAV =  new Routing.NextAvailableVehicle(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
+			ArrayList<Segment> route5 =  NAV.getPath();
+			shipments.get(i).DeleteAllHistory();
+			shipments.get(i).setHistoryFromSegments(route5);
+			
 			System.out.println("Done with " + (i+1));
 		}
 		printSolution();
-		printShipmentInfoToFile();
-		printVehicleInfo();
-		printVehicleRoute();
+		//printShipmentInfoToFile();
+		//printVehicleInfo();
+		//printVehicleRoute();
 		//File f = new File(".././Output/Vehicles.txt");
 		//File f2 = new File(".././Output/Shipments.txt");
 		//File f2 = new File("../.Output/ShipmentInfo.txt");
@@ -172,7 +191,7 @@ public class Test extends BaseClass
 		}
 		public static void printVehicleRoute() throws IOException
 		{
-			File f = new File(".././Output/Vehicles.txt");
+			File f = new File("Vehicles.txt");
 			Writer w = null;
 			try
 			{
@@ -452,8 +471,7 @@ public class Test extends BaseClass
 				System.out.println("Error " +ex);
 			}
 			ArrayList<Shipment> shipments = Shipment.LoadAll("");
-			//for(int i = 0; i< shipments.size();i++)
-			for(int i = 0; i < 1; i++)
+			for(int i = 0; i< shipments.size();i++)
 			{
 				String execute = "Shipment " + (i+1)+ "    From: " +Location.Load(shipments.get(i).getFromLocationID()).getName() + "    To: "+Location.Load(shipments.get(i).getToLocationID()).getName()+"\n";
 				w2.write(execute); 
@@ -471,7 +489,10 @@ public class Test extends BaseClass
 					w2.write("\n\t" + s.getStartLocation().getName() + " to " + s.getEndLocation().getName() + " via " + v.getVehicleName());
 					
 				}
-				w2.write("\n\n\tArrival: " + hist.get(hist.size()-1).getSegment().getEstimatedArrivalTime()+"\n\n\n\n");
+				if(hist.size() != 0)
+					w2.write("\n\n\tArrival: " + hist.get(hist.size()-1).getSegment().getEstimatedArrivalTime()+"\n\n\n\n");
+				else
+					w2.write("No Route found.\n\n");
 				//if(segs.size()!=0)
 				//{
 				//for(int j = 0; j<segs.size();j++)
@@ -485,7 +506,7 @@ public class Test extends BaseClass
 		}
 		public static void printShipmentInfoToFile()throws IOException
 		{
-			File f = new File(".././Output/ShipmentInfo.txt");
+			File f = new File("ShipmentInfo.txt");
 			Writer w=null;
 			try
 			{
@@ -536,7 +557,7 @@ public class Test extends BaseClass
 		}
 		public static void printVehicleInfo()throws IOException
 		{
-			File f = new File(".././Output/VehicleInfo.txt");
+			File f = new File("VehicleInfo.txt");
 			Writer w=null;
 			try
 			{

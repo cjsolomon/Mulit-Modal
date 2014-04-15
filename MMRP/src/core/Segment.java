@@ -118,8 +118,8 @@ public class Segment extends BaseClass {
 	{
 		//Some error checking
 		if(newDistance < 0){
-			Log.writeLogSevere("The new distance for segment " + this.getID() + " was set below zero. The new " +
-					"distance will be now set to zero.");
+			/*Log.writeLogSevere("The new distance for segment " + this.getID() + " was set below zero. The new " +
+					"distance will be now set to zero.");*/
 			newDistance = 0;
 		}
 		
@@ -165,14 +165,14 @@ public class Segment extends BaseClass {
 		//Some error checking
 		
 		if(newArrivalTime < this.earliestArrivalTime){
-			Log.writeLogSevere("The new estimate arrival time was set below the earliest arrival time, so it has been corrected to " +
-					this.earliestArrivalTime + ".");
+			/*Log.writeLogSevere("The new estimate arrival time was set below the earliest arrival time, so it has been corrected to " +
+					this.earliestArrivalTime + ".");*/
 			newArrivalTime = this.earliestArrivalTime;
 		}
 		
 		if(newArrivalTime > this.latestArrivalTime){
-			Log.writeLogSevere("The new estimate arrival time was set above the latest arrival time, so it has been corrected to " +
-					this.latestArrivalTime + ".");
+			/*Log.writeLogSevere("The new estimate arrival time was set above the latest arrival time, so it has been corrected to " +
+					this.latestArrivalTime + ".");*/
 			newArrivalTime = this.latestArrivalTime;
 		}
 
@@ -201,14 +201,14 @@ public class Segment extends BaseClass {
 		//Some error checking
 		
 		if(newDepartureTime < this.earliestDepartureTime){
-			Log.writeLogSevere("The new estimate departure time was set below the earliest depature time, so it has been corrected to " +
-					earliestDepartureTime + ".");
+			/*Log.writeLogSevere("The new estimate departure time was set below the earliest depature time, so it has been corrected to " +
+					earliestDepartureTime + ".");*/
 			newDepartureTime = earliestDepartureTime;
 		}
 		
 		if(newDepartureTime > this.latestDepartureTime){
-			Log.writeLogSevere("The new estimate departure time was set above the latest departure time, so it has been corrected to " +
-					this.latestDepartureTime + ".");
+			/*Log.writeLogSevere("The new estimate departure time was set above the latest departure time, so it has been corrected to " +
+					this.latestDepartureTime + ".");*/
 			newDepartureTime = this.latestDepartureTime;
 		}
 		
@@ -244,14 +244,14 @@ public class Segment extends BaseClass {
 		
 		//Some error checking
 		if(earliestArrivalTime > this.arrivalTime){
-			Log.writeLogSevere("The new earliest arrival time was set above the arrival time, so it has been corrected to " +
-					this.arrivalTime + ".");
+			/*Log.writeLogSevere("The new earliest arrival time was set above the arrival time, so it has been corrected to " +
+					this.arrivalTime + ".");*/
 			earliestArrivalTime = this.arrivalTime;
 		}
 		
 		if(earliestArrivalTime < this.latestDepartureTime){
-			Log.writeLogSevere("The new earliest arrival time was set below the latest depature time, so it has been corrected to " +
-					this.latestDepartureTime + ".");
+			/*Log.writeLogSevere("The new earliest arrival time was set below the latest depature time, so it has been corrected to " +
+					this.latestDepartureTime + ".");*/
 			earliestArrivalTime = this.latestDepartureTime;
 		}
 		
@@ -274,14 +274,14 @@ public class Segment extends BaseClass {
 		
 		//Some error checking
 		if(latestArrivalTime < this.arrivalTime){
-			Log.writeLogSevere("The new latest arrival time was set below the estimated arrival time, so it has been corrected to " +
-					this.arrivalTime + ".");
+			/*Log.writeLogSevere("The new latest arrival time was set below the estimated arrival time, so it has been corrected to " +
+					this.arrivalTime + ".");*/
 			latestArrivalTime = this.arrivalTime;
 		}
 				
 		if(latestArrivalTime > HIGEST_ARRIVAL_TIME){
-			Log.writeLogSevere("The new latest arrival time was set too high, so it has been corrected to " +
-					HIGEST_ARRIVAL_TIME + ".");
+			/*Log.writeLogSevere("The new latest arrival time was set too high, so it has been corrected to " +
+					HIGEST_ARRIVAL_TIME + ".");*/
 			latestArrivalTime = HIGEST_ARRIVAL_TIME;
 		}
 				
@@ -301,17 +301,17 @@ public class Segment extends BaseClass {
 	 * @param earliestDepartureTime This is the new earliest departure time for the vehicle from the start location
 	 */
 	public void setEarliestDepartureTime(int earliestDepartureTime) {
-		
+	
 		//Some error checking
 		if(earliestDepartureTime > this.departureTime){
-			Log.writeLogSevere("The new earliest depature time was set above the depature time, so it has been corrected to " +
-					this.departureTime + ".");
+			/*Log.writeLogSevere("The new earliest depature time was set above the depature time, so it has been corrected to " +
+					this.departureTime + ".");*/
 			earliestDepartureTime = this.departureTime;
 		}
 				
 		if(earliestDepartureTime < LOWEST_DEPARTURE_TIME){
-			Log.writeLogSevere("The new earliest depature time was set too low, so it has been corrected to " +
-					LOWEST_DEPARTURE_TIME + ".");
+			/*Log.writeLogSevere("The new earliest depature time was set too low, so it has been corrected to " +
+					LOWEST_DEPARTURE_TIME + ".");*/
 			earliestDepartureTime = LOWEST_DEPARTURE_TIME;
 		}
 		
@@ -334,14 +334,14 @@ public class Segment extends BaseClass {
 		
 		//Some error checking
 		if(latestDepartureTime > this.earliestArrivalTime){
-			Log.writeLogSevere("The new latest departure time was set above the earliest arrival time, so it has been corrected to " +
-					this.earliestArrivalTime + ".");
+			/*Log.writeLogSevere("The new latest departure time was set above the earliest arrival time, so it has been corrected to " +
+					this.earliestArrivalTime + ".");*/
 			latestDepartureTime = this.earliestArrivalTime;
 		}
 				
 		if(latestDepartureTime < this.departureTime){
-			Log.writeLogSevere("The new latest depature time was set below the estimate depature time, so it has been corrected to " +
-					this.departureTime + ".");
+			/*Log.writeLogSevere("The new latest depature time was set below the estimate depature time, so it has been corrected to " +
+					this.departureTime + ".");*/
 			latestDepartureTime = this.departureTime;
 		}
 		
@@ -553,6 +553,13 @@ public class Segment extends BaseClass {
 		this.travelType = travelType;
 	}//End of setTravelType(TravelType travelType)
 	
+	public void setMode(String mode){
+		this.mode = mode;
+	}
+	
+	public String getMode(){
+		return mode;
+	}
 	
 	/**
 	 * This function returns all the Segments specified in the given where clause
@@ -561,7 +568,7 @@ public class Segment extends BaseClass {
 	 */
 	public static ArrayList<Segment> LoadAll(String where)
 	{
-		System.out.println("Loading all the segments from the where clause");
+		//System.out.println("Loading all the segments from the where clause");
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try
 		{
@@ -597,6 +604,7 @@ public class Segment extends BaseClass {
 		s.setStartLocation((Integer)data.get("FromLocationID"));
 		s.setEndLocation((Integer)data.get("ToLocationID"));
 		Vehicle.TravelModes newMode = Vehicle.TravelModes.valueOf((String)data.get("ModeType"));
+		s.setMode((String)data.get("ModeType"));
 		s.setVehicle((Integer)data.get("VehicleID"),newMode);
 		s.setDistance(Double.parseDouble(data.get("Distance").toString()));
 		s.setEstimatedDepartureTime((Integer)data.get("TimeOfDeparture"));

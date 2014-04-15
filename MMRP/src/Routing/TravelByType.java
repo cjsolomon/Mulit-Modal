@@ -26,7 +26,7 @@ public class TravelByType{
 		percentChanceOfDirectPath = 30;
 		percentChanceOfBestRoute =  50;
 		pathFound = false;
-		maxTries = 1000;
+		maxTries = 10;
 	}//End of TravelByType() default constructor
 	
 	public TravelByType(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment){
@@ -37,7 +37,7 @@ public class TravelByType{
 		percentChanceOfDirectPath = 30;
 		percentChanceOfBestRoute = 50;
 		pathFound = false;
-		maxTries = 1000;
+		maxTries = 10;
 	}//End of TravelByType() 3-argument constructor
 	
 	public TravelByType(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment, int directPathChance, int bestRouteChance, int maximumTries){
@@ -128,13 +128,13 @@ public class TravelByType{
 	}//End of getPath()
 
 	public ArrayList<Segment> grabSegmentsStartingAt(int startID){
-		ArrayList<Segment> startSegments=Segment.LoadAll("Where StartingLocation = '"+ startID);
+		ArrayList<Segment> startSegments=Segment.LoadAll("Where FromLocationID = '"+ startID + "'");
 		startSegments = validPaths(startSegments);
 		return startSegments;
 	}//End of grabSegmentsStartingAt(Location start)
 	
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ start.getID() +"' AND EndingLocation ='" + end.getID() +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
@@ -142,13 +142,13 @@ public class TravelByType{
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
-		for(int i = 0; i < segmentsToCheck.size(); i++){
-			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
-				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode.toString()){
+		//for(int i = 0; i < segmentsToCheck.size(); i++){
+		//	if(s.getEstimatedDepartureTime() < currentTime || s.getTravelType().getActCap() < shipment.getSize() || 
+		//		s.getVehicle().getStatus() != "RUNNING" || s.getMode() != mode.toString()){
 				//We cannot use this segment so remove it from the list
-				segmentsToCheck.remove(i);
-			}//End of time, size and status restraint if
-		}//End of time and capacity checking for loop
+		//		segmentsToCheck.remove(s);
+		//	}//End of time, size and status restraint if
+		//}//End of time and capacity checking for loop
 			
 	return segmentsToCheck;
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)

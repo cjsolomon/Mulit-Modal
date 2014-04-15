@@ -21,7 +21,7 @@ public class FormatChecker {
 	    }
 	    else
 	    {
-	    	Log.writeLogWarning("Invalid format on phone/fax number.");
+	    	//Log.writeLogWarning("Invalid format on phone/fax number.");
 	    	return false;
 	    }
 	}
@@ -41,7 +41,7 @@ public class FormatChecker {
 	    }
 	    else
 	    {
-	    	Log.writeLogWarning("Invalid format on email address.");
+	    	//Log.writeLogWarning("Invalid format on email address.");
 	    	return false;
 	    }
 	}
@@ -61,7 +61,7 @@ public class FormatChecker {
 	    }
 	    else
 	    {
-	    	Log.writeLogWarning("Invalid format on area code.");
+	    	//Log.writeLogWarning("Invalid format on area code.");
 	    	return false;
 	    }
 	}
@@ -82,7 +82,7 @@ public class FormatChecker {
 		}
 		else 
 		{
-			Log.writeLogWarning("Invalid numerical entry given; not in range.");
+			//Log.writeLogWarning("Invalid numerical entry given; not in range.");
 			return false;
 		}
 	}

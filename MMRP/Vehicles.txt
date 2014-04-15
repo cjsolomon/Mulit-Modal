@@ -1,0 +1,322 @@
+					TRUCKS
+----------------------------------------------------------------
+
+
+
+Truck1
+
+	From Copenhagen,Denmark   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+
+	From Antwerp,Belgium   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 0
+
+	From Rotterdam,Netherlands   To   Paris,France
+		Capacity: 0.0	Actual: 0
+
+
+Truck2
+
+	From Mobile,Al   To   Pittsburgh,PA
+		Capacity: 0.0	Actual: 4
+			Picked Up Shipment 11
+
+	From Pittsburgh,PA   To   Mempis,TN
+		Capacity: 0.0	Actual: 0
+			Dropped off Shipment 11
+
+	From Mempis,TN   To   Miami,Fl
+		Capacity: 0.0	Actual: 0
+
+	From Miami,Fl   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+Truck3
+
+	From New York City,NY   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+
+	From Mobile,Al   To   Miami,Fl
+		Capacity: 0.0	Actual: 0
+
+
+Truck4
+
+	From Antwerp,Belgium   To   Copenhagen,Denmark
+		Capacity: 0.0	Actual: 0
+
+	From Copenhagen,Denmark   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 3
+			Picked Up Shipment 21
+
+	From Rotterdam,Netherlands   To   Frankfurt,Germany
+		Capacity: 0.0	Actual: 0
+			Dropped off Shipment 21
+
+	From Frankfurt,Germany   To   Paris,France
+		Capacity: 0.0	Actual: 0
+
+
+Truck5
+
+
+Truck6
+
+	From Paris,France   To   Copenhagen,Denmark
+		Capacity: 0.0	Actual: 0
+
+	From Miami,Fl   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+
+
+
+
+
+					PLANES
+----------------------------------------------------------------
+
+
+
+Plane1
+
+	From Antwerp,Belgium   To   Copenhagen,Denmark
+		Capacity: 0.0	Actual: 0
+
+	From Copenhagen,Denmark   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 0
+
+	From Rotterdam,Netherlands   To   Frankfurt,Germany
+		Capacity: 0.0	Actual: 0
+
+	From Frankfurt,Germany   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+
+
+Plane2
+
+	From New York City,NY   To   Mempis,TN
+		Capacity: 0.0	Actual: 0
+
+	From Mempis,TN   To   Pittsburgh,PA
+		Capacity: 0.0	Actual: 0
+
+	From Pittsburgh,PA   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+
+	From Mobile,Al   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+Plane3
+
+	From Paris,France   To   Copenhagen,Denmark
+		Capacity: 0.0	Actual: 0
+
+	From Copenhagen,Denmark   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 0
+
+	From Rotterdam,Netherlands   To   Frankfurt,Germany
+		Capacity: 0.0	Actual: 0
+
+	From Frankfurt,Germany   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+Plane4
+
+	From New York City,NY   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+
+	From Mobile,Al   To   Miami,Fl
+		Capacity: 0.0	Actual: 0
+
+	From Miami,Fl   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+Plane5
+
+	From Mobile,Al   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+	From Paris,France   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 0
+
+	From Rotterdam,Netherlands   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+
+
+Plane6
+
+	From New York City,NY   To   Paris,France
+		Capacity: 0.0	Actual: 0
+
+
+
+
+
+
+
+					TRAINS
+----------------------------------------------------------------
+
+
+
+Rail1
+
+	From Mobile,Al   To   New York City,NY
+		Capacity: 0.0	Actual: 6
+			Picked Up Shipment 17
+			Picked Up Shipment 29
+
+
+Rail2
+
+	From Pittsburgh,PA   To   Miami,Fl
+		Capacity: 0.0	Actual: 8
+			Picked Up Shipment 6
+
+	From Miami,Fl   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+			Dropped off Shipment 6
+
+	From Mobile,Al   To   Pittsburgh,PA
+		Capacity: 0.0	Actual: 0
+
+	From Rotterdam,Netherlands   To   Frankfurt,Germany
+		Capacity: 0.0	Actual: 0
+
+	From Frankfurt,Germany   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+
+	From Antwerp,Belgium   To   Paris,France
+		Capacity: 0.0	Actual: 0
+
+
+Rail3
+
+	From Miami,Fl   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+
+	From Mobile,Al   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+	From Miami,Fl   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+
+	From Mobile,Al   To   Pittsburgh,PA
+		Capacity: 0.0	Actual: 0
+
+	From Pittsburgh,PA   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+Rail4
+
+	From Miami,Fl   To   Pittsburgh,PA
+		Capacity: 0.0	Actual: 0
+
+	From Pittsburgh,PA   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+	From Antwerp,Belgium   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 0
+
+	From Rotterdam,Netherlands   To   Frankfurt,Germany
+		Capacity: 0.0	Actual: 2
+			Picked Up Shipment 1
+
+	From Frankfurt,Germany   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+			Dropped off Shipment 1
+
+
+Rail5
+
+	From Rotterdam,Netherlands   To   Frankfurt,Germany
+		Capacity: 0.0	Actual: 0
+
+	From Frankfurt,Germany   To   Paris,France
+		Capacity: 0.0	Actual: 0
+
+	From Paris,France   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+
+	From Antwerp,Belgium   To   Frankfurt,Germany
+		Capacity: 0.0	Actual: 6
+			Picked Up Shipment 10
+
+	From Mobile,Al   To   Mempis,TN
+		Capacity: 0.0	Actual: 0
+			Dropped off Shipment 10
+
+	From Mempis,TN   To   Miami,Fl
+		Capacity: 0.0	Actual: 0
+
+	From Miami,Fl   To   Pittsburgh,PA
+		Capacity: 0.0	Actual: 0
+
+
+Rail6
+
+	From Pittsburgh,PA   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+
+
+
+
+
+					CARGOSHIPS
+----------------------------------------------------------------
+
+
+
+Ship1
+
+	From Antwerp,Belgium   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 0
+
+	From Rotterdam,Netherlands   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+
+Ship2
+
+	From Miami,Fl   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+
+	From Mobile,Al   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+
+
+Ship3
+
+	From Rotterdam,Netherlands   To   New York City,NY
+		Capacity: 0.0	Actual: 0
+
+	From New York City,NY   To   Miami,Fl
+		Capacity: 0.0	Actual: 0
+
+
+Ship4
+
+	From Rotterdam,Netherlands   To   Mobile,Al
+		Capacity: 0.0	Actual: 0
+
+
+Ship5
+
+	From New York City,NY   To   Rotterdam,Netherlands
+		Capacity: 0.0	Actual: 0
+
+
+Ship6
+
+	From Mobile,Al   To   Antwerp,Belgium
+		Capacity: 0.0	Actual: 0
+

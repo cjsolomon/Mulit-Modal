@@ -1,6 +1,5 @@
 package Routing;
 import java.util.ArrayList;
-import core.Vehicle;
 import core.Segment;
 import core.Shipment;
 import core.Location;
@@ -16,7 +15,6 @@ public class BestFirstFind{
          * 6) If we have reached the end node we are done, else repeat from 3
          */
 	ArrayList<Segment> route;
-	Vehicle.TravelModes mode;
 	WeightedMetric metric;
 	int currentTime;
 	Shipment shipment;
@@ -25,25 +23,22 @@ public class BestFirstFind{
 	
 	public BestFirstFind(){
 		route = new ArrayList<Segment>();
-		mode = Vehicle.TravelModes.TRUCK;
 		metric = new WeightedMetric();
 		currentTime = 0;
 		pathFound = false;
-		maxTries = 1000;
+		maxTries = 10;
 	}//End of BestFirstFind() default constructor
 	
-	public BestFirstFind(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment){
+	public BestFirstFind(WeightedMetric metric, Shipment shipment){
 		route = new ArrayList<Segment>();
-		this.mode = travelMode;
 		this.metric = metric;
 		this.shipment = shipment;
 		pathFound = false;
-		maxTries = 1000;
+		maxTries = 10;
 	}//End of BestFirstFind() 3-argument constructor
 	
-	public BestFirstFind(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment, int maximumTries){
+	public BestFirstFind(WeightedMetric metric, Shipment shipment, int maximumTries){
 		route = new ArrayList<Segment>();
-		this.mode = travelMode;
 		this.metric = metric;
 		this.shipment = shipment;
 		pathFound = false;
@@ -71,6 +66,8 @@ public class BestFirstFind{
 				if(paths.size() > 0){
 					//We have a direct path from the start to the finish so choose the best one and return it
 					route.add(metric.getLowestWeightedCostSegment(paths));
+					//Set the currentLocationID to the end of the path
+					currentLocationID = route.get(route.size()-1).getEndLocationID();
 					pathFound = true;
 				}//End of direct path if
 				else{
@@ -116,13 +113,13 @@ public class BestFirstFind{
 	}//End of getPath()
 
 	public ArrayList<Segment> grabSegmentsStartingAt(int startID){
-		ArrayList<Segment> startSegments=Segment.LoadAll("Where StartingLocation = '"+ startID);
+		ArrayList<Segment> startSegments=Segment.LoadAll("Where FromLocationID = '"+ startID + "'");
 		startSegments = validPaths(startSegments);
 		return startSegments;
 	}//End of grabSegmentsStartingAt(Location start)
 	
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ start.getID() +"' AND EndingLocation ='" + end.getID() +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
@@ -131,11 +128,12 @@ public class BestFirstFind{
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
-			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
-				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode.toString()){
+			//NEED MORE REAL DATA TO CHECK THE PATH BETTER
+			//if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
+			//	segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING"){
 				//We cannot use this segment so remove it from the list
-				segmentsToCheck.remove(i);
-			}//End of time, size and status restraint if
+				//segmentsToCheck.remove(i);
+			//}//End of time, size and status restraint if
 		}//End of time and capacity checking for loop
 			
 	return segmentsToCheck;

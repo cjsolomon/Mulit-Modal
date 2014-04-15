@@ -1,0 +1,160 @@
+					Vehicle Information
+
+
+-----------------------------------------------------------------
+
+
+						TRUCKS
+----------------------------------------------------------------
+
+
+
+TruckID: 1
+	Truck Name: Truck1
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+TruckID: 2
+	Truck Name: Truck2
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+TruckID: 3
+	Truck Name: Truck3
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+TruckID: 4
+	Truck Name: Truck4
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+TruckID: 5
+	Truck Name: Truck5
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+TruckID: 6
+	Truck Name: Truck6
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+
+
+
+
+
+					PLANES
+----------------------------------------------------------------
+
+
+
+PlaneID: 1
+	Plane Name: Plane1
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+PlaneID: 2
+	Plane Name: Plane2
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+PlaneID: 3
+	Plane Name: Plane3
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+PlaneID: 4
+	Plane Name: Plane4
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+PlaneID: 5
+	Plane Name: Plane5
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+PlaneID: 6
+	Plane Name: Plane6
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+
+
+
+
+
+					TRAINS
+----------------------------------------------------------------
+
+
+
+RailID: 1
+	Rail Name: Rail1
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+RailID: 2
+	Rail Name: Rail2
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+RailID: 3
+	Rail Name: Rail3
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+RailID: 4
+	Rail Name: Rail4
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+RailID: 5
+	Rail Name: Rail5
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+RailID: 6
+	Rail Name: Rail6
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+
+
+
+
+
+					CARGOSHIPS
+----------------------------------------------------------------
+
+
+
+CargoShipID: 1
+	Cargo Ship Name: Ship1
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+CargoShipID: 2
+	Cargo Ship Name: Ship2
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+CargoShipID: 3
+	Cargo Ship Name: Ship3
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+CargoShipID: 4
+	Cargo Ship Name: Ship4
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+CargoShipID: 5
+	Cargo Ship Name: Ship5
+	Contractor: defaultCarrierName
+	Status: RUNNING
+
+CargoShipID: 6
+	Cargo Ship Name: Ship6
+	Contractor: defaultCarrierName
+	Status: RUNNING

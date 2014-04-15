@@ -27,7 +27,7 @@ public class NodeCrawler{
 		route = new ArrayList<Segment>();
 		currentTime = 0;
 		pathFound = false;
-		maxTries = 1000;
+		maxTries = 10;
 		precentChanceOfDirectPath = 50;
 	}//End of NodeCrawler() default constructor
 	
@@ -35,7 +35,7 @@ public class NodeCrawler{
 		route = new ArrayList<Segment>();
 		this.shipment = shipment;
 		pathFound = false;
-		maxTries = 1000;
+		maxTries = 10;
 		precentChanceOfDirectPath = 50;
 	}//End of NodeCrawler() 3-argument constructor
 	
@@ -57,6 +57,7 @@ public class NodeCrawler{
 		//We will enter a while loop until we find a path
 		int tries = 0;
 		while(tries < maxTries && !pathFound){
+			System.out.println("Attempt : "+ tries);
 			//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
 			if(Math.floor(Math.random() * 100) < precentChanceOfDirectPath){
 				//We will attempt to find a directPath between this location and the end location
@@ -90,15 +91,15 @@ public class NodeCrawler{
 						currentLocationID = route.get(route.size()-1).getEndLocationID();
 					}
 				}//End of no valid paths else
-				
-				if(currentLocationID == shipment.getToLocationID()){
-					//We have found a working path
-					pathFound = true;
-				}else{
-					//Increment the number of tries
-					tries++;
-				}
 			}//End of non-directPath else
+				
+			if(currentLocationID == shipment.getToLocationID()){
+				//We have found a working path
+				pathFound = true;
+			}else{
+				//Increment the number of tries
+				tries++;
+			}
 		}//End of path finding while loop
 		
 		//Check to see if we exited because we succeeded or because we failed

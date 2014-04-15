@@ -24,7 +24,7 @@ public class NextAvailableVehicle{
 		currentTime = 0;
 		pathFound = false;
 		percentChanceOfDirectPath = 30;
-		maxTries = 1000;
+		maxTries = 10;
 	}//End of NextAvailableVehicle() default constructor
 	
 	public NextAvailableVehicle(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment){
@@ -34,7 +34,7 @@ public class NextAvailableVehicle{
 		this.shipment = shipment;
 		pathFound = false;
 		percentChanceOfDirectPath = 30;
-		maxTries = 1000;
+		maxTries = 10;
 	}//End of NextAvailableVehicle() 3-argument constructor
 	
 	public NextAvailableVehicle(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment, int chanceOfDirectPath, int maximumTries){
@@ -153,13 +153,13 @@ public class NextAvailableVehicle{
 	}//End of getPath()
 
 	public ArrayList<Segment> grabSegmentsStartingAt(int startID){
-		ArrayList<Segment> startSegments=Segment.LoadAll("Where StartingLocation = '"+ startID);
+		ArrayList<Segment> startSegments=Segment.LoadAll("Where FromLocationID = '"+ startID + "'");
 		startSegments = validPaths(startSegments);
 		return startSegments;
 	}//End of grabSegmentsStartingAt(Location start)
 	
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where StartingLocation = '"+ start.getID() +"' AND EndingLocation ='" + end.getID() +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
@@ -167,13 +167,13 @@ public class NextAvailableVehicle{
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
-		for(int i = 0; i < segmentsToCheck.size(); i++){
-			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
-				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode.toString()){
-				//We cannot use this segment so remove it from the list
-				segmentsToCheck.remove(i);
-			}//End of time, size and status restraint if
-		}//End of time and capacity checking for loop
+		//for(int i = 0; i < segmentsToCheck.size(); i++){
+		//	if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
+		//		segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING" || segmentsToCheck.get(i).getTravelMode() != mode.toString()){
+		//		//We cannot use this segment so remove it from the list
+		//		segmentsToCheck.remove(i);
+		//	}//End of time, size and status restraint if
+		//}//End of time and capacity checking for loop
 			
 	return segmentsToCheck;
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)

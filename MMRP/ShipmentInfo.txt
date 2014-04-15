@@ -1,0 +1,273 @@
+					Shipment Information
+
+
+-----------------------------------------------------------------
+ShipmentID: 1
+	From: Rotterdam,Netherlands
+	To: Frankfurt,Germany
+	Size: 2
+	Priority: 0
+	Departure: 0
+	Earliest 40
+	Latest: 45
+
+ShipmentID: 2
+	From: Rotterdam,Netherlands
+	To: Antwerp,Belgium
+	Size: 3
+	Priority: 0
+	Departure: 0
+	Earliest 20
+	Latest: 45
+
+ShipmentID: 3
+	From: Frankfurt,Germany
+	To: Antwerp,Belgium
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 120
+	Latest: 130
+
+ShipmentID: 4
+	From: New York City,NY
+	To: Rotterdam,Netherlands
+	Size: 5
+	Priority: 0
+	Departure: 0
+	Earliest 50
+	Latest: 55
+
+ShipmentID: 5
+	From: New York City,NY
+	To: Frankfurt,Germany
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 45
+	Latest: 90
+
+ShipmentID: 6
+	From: Pittsburgh,PA
+	To: Miami,Fl
+	Size: 8
+	Priority: 0
+	Departure: 0
+	Earliest 50
+	Latest: 55
+
+ShipmentID: 7
+	From: Pittsburgh,PA
+	To: Rotterdam,Netherlands
+	Size: 5
+	Priority: 0
+	Departure: 0
+	Earliest 60
+	Latest: 150
+
+ShipmentID: 8
+	From: New York City,NY
+	To: Pittsburgh,PA
+	Size: 6
+	Priority: 0
+	Departure: 0
+	Earliest 70
+	Latest: 75
+
+ShipmentID: 9
+	From: Rotterdam,Netherlands
+	To: Copenhagen,Denmark
+	Size: 5
+	Priority: 0
+	Departure: 0
+	Earliest 40
+	Latest: 50
+
+ShipmentID: 10
+	From: Antwerp,Belgium
+	To: Frankfurt,Germany
+	Size: 6
+	Priority: 0
+	Departure: 0
+	Earliest 40
+	Latest: 80
+
+ShipmentID: 11
+	From: Mobile,Al
+	To: Pittsburgh,PA
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 20
+	Latest: 50
+
+ShipmentID: 12
+	From: Mempis,TN
+	To: New York City,NY
+	Size: 7
+	Priority: 0
+	Departure: 0
+	Earliest 50
+	Latest: 65
+
+ShipmentID: 13
+	From: Mempis,TN
+	To: Miami,Fl
+	Size: 6
+	Priority: 0
+	Departure: 0
+	Earliest 25
+	Latest: 50
+
+ShipmentID: 14
+	From: Miami,Fl
+	To: Paris,France
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 10
+	Latest: 70
+
+ShipmentID: 15
+	From: Miami,Fl
+	To: New York City,NY
+	Size: 5
+	Priority: 0
+	Departure: 0
+	Earliest 25
+	Latest: 50
+
+ShipmentID: 16
+	From: Antwerp,Belgium
+	To: Mobile,Al
+	Size: 3
+	Priority: 0
+	Departure: 0
+	Earliest 40
+	Latest: 55
+
+ShipmentID: 17
+	From: Mobile,Al
+	To: New York City,NY
+	Size: 2
+	Priority: 0
+	Departure: 0
+	Earliest 30
+	Latest: 55
+
+ShipmentID: 18
+	From: Mempis,TN
+	To: Paris,France
+	Size: 3
+	Priority: 0
+	Departure: 0
+	Earliest 65
+	Latest: 75
+
+ShipmentID: 19
+	From: Mobile,Al
+	To: Frankfurt,Germany
+	Size: 5
+	Priority: 0
+	Departure: 0
+	Earliest 60
+	Latest: 70
+
+ShipmentID: 20
+	From: Frankfurt,Germany
+	To: Copenhagen,Denmark
+	Size: 2
+	Priority: 0
+	Departure: 0
+	Earliest 80
+	Latest: 85
+
+ShipmentID: 21
+	From: Copenhagen,Denmark
+	To: Rotterdam,Netherlands
+	Size: 3
+	Priority: 0
+	Departure: 0
+	Earliest 40
+	Latest: 60
+
+ShipmentID: 22
+	From: Copenhagen,Denmark
+	To: New York City,NY
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 60
+	Latest: 75
+
+ShipmentID: 23
+	From: Antwerp,Belgium
+	To: Copenhagen,Denmark
+	Size: 3
+	Priority: 0
+	Departure: 0
+	Earliest 80
+	Latest: 85
+
+ShipmentID: 24
+	From: Pittsburgh,PA
+	To: Copenhagen,Denmark
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 60
+	Latest: 65
+
+ShipmentID: 25
+	From: Mobile,Al
+	To: Copenhagen,Denmark
+	Size: 3
+	Priority: 0
+	Departure: 0
+	Earliest 100
+	Latest: 110
+
+ShipmentID: 26
+	From: Paris,France
+	To: New York City,NY
+	Size: 6
+	Priority: 0
+	Departure: 0
+	Earliest 80
+	Latest: 90
+
+ShipmentID: 27
+	From: Paris,France
+	To: Copenhagen,Denmark
+	Size: 5
+	Priority: 0
+	Departure: 0
+	Earliest 45
+	Latest: 75
+
+ShipmentID: 28
+	From: Pittsburgh,PA
+	To: Paris,France
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 80
+	Latest: 115
+
+ShipmentID: 29
+	From: Mobile,Al
+	To: New York City,NY
+	Size: 4
+	Priority: 0
+	Departure: 0
+	Earliest 60
+	Latest: 85
+
+ShipmentID: 30
+	From: Antwerp,Belgium
+	To: Miami,Fl
+	Size: 5
+	Priority: 0
+	Departure: 0
+	Earliest 50
+	Latest: 75

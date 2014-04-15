@@ -36,17 +36,28 @@ No Route found.
 Shipment 6    From: Pittsburgh    To: Miami
 
 	Pittsburgh to Miami via Rail2
+	Pittsburgh to Miami via Rail2
 
 	Arrival: 50
 
 
 
 Shipment 7    From: Pittsburgh    To: Rotterdam
-No Route found.
+
+	Pittsburgh to New York City via Rail6
+	Pittsburgh to New York City via Rail6
+	New York City to Rotterdam via Ship5
+	New York City to Rotterdam via Ship5
+
+	Arrival: 50
+
+
 
 Shipment 8    From: New York City    To: Pittsburgh
 
 	New York City to Mempis via Plane2
+	New York City to Mempis via Plane2
+	Mempis to Pittsburgh via Plane2
 	Mempis to Pittsburgh via Plane2
 
 	Arrival: 50
@@ -55,8 +66,9 @@ Shipment 8    From: New York City    To: Pittsburgh
 
 Shipment 9    From: Rotterdam    To: Copenhagen
 
-	Rotterdam to Frankfurt via Plane1
-	Frankfurt to Antwerp via Plane1
+	Rotterdam to Antwerp via Plane5
+	Rotterdam to Antwerp via Plane5
+	Antwerp to Copenhagen via Plane1
 	Antwerp to Copenhagen via Plane1
 
 	Arrival: 50
@@ -66,6 +78,7 @@ Shipment 9    From: Rotterdam    To: Copenhagen
 Shipment 10    From: Antwerp    To: Frankfurt
 
 	Antwerp to Frankfurt via Rail5
+	Antwerp to Frankfurt via Rail5
 
 	Arrival: 50
 
@@ -73,6 +86,7 @@ Shipment 10    From: Antwerp    To: Frankfurt
 
 Shipment 11    From: Mobile    To: Pittsburgh
 
+	Mobile to Pittsburgh via Truck2
 	Mobile to Pittsburgh via Truck2
 
 	Arrival: 50
@@ -82,6 +96,8 @@ Shipment 11    From: Mobile    To: Pittsburgh
 Shipment 12    From: Mempis    To: New York City
 
 	Mempis to Pittsburgh via Plane2
+	Mempis to Pittsburgh via Plane2
+	Pittsburgh to New York City via Rail6
 	Pittsburgh to New York City via Rail6
 
 	Arrival: 50
@@ -91,6 +107,7 @@ Shipment 12    From: Mempis    To: New York City
 Shipment 13    From: Mempis    To: Miami
 
 	Mempis to Miami via Truck2
+	Mempis to Miami via Truck2
 
 	Arrival: 50
 
@@ -98,7 +115,15 @@ Shipment 13    From: Mempis    To: Miami
 
 Shipment 14    From: Miami    To: Paris
 
-	Miami to New York City via Plane4
+	Miami to Mobile via Rail2
+	Miami to Mobile via Rail2
+	Mobile to Mempis via Rail5
+	Mobile to Mempis via Rail5
+	Mempis to Pittsburgh via Plane2
+	Mempis to Pittsburgh via Plane2
+	Pittsburgh to New York City via Rail6
+	Pittsburgh to New York City via Rail6
+	New York City to Paris via Plane6
 	New York City to Paris via Plane6
 
 	Arrival: 50
@@ -108,6 +133,7 @@ Shipment 14    From: Miami    To: Paris
 Shipment 15    From: Miami    To: New York City
 
 	Miami to New York City via Plane4
+	Miami to New York City via Plane4
 
 	Arrival: 50
 
@@ -115,8 +141,9 @@ Shipment 15    From: Miami    To: New York City
 
 Shipment 16    From: Antwerp    To: Mobile
 
-	Antwerp to Copenhagen via Plane1
-	Copenhagen to Rotterdam via Plane1
+	Antwerp to Rotterdam via Truck1
+	Antwerp to Rotterdam via Truck1
+	Rotterdam to Mobile via Ship4
 	Rotterdam to Mobile via Ship4
 
 	Arrival: 50
@@ -126,13 +153,24 @@ Shipment 16    From: Antwerp    To: Mobile
 Shipment 17    From: Mobile    To: New York City
 
 	Mobile to New York City via Plane2
+	Mobile to New York City via Plane2
 
 	Arrival: 50
 
 
 
 Shipment 18    From: Mempis    To: Paris
-No Route found.
+
+	Mempis to Pittsburgh via Plane2
+	Mempis to Pittsburgh via Plane2
+	Pittsburgh to New York City via Rail6
+	Pittsburgh to New York City via Rail6
+	New York City to Paris via Plane6
+	New York City to Paris via Plane6
+
+	Arrival: 50
+
+
 
 Shipment 19    From: Mobile    To: Frankfurt
 No Route found.
@@ -140,6 +178,8 @@ No Route found.
 Shipment 20    From: Frankfurt    To: Copenhagen
 
 	Frankfurt to Antwerp via Plane1
+	Frankfurt to Antwerp via Plane1
+	Antwerp to Copenhagen via Plane1
 	Antwerp to Copenhagen via Plane1
 
 	Arrival: 50
@@ -149,6 +189,7 @@ Shipment 20    From: Frankfurt    To: Copenhagen
 Shipment 21    From: Copenhagen    To: Rotterdam
 
 	Copenhagen to Rotterdam via Plane1
+	Copenhagen to Rotterdam via Plane1
 
 	Arrival: 50
 
@@ -157,6 +198,8 @@ Shipment 21    From: Copenhagen    To: Rotterdam
 Shipment 22    From: Copenhagen    To: New York City
 
 	Copenhagen to Rotterdam via Plane1
+	Copenhagen to Rotterdam via Plane1
+	Rotterdam to New York City via Ship1
 	Rotterdam to New York City via Ship1
 
 	Arrival: 50
@@ -165,6 +208,7 @@ Shipment 22    From: Copenhagen    To: New York City
 
 Shipment 23    From: Antwerp    To: Copenhagen
 
+	Antwerp to Copenhagen via Plane1
 	Antwerp to Copenhagen via Plane1
 
 	Arrival: 50
@@ -179,8 +223,11 @@ No Route found.
 
 Shipment 26    From: Paris    To: New York City
 
-	Paris to Copenhagen via Plane3
-	Copenhagen to Rotterdam via Plane1
+	Paris to Antwerp via Rail5
+	Paris to Antwerp via Rail5
+	Antwerp to Rotterdam via Truck1
+	Antwerp to Rotterdam via Truck1
+	Rotterdam to New York City via Ship1
 	Rotterdam to New York City via Ship1
 
 	Arrival: 50
@@ -190,6 +237,7 @@ Shipment 26    From: Paris    To: New York City
 Shipment 27    From: Paris    To: Copenhagen
 
 	Paris to Copenhagen via Plane3
+	Paris to Copenhagen via Plane3
 
 	Arrival: 50
 
@@ -197,12 +245,9 @@ Shipment 27    From: Paris    To: Copenhagen
 
 Shipment 28    From: Pittsburgh    To: Paris
 
-	Pittsburgh to Mobile via Plane2
-	Mobile to New York City via Plane2
-	New York City to Mempis via Plane2
-	Mempis to Pittsburgh via Plane2
-	Pittsburgh to Mobile via Plane2
-	Mobile to New York City via Plane2
+	Pittsburgh to New York City via Rail6
+	Pittsburgh to New York City via Rail6
+	New York City to Paris via Plane6
 	New York City to Paris via Plane6
 
 	Arrival: 50
@@ -211,6 +256,7 @@ Shipment 28    From: Pittsburgh    To: Paris
 
 Shipment 29    From: Mobile    To: New York City
 
+	Mobile to New York City via Plane2
 	Mobile to New York City via Plane2
 
 	Arrival: 50
