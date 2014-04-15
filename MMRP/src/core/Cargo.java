@@ -125,7 +125,6 @@ public class Cargo extends Vehicle {
 			if(temp.size()>0)
 			{
 				Cargo c = BuildFromDataRow(temp.get(0));
-				//c.getSchedule();
 				return c;
 			}
 			return null;
@@ -151,7 +150,6 @@ public class Cargo extends Vehicle {
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Cargo c = BuildFromDataRow(temp.get(i));
-				c.getSchedule();
 				returnList.add(c);
 			}
 		}

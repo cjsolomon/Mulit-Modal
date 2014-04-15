@@ -126,7 +126,6 @@ public class Rail extends Vehicle {
 			if(temp.size()>0)
 			{
 				Rail r = BuildFromDataRow(temp.get(0));
-				//r.getSchedule();
 				return r;
 			}
 			return null;
@@ -152,7 +151,6 @@ public class Rail extends Vehicle {
 			for(int i = 0; i<temp.size();i++)
 			{
 				Rail r = BuildFromDataRow(temp.get(i));
-				r.getSchedule();
 				returnList.add(r);
 			}
 		}

@@ -124,7 +124,6 @@ public class Truck extends Vehicle {
 			if(temp.size()>0)
 			{
 				Truck t = BuildFromDataRow(temp.get(0));
-				//t.getSchedule();
 				return t;
 			}
 			return null;
@@ -150,7 +149,6 @@ public class Truck extends Vehicle {
 			for(int i = 0; i<temp.size();i++)
 			{
 				Truck t = BuildFromDataRow(temp.get(i));
-				t.getSchedule();
 				returnList.add(t);
 			}
 		}

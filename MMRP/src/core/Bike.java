@@ -126,7 +126,6 @@ public class Bike extends Vehicle {
 			if(temp.size()>0)
 			{
 				Bike b = BuildFromDataRow(temp.get(0));
-				//b.getSchedule();
 				return b;
 			}
 			return null;
@@ -152,7 +151,6 @@ public class Bike extends Vehicle {
 			for(int i = 0; i<temp.size();i++)
 			{
 				Bike  b = BuildFromDataRow(temp.get(i));
-				b.getSchedule();
 				returnList.add(b);
 			}
 		}

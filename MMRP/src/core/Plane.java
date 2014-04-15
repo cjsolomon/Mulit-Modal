@@ -127,7 +127,6 @@ public class Plane extends Vehicle {
 			{
 				
 				Plane p = BuildFromDataRow(temp.get(0));
-				//p.getSchedule();
 				return p;
 			}
 			return null;
@@ -153,7 +152,6 @@ public class Plane extends Vehicle {
 			for(int i = 0; i<temp.size();i++)
 			{
 				Plane p = BuildFromDataRow(temp.get(i));
-				p.getSchedule();
 				returnList.add(p);
 			}
 		}
