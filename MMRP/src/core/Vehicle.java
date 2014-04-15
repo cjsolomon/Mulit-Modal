@@ -262,7 +262,7 @@ public abstract class Vehicle extends BaseClass {
 	*/
 	public void addToSchedule(Segment s)
 	{
-		schedule.add(s);
+		getSchedule().add(s);
 		s.Update();
 	}
 	
