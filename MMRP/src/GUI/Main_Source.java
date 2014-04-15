@@ -37,7 +37,7 @@ import com.jgoodies.forms.layout.RowSpec;
 public class Main_Source {
 
 	private JFrame frmMmrp;
-
+	private ShipmentForm shpFrm;
 
 	/**
 	 * Launch the application.
@@ -75,7 +75,8 @@ public class Main_Source {
 		frmMmrp.setBackground(new Color(255, 255, 255));
 		frmMmrp.setBounds(100, 100, 941, 739);
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		shpFrm=new ShipmentForm();
+		shpFrm.setVisible(false);
 		/*
 		 * Code defined here is for the shipments button
 		 */
@@ -121,6 +122,14 @@ public class Main_Source {
 		btnShipments.setToolTipText("Click here to view shipment information");
 		btnShipments.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnShipments.setMnemonic(KeyEvent.VK_S);
+		btnShipments.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				hidePanels();
+				shpFrm.setVisible(true);
+				
+			}
+		});
 		frmMmrp.getContentPane().add(btnShipments, "2, 4, fill, fill");
 
 		final JButton btnCreate = new JButton("Create");
@@ -143,10 +152,10 @@ public class Main_Source {
 		btnImport.setEnabled(false);
 		frmMmrp.getContentPane().add(btnImport, "10, 2, fill, fill");
 		
-		final VehiclePanel vp = new VehiclePanel();
-		vp.setVisible(false);
+		//final VehiclePanel vp = new VehiclePanel();
+		//vp.setVisible(false);
 		
-		frmMmrp.getContentPane().add(vp, new CellConstraints().xywh(4,4,11,11));//, row, colSpan, rowSpan)"4,4,fill,fill");
+		frmMmrp.getContentPane().add(shpFrm, new CellConstraints().xywh(4,4,11,11));//, row, colSpan, rowSpan)"4,4,fill,fill");
 		
 		final JButton btnLocations = new JButton("Locations");
 		frmMmrp.getContentPane().add(btnLocations, "2, 6,fill,fill");
@@ -236,6 +245,12 @@ public class Main_Source {
 	 * @param b3 - The third button to be enabled
 	 * @param b4 - The fourth button to be enabled
 	 */
+	
+	private void hidePanels()
+	{
+		shpFrm.setVisible(false);
+	}
+	
 	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {
 		Log.writeLogInfo("Unhiding Top Menu Buttons");
 		if (!b1.isEnabled())
