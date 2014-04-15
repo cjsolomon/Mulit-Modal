@@ -1,8 +1,12 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.Assert;
+
 import core.Cargo;
+import core.Carrier;
 import core.Vehicle;
 
 public class CargoTest {
@@ -24,6 +28,16 @@ public class CargoTest {
 	}
 	
 	@Test
+	public void testSetStatus() {
+		Cargo test_cargo = new Cargo();
+		//Default should set status to running
+		Assert.assertEquals(Vehicle.Status.Running.toString().trim(),test_cargo.getStatus().toString().trim());
+		//Set status to something else and then check that it worked
+		test_cargo.setStatus(Vehicle.Status.Disabled);
+		Assert.assertEquals(Vehicle.Status.Disabled.toString().trim(),test_cargo.getStatus().toString().trim());
+	}
+	
+	@Test
 	public void testIsDirty() {
 		Cargo test_cargo = new Cargo();
 		Assert.assertEquals(false, test_cargo.isDirty());
@@ -35,29 +49,28 @@ public class CargoTest {
 	}
 	
 	@Test
-	public void testSetStatus() {
-		Cargo test_cargo = new Cargo();
-		//Default should set status to running
-		Assert.assertEquals(Vehicle.Status.Running.toString().trim(),test_cargo.getStatus().toString().trim());
-		//Set status to something else and then check that it worked
-		test_cargo.setStatus(Vehicle.Status.Disabled);
-		Assert.assertEquals(Vehicle.Status.Disabled.toString().trim(),test_cargo.getStatus().toString().trim());
-	}
-	
-	@Test
 	public void testUpdateLoad() {
 		Cargo test_cargo = new Cargo();
 		test_cargo.setVehicleName("InsertLoadTest");
+		
+		test_cargo.setCarrier(Carrier.Load(3));
 		test_cargo.Update();
-		Cargo test_cargo2 = Cargo.LoadAll(new String("where ShipName = 'InsertLoadTest'")).get(0);
-		Assert.assertEquals(test_cargo.getVehicleName().toString().trim(), test_cargo2.getVehicleName().toString().trim());
-		Assert.assertEquals(test_cargo.getId(),test_cargo2.getId());
-		//Assert.assertEquals(test_cargo.getCarrier().toString().trim(),test_cargo2.getCarrier().toString().trim());
-		Assert.assertEquals(test_cargo.getStatus().toString().trim(), test_cargo2.getStatus().toString().trim());
-		Assert.assertEquals(test_cargo.isDirty(), test_cargo2.isDirty());
-		Assert.assertEquals(test_cargo.isNew(),test_cargo2.isNew());
-		Assert.assertEquals(test_cargo.getTravelMode().toString().trim(),test_cargo2.getTravelMode().toString().trim());
-		test_cargo.Delete();
+		ArrayList<Cargo> cList = Cargo.LoadAll(new String("where ShipName = 'InsertLoadTest'"));
+		if (!cList.isEmpty()) {
+			Assert.assertEquals(test_cargo.getVehicleName().toString().trim(), cList.get(0).getVehicleName().toString().trim());
+			Assert.assertEquals(test_cargo.getId(),cList.get(0).getId());
+			Assert.assertEquals(test_cargo.getCarrier().getCarrierName().trim(),cList.get(0).getCarrier().getCarrierName().trim());
+			Assert.assertEquals(test_cargo.getStatus().toString().trim(), cList.get(0).getStatus().toString().trim());
+			Assert.assertEquals(test_cargo.isDirty(), cList.get(0).isDirty());
+			Assert.assertEquals(test_cargo.isNew(),cList.get(0).isNew());
+			Assert.assertEquals(test_cargo.getTravelMode().toString().trim(),cList.get(0).getTravelMode().toString().trim());
+			for (Cargo delete : cList)
+				delete.Delete();
+		}
+		else {
+			Assert.assertEquals(false, true);
+		}
+		
 	}
 	
 	@Test
@@ -66,9 +79,11 @@ public class CargoTest {
 		test_cargo.setVehicleName("deleteTest");
 		test_cargo.Update();
 		test_cargo.Delete();
-		Cargo test_cargo2 = Cargo.LoadAll(new String("where ShipName = 'DeleteTest'")).get(0);
-		Assert.assertNotEquals(test_cargo.getId(),test_cargo2.getId());
-		
+		ArrayList<Cargo> cList = Cargo.LoadAll(new String("where ShipName = 'deleteTest'"));
+		System.out.println(cList.size());
+		Assert.assertTrue(cList.isEmpty());
+		for (Cargo delete : cList)
+			delete.Delete();	
 	}
 	
 	@Test
