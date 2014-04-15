@@ -44,7 +44,7 @@ public class Cargo extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Cargo's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Cargo's status to RUNNING
 		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
-		this.MarkNew();													//Mark the Cargo as new
+		this.MarkOld();													//Mark the Cargo as new
 		this.MarkClean();												//Mark the Cargo as clean	
 	}//End of arguemented Cargo constructor
 	

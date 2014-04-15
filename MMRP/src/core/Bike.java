@@ -40,7 +40,7 @@ public class Bike extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Bike's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Bike's status to RUNNING
 		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
-		this.MarkNew();													//Mark the Bike as new
+		this.MarkOld();													//Mark the Bike as new
 		this.MarkClean();												//Mark the Bike as clean
 
 	}//End of Bike(int id)
