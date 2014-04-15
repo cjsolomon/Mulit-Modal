@@ -13,6 +13,7 @@ package core;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
+import GUI.Log;
 
 public class Cargo extends Vehicle {
 	
@@ -152,6 +153,13 @@ public class Cargo extends Vehicle {
 				Cargo c = BuildFromDataRow(temp.get(i));
 				c.getSchedule();
 				returnList.add(c);
+			}
+			if(temp.size() == 0)
+			{
+				//Log.writeLogSevere("No Cargo fits description "+where+" return default object instead.");
+				Cargo c = new Cargo();
+				returnList.add(c);
+				c.Update();
 			}
 		}
 		catch(Exception ex)
