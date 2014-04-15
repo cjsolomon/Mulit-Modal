@@ -7,8 +7,11 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
 
+import GUI.Log;
+
 public class Carrier extends BaseClass 
 {
+	private static final int DEFAULT_COST_MOD_CARGOSHIP = 0;
 	private int id;
 	private String carrierCode;
 	private String carrierName;
@@ -28,12 +31,12 @@ public class Carrier extends BaseClass
 	private int costModifierRail;
 	private int costModifierPlane;
 	
-	private final int maxSafetyRating = 100;
-	private final int minSafetyRating = 0;
-	private final int maxAuthorize = 5;
-	private final int minAuthorize = 0;
-	private final double minModifier = 0.0;
-	private final double maxModifier = 1.0;
+	private final int MAX_SAFETY_RATING = 100;
+	private final int MIN_SAFETY_RATING = 0;
+	private final int MAX_AUTHORIZE = 5;
+	private final int MIN_AUTHORIZE = 0;
+	private final int MIN_MODIFIER = 0;
+	private final int MAX_MODIFIER = 100;
 	
 	//DEFAULT VALUES
 	private final String DEFAULT_AREA_CODE = "0";
@@ -230,6 +233,10 @@ public class Carrier extends BaseClass
 				this.areaCode = areaCode;
 				MarkDirty();
 			}
+			else 
+			{
+				Log.writeLogSevere("Invalid area code format. Failed to set area code.");
+			}
 		}
 	}//End of setAreaCode(String areaCode)
 	
@@ -251,6 +258,10 @@ public class Carrier extends BaseClass
 			{
 				this.faxNumber = faxNumber;
 				MarkDirty();
+			}
+			else 
+			{
+				Log.writeLogSevere("Invalid fax number format. Failed to set fax number.");
 			}
 		}
 	}//End of setFaxNumber(String faxNumber)
@@ -274,6 +285,10 @@ public class Carrier extends BaseClass
 				this.emailAddress = emailAddress;
 				MarkDirty();
 			}
+			else 
+			{
+				Log.writeLogSevere("Invalid email format. Failed to set email address.");
+			}
 		}
 	}//End of setEmailAddress(String emailAddress)
 	
@@ -291,13 +306,14 @@ public class Carrier extends BaseClass
 	 */
 	public void setSafetyRating(int safetyRating) {
 		if(this.safetyRating != safetyRating){
-			if(FormatChecker.inRange(safetyRating, minSafetyRating, maxSafetyRating))
+			if(FormatChecker.inRange(safetyRating, MIN_SAFETY_RATING, MAX_SAFETY_RATING))
 			{
 				this.safetyRating = safetyRating;
 			}
 			else
 			{
-				this.safetyRating = 0;
+				Log.writeLogWarning("Invalid safety rating. Setting safety rating to " + DEFAULT_SAFETY_RATING);
+				this.safetyRating = DEFAULT_SAFETY_RATING;
 			}
 			MarkDirty();
 		}
@@ -317,10 +333,13 @@ public class Carrier extends BaseClass
 	 */
 	public void setAuthorize(int authorize) {
 		if(this.authorize != authorize){
-			if(FormatChecker.inRange(authorize, minAuthorize, maxAuthorize))
+			if(FormatChecker.inRange(authorize, MIN_AUTHORIZE, MAX_AUTHORIZE))
 				this.authorize = authorize;
 			else
-				this.authorize = 0;
+			{
+				this.authorize = DEFAULT_AUTHORIZE;
+				Log.writeLogWarning("Invalid authorization code. Setting authorize code to " + DEFAULT_AUTHORIZE);
+			}
 			MarkDirty();
 		}
 	}//End of setAuthorize(int authorize)
@@ -358,9 +377,14 @@ public class Carrier extends BaseClass
 	 * @param costModifierCargoShip This is the new cost modifier for cargo ships
 	 */
 	public void setCostModifierCargoShip(int costModifierCargoShip) {
-		//Need some error checking
 		if(this.costModifierCargoShip != costModifierCargoShip){
-			this.costModifierCargoShip = costModifierCargoShip;
+			if(FormatChecker.inRange(costModifierCargoShip, MIN_MODIFIER, MAX_MODIFIER))
+				this.costModifierCargoShip = costModifierCargoShip;
+			else
+			{
+				this.costModifierCargoShip = DEFAULT_COST_MOD_CARGOSHIP;
+				Log.writeLogWarning("Invalid modifier value. Setting modifier for Plane to "+ DEFAULT_COST_MOD_CARGOSHIP);
+			}
 			MarkDirty();
 		}
 	}//End of setCostModifierCargoShip(int costModifierCargoShip)
@@ -379,7 +403,13 @@ public class Carrier extends BaseClass
 	 */
 	public void setCostModifierTruck(int costModifierTruck) {
 		if(this.costModifierTruck != costModifierTruck){
-			this.costModifierTruck = costModifierTruck;
+			if(FormatChecker.inRange(costModifierTruck, MIN_MODIFIER, MAX_MODIFIER))
+				this.costModifierTruck = costModifierTruck;
+			else
+			{
+				this.costModifierTruck = DEFAULT_COST_MOD_TRUCK;
+				Log.writeLogWarning("Invalid modifier value. Setting modifier for Plane to "+ DEFAULT_COST_MOD_TRUCK);
+			}
 			MarkDirty();
 		}
 	}//End of setCostModifierTruck(int costModifierTruck)
@@ -398,7 +428,13 @@ public class Carrier extends BaseClass
 	 */
 	public void setCostModifierBike(int costModifierBike) {
 		if(this.costModifierBike != costModifierBike){
-			this.costModifierBike = costModifierBike;
+			if(FormatChecker.inRange(costModifierBike, MIN_MODIFIER, MAX_MODIFIER))
+				this.costModifierBike = costModifierBike;
+			else
+			{
+				this.costModifierBike = DEFAULT_COST_MOD_BIKE;
+				Log.writeLogWarning("Invalid modifier value. Setting modifier for Plane to "+ DEFAULT_COST_MOD_BIKE);
+			}
 			MarkDirty();
 		}
 	}//End of setCostModifierBike(int costModifierBike)
@@ -417,7 +453,13 @@ public class Carrier extends BaseClass
 	 */
 	public void setCostModifierRail(int costModifierRail) {
 		if(this.costModifierRail != costModifierRail){
-			this.costModifierRail = costModifierRail;
+			if(FormatChecker.inRange(costModifierRail, MIN_MODIFIER, MAX_MODIFIER))
+				this.costModifierRail = costModifierRail;
+			else
+			{
+				this.costModifierRail = DEFAULT_COST_MOD_RAIL;
+				Log.writeLogWarning("Invalid modifier value. Setting modifier for Plane to "+ DEFAULT_COST_MOD_RAIL);
+			}
 			MarkDirty();
 		}
 	}//End of setCostModifierRail(int costModifierRail)
@@ -435,9 +477,14 @@ public class Carrier extends BaseClass
 	 * @param costModifierPlane The new plane cost modifier for the Carrier
 	 */
 	public void setCostModifierPlane(int costModifierPlane) {
-		//NEED ERROR CHECKING
 		if(this.costModifierPlane != costModifierPlane){
-			this.costModifierPlane = costModifierPlane;
+			if(FormatChecker.inRange(costModifierPlane, MIN_MODIFIER, MAX_MODIFIER))
+				this.costModifierPlane = costModifierPlane;
+			else
+			{
+				this.costModifierPlane = DEFAULT_COST_MOD_PLANE;
+				Log.writeLogWarning("Invalid modifier value. Setting modifier for Plane to "+ DEFAULT_COST_MOD_PLANE);
+			}
 			MarkDirty();
 		}
 	}//End of setCostModifierPlane(int costModifierPlane)
@@ -599,10 +646,19 @@ public class Carrier extends BaseClass
 		try 
 		{
 			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers " +  where);
-			for(int i = 0 ; i<temp.size();i++)
+			if(temp.size() == 0)
 			{
-				Carrier c = BuildFromDataRow(temp.get(i));
+				Log.writeLogSevere("No Carrier that matches "+where+" returning default object instead.");
+				Carrier c = new Carrier();
 				returnList.add(c);
+			}
+			else
+			{
+				for(int i = 0 ; i<temp.size();i++)
+				{
+					Carrier c = BuildFromDataRow(temp.get(i));
+					returnList.add(c);
+				}
 			}
 		}
 		catch(Exception ex)

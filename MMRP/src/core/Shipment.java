@@ -3,6 +3,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
+import GUI.Log;
+
 //Shipment class
 //Lets try this again
 //YEAH!!!! ITS WORKING!!!!!
@@ -53,6 +55,18 @@ public class Shipment extends BaseClass {
 	private static final String DEFAULT_UNLOADING_TYPE = "defaultUnloadingType";
 	private static final String DEFAULT_PREFERRED_CARRIERS = "defaultPreferredCarriers";
  
+	private static final int MIN_SIZE = 0;
+	private static final int MAX_SIZE = 100;
+	private static final int MIN_PRIORITY = 1;
+	private static final int MAX_PRIORITY = 10;
+	private static final int MIN_WEIGHT = 1;
+	private static final int MAX_WEIGHT = 500;
+	private static final int MIN_LOAD_TIME = 0;
+	private static final int MAX_LOAD_TIME = 100;
+	private static final int MIN_LOAD_RATE = 1;
+	private static final int MAX_LOAD_RATE = 100;
+	private static final int MIN_STOPS = 1;
+	private static final int MAX_STOPS = 500;
 	
 	/**
 	 * This is the default constructor for the Shipment object
@@ -196,9 +210,18 @@ public class Shipment extends BaseClass {
 	 * @param priority This is the new priority for the Shipment
 	 */
 	public void setPriority(int priority) {
-		if(this.priority != priority)
+		if(this.priority!=priority)
 		{
-			this.priority = priority;
+			if(FormatChecker.inRange(MIN_PRIORITY, MAX_PRIORITY, priority))
+			{
+				this.priority = priority;
+			}
+			else
+			{
+				this.priority = DEFAULT_PRIORITY;
+				Log.writeLogWarning("Invalid number given for priority of shipment. Set priority to "+
+				DEFAULT_PRIORITY);
+			}
 			MarkDirty();
 		}
 	}//End of setPriority(int priority)
@@ -216,10 +239,17 @@ public class Shipment extends BaseClass {
 	 * @param size This is the new size of the Shipment
 	 */
 	public void setSize(int size) {
-		//NEEDS ERROR CHECKING
 		if(this.size!=size)
 		{
-			this.size = size;
+			if(FormatChecker.inRange(MIN_SIZE, MAX_SIZE, size))
+			{
+				this.size = size;
+			}
+			else
+			{
+				this.size = DEFAULT_SIZE;
+				Log.writeLogWarning("Invalid number given for size of shipment. Set size to "+DEFAULT_SIZE);
+			}
 			MarkDirty();
 		}
 	}//End of setSize(int size)
@@ -333,10 +363,18 @@ public class Shipment extends BaseClass {
 	 */
 	public void setTimeToLoad(int t)
 	{
-		//NEED ERROR CHECKING
-		if(this.timeToLoad != t)
+		if(this.timeToLoad!=t)
 		{
-			this.timeToLoad=t;
+			if(FormatChecker.inRange(MIN_LOAD_TIME, MAX_LOAD_TIME, t))
+			{
+				this.timeToLoad = t;
+			}
+			else
+			{
+				this.timeToLoad = DEFAULT_TIME_TO_LOAD;
+				Log.writeLogWarning("Invalid number given for time to load. Set load time to "+
+						DEFAULT_TIME_TO_LOAD);
+			}
 			MarkDirty();
 		}
 	}//End of setTimeToLoad(int t)
@@ -356,10 +394,18 @@ public class Shipment extends BaseClass {
 	 */
 	public void setTimeToUnload(int t)
 	{
-		//NEEDS ERROR CHECKING
 		if(this.timeToUnload!=t)
 		{
-			this.timeToUnload=t;
+			if(FormatChecker.inRange(MIN_LOAD_TIME, MAX_LOAD_TIME, t))
+			{
+				this.timeToUnload = t;
+			}
+			else
+			{
+				this.timeToUnload = DEFAULT_TIME_TO_UNLOAD;
+				Log.writeLogWarning("Invalid number given for time to unload. Set unload time to "+
+						DEFAULT_TIME_TO_UNLOAD);
+			}
 			MarkDirty();
 		}
 	}//End of setTimeToUnload(int t)
@@ -482,10 +528,18 @@ public class Shipment extends BaseClass {
 	 */
 	public void setMaxStops(int maxStop)
 	{
-		//NEED TO ADD ERROR CHECKING
 		if(this.maxStops!=maxStop)
 		{
-			maxStops=maxStop;
+			if(FormatChecker.inRange(maxStop, MIN_STOPS, MAX_STOPS))
+			{
+				maxStops=maxStop;
+			}
+			else
+			{
+				Log.writeLogSevere("Invalid number given for max number of stops. Set max number of stops to "+
+			DEFAULT_MAX_STOPS);
+				maxStops = DEFAULT_MAX_STOPS;
+			}
 			MarkDirty();
 		}
 	}//End of setMaxStops(int s)
@@ -514,10 +568,17 @@ public class Shipment extends BaseClass {
 	 */
 	public void setLoadingRate(int newLoadingRate)
 	{
-		//NEED ERROR CHECKING
 		if(this.loadingRate!=newLoadingRate)
 		{
-			this.loadingRate=newLoadingRate;
+			if(FormatChecker.inRange(newLoadingRate, MIN_LOAD_RATE, MAX_LOAD_RATE))
+			{
+				this.loadingRate=newLoadingRate;
+			}
+			else
+			{
+				Log.writeLogSevere("Invalid value for loading rate. Set loading rate to "+DEFAULT_LOADING_RATE);
+				this.loadingRate = DEFAULT_LOADING_RATE;
+			}
 			MarkDirty();
 		}
 	}//End of setLoadingRate(int newLoadingRate)
@@ -627,7 +688,15 @@ public class Shipment extends BaseClass {
 	{
 		if(this.weight!=newWeight)
 		{
-			this.weight=newWeight;
+			if(FormatChecker.inRange(newWeight, MIN_WEIGHT, MAX_WEIGHT))
+			{
+				this.weight=newWeight;
+			}
+			else
+			{
+				Log.writeLogWarning("Invalid weight. Set weight to "+DEFAULT_WEIGHT);
+				this.weight = DEFAULT_WEIGHT;
+			}
 			MarkDirty();
 		}
 	}//End of setWeight(int newWeight)
@@ -724,11 +793,20 @@ public class Shipment extends BaseClass {
 		{
 			
 			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment " +  where);
-			for(int i = 0; i<temp.size();i++)
+			if(temp.size() == 0)
 			{
-				Shipment s =BuildFromDataRow(temp.get(i));
-				s.setHistory(ShipmentHistory.LoadAllForShipment(s.getId()));
+				Log.writeLogSevere("No shipment that matches description "+where+" returned default object");
+				Shipment s = new Shipment();
 				returnList.add(s);
+			}
+			else
+			{
+				for(int i = 0; i<temp.size();i++)
+				{
+					Shipment s =BuildFromDataRow(temp.get(i));
+					s.setHistory(ShipmentHistory.LoadAllForShipment(s.getId()));
+					returnList.add(s);
+				}
 			}
 		}
 		catch(Exception ex)

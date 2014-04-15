@@ -10,19 +10,33 @@ public class FormatChecker {
 	 * 
 	 * @param tel
 	 * @return True/False
-	 * Returns true if tel fits the required telephone/fax format: xxx-xxx-xxxx
+	 * Returns true if tel fits the required telephone/fax format: xxx-xxx-xxxx 
 	 */
 	static public boolean isValidPhone(String tel)
 	{
-		Pattern pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
+		Pattern pattern = Pattern.compile("\\d{3}[-\\s]\\d{3}[-\\s]\\d{4}");
 	    Matcher matcher = pattern.matcher(tel);
 	    if (matcher.matches()) {
 	    	return true;
 	    }
 	    else
+<<<<<<< HEAD
 	    {
 	    	//Log.writeLogWarning("Invalid format on phone/fax number.");
 	    	return false;
+=======
+	    { 
+	    	pattern = Pattern.compile("\\d{3}[-\\s]\\d{4}");
+	    	matcher = pattern.matcher(tel);
+	    	if (matcher.matches()) {
+	    		return true;
+	    	}
+	    	else
+	    	{
+	    		Log.writeLogWarning("Invalid format on phone/fax number.");
+	    		return false;
+	    	}
+>>>>>>> 74f3bd98d44f9182d613fb869c8286b53b185815
 	    }
 	}
 	
@@ -86,7 +100,7 @@ public class FormatChecker {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param day

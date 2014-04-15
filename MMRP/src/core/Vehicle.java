@@ -223,7 +223,7 @@ public abstract class Vehicle extends BaseClass {
 	* This function sets the vehicle's name 
 	* @param name String name of the vehicle
 	*/
-	protected void setVehicleName(String name)
+	public void setVehicleName(String name)
 	{
 		if(this.name==null || !this.name.equals(name) )
 		{

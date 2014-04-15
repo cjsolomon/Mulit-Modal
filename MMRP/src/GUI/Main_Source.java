@@ -73,7 +73,7 @@ public class Main_Source {
 		frmMmrp = new JFrame();
 		frmMmrp.setTitle("MMRP");
 		frmMmrp.setBackground(new Color(255, 255, 255));
-		frmMmrp.setBounds(100, 100, 919, 600);
+		frmMmrp.setBounds(100, 100, 941, 739);
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		/*
@@ -95,37 +95,33 @@ public class Main_Source {
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px"),},
 			new RowSpec[] {
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("23px"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("58px"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("58px"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("58px"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("58px"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("58px"),
-				FormFactory.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),}));
+				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
 		final JButton btnShipments = new JButton("Shipments");
 		btnShipments.setToolTipText("Click here to view shipment information");
 		btnShipments.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnShipments.setMnemonic(KeyEvent.VK_S);
 		frmMmrp.getContentPane().add(btnShipments, "2, 4, fill, fill");
-
-		final JButton btnVehicles = new JButton("Vehicles");
-		btnVehicles.setToolTipText("Click here to view vehicle information");
-		btnVehicles.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnVehicles.setMnemonic(KeyEvent.VK_V);
-		frmMmrp.getContentPane().add(btnVehicles, "2, 6, fill, fill");
-
-		final JButton btnExit = new JButton("Exit");
-		btnExit.setToolTipText("Exit MMRP");
-		frmMmrp.getContentPane().add(btnExit, "2, 8, fill, fill");
-		btnExit.setMnemonic(KeyEvent.VK_E);
-		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
 		final JButton btnCreate = new JButton("Create");
 		btnCreate.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -152,47 +148,84 @@ public class Main_Source {
 		
 		frmMmrp.getContentPane().add(vp, new CellConstraints().xywh(4,4,11,11));//, row, colSpan, rowSpan)"4,4,fill,fill");
 		
-		btnShipments.addActionListener( new ActionListener()
-		{
-		    public void actionPerformed(ActionEvent e)
-		    {
-		        Log.writeLogInfo("Clicked Shipments, Disabling Shipment Button - Enabling Top Menu Buttons");
-		        btnShipments.setEnabled(false);
-		        
-		        if (!btnVehicles.isEnabled()) {
-		        	btnVehicles.setEnabled(true);
-		        }
-		        unhide(btnCreate, btnImport, btnEdit,btnDelete);
-		        
-		        
-		    }
-		});
+		final JButton btnLocations = new JButton("Locations");
+		frmMmrp.getContentPane().add(btnLocations, "2, 6,fill,fill");
+						
+		final JButton trucks = new JButton("Trucks");
+		frmMmrp.getContentPane().add(trucks, "2, 8,fill,fill");
+		final JButton truckType = new JButton("Truck Types");
+		frmMmrp.getContentPane().add(truckType,"2,9,right,center");
+
+		final JButton plane = new JButton("Planes");
+		frmMmrp.getContentPane().add(plane, "2, 10,fill,fill");
+		final JButton planeType = new JButton("Plane Types");
+		frmMmrp.getContentPane().add(planeType,"2,11,right,center");
+
+		final JButton rails = new JButton("Rails");
+		frmMmrp.getContentPane().add(rails, "2, 12,fill,fill");
+		final JButton railType = new JButton("Rail Types");
+		frmMmrp.getContentPane().add(railType,"2,13,right,center");
 		
-		btnVehicles.addActionListener( new ActionListener()
-		{
-		    public void actionPerformed(ActionEvent e)
-		    {
-		        Log.writeLogInfo("Clicked Vehicles, Disabling Vehicle Button - Enabling Top Menu Buttons");
-		        btnVehicles.setEnabled(false);
-		        
-		        if (!btnShipments.isEnabled()) {
-		        	btnShipments.setEnabled(true);
-		        }
-		        vp.setVisible(true);
-		        unhide(btnCreate, btnImport, btnEdit,btnDelete);
-		        
-		    }
-		});
+		final JButton cargo = new JButton("Cargo Ships");
+		final JButton cargoType = new JButton("CargoType");
+		frmMmrp.getContentPane().add(cargo,"2,14,fill,fill");
+		frmMmrp.getContentPane().add(cargoType,"2,15,right,center");
 		
-		btnExit.addActionListener( new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				Log.writeLogSevere("User selected to Exit Program");
-				System.exit(0);
+		final JButton btnCarriers = new JButton("Carriers");
+		//btnVehicles.setToolTipText("Click here to view vehicle information");
+		//btnVehicles.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		//btnVehicles.setMnemonic(KeyEvent.VK_V);
+		frmMmrp.getContentPane().add(btnCarriers, "2, 16, fill, fill");
+		
+		//btnVehicles.addActionListener( new ActionListener()
+		//{
+		  //  public void actionPerformed(ActionEvent e)
+		    //{
+		      //  Log.writeLogInfo("Clicked Vehicles, Disabling Vehicle Button - Enabling Top Menu Buttons");
+		        //btnVehicles.setEnabled(false);
+		        
+		       // if (!btnShipments.isEnabled()) {
+		        //	btnShipments.setEnabled(true);
+		        //}
+		        //vp.setVisible(true);
+		        //unhide(btnCreate, btnImport, btnEdit,btnDelete);
 				
-			}
-		});
+				
+				
+		    //}
+		//});
+		
+				final JButton btnExit = new JButton("Exit");
+				btnExit.setToolTipText("Exit MMRP");
+				frmMmrp.getContentPane().add(btnExit, "2, 18, fill, fill");
+				btnExit.setMnemonic(KeyEvent.VK_E);
+				btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				
+				btnExit.addActionListener( new ActionListener()
+				{
+					public void actionPerformed(ActionEvent e)
+					{
+						Log.writeLogSevere("User selected to Exit Program");
+						System.exit(0);
+						
+					}
+				});
+		
+	//	btnShipments.addActionListener( new ActionListener()
+		//{
+		  //  public void actionPerformed(ActionEvent e)
+		    //{
+		     //   Log.writeLogInfo("Clicked Shipments, Disabling Shipment Button - Enabling Top Menu Buttons");
+		       // btnShipments.setEnabled(false);
+		        
+		       // if (!btnVehicles.isEnabled()) {
+		        //	btnVehicles.setEnabled(true);
+		        //}
+		        //unhide(btnCreate, btnImport, btnEdit,btnDelete);
+		        
+		        
+		    //}
+		//});
 	}
 	
 	
