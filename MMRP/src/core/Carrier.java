@@ -112,72 +112,132 @@ public class Carrier extends BaseClass
 	}//End of argumented Carrier constructor
 	
 	/**
-	 * This function returns the default
-	 * @return
+	 * This function returns the default cost modification for the cargo ship
+	 * @return Returns the default cost modification for the cargo ship
 	 */
 	public static int getDefaultCostModCargoship() {
 		return DEFAULT_COST_MOD_CARGOSHIP;
-	}
+	}//End of getDefaultCostModCargoship()
 
+	/**
+	 * This function returns the default area code
+	 * @return Returns the default area code
+	 */
 	public static String getDEFAULT_AREA_CODE() {
 		return DEFAULT_AREA_CODE;
-	}
+	}//End of getDEFAULT_AREA_CODE()
 
+	/**
+	 * This function returns the default authorize value
+	 * @return Returns the default authorize value
+	 */
 	public static int getDEFAULT_AUTHORIZE() {
 		return DEFAULT_AUTHORIZE;
-	}
+	}//End of getDEFAULT_AUTHORIZE()
 
+	/**
+	 * This function will return the default carrier code
+	 * @return Returns the default carrier code
+	 */
 	public static String getDEFAULT_CARRIER_CODE() {
 		return DEFAULT_CARRIER_CODE;
-	}
+	}//End of getDEFAULT_CARRIER_CODE()
 
+	/**
+	 * This function returns the default carrier name
+	 * @return Returns the default carrier name
+	 */
 	public static String getDEFAULT_CARRIER_NAME() {
 		return DEFAULT_CARRIER_NAME;
-	}
+	}//End of getDEFAULT_CARRIER_NAME()
 
+	/**
+	 * This function returns the default contract date
+	 * @return Returns the default contract date
+	 */
 	public static String getDEFAULT_CONTRACT_DATE() {
 		return DEFAULT_CONTRACT_DATE;
-	}
+	}//End of getDEFAULT_CONTRACT_DATE()
 
+	/**
+	 * This function returns the default cost modification for the bike
+	 * @return Returns the default cost modification for the bike
+	 */
 	public static int getDEFAULT_COST_MOD_BIKE() {
 		return DEFAULT_COST_MOD_BIKE;
-	}
+	}//End of getDEFAULT_COST_MOD_BIKE()
 
+	/**
+	 * This function returns the default cost modification for the cargo ship
+	 * @return Returns the default cost modification for the cargo ship
+	 */
 	public static int getDEFAULT_COST_MOD_CARGO() {
 		return DEFAULT_COST_MOD_CARGO;
-	}
+	}//End of getDEFAULT_COST_MOD_CARGO()
 
+	/**
+	 * This function returns the default cost modification for the plane
+	 * @return Returns the default cost modification for the plane
+	 */
 	public static int getDEFAULT_COST_MOD_PLANE() {
 		return DEFAULT_COST_MOD_PLANE;
-	}
+	}//End of getDEFAULT_COST_MOD_PLANE()
 
+	/**
+	 * This function returns the default cost modification for the truck
+	 * @return Returns the default cost modification for the truck
+	 */
 	public static int getDEFAULT_COST_MOD_TRUCK() {
 		return DEFAULT_COST_MOD_TRUCK;
-	}
+	}//End of getDEFAULT_COST_MOD_TRUCK()
 
+	/**
+	 * This function returns the default cost modification for the rail
+	 * @return Returns the default cost modification for the rail
+	 */
 	public static int getDEFAULT_COST_MOD_RAIL() {
 		return DEFAULT_COST_MOD_RAIL;
-	}
+	}//End of getDEFAULT_COST_MOD_RAIL()
 
+	/**
+	 * This function returns the default email address 
+	 * @return Returns the default email address
+	 */
 	public static String getDEFAULT_EMAIL_ADDRESS() {
 		return DEFAULT_EMAIL_ADDRESS;
-	}
+	}//End of getDEFAULT_EMAIL_ADDRESS()
 
+	/**
+	 * This function returns the default fax number
+	 * @return Returns the default fax number
+	 */
 	public static String getDEFAULT_FAX_NUMBER() {
 		return DEFAULT_FAX_NUMBER;
-	}
+	}//End of getDEFAULT_FAX_NUMBER()
 
+	/**
+	 * This function returns the default Ins date
+	 * @return Returns the default Ins date
+	 */
 	public static String getDEFAULT_INS_END_DATE() {
 		return DEFAULT_INS_END_DATE;
-	}
+	}//End of getDEFAULT_INS_END_DATE()
 
+	/**
+	 * This function returns the default safety rate date
+	 * @return Returns the default safety rate date
+	 */
 	public static String getDEFAULT_SAFETY_RATE_DATE() {
 		return DEFAULT_SAFETY_RATE_DATE;
-	}
+	}//End of getDEFAULT_SAFETY_RATE_DATE()
 
+	/**
+	 * This function returns the default safety rating
+	 * @return Returns the default safety rating
+	 */
 	public static int getDEFAULT_SAFETY_RATING() {
 		return DEFAULT_SAFETY_RATING;
-	}
+	}//End of getDEFAULT_SAFETY_RATING()
 
 	/**
 	 * This function returns the id of the Carrier object
