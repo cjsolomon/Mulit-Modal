@@ -156,6 +156,12 @@ public class Plane extends Vehicle {
 				p.getSchedule();
 				returnList.add(p);
 			}
+			if(temp.size() == 0)
+			{
+				//Log.writeLogSevere("No Bike fits description "+where+" return default object instead.");
+				Plane p = new Plane();
+				returnList.add(p);
+			}
 		}
 		catch(Exception ex)
 		{

@@ -153,6 +153,12 @@ public class Truck extends Vehicle {
 				t.getSchedule();
 				returnList.add(t);
 			}
+			if(temp.size() == 0)
+			{
+				//Log.writeLogSevere("No Bike fits description "+where+" return default object instead.");
+				Truck t = new Truck();
+				returnList.add(t);
+			}
 		}
 		catch(Exception ex)
 		{
