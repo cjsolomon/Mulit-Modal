@@ -2,8 +2,6 @@ package core;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import GUI.Log;
-
 public class FormatChecker {
 
 	/**
@@ -20,11 +18,6 @@ public class FormatChecker {
 	    	return true;
 	    }
 	    else
-<<<<<<< HEAD
-	    {
-	    	//Log.writeLogWarning("Invalid format on phone/fax number.");
-	    	return false;
-=======
 	    { 
 	    	pattern = Pattern.compile("\\d{3}[-\\s]\\d{4}");
 	    	matcher = pattern.matcher(tel);
@@ -33,10 +26,9 @@ public class FormatChecker {
 	    	}
 	    	else
 	    	{
-	    		Log.writeLogWarning("Invalid format on phone/fax number.");
+	    		//Log.writeLogWarning("Invalid format on phone/fax number.");
 	    		return false;
 	    	}
->>>>>>> 74f3bd98d44f9182d613fb869c8286b53b185815
 	    }
 	}
 	
