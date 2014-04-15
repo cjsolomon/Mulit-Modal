@@ -35,6 +35,7 @@ public class DBGrabber {
 		}
 		catch (Exception e) {
 			System.out.println("Error: " + e);
+			e.printStackTrace();
 		}
 	}
 	
@@ -81,6 +82,7 @@ public class DBGrabber {
 		}
 		catch (Exception e) {
 			System.out.println("Error: " + e);
+			e.printStackTrace();
 		}
 	}
 	

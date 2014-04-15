@@ -88,6 +88,7 @@ public class Cargo extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);									//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 		
@@ -107,6 +108,7 @@ public class Cargo extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error "+ ex);									//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 
@@ -125,7 +127,6 @@ public class Cargo extends Vehicle {
 			if(temp.size()>0)
 			{
 				Cargo c = BuildFromDataRow(temp.get(0));
-				//c.getSchedule();
 				return c;
 			}
 			return null;
@@ -133,6 +134,7 @@ public class Cargo extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
  		return null;
 	}//End of Load(int id)
@@ -151,13 +153,13 @@ public class Cargo extends Vehicle {
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Cargo c = BuildFromDataRow(temp.get(i));
-				c.getSchedule();
 				returnList.add(c);
 			}
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAll(String where)

@@ -352,6 +352,7 @@ public class ShippingRate extends BaseClass{
 			catch(Exception ex)
 			{
 				System.out.println("Error " + ex);										//Print out the error
+				ex.printStackTrace();
 				return false;
 			}//End of catch block
 			
@@ -372,6 +373,7 @@ public class ShippingRate extends BaseClass{
 			catch(Exception ex)
 			{
 				System.out.println("Error " + ex);										//Print out the error
+				ex.printStackTrace();
 				return false;
 			}//End of catch block
 
@@ -397,6 +399,7 @@ public class ShippingRate extends BaseClass{
 			catch(Exception ex)
 			{
 				System.out.println("Error " + ex);
+				ex.printStackTrace();
 			}
 	 		return null;
 		}
@@ -421,6 +424,7 @@ public class ShippingRate extends BaseClass{
 			catch(Exception ex)
 			{
 				System.out.println("Error " + ex);
+				ex.printStackTrace();
 			}
 			return returnList;
 		}

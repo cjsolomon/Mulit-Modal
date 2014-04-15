@@ -131,6 +131,7 @@ public abstract class BaseClass {
 		{
 			System.out.println("Error " + ex);												//Print out the error to the screen
 			System.out.println("Number of Connections " + connectionCounter);
+			ex.printStackTrace();
 			return null;
 		}//End of the catch block
 		finally
@@ -165,6 +166,7 @@ public abstract class BaseClass {
 		{
 			System.out.println("Error " + ex);		
 			System.out.println("Number of Connections " + connectionCounter);//Print out the error
+			ex.printStackTrace();
 			return false;														//Return that the SQL command failed
 		}//End of catch block
 		finally

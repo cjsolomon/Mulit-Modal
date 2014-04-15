@@ -89,6 +89,7 @@ public class Plane extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);													//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 		
@@ -108,6 +109,7 @@ public class Plane extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);												//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of the catch block
 
@@ -127,7 +129,6 @@ public class Plane extends Vehicle {
 			{
 				
 				Plane p = BuildFromDataRow(temp.get(0));
-				//p.getSchedule();
 				return p;
 			}
 			return null;
@@ -135,6 +136,7 @@ public class Plane extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
  		return null;
 	}//End of Load(int id)
@@ -153,13 +155,13 @@ public class Plane extends Vehicle {
 			for(int i = 0; i<temp.size();i++)
 			{
 				Plane p = BuildFromDataRow(temp.get(i));
-				p.getSchedule();
 				returnList.add(p);
 			}
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAll(String where)

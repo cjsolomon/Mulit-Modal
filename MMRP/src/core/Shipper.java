@@ -231,6 +231,7 @@ public class Shipper extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 			return null;
 		}
 	}//End of Load(int id)
@@ -255,6 +256,7 @@ public class Shipper extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 			return null;
 		}
 	}//End of  LoadAll(String where)
@@ -310,6 +312,7 @@ public class Shipper extends BaseClass {
 			catch(Exception ex)
 			{
 				System.out.println("Error " +ex);
+				ex.printStackTrace();
 				return false;
 			}
 			
@@ -337,6 +340,7 @@ public class Shipper extends BaseClass {
 				catch(Exception ex)
 				{
 					System.out.println("Error " +ex);
+					ex.printStackTrace();
 					return false;
 				}
 			}//End of isDirty if
@@ -358,6 +362,7 @@ public class Shipper extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " +ex);
+			ex.printStackTrace();
 			return false;
 		}
 

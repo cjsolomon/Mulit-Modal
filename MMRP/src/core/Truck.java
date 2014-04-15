@@ -87,6 +87,7 @@ public class Truck extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);														//Print the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 		
@@ -106,6 +107,7 @@ public class Truck extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);														//Print the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 
@@ -124,7 +126,6 @@ public class Truck extends Vehicle {
 			if(temp.size()>0)
 			{
 				Truck t = BuildFromDataRow(temp.get(0));
-				//t.getSchedule();
 				return t;
 			}
 			return null;
@@ -132,6 +133,7 @@ public class Truck extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
  		return null;
 	}//End of Load(int id)
@@ -150,13 +152,13 @@ public class Truck extends Vehicle {
 			for(int i = 0; i<temp.size();i++)
 			{
 				Truck t = BuildFromDataRow(temp.get(i));
-				t.getSchedule();
 				returnList.add(t);
 			}
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAll(String where)

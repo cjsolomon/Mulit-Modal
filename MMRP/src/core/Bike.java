@@ -90,6 +90,7 @@ public class Bike extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);									//Print out the error
+			ex.printStackTrace();
 			return false;	//Indicates the update was not successful
 		}//End of catch block
 
@@ -109,6 +110,7 @@ public class Bike extends Vehicle {
 		catch(Exception ex)
 		{	
 			System.out.println("Error " + ex);									//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 
@@ -126,7 +128,6 @@ public class Bike extends Vehicle {
 			if(temp.size()>0)
 			{
 				Bike b = BuildFromDataRow(temp.get(0));
-				//b.getSchedule();
 				return b;
 			}
 			return null;
@@ -134,6 +135,7 @@ public class Bike extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return null;
 	}
@@ -152,13 +154,13 @@ public class Bike extends Vehicle {
 			for(int i = 0; i<temp.size();i++)
 			{
 				Bike  b = BuildFromDataRow(temp.get(i));
-				b.getSchedule();
 				returnList.add(b);
 			}
 		}
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}

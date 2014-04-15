@@ -149,6 +149,7 @@ public class ShipmentHistory extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return null;
 	}//End of LoadAllForShipment(int id)
@@ -207,6 +208,7 @@ public class ShipmentHistory extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);													//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 	}//End of Update()
@@ -224,6 +226,7 @@ public class ShipmentHistory extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error "+ex);
+			ex.printStackTrace();
 			return false;
 		}
 

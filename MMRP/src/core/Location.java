@@ -266,6 +266,7 @@ public class Location extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 			return false;
 		}
 		
@@ -307,6 +308,7 @@ public class Location extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
  		return null;
 	}//End of Load(int id)
@@ -328,6 +330,7 @@ public class Location extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return temp;
 	}//End of LoadAll (String where)
