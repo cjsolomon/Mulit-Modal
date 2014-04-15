@@ -87,6 +87,7 @@ public class Truck extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);														//Print the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 		
@@ -106,6 +107,7 @@ public class Truck extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);														//Print the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 
@@ -131,6 +133,7 @@ public class Truck extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
  		return null;
 	}//End of Load(int id)
@@ -155,6 +158,7 @@ public class Truck extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAll(String where)

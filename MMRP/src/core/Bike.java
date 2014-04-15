@@ -90,6 +90,7 @@ public class Bike extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);									//Print out the error
+			ex.printStackTrace();
 			return false;	//Indicates the update was not successful
 		}//End of catch block
 
@@ -109,6 +110,7 @@ public class Bike extends Vehicle {
 		catch(Exception ex)
 		{	
 			System.out.println("Error " + ex);									//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 
@@ -133,6 +135,7 @@ public class Bike extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return null;
 	}
@@ -157,6 +160,7 @@ public class Bike extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}

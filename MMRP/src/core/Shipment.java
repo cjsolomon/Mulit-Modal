@@ -777,6 +777,7 @@ public class Shipment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
  		return null;
 	}//End of Load(int id)
@@ -803,6 +804,7 @@ public class Shipment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAll(String where)
@@ -828,6 +830,7 @@ public class Shipment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAllForSegment(int segID)
@@ -968,6 +971,7 @@ public class Shipment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);													//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 

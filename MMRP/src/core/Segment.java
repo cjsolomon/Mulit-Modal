@@ -587,6 +587,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}//End of catch block
 		return returnList;
 	}//End of LoadAll(String where)
@@ -643,6 +644,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);							//Print out the error
+			ex.printStackTrace();
 		}//End of catch block
 		return returnList;
 	}//End of LoadAllAtLocation(Location start)
@@ -672,6 +674,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);											//Print out the error
+			ex.printStackTrace();
 		}//End of catch block
 		return returnList;
 	}//End of LoadAllAtLocation(Location start, int startTime)
@@ -697,6 +700,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAllAtLocation(int startLocationID)
@@ -723,6 +727,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAllAtLocation(int locationID, int startTime)
@@ -752,6 +757,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " +ex);
+			ex.printStackTrace();
 			return null;
 		}//End of catch block
 	}//End of Load(int id)
@@ -822,6 +828,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);										//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 			
@@ -847,6 +854,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 			return -1;
 		}
 	}//End of estimateCapacity()
@@ -866,6 +874,7 @@ public class Segment extends BaseClass {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);										//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 

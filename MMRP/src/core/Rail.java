@@ -89,6 +89,7 @@ public class Rail extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);										//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 		
@@ -108,6 +109,7 @@ public class Rail extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);										//Print out the error
+			ex.printStackTrace();
 			return false;
 		}//End of catch block
 
@@ -133,6 +135,7 @@ public class Rail extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
  		return null;
 	}//End of Load(int id)
@@ -157,6 +160,7 @@ public class Rail extends Vehicle {
 		catch(Exception ex)
 		{
 			System.out.println("Error " + ex);
+			ex.printStackTrace();
 		}
 		return returnList;
 	}//End of LoadAll(String where)
