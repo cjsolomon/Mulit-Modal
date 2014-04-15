@@ -177,6 +177,7 @@ public class Bike extends Vehicle {
 		b.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		b.setStatus((String)data.get("Status"));		
 		b.MarkClean();
+		b.MarkOld();
 		return b;
 
 	}//End of BuildFromDataRow(Map<String,Object> data)

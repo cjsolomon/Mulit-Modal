@@ -68,7 +68,18 @@ public class CargoTest {
 		test_cargo.Update();
 		test_cargo.Delete();
 		Cargo test_cargo2 = Cargo.LoadAll(new String("where ShipName = 'DeleteTest'")).get(0);
+		Assert.assertNotEquals(test_cargo.getId(),test_cargo2.getId());
 		
+	}
+	
+	@Test
+	public void testArgumentedConstructor() {
+		int testValues[] = {-1,18,100,3,7};
+		
+		for (int i = 0; i < testValues.length; i++) {
+			Cargo test_cargo = new Cargo(testValues[i]);
+			Assert.assertEquals(testValues[i],test_cargo.getId());
+		}
 	}
 	
 	

@@ -183,6 +183,7 @@ public class Cargo extends Vehicle {
 		c.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		c.setStatus((String)data.get("Status"));
 		c.MarkClean();
+		c.MarkOld();
 		return c;
 		
 	}//End of the BuildFromDataRow(Map<String, Object> data)
