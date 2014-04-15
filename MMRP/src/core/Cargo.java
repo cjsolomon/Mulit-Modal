@@ -14,8 +14,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import GUI.Log;
-
 public class Cargo extends Vehicle {
 	
 	//Default Variables
@@ -149,20 +147,11 @@ public class Cargo extends Vehicle {
 		try 
 		{
 			ArrayList<Map<String,Object>> temp = executeQuery("Select * from CargoShip " +  where);
-			if(temp.size() == 0)
+			for(int i = 0 ; i<temp.size();i++)
 			{
-				Log.writeLogSevere("No Cargo that matches "+where+" returning default object instead.");
-				Cargo c = new Cargo();
+				Cargo c = BuildFromDataRow(temp.get(i));
+				c.getSchedule();
 				returnList.add(c);
-			}
-			else
-			{
-				for(int i = 0 ; i<temp.size();i++)
-				{
-					Cargo c = BuildFromDataRow(temp.get(i));
-					c.getSchedule();
-					returnList.add(c);
-				}
 			}
 		}
 		catch(Exception ex)

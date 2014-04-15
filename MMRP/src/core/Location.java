@@ -322,17 +322,8 @@ public class Location extends BaseClass {
 		try
 		{
 			ArrayList<Map<String,Object>> data = executeQuery("Select * from Location " + where);
-			if(temp.size() == 0)
-			{
-				Location l = new Location();
-				temp.add(l);
-			}
-			else 
-			{
-				for(int i = 0 ;i< temp.size();i++)
+			for(int i = 0 ;i< temp.size();i++)
 				temp.add(BuildFromDataRow(data.get(i)));
-			}
-			
 		}
 		catch(Exception ex)
 		{

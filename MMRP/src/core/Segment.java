@@ -576,20 +576,11 @@ public class Segment extends BaseClass {
 			ArrayList<Map<String,Object>> temp=executeQuery("Select * from Segment " + where);
 			
 			//For each of the entries in our list create a Segment object
-			if(temp.size() == 0)
+			for(int i = 0; i<temp.size();i++)
 			{
-				Log.writeLogSevere("No segment that matches description "+where+" returned default object");
-				Segment s = new Segment();
+				Segment s = BuildFromDataRow(temp.get(i));
+				s.onBoard= Shipment.LoadAllForSegment(s.getID());
 				returnList.add(s);
-			}
-			else
-			{
-				for(int i = 0; i<temp.size();i++)
-				{
-					Segment s = BuildFromDataRow(temp.get(i));
-					s.onBoard= Shipment.LoadAllForSegment(s.getID());
-					returnList.add(s);
-				}
 			}
 			
 		}//End of try block

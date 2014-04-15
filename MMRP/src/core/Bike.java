@@ -8,8 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
-import GUI.Log;
-
 public class Bike extends Vehicle {
 	
 	//Default Variables
@@ -151,20 +149,11 @@ public class Bike extends Vehicle {
 		{
 
 			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Bike " +  where);
-			if(temp.size() == 0)
+			for(int i = 0; i<temp.size();i++)
 			{
-				Log.writeLogSevere("No Bike that matches "+where+" returning default object instead.");
-				Bike c = new Bike();
-				returnList.add(c);
-			}
-			else
-			{
-				for(int i = 0 ; i<temp.size();i++)
-				{
-					Bike c = BuildFromDataRow(temp.get(i));
-					c.getSchedule();
-					returnList.add(c);
-				}
+				Bike  b = BuildFromDataRow(temp.get(i));
+				b.getSchedule();
+				returnList.add(b);
 			}
 		}
 		catch(Exception ex)
