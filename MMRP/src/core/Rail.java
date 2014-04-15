@@ -155,12 +155,6 @@ public class Rail extends Vehicle {
 				r.getSchedule();
 				returnList.add(r);
 			}
-			if(temp.size() == 0)
-			{
-				//Log.writeLogSevere("No Rail fits description "+where+" return default object instead.");
-				Rail r = new Rail();
-				returnList.add(r);
-			}
 		}
 		catch(Exception ex)
 		{

@@ -37,6 +37,7 @@ import com.jgoodies.forms.layout.RowSpec;
 public class Main_Source {
 
 	private JFrame frmMmrp;
+	private LocationForm locationForm;
 	private ShipmentForm shpFrm;
 
 	/**
@@ -77,6 +78,8 @@ public class Main_Source {
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		shpFrm=new ShipmentForm();
 		shpFrm.setVisible(false);
+		locationForm = new LocationForm();
+		locationForm.setVisible(false);
 		/*
 		 * Code defined here is for the shipments button
 		 */
@@ -156,9 +159,19 @@ public class Main_Source {
 		//vp.setVisible(false);
 		
 		frmMmrp.getContentPane().add(shpFrm, new CellConstraints().xywh(4,4,11,11));//, row, colSpan, rowSpan)"4,4,fill,fill");
+		frmMmrp.getContentPane().add(locationForm,new CellConstraints().xywh(4,4,11,11));
 		
 		final JButton btnLocations = new JButton("Locations");
+		btnLocations.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				hidePanels();
+				locationForm.setVisible(true);
+			}
+		});
 		frmMmrp.getContentPane().add(btnLocations, "2, 6,fill,fill");
+		
 						
 		final JButton trucks = new JButton("Trucks");
 		frmMmrp.getContentPane().add(trucks, "2, 8,fill,fill");
@@ -249,6 +262,7 @@ public class Main_Source {
 	private void hidePanels()
 	{
 		shpFrm.setVisible(false);
+		this.locationForm.setVisible(false);
 	}
 	
 	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {

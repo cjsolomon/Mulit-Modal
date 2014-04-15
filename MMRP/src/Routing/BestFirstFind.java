@@ -21,6 +21,10 @@ public class BestFirstFind{
 	boolean pathFound;
 	int maxTries;
 	
+	/**
+	 * This is the default constructor for the BestFirstFind algorithm
+	 * <p>This function will use a default metric and allow 10 tries for the algorithm to return a route.
+	 */
 	public BestFirstFind(){
 		route = new ArrayList<Segment>();
 		metric = new WeightedMetric();
@@ -29,6 +33,11 @@ public class BestFirstFind{
 		maxTries = 10;
 	}//End of BestFirstFind() default constructor
 	
+	/**
+	 * This is the 2 argument constructor for the BestFirstFind algorithm
+	 * @param metric This is the user defined Weighted Metric 
+	 * @param shipment This is the shipment that this algorithm will attempt to find a path for
+	 */
 	public BestFirstFind(WeightedMetric metric, Shipment shipment){
 		route = new ArrayList<Segment>();
 		this.metric = metric;
@@ -37,6 +46,12 @@ public class BestFirstFind{
 		maxTries = 10;
 	}//End of BestFirstFind() 3-argument constructor
 	
+	/**
+	 * This is the 3 argument constructor for the BestFirstFind algorithm
+	 * @param metric This is the user defined WeightedMetric
+	 * @param shipment This is the shipment that this algorithm will attempt to `																							
+	 * @param maximumTries
+	 */
 	public BestFirstFind(WeightedMetric metric, Shipment shipment, int maximumTries){
 		route = new ArrayList<Segment>();
 		this.metric = metric;

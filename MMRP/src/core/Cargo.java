@@ -154,12 +154,6 @@ public class Cargo extends Vehicle {
 				c.getSchedule();
 				returnList.add(c);
 			}
-			if(temp.size() == 0)
-			{
-				//Log.writeLogSevere("No Cargo fits description "+where+" return default object instead.");
-				Cargo c = new Cargo();
-				returnList.add(c);
-			}
 		}
 		catch(Exception ex)
 		{
