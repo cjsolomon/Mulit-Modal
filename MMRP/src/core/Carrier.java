@@ -111,6 +111,70 @@ public class Carrier extends BaseClass
 		this.MarkClean();
 	}//End of argumented Carrier constructor
 	
+	public static int getDefaultCostModCargoship() {
+		return DEFAULT_COST_MOD_CARGOSHIP;
+	}
+
+	public String getDEFAULT_AREA_CODE() {
+		return DEFAULT_AREA_CODE;
+	}
+
+	public int getDEFAULT_AUTHORIZE() {
+		return DEFAULT_AUTHORIZE;
+	}
+
+	public String getDEFAULT_CARRIER_CODE() {
+		return DEFAULT_CARRIER_CODE;
+	}
+
+	public String getDEFAULT_CARRIER_NAME() {
+		return DEFAULT_CARRIER_NAME;
+	}
+
+	public String getDEFAULT_CONTRACT_DATE() {
+		return DEFAULT_CONTRACT_DATE;
+	}
+
+	public int getDEFAULT_COST_MOD_BIKE() {
+		return DEFAULT_COST_MOD_BIKE;
+	}
+
+	public int getDEFAULT_COST_MOD_CARGO() {
+		return DEFAULT_COST_MOD_CARGO;
+	}
+
+	public int getDEFAULT_COST_MOD_PLANE() {
+		return DEFAULT_COST_MOD_PLANE;
+	}
+
+	public int getDEFAULT_COST_MOD_TRUCK() {
+		return DEFAULT_COST_MOD_TRUCK;
+	}
+
+	public int getDEFAULT_COST_MOD_RAIL() {
+		return DEFAULT_COST_MOD_RAIL;
+	}
+
+	public String getDEFAULT_EMAIL_ADDRESS() {
+		return DEFAULT_EMAIL_ADDRESS;
+	}
+
+	public String getDEFAULT_FAX_NUMBER() {
+		return DEFAULT_FAX_NUMBER;
+	}
+
+	public String getDEFAULT_INS_END_DATE() {
+		return DEFAULT_INS_END_DATE;
+	}
+
+	public String getDEFAULT_SAFETY_RATE_DATE() {
+		return DEFAULT_SAFETY_RATE_DATE;
+	}
+
+	public int getDEFAULT_SAFETY_RATING() {
+		return DEFAULT_SAFETY_RATING;
+	}
+
 	/**
 	 * This function returns the id of the Carrier object
 	 * @return Returns the Carrier ID
