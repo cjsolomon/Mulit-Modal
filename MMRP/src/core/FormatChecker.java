@@ -41,10 +41,7 @@ public class FormatChecker {
 	 */
 	static public boolean isValidEmail(String address)
 	{
-		//address.replace('\\.', 'X');
-		//System.out.println(address);
 		Pattern pattern = Pattern.compile("\\S+@\\S+\\.\\S{3,4}");
-		//System.out.println("\\w+@\\w+.\\D\\D\\D[\\D]");
 	    Matcher matcher = pattern.matcher(address);
 	    if (matcher.matches()) {
 	    	return true;
