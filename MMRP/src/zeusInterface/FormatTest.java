@@ -5,7 +5,7 @@ public class FormatTest {
 	
 	public static void main(String[] args)
 	{
-		String number = "testemail1234@sru.com";
+		String number = "me@the.com";
 		boolean accepted = FormatChecker.isValidEmail(number);
 		System.out.println(accepted);
 	}

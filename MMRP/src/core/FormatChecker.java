@@ -9,7 +9,7 @@ public class FormatChecker {
 	 * 
 	 * @param tel
 	 * @return True/False
-	 * Returns true if tel fits the required telephone/fax format: xxx-xxx-xxxx 
+	 * Returns true if tel fits the required telephone/fax format: xxx-xxx-xxxx  or xxx xxx xxx
 	 */
 	static public boolean isValidPhone(String tel)
 	{
@@ -41,7 +41,8 @@ public class FormatChecker {
 	 */
 	static public boolean isValidEmail(String address)
 	{
-		Pattern pattern = Pattern.compile("[\\d\\D]*@\\D*.[{com}{edu}{org}]");
+		Pattern pattern = Pattern.compile("\\w\\w*@\\w\\w*\\.\\D\\D\\D[\\D]");
+		System.out.println("\\w\\w*@\\w\\w*\\.\\D\\D\\D[\\D]");
 	    Matcher matcher = pattern.matcher(address);
 	    if (matcher.matches()) {
 	    	return true;

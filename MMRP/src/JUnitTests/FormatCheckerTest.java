@@ -28,7 +28,7 @@ public class FormatCheckerTest {
 		String check_bad[] = {"814-316-153","@jon.edu","theDanMiller@nothin","Marky mark@google.com",""};
 		
 		for (String check : check_good) {
-			boolean flag = FormatChecker.isValidPhone(check);
+			boolean flag = FormatChecker.isValidEmail(check);
 			if (!flag) {
 				System.out.println("The following email address is returnig as invalid " + check);
 			}
@@ -36,7 +36,7 @@ public class FormatCheckerTest {
 		}
 		
 		for (String check : check_bad) {
-			boolean flag = FormatChecker.isValidPhone(check);
+			boolean flag = FormatChecker.isValidEmail(check);
 			if (flag) {
 				System.out.println("The following email address is returning valid: " + check);
 			}
