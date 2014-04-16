@@ -47,6 +47,8 @@ public class Test extends BaseClass
 			ArrayList<Segment> route4 =  travelBT.getPath();
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route4);*/
+			Carrier nc = new Carrier();
+			nc.Update();
 			
 			Routing.NextAvailableVehicle NAV =  new Routing.NextAvailableVehicle(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route5 =  NAV.getPath();

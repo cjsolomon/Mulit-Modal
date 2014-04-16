@@ -673,13 +673,43 @@ public class Carrier extends BaseClass
 			if(isNew())
 			{
 				//If the Carrier is new insert it into the database by executing the following
-				executeCommand("Insert into Carriers (CarrierCode,CarrierName,CostModifierTruck,CostModifierBike" +
-				",CostModifierCargoShip,CostModifierRail,CostModifierPlane,SendByFax,SendByEmail,AreaCode,FaxNumber,EmailAddress" +
-				"SafetyRating,SafetyRateDate,Authorize,ContractDate,InsEndDate) Values ('"+ getCarrierCode() + "','" + getCarrierName()+
-				"','" +getCostModifierTruck()+"','"+ getCostModifierBike()+"','"+getCostModifierCargoShip()+
-				"','"+ getCostModifierRail()+"','"+ getCostModifierPlane()+"','"+isSendByFax()+"','"+isSendByEmail() +
-				"','" + getAreaCode() + "','" + getFaxNumber()+ "','"+ getEmailAddress()+"','"+ getSafetyRating()+"','"+getSafetyRateDate()+"','"+getAuthorize()+
-				"','"+getContractDate()+"','"+getInsEndDate()+"')");
+				String sql = "Insert into carriers (CarrierCode," +
+													"CarrierName," +
+													"CostModifierTruck," +
+													"CostModifierBike," +
+													"CostModifierCargoShip," +
+													"CostModifierRail," +
+													"CostModifierPlane," +
+													"SendByFax," +
+													"SendByEmail," +
+													"AreaCode," +
+													"FaxNumber," +
+													"EmailAddress," +
+													"SafetyRating," +
+													"SafetyRateDate," +
+													"Authorize," +
+													"ContractDate," +
+													"InsEndDate) " +
+													"Values " +
+													"('"+this.getCarrierCode()+"'," +
+													"'"+this.getCarrierName()+"'," +
+													"'"+this.getCostModifierTruck()+"'," +
+													"'"+this.getCostModifierBike()+"'," +
+													"'"+this.getCostModifierCargoShip()+"'," +
+													"'"+this.getCostModifierRail()+"'," +
+													"'"+this.getCostModifierPlane()+"'," +
+													this.isSendByFax()+"," +
+													this.isSendByEmail()+"," +
+													"'"+this.getAreaCode()+"'," +
+													"'"+this.getFaxNumber()+"'," +
+													"'"+this.getEmailAddress()+"'," +
+													"'"+this.getSafetyRating()+"'," +
+													"'"+this.getSafetyRateDate()+"'," +
+													"'"+this.getAuthorize()+"'," +
+													"'"+this.getContractDate()+"'," +
+													"'"+this.getInsEndDate()+"');";
+				
+				executeCommand(sql);
 				
 				//Grab this Carrier from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select CarrierID from Carriers where CarrierCode = '" + this.getCarrierCode() + "' AND CarrierName = '"+this.getCarrierName()+
@@ -691,7 +721,7 @@ public class Carrier extends BaseClass
 				"' AND InsEndDate = '"+ this.getInsEndDate()+"'");
 				if(temp.size()>0)
 				{
-					this.id = (Integer)temp.get(0).get("CarrierId");				
+					this.id = (Integer)temp.get(0).get("CarrierID");			
 					MarkClean();												
 					MarkOld();													
 				}//End of entry found if

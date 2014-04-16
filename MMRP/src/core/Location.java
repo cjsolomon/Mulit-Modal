@@ -239,11 +239,11 @@ public class Location extends BaseClass {
 				ArrayList<Map<String,Object>> temp =executeQuery(sql);
 				if(temp.size()>0)
 				{
-					this.id = (Integer)temp.get(0).get("ShipID");
+					this.id = (Integer)temp.get(0).get("LocationID");
+					MarkClean();
+					MarkOld();
 
 				}
-				MarkClean();
-				MarkOld();
 			}
 			else
 			{
