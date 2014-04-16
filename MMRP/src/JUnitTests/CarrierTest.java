@@ -1,11 +1,15 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.Assert;
 
+
+
+import core.Bike;
 import core.Carrier;
-import core.Carrier;
-import core.Vehicle;
+
 
 public class CarrierTest {
 
@@ -195,6 +199,54 @@ public class CarrierTest {
 		test_carrier.Update();
 		Assert.assertFalse(test_carrier.isDirty());
 		test_carrier.Delete();
+	}
+	
+	@Test
+	public void testUpdateLoad() {
+		Carrier test_carrier = new Carrier();
+		test_carrier.setCarrierName("InsertLoadTest");
+		
+		
+		test_carrier.Update();
+		ArrayList<Carrier> cList = Carrier.LoadAll(new String("where CarrierName = 'InsertLoadTest'"));
+		if (!cList.isEmpty()) {
+			Assert.assertEquals(test_carrier.getAreaCode(), cList.get(0).getAreaCode());
+			Assert.assertEquals(test_carrier.getAuthorize(), cList.get(0).getAuthorize());
+			//Assert.assertEquals(test_carrier.getCarrierCode(),cList.get(0).getCarrierCode());
+			System.out.println("Original Carrier Code is: " + test_carrier.getCarrierCode() + " but is returned from database as: " +cList.get(0).getCarrierCode());
+			//Assert.assertEquals(test_carrier.getCarrierName(), cList.get(0).getCarrierName());
+			System.out.println("Original Carrier Name is: " + test_carrier.getCarrierName() + " but is returned from database as: " +cList.get(0).getCarrierName());
+			Assert.assertEquals(test_carrier.getContractDate(), cList.get(0).getContractDate());
+			Assert.assertEquals(test_carrier.getCostModifierBike(), cList.get(0).getCostModifierBike());
+			Assert.assertEquals(test_carrier.getCostModifierCargoShip(), cList.get(0).getCostModifierCargoShip());
+			Assert.assertEquals(test_carrier.getCostModifierPlane(), cList.get(0).getCostModifierPlane());
+			Assert.assertEquals(test_carrier.getCostModifierRail(), cList.get(0).getCostModifierRail());
+			Assert.assertEquals(test_carrier.getCostModifierTruck(), cList.get(0).getCostModifierTruck());
+			Assert.assertEquals(test_carrier.getEmailAddress(), cList.get(0).getEmailAddress());
+			Assert.assertEquals(test_carrier.getFaxNumber(), cList.get(0).getFaxNumber());
+			Assert.assertEquals(test_carrier.getInsEndDate(), cList.get(0).getInsEndDate());
+			Assert.assertEquals(test_carrier.getSafetyRateDate(), cList.get(0).getSafetyRateDate());
+			Assert.assertEquals(test_carrier.getSafetyRating(), cList.get(0).getSafetyRating());
+			Assert.assertEquals(test_carrier.isDirty(), cList.get(0).isDirty());
+			for (Carrier delete : cList)
+				delete.Delete();
+		}
+		else {
+			Assert.assertTrue(false);
+		}
+		
+	}
+	
+	@Test
+	public void testDelete() {
+		Carrier test_carrier = new Carrier();
+		test_carrier.setEmailAddress("a@a.com");
+		test_carrier.Update();
+		test_carrier.Delete();
+		ArrayList<Carrier> cList = Carrier.LoadAll(new String("where EmailAddress = 'a@a.com'"));
+		Assert.assertTrue(cList.isEmpty());
+		for (Carrier delete : cList)
+			delete.Delete();	
 	}
 	
 }
