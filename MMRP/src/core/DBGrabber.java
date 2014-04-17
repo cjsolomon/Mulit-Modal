@@ -324,13 +324,56 @@ public class DBGrabber {
 		}
 	}
 	
+	public static void updatePhone()
+	{
+		try {
+			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			Class.forName(DRIVER);
+			Connection excal = DriverManager.getConnection(URL, USER, PSWD);
+			Statement e = excal.createStatement();
+			Statement x = excal.createStatement();
+			x.execute("Select * from Carriers");
+			ResultSet rs = x.getResultSet();
+			String phone;
+			String code;
+			String area;
+			if (rs != null) 
+				while ( rs.next() )
+				{
+					code = rs.getString("CarrierCode");
+					phone = rs.getString("FaxNumber");
+					phone = phone.replace(' ', '-');
+					area = rs.getString("AreaCode");
+					if(phone.length() < 10 && area.length() == 3)
+					{
+						e.execute("UPDATE Carriers SET FaxNumber = '"+area+" "+phone+"'"+
+								"Where CarrierCode = '"+code+"'");
+						System.out.println("UPDATE Carriers SET FaxNumber = '"+area+" "+phone+"'"+
+								" Where CarrierCode = '"+code+"'");
+						phone = area+"-"+phone;
+					}
+					e.execute("UPDATE Carriers SET FaxNumber = '"+phone+"' WHERE CarrierCode = '"+
+							code+"'");
+					System.out.println("UPDATE Carriers SET FaxNumber = '"+phone+"' WHERE CarrierCode = '"+
+							code+"'");
+				}
+			excal.close();
+		}
+		catch (Exception e) {
+			System.out.println("Error: " + e);
+			e.printStackTrace();
+		}
+		
+	}
+	
 	public static void main(String[] args)
 	{
 		//populateCustomer();
 		//populateCarrier();
 		//populateTruck();
-		//populateShipRate();
+		populateShipRate();
 		//populateLocations();
 		//populateShips();
+		//updatePhone();  
 	}
 }

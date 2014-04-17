@@ -8,8 +8,8 @@ public class FormatCheckerTest {
 
 	@Test
 	public void isValidPhoneTest() {
-		String check_good[] = {"814-316-1530","999-999-9999","345-6789","856-4567"};
-		String check_bad[] = {"814-316-153","9999-999-9999","345-679","5856-4567",""};
+		String check_good[] = {"814-316-1530","999-999-9999","412-345-6789","724-856-4567"};
+		String check_bad[] = {"814-316-153","9999-999-9999","345-679","5856-4567","", "814 316 1444"};
 		
 		for (String check : check_good) {
 			boolean flag = FormatChecker.isValidPhone(check);

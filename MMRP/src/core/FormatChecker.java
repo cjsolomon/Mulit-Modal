@@ -6,30 +6,25 @@ import GUI.Log;
 public class FormatChecker {
 
 	/**
+	 * TODO - isNumeric()
+	 */
+	/**
 	 * 
 	 * @param tel
 	 * @return True/False
-	 * Returns true if tel fits the required telephone/fax format: xxx-xxx-xxxx  or xxx xxx xxx
+	 * Returns true if tel fits the required telephone/fax format: xxx-xxx-xxxx
 	 */
 	static public boolean isValidPhone(String tel)
 	{
-		Pattern pattern = Pattern.compile("\\d{3}[-\\s]\\d{3}[-\\s]\\d{4}");
+		Pattern pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
 	    Matcher matcher = pattern.matcher(tel);
 	    if (matcher.matches()) {
 	    	return true;
 	    }
 	    else
 	    { 
-	    	pattern = Pattern.compile("\\d{3}[-\\s]\\d{4}");
-	    	matcher = pattern.matcher(tel);
-	    	if (matcher.matches()) {
-	    		return true;
-	    	}
-	    	else
-	    	{
-	    		//Log.writeLogWarning("Invalid format on phone/fax number.");
-	    		return false;
-	    	}
+	    	//Log.writeLogWarning("Invalid format on phone/fax number.");
+	    	return false;
 	    }
 	}
 	
