@@ -1,14 +1,11 @@
-
-//======================================================================================//
-//							Software Engineering MMRP Project							//
-//									Dr. Sam Thangiah									//
-//					Dan Miller, Zach Petrusch, Chris Solomon, and Jordan Schiller		//
-//======================================================================================//
-//										Cargo Class										//
-//======================================================================================//
-// Purpose:																				//
-//																						//
-//======================================================================================//
+/**
+ * @author Christopher Solomon, Jordan Schiller, Dan Miller, Zach Petrusch
+ * @version 2.0
+ * @see java.sql.SQLException
+ * @see java.util.ArrayList
+ * @see java.util.Map
+ * @see GUI.log
+ */
 package core;
 import java.sql.SQLException;
 import java.util.ArrayList;

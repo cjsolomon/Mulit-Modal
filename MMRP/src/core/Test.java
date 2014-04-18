@@ -50,10 +50,10 @@ public class Test extends BaseClass
 			Carrier nc = new Carrier();
 			nc.Update();
 			
-			Routing.NextAvailableVehicle NAV =  new Routing.NextAvailableVehicle(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
+			/*Routing.NextAvailableVehicle NAV =  new Routing.NextAvailableVehicle(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route5 =  NAV.getPath();
 			shipments.get(i).DeleteAllHistory();
-			shipments.get(i).setHistoryFromSegments(route5);
+			shipments.get(i).setHistoryFromSegments(route5);*/
 			
 			System.out.println("Done with " + (i+1));
 		}

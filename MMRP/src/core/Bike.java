@@ -1,6 +1,9 @@
 /**
  * @author Christopher Solomon, Jordan Schiller, Dan Miller, Zach Petrusch
  * @version 2.0
+ * @see java.sql.SQLException
+ * @see java.util.ArrayList
+ * @see java.util.Map
  */
 
 package core;

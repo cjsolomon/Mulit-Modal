@@ -24,13 +24,13 @@ public class TravelType extends BaseClass {
 	
 	//Default Variables
 	private static final int DEFAULT_VEHICLE_TYPE_ID = 0;
-	private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeID";
+	private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeName";
 	private static final String DEFAULT_VEHICLE_MODE = "defaultVehicleMode";
 	private static final String DEFAULT_TRAILER1 = "defaultTrailer1";
 	private static final String DEFAULT_TRAILER2 = "defaultTrailer2";
 	private static final double DEFAULT_MINIMUM_CAPACITY = 0;
 	private static final double DEFAULT_MAXIMUM_CAPACITY = 100;
-	private static final double DEFAULT_MAXIMUM_WEIGHT = 100;
+	private static final double DEFAULT_MAXIMUM_WEIGHT = 500;
 	private static final String DEFAULT_SERVICE_TYPE = "defaultServiceType";
 	
 	/**

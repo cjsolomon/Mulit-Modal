@@ -35,9 +35,6 @@ public class Segment extends BaseClass {
 	private String lanes;
 	public ArrayList<Shipment> onBoard;
 	
-	private static final int HIGEST_ARRIVAL_TIME = 86400;		//This is the higest possible arrival time
-	private static final int LOWEST_DEPARTURE_TIME = 0;			//This is the lowest possible departure time
-	
 	//Default Variables
 	private static final int DEFAULT_ARRIVAL_TIME = 50;
 	private static final int DEFAULT_DEPARTURE_TIME = 0;
@@ -279,11 +276,11 @@ public class Segment extends BaseClass {
 			latestArrivalTime = this.arrivalTime;
 		}
 				
-		if(latestArrivalTime > HIGEST_ARRIVAL_TIME){
+		//if(latestArrivalTime > HIGEST_ARRIVAL_TIME){
 			/*Log.writeLogSevere("The new latest arrival time was set too high, so it has been corrected to " +
 					HIGEST_ARRIVAL_TIME + ".");*/
-			latestArrivalTime = HIGEST_ARRIVAL_TIME;
-		}
+		//	latestArrivalTime = HIGEST_ARRIVAL_TIME;
+		//}
 				
 		this.latestArrivalTime = latestArrivalTime;
 	}//End of setLatestArrivalTime(int latestArrivalTime)
@@ -309,11 +306,11 @@ public class Segment extends BaseClass {
 			earliestDepartureTime = this.departureTime;
 		}
 				
-		if(earliestDepartureTime < LOWEST_DEPARTURE_TIME){
+		//if(earliestDepartureTime < LOWEST_DEPARTURE_TIME){
 			/*Log.writeLogSevere("The new earliest depature time was set too low, so it has been corrected to " +
 					LOWEST_DEPARTURE_TIME + ".");*/
-			earliestDepartureTime = LOWEST_DEPARTURE_TIME;
-		}
+		//	earliestDepartureTime = LOWEST_DEPARTURE_TIME;
+		//}
 		
 		this.earliestDepartureTime = earliestDepartureTime;
 	}//End of setEarliestDepartureTime(int earliestDepartureTime)
