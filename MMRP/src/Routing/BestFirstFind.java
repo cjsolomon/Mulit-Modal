@@ -4,7 +4,7 @@ import core.Segment;
 import core.Shipment;
 import core.Location;
 
-public class BestFirstFind{
+public class BestFirstFind extends RoutingAlgorithm{
 
     /* How bestFirstFind Works
          * 1) Grab the segments connected to the start and end nodes
@@ -14,13 +14,6 @@ public class BestFirstFind{
          * 5) Add this segment to the path
          * 6) If we have reached the end node we are done, else repeat from 3
          */
-	ArrayList<Segment> route;
-	WeightedMetric metric;
-	int currentTime;
-	Shipment shipment;
-	boolean pathFound;
-	int maxTries;
-	
 	/**
 	 * This is the default constructor for the BestFirstFind algorithm
 	 * <p>This function will use a default metric and allow 10 tries for the algorithm to return a route.
@@ -126,18 +119,6 @@ public class BestFirstFind{
 		return route;
 		
 	}//End of getPath()
-
-	public ArrayList<Segment> grabSegmentsStartingAt(int startID){
-		ArrayList<Segment> startSegments=Segment.LoadAll("Where FromLocationID = '"+ startID + "'");
-		startSegments = validPaths(startSegments);
-		return startSegments;
-	}//End of grabSegmentsStartingAt(Location start)
-	
-	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
-		directPath = validPaths(directPath);
-		return directPath;
-	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
 	
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
@@ -154,16 +135,5 @@ public class BestFirstFind{
 	return segmentsToCheck;
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)
 	
-	public boolean rewindPath(ArrayList<Segment> rewindPath){
-		if(rewindPath.size() > 1){
-			//We can rewind the path
-			rewindPath.remove(rewindPath.size()-1);
-			return true;
-		}else{
-			//We cannot rewind the path
-			rewindPath.clear();
-			return false;
-		}
-	}//End of rewindPath(ArrayList<Segment> rewindPath)
 	
 }//End of BestFirstFind class

@@ -6,15 +6,16 @@ import core.Segment;
 import core.Shipment;
 import core.Location;
 
-public class NextAvailableVehicle{
+public class NextAvailableVehicle extends RoutingAlgorithm{
 
-	ArrayList<Segment> route;
 	Vehicle.TravelModes mode;
+	int percentChanceOfDirectPath;
+	
+	ArrayList<Segment> route;
 	WeightedMetric metric;
 	int currentTime;
 	Shipment shipment;
 	boolean pathFound;
-	int percentChanceOfDirectPath;
 	int maxTries;
 	
 	public NextAvailableVehicle(){
@@ -152,17 +153,6 @@ public class NextAvailableVehicle{
 		
 	}//End of getPath()
 
-	public ArrayList<Segment> grabSegmentsStartingAt(int startID){
-		ArrayList<Segment> startSegments=Segment.LoadAll("Where FromLocationID = '"+ startID + "'");
-		startSegments = validPaths(startSegments);
-		return startSegments;
-	}//End of grabSegmentsStartingAt(Location start)
-	
-	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
-		directPath = validPaths(directPath);
-		return directPath;
-	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
 	
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
@@ -178,16 +168,5 @@ public class NextAvailableVehicle{
 	return segmentsToCheck;
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)
 	
-	public boolean rewindPath(ArrayList<Segment> rewindPath){
-		if(rewindPath.size() > 1){
-			//We can rewind the path
-			rewindPath.remove(rewindPath.size()-1);
-			return true;
-		}else{
-			//We cannot rewind the path
-			rewindPath.clear();
-			return false;
-		}
-	}//End of rewindPath(ArrayList<Segment> rewindPath)
 	
 }//End of TravelByType class

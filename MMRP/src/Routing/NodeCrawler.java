@@ -5,7 +5,7 @@ import core.Segment;
 import core.Location;
 import core.Shipment;
 
-public class NodeCrawler{
+public class NodeCrawler extends RoutingAlgorithm{
 
 	/* How nodeCrawlerFirst Works
          * 1) Grab the segments connected to the start and end nodes
@@ -16,12 +16,14 @@ public class NodeCrawler{
          * 6) If we have reached the end node we are done, else repeat from 3
     */
 
+	int precentChanceOfDirectPath;
+	
 	ArrayList<Segment> route;
+	WeightedMetric metric;
 	int currentTime;
 	Shipment shipment;
 	boolean pathFound;
 	int maxTries;
-	int precentChanceOfDirectPath;
 	
 	public NodeCrawler(){
 		route = new ArrayList<Segment>();
@@ -112,17 +114,6 @@ public class NodeCrawler{
 		
 	}//End of getPath()
 
-	public ArrayList<Segment> grabSegmentsStartingAt(int startID){
-		ArrayList<Segment> startSegments=Segment.LoadAll("Where FromLocationID = '"+ startID + "';");
-		startSegments = validPaths(startSegments);
-		return startSegments;
-	}//End of grabSegmentsStartingAt(Location start)
-	
-	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
-		directPath = validPaths(directPath);
-		return directPath;
-	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)
 	
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
@@ -138,16 +129,5 @@ public class NodeCrawler{
 	return segmentsToCheck;
 	}//End of ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck)
 	
-	public boolean rewindPath(ArrayList<Segment> rewindPath){
-		if(rewindPath.size() > 1){
-			//We can rewind the path
-			rewindPath.remove(rewindPath.size()-1);
-			return true;
-		}else{
-			//We cannot rewind the path
-			rewindPath.clear();
-			return false;
-		}
-	}//End of rewindPath(ArrayList<Segment> rewindPath)
 	
 }//End of NodeCrawler class
