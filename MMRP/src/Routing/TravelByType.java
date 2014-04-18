@@ -12,13 +12,13 @@ public class TravelByType extends RoutingAlgorithm{
 	int percentChanceOfDirectPath;
 	int percentChanceOfBestRoute;
 	
-	ArrayList<Segment> route;
-	WeightedMetric metric;
-	int currentTime;
-	Shipment shipment;
-	boolean pathFound;
-	int maxTries;
-	
+	/**
+	 * This is the default TravelByType 
+	 * <p>This sets the travel mode to TRUCK
+	 * <p>This percent chance of a direct route is attempted from the current location to the end location is set to 30%
+	 * <p>The percent chance that the lowest cost path is chosen next is set to 50%
+	 * <p>The maximum number of attempts to find a path is set to 10
+	 */
 	public TravelByType(){
 		route = new ArrayList<Segment>();
 		mode = Vehicle.TravelModes.TRUCK;
@@ -30,6 +30,15 @@ public class TravelByType extends RoutingAlgorithm{
 		maxTries = 10;
 	}//End of TravelByType() default constructor
 	
+	/**
+	 * This is the 3 argument TravelByType constructor
+	 * @param travelMode This is the mode of travel that the path is restricted to
+	 * @param metric This is the weighted metric used to determine the cost of paths
+	 * @param shipment This is the shipment that is being routed.
+	 * <p>This percent chance of a direct route is attempted from the current location to the end location is set to 30%
+	 * <p>The percent chance that the lowest cost path is chosen next is set to 50%
+	 * <p>The maximum number of attempts to find a path is set to 10
+	 */
 	public TravelByType(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment){
 		route = new ArrayList<Segment>();
 		this.mode = travelMode;
@@ -40,7 +49,16 @@ public class TravelByType extends RoutingAlgorithm{
 		pathFound = false;
 		maxTries = 10;
 	}//End of TravelByType() 3-argument constructor
-	
+	 
+	/**
+	 * This is the 6 argument TravelByType constructor
+	 * @param travelMode This is the mode of travel that the paths must use
+	 * @param metric This is the metric used to measure the costs of the paths
+	 * @param shipment This is the shipment being routed
+	 * @param directPathChance This is the chance that a direct path will be attempted from the current location to the end location
+	 * @param bestRouteChance This is the chance the the lowest cost path will be chosen from this location
+	 * @param maximumTries This is the maximum number of attempts that the algorithm has to find a path
+	 */
 	public TravelByType(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment, int directPathChance, int bestRouteChance, int maximumTries){
 		route = new ArrayList<Segment>();
 		this.mode = travelMode;
@@ -52,6 +70,14 @@ public class TravelByType extends RoutingAlgorithm{
 		maxTries = maximumTries;
 	}//End of TravelByType() 6-argument constructor
 	
+	/**
+	 * This is the getPath function, it will return a path from the start location to the end location or
+	 * a null path if it fails.
+	 * <p>It will find a path based on the following steps :
+	 * <p>1) If a random number is greater than the percent chance of a direct path then attempt a direct path
+	 * <p>2) If a random number is greater than the percent chance of the best route then choose the best path otherwise pick a random path
+	 * <p>3) If we have reached the end we are done, otherwise repeat from 1
+     */
 	public ArrayList<Segment> getPath(){
 		//First check to see if we have a direct path between the start and end point
 		ArrayList<Segment> route =  new ArrayList<Segment>();
@@ -128,6 +154,9 @@ public class TravelByType extends RoutingAlgorithm{
 		
 	}//End of getPath()
 	
+	/**
+	 * This function will remove Segments that are not valid for this algorithm
+	 */
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type

@@ -18,13 +18,11 @@ public class NodeCrawler extends RoutingAlgorithm{
 
 	int precentChanceOfDirectPath;
 	
-	ArrayList<Segment> route;
-	WeightedMetric metric;
-	int currentTime;
-	Shipment shipment;
-	boolean pathFound;
-	int maxTries;
-	
+	/**
+	 * This is the default NodeCrawler constructor
+	 * <p>The maximum number of attempts to find a path are set to 10
+	 * <p>The percent chance of trying a direct path is set to 50
+	 */
 	public NodeCrawler(){
 		route = new ArrayList<Segment>();
 		currentTime = 0;
@@ -33,6 +31,12 @@ public class NodeCrawler extends RoutingAlgorithm{
 		precentChanceOfDirectPath = 50;
 	}//End of NodeCrawler() default constructor
 	
+	/**
+	 * This is the 1 argument NodeCrawler constructor
+	 * @param shipment This is the Shipment that is being routed
+	 * <p>The maximum number of attempts to find a path are set to 10
+	 * <p>The percent chance of trying a direct path is set to 50
+	 */
 	public NodeCrawler(Shipment shipment){
 		route = new ArrayList<Segment>();
 		this.shipment = shipment;
@@ -41,6 +45,12 @@ public class NodeCrawler extends RoutingAlgorithm{
 		precentChanceOfDirectPath = 50;
 	}//End of NodeCrawler() 3-argument constructor
 	
+	/**
+	 * This is the 3 argument NodeCrawler constructor
+	 * @param shipment This is the Shipment that is being routed
+	 * @param chanceOfDirectPath
+	 * @param maximumTries
+	 */
 	public NodeCrawler(Shipment shipment, int chanceOfDirectPath, int maximumTries){
 		route = new ArrayList<Segment>();
 		this.shipment = shipment;
@@ -49,6 +59,15 @@ public class NodeCrawler extends RoutingAlgorithm{
 		precentChanceOfDirectPath = chanceOfDirectPath;
 	}//End of NodeCrawler() 5-argument constructor
 	
+	/**
+	 * This is the getPath function, it will return a path from the start location to the end location or
+	 * a null path if it fails.
+	 * <p>It will find a path based on the following steps :
+	 * <p>1) If the percent chance is greater than the chance of a direct path attempt a direct path
+	 * <p>2) If a direct path exists randomly choose one
+	 * <p>3) If we did not choose a direct path or one doesnt exist randomly pick a connecting Segment
+	 * <p>4) Repeat from 1
+     */
 	public ArrayList<Segment> getPath(){
 		//First check to see if we have a direct path between the start and end point
 		ArrayList<Segment> route =  new ArrayList<Segment>();
@@ -114,7 +133,9 @@ public class NodeCrawler extends RoutingAlgorithm{
 		
 	}//End of getPath()
 
-	
+	/**
+	 * This function will remove Segments that are not valid for this algorithm
+	 */
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type

@@ -53,6 +53,17 @@ public class BestFirstFind extends RoutingAlgorithm{
 		maxTries = maximumTries;
 	}//End of BestFirstFind() 4-argument constructor
 	
+	/**
+	 * This is the getPath function, it will return a path from the start location to the end location or
+	 * a null path if it fails.
+	 * <p>It will find a path based on the following steps :
+	 * <p>1) Grab the segments connected to the start and end nodes
+     * <p>2) While we arent connected to the end node do the following
+     * <p>3) Pick the best segment, using the metric to go down
+     * <p>4) Check to see if we can now connect to the end node
+     * <p>5) Add this segment to the path
+     * <p>6) If we have reached the end node we are done, else repeat from 3
+     */
 	public ArrayList<Segment> getPath(){
 		//First check to see if we have a direct path between the start and end point
 		ArrayList<Segment> route =  new ArrayList<Segment>();
@@ -120,6 +131,9 @@ public class BestFirstFind extends RoutingAlgorithm{
 		
 	}//End of getPath()
 	
+	/**
+	 * This function will remove Segments that are not valid for this algorithm
+	 */
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type

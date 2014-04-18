@@ -11,13 +11,13 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 	Vehicle.TravelModes mode;
 	int percentChanceOfDirectPath;
 	
-	ArrayList<Segment> route;
-	WeightedMetric metric;
-	int currentTime;
-	Shipment shipment;
-	boolean pathFound;
-	int maxTries;
-	
+	/**
+	 * This is the default NextAvailableVehicle constructor
+	 * <p>The travel mode used will be set to TRUCK
+	 * <p>The percent chance of trying to use a direct path from the current location to the end location will be set to 30%
+	 * <p>The maximum number of attempts to find a path will be set to 10
+	 * <p>The weighted metric will be balanced between the measurements
+	 */
 	public NextAvailableVehicle(){
 		route = new ArrayList<Segment>();
 		mode = Vehicle.TravelModes.TRUCK;
@@ -28,6 +28,14 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 		maxTries = 10;
 	}//End of NextAvailableVehicle() default constructor
 	
+	/**
+	 * This is the 3 argument constructor for NextAvailableVehicle
+	 * @param travelMode This is the preferred travel mode to use
+	 * @param metric This is the user-defined weighted metric to determine cost
+	 * @param shipment This is the shipment that will be routed
+	 * <p>The percent chance of trying to use a direct path from the current location to the end location will be set to 30%
+	 * <p>The maximum number of attempts to find a path will be set to 10
+	 */
 	public NextAvailableVehicle(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment){
 		route = new ArrayList<Segment>();
 		this.mode = travelMode;
@@ -38,6 +46,14 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 		maxTries = 10;
 	}//End of NextAvailableVehicle() 3-argument constructor
 	
+	/**
+	 * This is the 5 argument constructor of NextAvailableVehicle
+	 * @param travelMode This is the preferred mode of travel to use
+	 * @param metric This is the user-defined weighted metric to determine cost
+	 * @param shipment This is the shipment that will be routed
+	 * @param chanceOfDirectPath This is the percent chance that the routing will attempt a direct route from the current Location
+	 * @param maximumTries This is the maximum number of attempts the algorithm has to fid a path from the starting Location of the Shipment to the end Location
+	 */
 	public NextAvailableVehicle(Vehicle.TravelModes travelMode, WeightedMetric metric, Shipment shipment, int chanceOfDirectPath, int maximumTries){
 		route = new ArrayList<Segment>();
 		this.mode = travelMode;
@@ -48,6 +64,17 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 		maxTries = maximumTries;
 	}//End of NextAvailableVehicle() 6-argument constructor
 	
+	/**
+	 * This is the getPath function, it will return a path from the start location to the end location or
+	 * a null path if it fails.
+	 * <p>It will find a path based on the following steps :
+	 * <p>1) Grab the segments connected to the start and end nodes
+	 * <p>2) If a direct path exists take the next available vehicle and use it
+     * <p>3) While we aren't connected to the end node do the following
+     * <p>4) Take the next available vehicle and use it
+     * <p>5)Add this segment to the path
+     * <p>6) If we have reached the end node we are done, else repeat from 2
+     */
 	public ArrayList<Segment> getPath(){
 		//First check to see if we have a direct path between the start and end point
 		ArrayList<Segment> route =  new ArrayList<Segment>();
@@ -153,7 +180,9 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 		
 	}//End of getPath()
 
-	
+	/**
+	 * This function will remove Segments that are not valid for this algorithm
+	 */
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
