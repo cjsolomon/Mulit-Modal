@@ -4,6 +4,7 @@ import java.awt.Panel;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JTextField;
@@ -41,21 +42,7 @@ public class TruckPanel extends Panel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		truckTable= new VehicleTable("Truck");
-		lblName=new JLabel("Name:");
-		lblCarrier = new JLabel("Carrier:");
-		lblStatus = new JLabel("Status:");
 		
-		txtName = new JTextField(20);
-		cmbCarrier = new JComboBox<core.Carrier>();
-		cmbStatus = new JComboBox<core.Vehicle.Status>();
-		
-		add(lblName,"2,4,right,center");
-		add(txtName,"4,4");
-		
-		add(lblStatus,"2,6,right,center");
-		add(cmbStatus,"4,6");
-		add(lblCarrier,"2,8,right,center");
-		add(cmbCarrier,"4,8");
 		JScrollPane sp = new JScrollPane();
 		sp.setViewportView(truckTable);
 		truckTable.setVisible(false);
@@ -68,5 +55,41 @@ public class TruckPanel extends Panel {
 		this.setVisible(true);
 		
 	}
-	
+	private JPanel getBasicPanel()
+	{
+		JPanel basicInfo = new JPanel();
+		basicInfo.setLayout(new FormLayout(new ColumnSpec[] {
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(103dlu;default)"),
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(67dlu;default)"),},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(61dlu;default)"),
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
+		
+		lblName=new JLabel("Name:");
+		lblCarrier = new JLabel("Carrier:");
+		lblStatus = new JLabel("Status:");
+		
+		txtName = new JTextField(20);
+		cmbCarrier = new JComboBox<core.Carrier>();
+		cmbStatus = new JComboBox<core.Vehicle.Status>();
+		
+		basicInfo.add(lblName,"2,4,right,center");
+		basicInfo.add(txtName,"4,4");
+		
+		basicInfo.add(lblStatus,"2,6,right,center");
+		basicInfo.add(cmbStatus,"4,6");
+		basicInfo.add(lblCarrier,"2,8,right,center");
+		basicInfo.add(cmbCarrier,"4,8");
+		
+		
+	}
 }
