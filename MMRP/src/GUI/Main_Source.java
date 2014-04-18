@@ -39,6 +39,7 @@ public class Main_Source {
 	private JFrame frmMmrp;
 	private LocationForm locationForm;
 	private ShipmentForm shpFrm;
+	private TruckPanel truckForm;
 
 	/**
 	 * Launch the application.
@@ -80,6 +81,7 @@ public class Main_Source {
 		shpFrm.setVisible(false);
 		locationForm = new LocationForm();
 		locationForm.setVisible(false);
+		truckForm=new TruckPanel();
 		/*
 		 * Code defined here is for the shipments button
 		 */
@@ -160,7 +162,7 @@ public class Main_Source {
 		
 		frmMmrp.getContentPane().add(shpFrm, new CellConstraints().xywh(4,4,11,11));//, row, colSpan, rowSpan)"4,4,fill,fill");
 		frmMmrp.getContentPane().add(locationForm,new CellConstraints().xywh(4,4,11,11));
-		
+		frmMmrp.getContentPane().add(truckForm,new CellConstraints().xywh(4,4,11,11));
 		final JButton btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
@@ -174,6 +176,14 @@ public class Main_Source {
 		
 						
 		final JButton trucks = new JButton("Trucks");
+		trucks.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Button Clicked");
+				hidePanels();
+				System.out.println("Hide Panels");
+				truckForm.showPanel();
+			}
+		});
 		frmMmrp.getContentPane().add(trucks, "2, 8,fill,fill");
 		final JButton truckType = new JButton("Truck Types");
 		frmMmrp.getContentPane().add(truckType,"2,9,right,center");
@@ -263,6 +273,7 @@ public class Main_Source {
 	{
 		shpFrm.setVisible(false);
 		this.locationForm.setVisible(false);
+		truckForm.setVisible(false);
 	}
 	
 	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {
