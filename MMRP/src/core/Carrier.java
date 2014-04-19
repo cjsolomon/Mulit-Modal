@@ -911,5 +911,9 @@ public class Carrier extends BaseClass
 		return c;
 		
 	}//End of the BuildFromDataRow(Map<String, Object> data)
-	
+	@Override
+	public String toString()
+	{
+		return this.getCarrierName();
+	}
 }//End of Carrier Class

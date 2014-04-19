@@ -22,11 +22,14 @@ public class VehicleTable extends JTable {
 	}
 
 	public Vehicle getSelectedVehicle() {
-		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(),
-				0).toString());
-		for (int i = 0; i < vehicles.size(); i++) {
-			if (vehicles.get(i).getId() == searchID)
-				return vehicles.get(i);
+		if(this.getSelectedRow()!=-1)
+		{
+			int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(),
+					0).toString());
+			for (int i = 0; i < vehicles.size(); i++) {
+				if (vehicles.get(i).getId() == searchID)
+					return vehicles.get(i);
+			}
 		}
 		return null;
 	}
