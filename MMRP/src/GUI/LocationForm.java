@@ -19,9 +19,6 @@ import core.Location;
 
 public class LocationForm extends JPanel {
 	
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	JLabel lblStartLat, lblStartLon, lblStartCity,lblStartState,lblStartCountry, lblStartLocation, lblStartID, lblTravelModes;
 	JLabel lblEndLat, lblEndLon, lblEndCity,lblEndState,lblEndCountry, lblEndLocation, lblEndID;
@@ -197,7 +194,7 @@ public class LocationForm extends JPanel {
     	add(lblSegments,"4, 16, center, center");
 		add(sp,"2, 20, 10, 1");
     	
-    	
+		
 		cbStartCountry.addItemListener(new ItemListener()
 		{            
 		    @Override
@@ -214,22 +211,6 @@ public class LocationForm extends JPanel {
 		        	//Load the new states according to the country selected
 		        	loadStates(cbStartState, cbStartCountry);
 		        	cbStartState.setSelectedIndex(0);
-		        	
-		        	//Load the new cities according to the cities selected
-		        	//loadCities(cbStartCity, cbStartState, cbStartCountry);
-		        	//cbStartCity.setSelectedIndex(0);
-		        	
-		        	//Find this selected location
-		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
-		        	
-		        	//Load the travel modes
-		        	//loadTravelModes(thisLocation);
-		        	
-		        	//Load this location's information
-		        	//loadStartLocation(thisLocation);
-		        	
-		        	//Load the segments starting at this location
-		        	//loadSegments();
 		        
 		        }//End of stateChange if
 		    }//End of itemStateChanged(ItemEvent e)
@@ -247,14 +228,6 @@ public class LocationForm extends JPanel {
 		   
 		        	loadCities(cbStartCity, cbStartState, cbStartCountry);
 		        	cbStartCity.setSelectedIndex(0);
-		        	
-		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
-		        	
-		        //	loadStartLocation(thisLocation);
-		        	
-		        	//loadTravelModes(thisLocation);
-		        	
-		        	//loadSegments();
 		            
 		        }
 		    }
@@ -299,23 +272,7 @@ public class LocationForm extends JPanel {
 		        	//Load the new states according to the country selected
 		        	loadStates(cbEndState, cbEndCountry);
 		        	cbEndState.setSelectedIndex(0);
-		        	
-		        	//Load the new cities according to the cities selected
-		        	//loadCities(cbStartCity, cbStartState, cbStartCountry);
-		        	//cbStartCity.setSelectedIndex(0);
-		        	
-		        	//Find this selected location
-		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
-		        	
-		        	//Load the travel modes
-		        	//loadTravelModes(thisLocation);
-		        	
-		        	//Load this location's information
-		        	//loadStartLocation(thisLocation);
-		        	
-		        	//Load the segments starting at this location
-		        	//loadSegments();
-		        
+
 		        }//End of stateChange if
 		    }//End of itemStateChanged(ItemEvent e)
 		});
@@ -332,15 +289,7 @@ public class LocationForm extends JPanel {
 		   
 		        	loadCities(cbEndCity, cbEndState, cbEndCountry);
 		        	cbEndCity.setSelectedIndex(0);
-		        	
-		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
-		        	
-		        //	loadStartLocation(thisLocation);
-		        	
-		        	//loadTravelModes(thisLocation);
-		        	
-		        	//loadSegments();
-		            
+
 		        }
 		    }
 		});

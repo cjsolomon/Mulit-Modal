@@ -669,7 +669,6 @@ public class Segment extends BaseClass {
 	public static ArrayList<Segment> LoadAll(String where) {
 		// System.out.println("Loading all the segments from the where clause");
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
-<<<<<<< HEAD
 		try
 		{
 			//Create and populate an ArrayList of Segments
@@ -690,24 +689,6 @@ public class Segment extends BaseClass {
 		}//End of try block
 		catch(Exception ex)
 		{
-=======
-		try {
-			// Create and populate an ArrayList of Segments
-			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
-					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
-					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
-					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID " + where);
-
-			// For each of the entries in our list create a Segment object
-			for (int i = 0; i < temp.size(); i++) {
-				Segment s = BuildFromDataRow(temp.get(i));
-				// s.onBoard= Shipment.LoadAllForSegment(s.getID());
-				returnList.add(s);
-			}
-
-		}// End of try block
-		catch (Exception ex) {
->>>>>>> 38cd440587f276ad4cdafd815f1619885643696c
 			System.out.println("Error " + ex);
 			ex.printStackTrace();
 		}// End of catch block
