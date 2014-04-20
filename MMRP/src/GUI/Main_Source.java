@@ -83,6 +83,7 @@ public class Main_Source {
 		locationForm = new LocationForm();
 		locationForm.setVisible(false);
 		truckForm=new TruckPanel();
+		truckForm.setVisible(false);
 		/*
 		 * Code defined here is for the shipments button
 		 */

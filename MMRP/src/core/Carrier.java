@@ -389,7 +389,7 @@ public class Carrier extends BaseClass
 			}
 			else 
 			{
-				Log.writeLogSevere("Invalid fax number format. Failed to set fax number.");
+				//Log.writeLogSevere("Invalid fax number format. Failed to set fax number.");
 			}
 		}
 	}//End of setFaxNumber(String faxNumber)
@@ -836,7 +836,7 @@ public class Carrier extends BaseClass
 		}
 		if((String)data.get("CarrierName") != null)
 		{
-			c.setCarrierCode((String)data.get("CarrierName"));
+			c.setCarrierName((String)data.get("CarrierName"));
 		}
 		if((Integer)data.get("costModifierTruck") != null)
 		{
