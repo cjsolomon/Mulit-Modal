@@ -538,7 +538,7 @@ public class TravelType extends BaseClass {
 		{
 			//This code grabs each element that will be found in the database on the TravelType table and set the appropriate values for a new TravelType
 			TravelType t = new TravelType((Integer)data.get("VehicleTypeID"));
-			t.setActCap(((Integer)data.get("ActualCapacity")));//data;//rs.getString("TruckName"));
+			t.setActCap(Double.parseDouble(data.get("ActualCapacity").toString()));
 			t.setMaxCap((Double.parseDouble(data.get("MaximumCapacity").toString())));//rs.getInt("Capacity"));
 			t.setMinCap((Double.parseDouble(data.get("MinimumCapacity").toString())));//rs.getString("Contractor"));
 			t.setMaxWeight((Double.parseDouble(data.get("MaxWeight").toString())));//,rs.getString("LocationName"));
@@ -547,27 +547,27 @@ public class TravelType extends BaseClass {
 			t.setTrailer2((String)data.get("Trailer2"));
 			t.setTravelTypeMode((String)data.get("VehicleMode"));
 			t.setTravelTypeName((String)data.get("VehicleTypeName"));
-			if(Boolean.getBoolean((String)data.get("Radiation"))){
+			if(Boolean.getBoolean(data.get("Radiation").toString())){
 				t.setRadTrue();	
 			}
 			else
 				t.setRadFalse();
-			if(Boolean.getBoolean((String)data.get("HazardousMaterial"))){
+			if(Boolean.getBoolean(data.get("HazardousMaterial").toString())){
 				t.setHazTrue();	
 			}
 			else
 				t.setHazFalse();
-			if(Boolean.getBoolean((String)data.get("ExplosiveMaterial"))){
+			if(Boolean.getBoolean(data.get("ExplosiveMaterial").toString())){
 				t.setExpTrue();	
 			}
 			else
 				t.setExpFalse();
-			if(Boolean.getBoolean((String)data.get("Refridgeration"))){
+			if(Boolean.getBoolean(data.get("Refridgeration").toString())){
 				t.setRefTrue();	
 			}
 			else
 				t.setRefFalse();
-			if(Boolean.getBoolean((String)data.get("Tracking"))){
+			if(Boolean.getBoolean(data.get("Tracking").toString())){
 				t.setTrackingTrue();	
 			}
 			else

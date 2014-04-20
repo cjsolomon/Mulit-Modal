@@ -572,14 +572,18 @@ public class Segment extends BaseClass {
 			//Create and populate an ArrayList of Segments
 			ArrayList<Map<String,Object>> temp=executeQuery("Select * from Segment " + where);
 			
-			//For each of the entries in our list create a Segment object
-			for(int i = 0; i<temp.size();i++)
-			{
-				Segment s = BuildFromDataRow(temp.get(i));
-				s.onBoard= Shipment.LoadAllForSegment(s.getID());
-				returnList.add(s);
+			if(temp != null){
+				//For each of the entries in our list create a Segment object
+				for(int i = 0; i<temp.size();i++)
+				{
+					Segment s = BuildFromDataRow(temp.get(i));
+					s.onBoard= Shipment.LoadAllForSegment(s.getID());
+					returnList.add(s);
+				}
 			}
-			
+			else{
+				Log.writeLogWarning("No Segments matched the given where clause, no an empty list was returned.");
+			}
 		}//End of try block
 		catch(Exception ex)
 		{

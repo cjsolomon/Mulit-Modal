@@ -22,6 +22,8 @@ public class ShipmentForm extends JPanel {
 	JCheckBox chkTolls, chkCongestion;
 	JLabel lblToLocation,lblPriority,lblSize,lblWeight,lblEarliestDateTimeArrival,lblEarliestDateTimeDeparture,lblLatestDateTimeArrival,lblLatestDateTimeDeparture,lblTimeToLoad,lblTimeToUnLoad,lblTollRoads,lblCongestionByPass,lblMaxStops;
 	JTextField txtSize,txtWeight,txtMaxStops,txtTimeUnLoad,txtTimeLoad;
+
+	
 	public ShipmentForm() {
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -89,7 +91,6 @@ public class ShipmentForm extends JPanel {
 		cmbFromLocations=new JComboBox();
 		
 		
-		
 		shipperPanel.add(lblLocationName,"2,2,right,center");
 		shipperPanel.add(cmbFromLocations,"4,2");
 		shipperPanel.add(lblCompanyName,"2,4,right,center");
@@ -102,7 +103,6 @@ public class ShipmentForm extends JPanel {
 		shipperPanel.add(txtEmail,"4,10");
 		shipperPanel.add(lblPrefCarriers,"2,12,right,center");
 		shipperPanel.add(txtPrefCarriers,"4,12");
-		
 		
 		add(shipperPanel, "2, 2, 13, 2");
 		
@@ -200,6 +200,7 @@ public class ShipmentForm extends JPanel {
 		shipmentPanel.add(this.txtTimeLoad,"4,14,right,center");
 		shipmentPanel.add(this.lblTimeToUnLoad,"2,16,right,center");
 		shipmentPanel.add(this.txtTimeUnLoad,"4,16,right,center");
+		
 		add(shipmentPanel,"2, 5, 14, 3");
 		
 		

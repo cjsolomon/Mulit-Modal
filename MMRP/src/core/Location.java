@@ -171,6 +171,14 @@ public class Location extends BaseClass {
 	}//End of addTravelMode(Vehicle.TravelModes mode)
 	
 	/**
+	 * This function will return an ArrayList of Travel modes that can reach this Location
+	 * @return Returns an ArrayList of Travel modes that can reach this Location
+	 */
+	public ArrayList<Vehicle.TravelModes> getTravelModes(){
+		return this.travelModes;
+	}//End of getTravelModes()
+	
+	/**
 	 * This function will return if the given Travel Mode is available at this Location
 	 * @param mode This is Travel Mode that will be checked to see if it is available at this location
 	 * @return Returns a boolean indicating if the Travel Mode given is available at this Location
@@ -324,7 +332,7 @@ public class Location extends BaseClass {
 		try
 		{
 			ArrayList<Map<String,Object>> data = executeQuery("Select * from Location " + where);
-			for(int i = 0 ;i< temp.size();i++)
+			for(int i = 0 ;i< data.size();i++)
 				temp.add(BuildFromDataRow(data.get(i)));
 		}
 		catch(Exception ex)
@@ -346,13 +354,13 @@ public class Location extends BaseClass {
 		Location temp = new Location((Integer)data.get("LocationID"));
 		temp.setLatitude(Double.parseDouble(data.get("Latitude").toString()));
 		temp.setLongitude(Double.parseDouble(data.get("Longitude").toString()));
-		temp.setName((String)data.get("Name"));//rs.getString("Name"));
+		temp.setName((String)data.get("Name"));
 		temp.setCountry((String)data.get("Country"));
 		temp.setState((String)data.get("State"));
-		temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType1")));//rs.getString("TravelType1")));
+		temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType1")));
 		if((String)data.get("TravelType2")!=null)
 		{
-			temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType1")));
+			temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType2")));
 			if((String)data.get("TravelType3")!=null)
 			{
 				temp.addTravelMode(Vehicle.loadMode((String)data.get("TravelType3")));

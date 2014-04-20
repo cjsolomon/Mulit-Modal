@@ -1,7 +1,13 @@
 package GUI;
 
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.util.ArrayList;
+
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 import com.jgoodies.forms.factories.FormFactory;
@@ -9,11 +15,28 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.Location;
+
 public class LocationForm extends JPanel {
 	
-	JLabel lblLat, lblLon, lblCity,lblState,lblCountry;
-	JTextField txtLat,txtLon,txtCity,txtState,txtCountry;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	JLabel lblStartLat, lblStartLon, lblStartCity,lblStartState,lblStartCountry, lblStartLocation, lblStartID, lblTravelModes;
+	JLabel lblEndLat, lblEndLon, lblEndCity,lblEndState,lblEndCountry, lblEndLocation, lblEndID;
+	JLabel lblSegments;
+	JTextField txtEndLat,txtEndLon,txtEndCity,txtEndState,txtEndCountry, txtEndID;
+	JTextField txtStartLat,txtStartLon,txtStartCity,txtStartState,txtStartCountry, txtStartID;
+	JComboBox<String> cbEndCountry, cbEndState, cbEndCity;
+	JComboBox<String> cbStartCountry, cbStartState, cbStartCity, cbTravelModes;
 	
+	SegmentTable sgmtTable;
+	
+	final ArrayList<Location> allLocations;
+	final ArrayList<String> countries;
+	final ArrayList<String> states;
+	final ArrayList<String> cities;
 	
 	public LocationForm() {
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -21,6 +44,14 @@ public class LocationForm extends JPanel {
 				ColumnSpec.decode("max(44dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(49dlu;default)"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -33,30 +64,453 @@ public class LocationForm extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,}));
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,}));
 		
 		
-		lblLat=new JLabel("Latitude:");
-		lblLon = new JLabel("Longitute:");
-		lblCity = new JLabel("City:");
-		lblState = new JLabel("State:");
-		lblCountry = new JLabel("Country:");
+		lblStartLat=new JLabel("Latitude:");
+		lblStartLon = new JLabel("Longitute:");
+		lblStartCity = new JLabel("City:");
+		lblStartState = new JLabel("State:");
+		lblStartCountry = new JLabel("Country:");
+		lblStartLocation = new JLabel("Start Location");
+		lblStartID = new JLabel("LocationID");
+		lblTravelModes = new JLabel("Travel Modes");
+		lblSegments = new JLabel("Possible Segments");
+		cbStartCountry = new JComboBox<String>();
+		cbStartState = new JComboBox<String>();
+		cbStartCity = new JComboBox<String>();
+		cbTravelModes = new JComboBox<String>();
 		
-		txtLat=new JTextField(20);
-		txtLon = new JTextField(20);
-		txtCity= new JTextField(20);
-		txtState = new JTextField(20);
-		txtCountry = new JTextField(20);
-		add(lblCity,"2,2,right,center");
-		add(txtCity, "4,2,right,center");
-		add(lblState,"2,4,right,center");
-		add(txtState, "4,4,right,center");
-		add(lblCountry,"2,6,right,center");
-		add(txtCountry, "4,6,right,center");
-		add(lblLat,"2,8,right,center");
-		add(txtLat, "4,8,right,center");
-		add(lblLon,"2,10,right,center");
-		add(txtLon, "4,10,right,center");
-	}
+		txtStartLat=new JTextField(20);
+		txtStartLon = new JTextField(20);
+		txtStartCity= new JTextField(20);
+		txtStartState = new JTextField(20);
+		txtStartCountry = new JTextField(20);
+		txtStartID = new JTextField(10);
+		
+		lblEndLat=new JLabel("Latitude:");
+		lblEndLon = new JLabel("Longitute:");
+		lblEndCity = new JLabel("City:");
+		lblEndState = new JLabel("State:");
+		lblEndCountry = new JLabel("Country:");
+		lblEndLocation = new JLabel("End Location");
+		lblEndID = new JLabel("LocationID");
+		cbEndCountry = new JComboBox<String>();
+		cbEndState = new JComboBox<String>();
+		cbEndCity = new JComboBox<String>();
+		
+		txtEndLat=new JTextField(20);
+		txtEndLon = new JTextField(20);
+		txtEndCity= new JTextField(20);
+		txtEndState = new JTextField(20);
+		txtEndCountry = new JTextField(20);
+		txtEndID = new JTextField(10);
+		
+		
+		sgmtTable = new SegmentTable();
+		
+		JScrollPane sp = new JScrollPane();
+		sp.setViewportView(sgmtTable);
+		
+		//Start Location
+		
+		add(lblStartLocation, "4, 2, center, center");
+		add(txtStartID, "4,4,left,center");
+		add(lblStartID, "2, 4, right, center");
+		add(lblStartCity,"2,10,right,center");
+		add(txtStartCity, "4,10,right,center");
+		add(lblStartState,"2,8,right,center");
+		add(txtStartState, "4,8,right,center");
+		add(lblStartCountry,"2,6,right,center");
+		add(txtStartCountry, "4,6,right,center");
+		add(lblStartLat,"2,12,right,center");
+		add(txtStartLat, "4,12,right,center");
+		add(lblStartLon,"2,14,right,center");
+		add(txtStartLon, "4,14,right,center");
+		add(cbStartCountry, "5,6, left, top");
+		add(cbStartState, "5,8, left, top");
+		add(cbStartCity, "5,10, left, top");
+		add(lblTravelModes,"5,12, right, top");
+		add(cbTravelModes, "5,14, right, top");
+		
+		//Get the countries
+		allLocations = core.Location.LoadAll("");
+		countries = new ArrayList<String>();
+		states = new ArrayList<String>();
+		cities = new ArrayList<String>();
+		
+		
+		//Set up the countries
+		loadCountries(cbStartCountry);
+		loadCountries(cbEndCountry);
+		//Set up the states
+		loadStates(cbStartState, cbStartCountry);
+		loadStates(cbEndState, cbEndCountry);
+		//Set up the cities
+		loadCities(cbStartCity, cbStartState, cbStartCountry);
+		loadCities(cbEndCity, cbEndState, cbEndCountry);
+		//Set up the travel modes
+		loadTravelModes(allLocations.get(0));
+		
+		
+		//Initialize the fields
+		
+		cbEndCountry.setSelectedIndex(1);
+		cbEndState.setSelectedItem(1);
+		cbEndCity.setSelectedItem(1);
+		loadStartLocation(allLocations.get(0));
+    	loadEndLocation(allLocations.get(1));
+    	//End Location
+    	
+    	add(lblEndLocation, "10, 2, center, center");
+		add(txtEndID, "10, 4, left, center");
+		add(lblEndID, "8, 4, right, center");
+		add(lblEndCity,"8, 10, right, center");
+		add(txtEndCity, "10, 10, right, center");
+		add(lblEndState,"8, 8, right, center");
+		add(txtEndState, "10, 8, right, center");
+		add(lblEndCountry,"8, 6, right, center");
+		add(txtEndCountry, "10, 6, right, center");
+		add(lblEndLat,"8, 12, right, center");
+		add(txtEndLat, "10, 12, right, center");
+		add(lblEndLon,"8, 14, right, center");
+		add(txtEndLon, "10, 14, right, center");
+		add(cbEndCountry, "11, 6, left, top");
+		add(cbEndState, "11, 8, left, top");
+		add(cbEndCity, "11, 10, left, top");
+    	
+    	
+    	//Initialize the Segment table
+    	
+    	loadSegments();
+    	add(lblSegments,"4, 16, center, center");
+		add(sp,"2, 20, 10, 1");
+    	
+    	
+		cbStartCountry.addItemListener(new ItemListener()
+		{            
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	
+		        	System.out.println("The country has been changed");
+		        	
+		        	//Clear out the states and the cities
+		        	cbStartState.removeAllItems();
+		        	cbStartCity.removeAllItems();
+		        	
+		        	//Load the new states according to the country selected
+		        	loadStates(cbStartState, cbStartCountry);
+		        	cbStartState.setSelectedIndex(0);
+		        	
+		        	//Load the new cities according to the cities selected
+		        	//loadCities(cbStartCity, cbStartState, cbStartCountry);
+		        	//cbStartCity.setSelectedIndex(0);
+		        	
+		        	//Find this selected location
+		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
+		        	
+		        	//Load the travel modes
+		        	//loadTravelModes(thisLocation);
+		        	
+		        	//Load this location's information
+		        	//loadStartLocation(thisLocation);
+		        	
+		        	//Load the segments starting at this location
+		        	//loadSegments();
+		        
+		        }//End of stateChange if
+		    }//End of itemStateChanged(ItemEvent e)
+		});
+		
+		cbStartState.addItemListener(new ItemListener()
+		{            
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	
+		        	System.out.println("The state has been changed");
+		        	
+		   
+		        	loadCities(cbStartCity, cbStartState, cbStartCountry);
+		        	cbStartCity.setSelectedIndex(0);
+		        	
+		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
+		        	
+		        //	loadStartLocation(thisLocation);
+		        	
+		        	//loadTravelModes(thisLocation);
+		        	
+		        	//loadSegments();
+		            
+		        }
+		    }
+		});
+		
+		cbStartCity.addItemListener(new ItemListener()
+		{            
+			
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	
+		        	System.out.println("The city has been changed");
+		        	
+		        	
+		        	Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
+		        	
+		        	loadStartLocation(thisLocation);
+		        	
+		        	loadTravelModes(thisLocation);
+		        	
+		        	loadSegments();
+		            
+		        }
+		    }
+		});
+		
+		cbEndCountry.addItemListener(new ItemListener()
+		{            
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	
+		        	System.out.println("The country has been changed");
+		        	
+		        	//Clear out the states and the cities
+		        	cbEndState.removeAllItems();
+		        	cbEndCity.removeAllItems();
+		        	
+		        	//Load the new states according to the country selected
+		        	loadStates(cbEndState, cbEndCountry);
+		        	cbEndState.setSelectedIndex(0);
+		        	
+		        	//Load the new cities according to the cities selected
+		        	//loadCities(cbStartCity, cbStartState, cbStartCountry);
+		        	//cbStartCity.setSelectedIndex(0);
+		        	
+		        	//Find this selected location
+		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
+		        	
+		        	//Load the travel modes
+		        	//loadTravelModes(thisLocation);
+		        	
+		        	//Load this location's information
+		        	//loadStartLocation(thisLocation);
+		        	
+		        	//Load the segments starting at this location
+		        	//loadSegments();
+		        
+		        }//End of stateChange if
+		    }//End of itemStateChanged(ItemEvent e)
+		});
+		
+		cbEndState.addItemListener(new ItemListener()
+		{            
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	
+		        	System.out.println("The state has been changed");
+		        	
+		   
+		        	loadCities(cbEndCity, cbEndState, cbEndCountry);
+		        	cbEndCity.setSelectedIndex(0);
+		        	
+		        	//Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
+		        	
+		        //	loadStartLocation(thisLocation);
+		        	
+		        	//loadTravelModes(thisLocation);
+		        	
+		        	//loadSegments();
+		            
+		        }
+		    }
+		});
+		
+		cbEndCity.addItemListener(new ItemListener()
+		{            
+			
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	
+		        	System.out.println("The city has been changed");
+		        	
+		        	
+		        	Location thisLocation = findLocation(cbEndCountry.getSelectedItem().toString(), cbEndState.getSelectedItem().toString(), cbEndCity.getSelectedItem().toString());
+		        	
+		        	loadEndLocation(thisLocation);
+		        	
+		        	loadTravelModes(thisLocation);
+		        	
+		        	loadSegments();
+		            
+		        }
+		    }
+		});
+		
+		
+		cbTravelModes.addItemListener(new ItemListener()
+		{            
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	loadSegments();
+		        }
+		    }
+		});
+    	
+		
+	}//End of LocationForm Constructor
+	
+	public void loadStartLocation(Location start){
+		
+		System.out.println("Load start location has been called");
+    	
+		txtStartCity.setText(start.getName());
+    	txtStartState.setText(start.getState());
+    	txtStartCountry.setText(start.getCountry());
+    	txtStartLat.setText(String.valueOf(start.getLatitude()));
+    	txtStartLon.setText(String.valueOf(start.getLongitude()));
+    	txtStartID.setText(String.valueOf(start.getID()));
+    	cbStartCountry.setSelectedItem(start.getCountry());
+    	cbStartState.setSelectedItem(start.getState());
+    	cbStartCity.setSelectedItem(start.getName());
+		
+	}//End of loadStartLocation(Location start)
+	
+	public void loadEndLocation(Location end){
+		
+		System.out.println("Load end location has been called");
+		
+		txtEndCity.setText(end.getName());
+    	txtEndState.setText(end.getState());
+    	txtEndCountry.setText(end.getCountry());
+    	txtEndLat.setText(String.valueOf(end.getLatitude()));
+    	txtEndLon.setText(String.valueOf(end.getLongitude()));
+    	txtEndID.setText(String.valueOf(end.getID()));
+    	cbEndCountry.setSelectedItem(end.getCountry());
+    	cbEndState.setSelectedItem(end.getState());
+    	cbEndCity.setSelectedItem(end.getName());
+		
+	}//End of loadEndLocation(Location end)
+	
+	public void loadSegments(){
+		
+		System.out.println("Load segments has been called");
+		sgmtTable.removeAll();
+		String sqlWhere;
+		if(!txtEndID.getText().equals("") && !(cbTravelModes.getSelectedItem() == null) && !txtStartID.getText().equals("")){
+			sqlWhere ="where FromLocationID = '" + txtStartID.getText() +"' AND ToLocationID = '"+ txtEndID.getText() +"' AND ModeType = '" + cbTravelModes.getSelectedItem().toString() + "'";
+		}
+		else if(!txtStartID.getText().equals("") && !(cbTravelModes.getSelectedItem() == null)){
+			sqlWhere ="where FromLocationID = '" + txtStartID.getText() +"' AND ModeType = '" + cbTravelModes.getSelectedItem().toString() + "'";
+		}
+		else if(!txtStartID.getText().equals("")){
+			sqlWhere ="where FromLocationID = '" + txtStartID.getText() +"'";
+		}
+		else{
+			sqlWhere = "";
+		}
+		sgmtTable.showPanel(sqlWhere);
+		
+	}//End of loadSegments()
+	
+	public void loadCountries(JComboBox<String> countryComboBox){
+		System.out.println("Load countries has been called");
+		
+		boolean addLocation = true;
+		countries.clear();
+		for(int i = 0; i < allLocations.size(); i++){
+			for(int j = 0; j < countries.size(); j++){
+				if(countries.get(j) == allLocations.get(i).getCountry()){
+					addLocation = false;
+					break;
+				}
+			}
+			if(addLocation){
+				countries.add(allLocations.get(i).getCountry());
+			}
+			addLocation = true;
+		}
+		
+		for(int i = 0; i < countries.size(); i++){
+			countryComboBox.addItem(countries.get(i));
+		}
+		
+	}//End of loadCountries()
+	
+	public void loadStates(JComboBox<String> stateComboBox, JComboBox<String> countryComboBox){
+		
+		System.out.println("Load states has been called");
 
-}
+		stateComboBox.removeAllItems();
+		states.clear();
+		for(int i = 0; i < allLocations.size(); i++){
+			if(countryComboBox.getSelectedItem() == allLocations.get(i).getCountry() && !states.contains(allLocations.get(i).getState()))
+				states.add(allLocations.get(i).getState());
+		}
+		
+		for(int i = 0; i < states.size(); i++){
+			stateComboBox.addItem(states.get(i));
+		}
+	
+	}//End of loadStates()
+	
+	public void loadCities(JComboBox<String> cityComboBox,JComboBox<String> stateComboBox, JComboBox<String> countryComboBox){
+		
+		System.out.println("Load cities has been called");
+		cityComboBox.removeAllItems();
+		cities.clear();
+		for(int i = 0; i < allLocations.size(); i++){
+			if(countryComboBox.getSelectedItem() == allLocations.get(i).getCountry() && stateComboBox.getSelectedItem() == allLocations.get(i).getState() && !cities.contains(allLocations.get(i).getName()))
+				cities.add(allLocations.get(i).getName());
+		}
+		
+		for(int i = 0; i < cities.size(); i++){
+			cityComboBox.addItem(cities.get(i));
+		}
+		
+	}//End of loadCities()
+	
+	public Location findLocation(String country, String state, String city){
+		Location foundLocation = new Location();
+		for(int i = 0; i < allLocations.size(); i++){
+			if(allLocations.get(i).getCountry() == country && allLocations.get(i).getState() == state && allLocations.get(i).getName() == city){
+				foundLocation = allLocations.get(i);
+				break;
+			}
+		}
+		return foundLocation;
+	}//End of findLocation(String country, String state, String city)
+	
+	public void loadTravelModes(Location thisLocation){
+		
+		System.out.println("Load travel modes has been called");
+		cbTravelModes.removeAllItems();
+    	for(int i = 0; i < thisLocation.getTravelModes().size(); i++){
+    		cbTravelModes.addItem(thisLocation.getTravelModes().get(i).toString());
+    	}
+	}//End of loadTravelModes()
+
+}//End of LocationForm Class
