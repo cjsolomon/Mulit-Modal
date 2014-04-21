@@ -62,6 +62,14 @@ public class Location extends BaseClass {
 	{
 		return id;
 	}//End of getID()
+	
+	/**
+	 * This function will set the id of the Location
+	 * @param newID This is the new ID of the Location
+	 */
+	public void setID(int newID){
+		this.id = newID;
+	}//End of setID(int newID)
 
 	/**
 	 * This function will set the latitude for the Location
@@ -163,7 +171,7 @@ public class Location extends BaseClass {
 	public void addTravelMode(Vehicle.TravelModes mode)
 	{
 		//DO WE NEED ANY ERROR CHECKING HERE?
-		if(!travelModes.contains(mode))
+		if(!travelModes.contains(mode) || mode == Vehicle.TravelModes.NONE)
 		{
 			travelModes.add(mode);
 			MarkDirty();
@@ -226,24 +234,18 @@ public class Location extends BaseClass {
 		{
 			if(isNew())
 			{
-				String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1";
+				String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1,TravelType2,TravelType3,TravelType4,TravelType5,TravelType6,State, Country)";
 
-				for(int i =1;i<travelModes.size();i++)
-					sql+=",TravelType"+(i+1);
-
-				sql+=") Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString()+"'";
-
-				for(int i =1;i<travelModes.size();i++)
-					sql+=",'"+travelModes.get(i).toString()+"'";
-
-				sql+=")";
+				sql+=" Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString() + "','"+travelModes.get(1).toString()
+						+ "','"+travelModes.get(2).toString() + "','"+travelModes.get(3).toString() + "','"+travelModes.get(4).toString() + "','"+travelModes.get(5).toString() + ", '" + this.getState() + "', '" + this.getCountry() +"')";
 
 				executeCommand(sql);
 
-				sql="Select LocationID from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "' TravelType1 ='"+ travelModes.get(0).toString()+"'";
+				sql="Select * from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "' AND TravelType1 ='"+ travelModes.get(0).toString()+"'";
 				for(int i =1;i<travelModes.size();i++)
 					sql+=" AND TravelType"+(i+1)+"='"+travelModes.get(i).toString()+"'";
-
+				sql+= " AND State = '" +this.state + "' AND Country = '" +this.country+ "'";
+				
 				ArrayList<Map<String,Object>> temp =executeQuery(sql);
 				if(temp.size()>0)
 				{
@@ -263,7 +265,7 @@ public class Location extends BaseClass {
 					{
 						sql+= " , TravelType"+(i+1)+" = '" + travelModes.get(i).toString() + "'";
 					}
-
+					sql += ", State = '" + this.getState() + "', Country = '" + this.getCountry() +"'";
 					sql += " Where LocationID = "+this.id;
 					executeCommand(sql);
 					MarkClean();

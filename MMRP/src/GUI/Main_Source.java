@@ -32,6 +32,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.Location;
+
 
 
 public class Main_Source {
@@ -40,7 +42,6 @@ public class Main_Source {
 	private LocationForm locationForm;
 	private ShipmentForm shpFrm;
 	private TruckPanel truckForm;
-
 	
 	/**
 	 * Launch the application.
@@ -125,6 +126,7 @@ public class Main_Source {
 				RowSpec.decode("58px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
+		
 		final JButton btnShipments = new JButton("Shipments");
 		btnShipments.setToolTipText("Click here to view shipment information");
 		btnShipments.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -139,28 +141,6 @@ public class Main_Source {
 		});
 		frmMmrp.getContentPane().add(btnShipments, "2, 4, fill, fill");
 
-		final JButton btnCreate = new JButton("Create");
-		btnCreate.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnCreate.setEnabled(false);
-		frmMmrp.getContentPane().add(btnCreate, "4, 2, fill, fill");
-
-		final JButton btnDelete = new JButton("Delete");
-		btnDelete.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnDelete.setEnabled(false);
-		frmMmrp.getContentPane().add(btnDelete, "6, 2, fill, fill");
-
-		final JButton btnEdit = new JButton("Edit");
-		btnEdit.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnEdit.setEnabled(false);
-		frmMmrp.getContentPane().add(btnEdit, "8, 2, fill, fill");
-
-		final JButton btnImport = new JButton("Import");
-		btnImport.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		btnImport.setEnabled(false);
-		frmMmrp.getContentPane().add(btnImport, "10, 2, fill, fill");
-		
-		//final VehiclePanel vp = new VehiclePanel();
-		//vp.setVisible(false);
 		
 		frmMmrp.getContentPane().add(shpFrm, new CellConstraints().xywh(4,4,11,11));//, row, colSpan, rowSpan)"4,4,fill,fill");
 		frmMmrp.getContentPane().add(locationForm,new CellConstraints().xywh(4,4,11,11));
@@ -206,28 +186,8 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(cargoType,"2,15,right,center");
 		
 		final JButton btnCarriers = new JButton("Carriers");
-		//btnVehicles.setToolTipText("Click here to view vehicle information");
-		//btnVehicles.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		//btnVehicles.setMnemonic(KeyEvent.VK_V);
 		frmMmrp.getContentPane().add(btnCarriers, "2, 16, fill, fill");
 		
-		//btnVehicles.addActionListener( new ActionListener()
-		//{
-		  //  public void actionPerformed(ActionEvent e)
-		    //{
-		      //  Log.writeLogInfo("Clicked Vehicles, Disabling Vehicle Button - Enabling Top Menu Buttons");
-		        //btnVehicles.setEnabled(false);
-		        
-		       // if (!btnShipments.isEnabled()) {
-		        //	btnShipments.setEnabled(true);
-		        //}
-		        //vp.setVisible(true);
-		        //unhide(btnCreate, btnImport, btnEdit,btnDelete);
-				
-				
-				
-		    //}
-		//});
 		
 				final JButton btnExit = new JButton("Exit");
 				btnExit.setToolTipText("Exit MMRP");
@@ -245,21 +205,6 @@ public class Main_Source {
 					}
 				});
 		
-	//	btnShipments.addActionListener( new ActionListener()
-		//{
-		  //  public void actionPerformed(ActionEvent e)
-		    //{
-		     //   Log.writeLogInfo("Clicked Shipments, Disabling Shipment Button - Enabling Top Menu Buttons");
-		       // btnShipments.setEnabled(false);
-		        
-		       // if (!btnVehicles.isEnabled()) {
-		        //	btnVehicles.setEnabled(true);
-		        //}
-		        //unhide(btnCreate, btnImport, btnEdit,btnDelete);
-		        
-		        
-		    //}
-		//});
 	}
 	
 	
@@ -289,4 +234,5 @@ public class Main_Source {
 		if (!b4.isEnabled())
 			b4.setEnabled(true);
 	}
+	
 }

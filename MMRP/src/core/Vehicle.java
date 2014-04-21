@@ -111,6 +111,10 @@ public abstract class Vehicle extends BaseClass {
 			return TravelModes.RAIL;
 		if(t.equals(TravelModes.TRUCK.toString()))
 			return TravelModes.TRUCK;
+		if(t.equals(TravelModes.NONE.toString()))
+			return TravelModes.NONE;
+		if(t.equals(TravelModes.ALL.toString()))
+			return TravelModes.ALL;
 		return null;
 	}//End of loadType(String t)
 		

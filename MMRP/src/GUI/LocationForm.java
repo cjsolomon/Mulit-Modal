@@ -16,6 +16,11 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
 import core.Location;
+import core.Vehicle;
+
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class LocationForm extends JPanel {
 	
@@ -34,6 +39,9 @@ public class LocationForm extends JPanel {
 	final ArrayList<String> countries;
 	final ArrayList<String> states;
 	final ArrayList<String> cities;
+	private JButton btnEditStartLocation;
+	private JButton btnEditEndLocation;
+	private JButton btnCreateLocation;
 	
 	public LocationForm() {
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -41,15 +49,13 @@ public class LocationForm extends JPanel {
 				ColumnSpec.decode("max(44dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(44dlu;default)"),
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(49dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,},
+				ColumnSpec.decode("max(44dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
@@ -83,18 +89,23 @@ public class LocationForm extends JPanel {
 		lblStartLocation = new JLabel("Start Location");
 		lblStartID = new JLabel("LocationID");
 		lblTravelModes = new JLabel("Travel Modes");
-		lblSegments = new JLabel("Possible Segments");
 		cbStartCountry = new JComboBox<String>();
 		cbStartState = new JComboBox<String>();
 		cbStartCity = new JComboBox<String>();
 		cbTravelModes = new JComboBox<String>();
 		
 		txtStartLat=new JTextField(20);
+		txtStartLat.setEditable(false);
 		txtStartLon = new JTextField(20);
+		txtStartLon.setEditable(false);
 		txtStartCity= new JTextField(20);
+		txtStartCity.setEditable(false);
 		txtStartState = new JTextField(20);
+		txtStartState.setEditable(false);
 		txtStartCountry = new JTextField(20);
+		txtStartCountry.setEditable(false);
 		txtStartID = new JTextField(10);
+		txtStartID.setEditable(false);
 		
 		lblEndLat=new JLabel("Latitude:");
 		lblEndLon = new JLabel("Longitute:");
@@ -108,11 +119,17 @@ public class LocationForm extends JPanel {
 		cbEndCity = new JComboBox<String>();
 		
 		txtEndLat=new JTextField(20);
+		txtEndLat.setEditable(false);
 		txtEndLon = new JTextField(20);
+		txtEndLon.setEditable(false);
 		txtEndCity= new JTextField(20);
+		txtEndCity.setEditable(false);
 		txtEndState = new JTextField(20);
+		txtEndState.setEditable(false);
 		txtEndCountry = new JTextField(20);
+		txtEndCountry.setEditable(false);
 		txtEndID = new JTextField(10);
+		txtEndID.setEditable(false);
 		
 		
 		sgmtTable = new SegmentTable();
@@ -125,6 +142,37 @@ public class LocationForm extends JPanel {
 		add(lblStartLocation, "4, 2, center, center");
 		add(txtStartID, "4,4,left,center");
 		add(lblStartID, "2, 4, right, center");
+		
+		btnEditStartLocation = new JButton("Edit");
+		btnEditStartLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				/*Location editLocation = new Location();
+				editLocation.setCountry(txtStartCountry.getText());
+				editLocation.setState(txtStartState.getText());
+				editLocation.setName(txtStartCity.getText());
+				editLocation.setID(Integer.valueOf(txtStartID.getText()));
+				editLocation.setLatitude(Double.valueOf(txtStartLat.getText()));
+				editLocation.setLongitude(Double.valueOf(txtStartLon.getText()));*/
+				Location editLocation = Location.Load(Integer.valueOf(txtStartID.getText()));
+				LocationCreateEdit lce = new LocationCreateEdit(editLocation);
+				add(lce,"2, 2, center, center");
+				lce.setVisible(true);
+				setVisible(false);
+			}
+		});
+		add(btnEditStartLocation, "5, 4");
+		
+		btnEditEndLocation = new JButton("Edit");
+		btnEditEndLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Location editLocation = Location.Load(Integer.valueOf(txtEndID.getText()));
+				LocationCreateEdit lce = new LocationCreateEdit(editLocation);
+				add(lce,"2, 2, center, center");
+				lce.setVisible(true);
+				setVisible(false);
+			}
+		});
+		add(btnEditEndLocation, "11, 4");
 		add(lblStartCity,"2,10,right,center");
 		add(txtStartCity, "4,10,right,center");
 		add(lblStartState,"2,8,right,center");
@@ -191,7 +239,19 @@ public class LocationForm extends JPanel {
     	//Initialize the Segment table
     	
     	loadSegments();
-    	add(lblSegments,"4, 16, center, center");
+		
+		btnCreateLocation = new JButton("Create New Location");
+		btnCreateLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				LocationCreateEdit lce = new LocationCreateEdit(null);
+				add(lce,"2, 2, center, center");
+				lce.setVisible(true);
+				setVisible(false);
+			}
+		});
+		add(btnCreateLocation, "4, 17");
+		lblSegments = new JLabel("Possible Segments");
+		add(lblSegments,"4, 19, center, center");
 		add(sp,"2, 20, 10, 1");
     	
 		
@@ -457,9 +517,15 @@ public class LocationForm extends JPanel {
 		
 		System.out.println("Load travel modes has been called");
 		cbTravelModes.removeAllItems();
-    	for(int i = 0; i < thisLocation.getTravelModes().size(); i++){
-    		cbTravelModes.addItem(thisLocation.getTravelModes().get(i).toString());
+		ArrayList<Vehicle.TravelModes> theseTravelModes = new ArrayList<Vehicle.TravelModes>();
+		theseTravelModes = thisLocation.getTravelModes();
+    	for(int i = 0; i < theseTravelModes.size(); i++){
+    		if( !(theseTravelModes.get(i) == null) && !(theseTravelModes.get(i).toString() == "NONE"))
+    			cbTravelModes.addItem(theseTravelModes.get(i).toString());
     	}
+    	if(cbTravelModes.getItemCount() == 0)
+    		cbTravelModes.addItem(Vehicle.TravelModes.NONE.toString());
+    	
 	}//End of loadTravelModes()
 
 }//End of LocationForm Class

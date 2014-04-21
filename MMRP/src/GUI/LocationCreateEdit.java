@@ -86,7 +86,7 @@ public class LocationCreateEdit extends JPanel {
 		lblCity = new JLabel("City:");
 		lblState = new JLabel("State:");
 		lblCountry = new JLabel("Country:");
-		lblLocation = new JLabel("Start Location");
+		lblLocation = new JLabel("Location");
 		lblID = new JLabel("LocationID");
 		
 		txtLat=new JTextField(20);
@@ -137,23 +137,35 @@ public class LocationCreateEdit extends JPanel {
 				Location newLocation = new Location();
 				//Grab the travelLocations
 				if(cbTravelMode1.getSelectedItem() != Vehicle.TravelModes.NONE){
-					newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode1.getSelectedItem());
+					if(!newLocation.getTravelModes().contains(cbTravelMode1.getSelectedItem()))
+						newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode1.getSelectedItem());
 				}
 				if(cbTravelMode2.getSelectedItem() != Vehicle.TravelModes.NONE){
-					newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode2.getSelectedItem());
+					if(!newLocation.getTravelModes().contains(cbTravelMode2.getSelectedItem()))
+						newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode2.getSelectedItem());
 				}
 				if(cbTravelMode3.getSelectedItem() != Vehicle.TravelModes.NONE){
-					newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode3.getSelectedItem());
+					if(!newLocation.getTravelModes().contains(cbTravelMode3.getSelectedItem()))
+						newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode3.getSelectedItem());
 				}
 				if(cbTravelMode4.getSelectedItem() != Vehicle.TravelModes.NONE){
-					newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode4.getSelectedItem());
+					if(!newLocation.getTravelModes().contains(cbTravelMode4.getSelectedItem()))
+						newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode4.getSelectedItem());
 				}
 				if(cbTravelMode5.getSelectedItem() != Vehicle.TravelModes.NONE){
-					newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode5.getSelectedItem());
+					if(!newLocation.getTravelModes().contains(cbTravelMode5.getSelectedItem()))
+						newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode5.getSelectedItem());
 				}
 				if(cbTravelMode6.getSelectedItem() != Vehicle.TravelModes.NONE){
-					newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode6.getSelectedItem());
+					if(!newLocation.getTravelModes().contains(cbTravelMode6.getSelectedItem()))
+						newLocation.addTravelMode((Vehicle.TravelModes)cbTravelMode6.getSelectedItem());
 				}
+				
+				//Add the rest of the travelModes in as NONE
+				for(int i = newLocation.getTravelModes().size(); i < 6; i++){
+					newLocation.addTravelMode(Vehicle.TravelModes.NONE);
+				}
+				
 				newLocation.setCountry(txtCountry.getText());
 				newLocation.setState(txtState.getText());
 				newLocation.setName(txtCity.getText());
@@ -163,6 +175,7 @@ public class LocationCreateEdit extends JPanel {
 				if(edit){
 					newLocation.MarkDirty();
 					newLocation.MarkOld();
+					newLocation.setID(Integer.valueOf(txtID.getText()));
 				}else{
 					newLocation.MarkNew();
 				}
@@ -176,11 +189,17 @@ public class LocationCreateEdit extends JPanel {
 		txtID.setEditable(false);
 		
 		loadTravelComboBox(cbTravelMode1);
+		cbTravelMode1.setSelectedItem(Vehicle.TravelModes.NONE);
 		loadTravelComboBox(cbTravelMode2);
+		cbTravelMode2.setSelectedItem(Vehicle.TravelModes.NONE);
 		loadTravelComboBox(cbTravelMode3);
+		cbTravelMode3.setSelectedItem(Vehicle.TravelModes.NONE);
 		loadTravelComboBox(cbTravelMode4);
+		cbTravelMode4.setSelectedItem(Vehicle.TravelModes.NONE);
 		loadTravelComboBox(cbTravelMode5);
+		cbTravelMode5.setSelectedItem(Vehicle.TravelModes.NONE);
 		loadTravelComboBox(cbTravelMode6);
+		cbTravelMode6.setSelectedItem(Vehicle.TravelModes.NONE);
 		
 		if(editLocation != null){
 			loadLocation(editLocation);
@@ -201,6 +220,18 @@ public class LocationCreateEdit extends JPanel {
     	
     	ArrayList<Vehicle.TravelModes> locationTravelTypes = edit.getTravelModes();
     	
+    	if(locationTravelTypes.size() > 0)
+    		cbTravelMode1.setSelectedItem(locationTravelTypes.get(0));
+    	if(locationTravelTypes.size() > 1)
+    		cbTravelMode2.setSelectedItem(locationTravelTypes.get(1));
+    	if(locationTravelTypes.size() > 2)
+    		cbTravelMode3.setSelectedItem(locationTravelTypes.get(2));
+    	if(locationTravelTypes.size() > 3)
+    		cbTravelMode4.setSelectedItem(locationTravelTypes.get(3));
+    	if(locationTravelTypes.size() > 4)
+    		cbTravelMode5.setSelectedItem(locationTravelTypes.get(4));
+    	if(locationTravelTypes.size() > 5)
+    		cbTravelMode6.setSelectedItem(locationTravelTypes.get(5));
     	
     	
     
