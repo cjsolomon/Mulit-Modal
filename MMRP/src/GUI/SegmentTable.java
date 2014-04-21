@@ -12,7 +12,7 @@ import core.Vehicle;
 public class SegmentTable extends JTable {
 	
 	
-	ArrayList<Segment> vehicles = new ArrayList<Segment>();
+	ArrayList<Segment> segments = new ArrayList<Segment>();
 	Vehicle source;
 	public SegmentTable() {
 		super();
@@ -23,9 +23,9 @@ public class SegmentTable extends JTable {
 	public Segment getSelectedVehicle() {
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(),
 				0).toString());
-		for (int i = 0; i < vehicles.size(); i++) {
-			if (vehicles.get(i).getID() == searchID)
-				return vehicles.get(i);
+		for (int i = 0; i < segments.size(); i++) {
+			if (segments.get(i).getID() == searchID)
+				return segments.get(i);
 		}
 		return null;
 	}
@@ -37,8 +37,8 @@ public class SegmentTable extends JTable {
 
 	private void setData() {
 
-		
-		this.setModel(new SegmentModel(source.getSchedule()));
+		segments=source.getSchedule();
+		this.setModel(new SegmentModel(segments));
 	}
 
 	public void showPanel(Vehicle v) {
@@ -47,7 +47,18 @@ public class SegmentTable extends JTable {
 		setData();
 		setVisible(true);
 	}
+	
+	public void showPanel(String sqlWhere) {
+		 	setData(sqlWhere);
+		 	setVisible(true);
+	}
 
+	private void setData(String sqlWhere) {
+		 
+ 		segments= Segment.LoadAll(sqlWhere);
+		//segments.addAll(Segment.LoadAll(sqlWhere));
+ 		this.setModel(new SegmentModel(segments));
+ 	}
 	class SegmentModel extends AbstractTableModel {
 		public String[] columnNames = { "ID","Start", "End", "Type" };
 		public ArrayList<Segment> trucks;

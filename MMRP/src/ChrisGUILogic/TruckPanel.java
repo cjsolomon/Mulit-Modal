@@ -2,6 +2,7 @@ package ChrisGUILogic;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -9,19 +10,25 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+import javax.swing.JButton;
 
 public class TruckPanel extends JPanel {
 	TruckTable tt;
 	JScrollPane sp;
 	TruckBasicPanel tbp;
+	private JButton btnDelete;
+	private JButton btnView;
+	private JTabbedPane truckInfo;
 	public TruckPanel()
 	{
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(198dlu;default)"),
-				ColumnSpec.decode("max(19dlu;default)"),
-				ColumnSpec.decode("max(71dlu;default)"),
+				ColumnSpec.decode("max(64dlu;default)"),
+				ColumnSpec.decode("max(150dlu;default)"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(48dlu;default)"),
 				ColumnSpec.decode("max(48dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -48,7 +55,7 @@ public class TruckPanel extends JPanel {
 		sp=new JScrollPane();
 		sp.setViewportView(tt);
 		sp.setVisible(false);
-		add(sp,"2, 2, 3, 2");
+		add(sp,"2, 2, 5, 2");
 		tbp = new TruckBasicPanel();
 		tbp.addRefreshListener(new TableRefreshListener(){
 			public void refreshTable()
@@ -57,7 +64,17 @@ public class TruckPanel extends JPanel {
 			}
 		});
 		tbp.setVisible(false);
-		add(tbp,"2,4");
+		
+		btnView = new JButton("View");
+		add(btnView, "5, 4");
+		
+		btnDelete = new JButton("Delete");
+		add(btnDelete, "6, 4");
+		
+		
+		truckInfo = new JTabbedPane();
+		truckInfo.addTab("Basic", tbp);
+		add(truckInfo,"3, 5");
 	}
 	public void showPanel()
 	{

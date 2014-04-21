@@ -26,7 +26,7 @@ public class TruckTable extends JTable {
 	}
 	public Truck getSelectedTruck()
 	{
-		int searchID = (int)this.getValueAt(this.getSelectedRow(), 0);
+		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
 		for(Truck t : source)
 		{
 			if(t.getId()==searchID)
