@@ -490,15 +490,33 @@ public class LocationForm extends JPanel {
 		
 		System.out.println("Load cities has been called");
 		cityComboBox.removeAllItems();
-		cities.clear();
+		/*cities.clear();
 		for(int i = 0; i < allLocations.size(); i++){
-			if(countryComboBox.getSelectedItem() == allLocations.get(i).getCountry() && stateComboBox.getSelectedItem() == allLocations.get(i).getState() && !cities.contains(allLocations.get(i).getName()))
-				cities.add(allLocations.get(i).getName());
-		}
+			System.out.println(countryComboBox.getSelectedItem());
+			System.out.println(allLocations.get(i).getCountry());
+			if(countryComboBox.getSelectedItem() == allLocations.get(i).getCountry()){
+				System.out.println(stateComboBox.getSelectedItem());
+				System.out.println(allLocations.get(i).getState());
+				if(stateComboBox.getSelectedItem() == allLocations.get(i).getState()){
+					System.out.println(allLocations.get(i).getName());
+					if(!cities.contains(allLocations.get(i).getName())){
+						cities.add(allLocations.get(i).getName());
+					}
+				}
+			}
+		}*/
 		
 		for(int i = 0; i < cities.size(); i++){
 			cityComboBox.addItem(cities.get(i));
 		}
+		
+		String sql = " where Country = '" + countryComboBox.getSelectedItem().toString() + "' AND State = '" +stateComboBox.getSelectedItem().toString()+ "'";
+		ArrayList<Location> cityLocations = Location.LoadAll(sql);
+		
+		for(int i = 0; i < cityLocations.size(); i++){
+			cityComboBox.addItem(cityLocations.get(i).getName());
+		}
+		
 		
 	}//End of loadCities()
 	
