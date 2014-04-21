@@ -1,10 +1,15 @@
 package ChrisGUILogic;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+
+import GUI.SegmentTable;
 
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -19,17 +24,22 @@ public class TruckPanel extends JPanel {
 	private JButton btnDelete;
 	private JButton btnView;
 	private JTabbedPane truckInfo;
+	private JButton btnNew;
+	private GUI.SegmentTable segments;
 	public TruckPanel()
 	{
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(64dlu;default)"),
-				ColumnSpec.decode("max(150dlu;default)"),
+				ColumnSpec.decode("max(133dlu;default)"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(12dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(48dlu;default)"),
-				ColumnSpec.decode("max(48dlu;default)"),},
+				ColumnSpec.decode("max(12dlu;default)"),
+				ColumnSpec.decode("max(12dlu;default)"),
+				FormFactory.UNRELATED_GAP_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
@@ -42,20 +52,12 @@ public class TruckPanel extends JPanel {
 		
 		
 		tt=new TruckTable();
-		tt.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-			public void valueChanged(ListSelectionEvent e)
-			{
-				hideControls();
-				if(tt.getSelectedRow()!=-1)
-				tbp.showPanel(tt.getSelectedTruck());
-			}
-		});
-		
+
 		tt.setVisible(false);
 		sp=new JScrollPane();
 		sp.setViewportView(tt);
 		sp.setVisible(false);
-		add(sp,"2, 2, 5, 2");
+		add(sp,"2, 2, 7, 2");
 		tbp = new TruckBasicPanel();
 		tbp.addRefreshListener(new TableRefreshListener(){
 			public void refreshTable()
@@ -65,16 +67,41 @@ public class TruckPanel extends JPanel {
 		});
 		tbp.setVisible(false);
 		
-		btnView = new JButton("View");
-		add(btnView, "5, 4");
-		
-		btnDelete = new JButton("Delete");
-		add(btnDelete, "6, 4");
-		
-		
+		segments = new SegmentTable();
+		segments.setVisible(false);
 		truckInfo = new JTabbedPane();
 		truckInfo.addTab("Basic", tbp);
-		add(truckInfo,"3, 5");
+		truckInfo.addTab("Segments",segments);
+		truckInfo.setVisible(false);
+		
+		btnNew = new JButton("New");
+		btnNew.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				truckInfo.setVisible(true);
+				tbp.showPanel();
+			}
+		});
+		
+		btnView = new JButton("View");
+		btnView.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(tt.getSelectedRow()!=-1)
+				{
+					truckInfo.setVisible(true);
+					tbp.showPanel(tt.getSelectedTruck());
+					segments.showPanel(tt.getSelectedTruck());
+				}
+			}
+		});
+		add(btnView, "5, 4");
+		add(btnNew, "7, 4");
+		
+		btnDelete = new JButton("Delete");
+		add(btnDelete, "8, 4");
+		add(truckInfo,"2, 5, 7, 1");
+		
 	}
 	public void showPanel()
 	{

@@ -83,6 +83,9 @@ public class TruckBasicPanel extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				update();
+				btnSave.setVisible(false);
+				readOnly();
+				btnEdit.setVisible(true);
 			}
 		});
 		add(btnSave,"4,8");
@@ -100,6 +103,7 @@ public class TruckBasicPanel extends JPanel {
 				}
 				else
 				{
+					getParent().setVisible(false);
 					setVisible(false);
 				}
 			}
@@ -108,7 +112,9 @@ public class TruckBasicPanel extends JPanel {
 	}
 	public void showPanel()
 	{
+		source=null;
 		clearGUI();
+		setEditable();
 		this.setVisible(true);
 	}
 	
@@ -137,6 +143,7 @@ public class TruckBasicPanel extends JPanel {
 	}
 	private void update()
 	{
+		if(source==null) source = new Truck();
 		source.setVehicleName(txtName.getText());
 		source.setStatus((Vehicle.Status)cmbStatus.getSelectedItem());
 		source.setCarrier((Carrier)cmbCarrier.getSelectedItem());
@@ -149,6 +156,8 @@ public class TruckBasicPanel extends JPanel {
 		txtName.setEnabled(true);
 		cmbCarrier.setEnabled(true);
 		cmbStatus.setEnabled(true);
+		btnEdit.setVisible(false);
+		btnSave.setVisible(true);
 	}
 	private void clearGUI()
 	{

@@ -12,6 +12,10 @@ public class TruckTable extends JTable {
 	{
 		super();
 		this.setModel(new TruckModel(new ArrayList<Truck>()));
+		this.getColumnModel().getColumn(0).setWidth(10);
+		this.getColumnModel().getColumn(1).setWidth(10);
+		this.getColumnModel().getColumn(2).setWidth(10);
+		this.getColumnModel().getColumn(3).setWidth(10);
 	}
 	public void showPanel()
 	{

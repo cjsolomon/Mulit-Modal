@@ -88,7 +88,7 @@ public class Main_Source {
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px"),
 				FormFactory.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("100px"),
+				ColumnSpec.decode("144px"),
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px"),},
 			new RowSpec[] {

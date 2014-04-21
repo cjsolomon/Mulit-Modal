@@ -201,9 +201,9 @@ public abstract class Vehicle extends BaseClass {
 	* This function returns the status of the vehicle
 	* @return Status of the vehicle
 	*/
-	public String getStatus()
+	public Status getStatus()
 	{
-		return status.toString();
+		return status;
 	}//End of getStatus
 		
 	/**

@@ -40,7 +40,7 @@ public class TruckPanel extends Panel {
 				ColumnSpec.decode("max(103dlu;default)"),
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(67dlu;default)"),},
+				ColumnSpec.decode("max(60dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(61dlu;default)"),
