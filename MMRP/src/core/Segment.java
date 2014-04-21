@@ -718,8 +718,8 @@ public class Segment extends BaseClass {
 		// This code grabs each element that will be found in the database on
 		// the Segment table and set the appropriate values for a new Segment
 		Segment s = new Segment((Integer) data.get("SegmentID"));
-		s.setStartLocation((Integer) data.get("FromLocationID"));
-		s.setEndLocation((Integer) data.get("ToLocationID"));
+		s.setStartLocation((Integer) data.get("StartID"));
+		s.setEndLocation((Integer) data.get("EndID"));
 		Vehicle.TravelModes newMode = Vehicle.TravelModes.valueOf((String) data
 				.get("ModeType"));
 		s.setMode((String) data.get("ModeType"));
@@ -734,9 +734,9 @@ public class Segment extends BaseClass {
 		s.setLane((String) data.get("Lane"));
 		// s.setShippingRate(ShippingRate.Load((Integer)data.get("ShippingRateID")));
 
-		Location tstart = new Location((Integer) data.get("FromLocationID"));
+		Location tstart = new Location((Integer) data.get("StartID"));
 
-		/*tstart.setLatitude(Double.parseDouble(data.get("StartLat").toString()));
+		tstart.setLatitude(Double.parseDouble(data.get("StartLat").toString()));
 		tstart.setLongitude(Double.parseDouble(data.get("StartLon").toString()));
 		tstart.setName((String) data.get("StartName"));// rs.getString("Name"));
 		tstart.setCountry((String) data.get("StartCountry"));
@@ -793,7 +793,7 @@ public class Segment extends BaseClass {
 			}
 		}
 		tend.MarkClean();
-		s.setEndLocation(tend);*/
+		s.setEndLocation(tend);
 	
 		s.MarkClean(); // Mark the Segment as clean
 		return s;
