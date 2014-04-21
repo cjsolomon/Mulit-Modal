@@ -13,11 +13,11 @@ public class Location extends BaseClass {
 	private ArrayList<Vehicle> vehiclesAtLocation;
 	
 	//Default Variables
-	private final double DEFAULT_LATITUDE = 0;
-	private final double DEFAULT_LONGITUDE = 0;
-	private final String DEFAULT_LOCATION_NAME = "defaultLocationName";
-	private final String DEFAULT_STATE = "PA";
-	private final String DEFAULT_COUNTRY = "USA";
+	private static final double DEFAULT_LATITUDE = 0;
+	private static final  double DEFAULT_LONGITUDE = 0;
+	private static final String DEFAULT_LOCATION_NAME = "defaultLocationName";
+	private static final String DEFAULT_STATE = "PA";
+	private static final String DEFAULT_COUNTRY = "USA";
 	
 	/**
 	 * This is the default constructor for the Location object
@@ -185,6 +185,14 @@ public class Location extends BaseClass {
 	public ArrayList<Vehicle.TravelModes> getTravelModes(){
 		return this.travelModes;
 	}//End of getTravelModes()
+	
+	/**
+	 * This function will return an ArrayList of Vehicles currently at the location
+	 * @return Returns an ArrayList of Vehicles currently at a location
+	 */
+	public ArrayList<Vehicle> getVehiclesAtLocation() {
+		return this.vehiclesAtLocation;
+	}
 	
 	/**
 	 * This function will return if the given Travel Mode is available at this Location
@@ -402,5 +410,25 @@ public class Location extends BaseClass {
 	{
 		this.vehiclesAtLocation.remove(departingVehicle);
 	}//End of VehicleDeparting(Vehicle departingVehicle)
+
+	public static double getDEFAULT_LATITUDE() {
+		return DEFAULT_LATITUDE;
+	}
+
+	public static double getDEFAULT_LONGITUDE() {
+		return DEFAULT_LONGITUDE;
+	}
+
+	public static String getDEFAULT_LOCATION_NAME() {
+		return DEFAULT_LOCATION_NAME;
+	}
+
+	public static String getDEFAULT_STATE() {
+		return DEFAULT_STATE;
+	}
+
+	public static String getDEFAULT_COUNTRY() {
+		return DEFAULT_COUNTRY;
+	}
 
 }//End of Location Class
