@@ -1,4 +1,5 @@
 package core;
+import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
 public class DBGrabber {
@@ -209,25 +210,30 @@ public class DBGrabber {
 	{
 		try {
 			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-			// set this to a MS Access DB you have on your machine
+			//Database set up stuff
 			String filename = "./Routing Data.mdb";
 			String database = "jdbc:odbc:Driver={Microsoft Access Driver (*.mdb)};DBQ=";
-			database+= filename.trim() + ";DriverID=22;READONLY=true}"; // add on to the end 
-			// now we can get the connection from the DriverManager
+			database+= filename.trim() + ";DriverID=22;READONLY=true}"; 
 			Connection con = DriverManager.getConnection( database ,"",""); 
 			Class.forName(DRIVER);
 			Connection excal = DriverManager.getConnection(URL, USER, PSWD);
 			Statement s = con.createStatement();
 			Statement e = excal.createStatement();
-			s.execute("Select * from Freight ");
-			ResultSet rs = s.getResultSet(); 
-			ArrayList<ShippingRate> rates = new ArrayList<ShippingRate>();
+			
+			s.execute("Select * from Freight ");  //Pull freight information from the other database 
+			ResultSet rs = s.getResultSet();      //Save freight stuff in RS
+			ArrayList<ShippingRate> rates = new ArrayList<ShippingRate>(); 
+			ArrayList<String> cities;
 			ShippingRate temp;
+			String command;
 			Carrier carrier;
 			Location start;
 			if (rs != null) 
-				while ( rs.next() )
+				while ( rs.next() )  //Cycle through all freight entries in other database
 				{
+					/* Save the information from the freight table 
+					 * into a Rates item to hold the data. Save each of these into an ArrayList (rates)
+					 */
 					temp = new ShippingRate();
 					start = new Location();
 					start.setName(rs.getString("City"));
@@ -235,24 +241,79 @@ public class DBGrabber {
 					start.setCountry("USA");
 					carrier = new Carrier();
 					carrier.setCarrierName(rs.getString("CarrierCode"));
+					temp.setCarrier(carrier);
 					temp.setStartLocation(start);
-					temp.setWeight1(rs.getInt("Weight1"));
-					temp.setWeight2(rs.getInt("Weight2"));
-					temp.setWeight3(rs.getInt("Weight3"));
-					temp.setRate1(rs.getInt("Rate1"));
-					temp.setRate2(rs.getInt("Rate2"));
-					temp.setRate3(rs.getInt("Rate3"));
-					temp.setMileRate(rs.getInt("MileRate"));
-					temp.setFlatRate(rs.getInt("FlatRate"));
+					temp.setWeight1(rs.getDouble("Weight1"));
+					temp.setWeight2(rs.getDouble("Weight2"));
+					temp.setWeight3(rs.getDouble("Weight3"));
+					temp.setRate1(rs.getDouble("Rate1"));
+					temp.setRate2(rs.getDouble("Rate2"));
+					temp.setRate3(rs.getDouble("Rate3"));
+					temp.setMileRate(rs.getDouble("MileRate"));
+					temp.setFlatRate(rs.getDouble("FlatRate"));
 					temp.setRank(rs.getInt("Rank"));
 					rates.add(temp);
 				}
+			int startID;
+			int endID;
+			int carrierID;
+			String travelType[] = {"TRUCK","PLANE","CARGOSHIP","RAIL"};
+			ResultSet es; 
+			int insertCount = 0;
+			PrintWriter writer = new PrintWriter("shipRate.txt", "UTF-8");
+			//Cycle through every rate entry from the other table 
+			//A rate entry corresponds to every possible pair of start cities and contractor for that city
 			for(int i = 0; i<rates.size();i++)
 			{
-				
+				/*Result cities Array List 
+				 * This holds cities that have been used as destinations for the current
+				 * start city */
+				cities = new ArrayList<String>();  
+				/* 
+				 * For this start city + contractor combo go through the rest of the rates 
+				 * and set a rate to any city that isn't the start city and hasn't been used yet 
+				 */
+				for(int j = 0; j<rates.size(); j++)
+				{
+					if(!rates.get(j).getStartLocation().getName().equals(rates.get(i).getStartLocation().getName()) &&
+							!cities.contains(rates.get(j).getStartLocation().getName()))
+					{
+						//Find ids for Carrier and Locations 
+						e.execute("Select * From Carriers Where CarrierCode = '"+rates.get(i).getCarrier().getCarrierName()+"'");
+						es = e.getResultSet();
+						es.next();
+						carrierID = es.getInt("CarrierID");
+						e.execute("Select * From Location where Name = '"+rates.get(i).getStartLocation().getName()+"'");
+						es = e.getResultSet();
+						es.next();
+						startID = es.getInt("LocationID");
+						e.execute("Select * From Location where Name = '"+rates.get(j).getStartLocation().getName()+"'");
+						es = e.getResultSet();
+						es.next();
+						endID = es.getInt("LocationID");
+						//Use each travel type for this city+contractor -> city relationship
+						for(int k=0; k < travelType.length; k++)
+						{
+							command = "INSERT INTO shippingrates (StartLocation, EndLocation, CarrierID, "
+								+ "Weight1, Weight2, Weight3, Rate1, Rate2, Rate3, MileRate, FlatRate, Rank, TravelType)";
+							command += "VALUES ('"+startID+"','"+endID+"','"+carrierID+"','"+rates.get(i).getWeight1()+
+								"','"+rates.get(i).getWeight2()+"','"+rates.get(i).getWeight3()+"','"+
+								rates.get(i).getRate1()+"','"+rates.get(i).getRate2()+"','"+rates.get(i).getRate3()+
+								"','"+rates.get(i).getMileRate()+"','"+rates.get(i).getFlatRate()+"','"+
+								rates.get(i).getRank()+"'"+travelType[k%travelType.length]+"')";
+							writer.println(command);
+							//e.execute(command);
+							System.out.println("Calculating rates..");
+							writer.println(insertCount++);
+						}
+						cities.add(rates.get(j).getStartLocation().getName());
+					}
+				}
+				System.out.println("Completed a start city");
 			}
 			con.close();
 			excal.close();
+			writer.close();
 		}
 		catch (Exception e) {
 			System.out.println("Error: " + e);

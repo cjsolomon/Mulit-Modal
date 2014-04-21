@@ -17,7 +17,9 @@ public abstract class Vehicle extends BaseClass {
 			RAIL("RAIL"),
 			CARGO("CARGO"),
 			PLANE("PLANE"),
-			BIKE("BIKE");
+			BIKE("BIKE"),
+			ALL("ALL"),
+			NONE("NONE");
 			private String mode;
 			TravelModes(String s)
 			{
