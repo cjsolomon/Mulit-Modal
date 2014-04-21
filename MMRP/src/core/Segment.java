@@ -669,28 +669,6 @@ public class Segment extends BaseClass {
 	public static ArrayList<Segment> LoadAll(String where) {
 		// System.out.println("Loading all the segments from the where clause");
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
-<<<<<<< HEAD
-		try
-		{
-			//Create and populate an ArrayList of Segments
-			ArrayList<Map<String,Object>> temp=executeQuery("Select * from Segment " + where);
-			
-			if(temp != null){
-				//For each of the entries in our list create a Segment object
-				for(int i = 0; i<temp.size();i++)
-				{
-					Segment s = BuildFromDataRow(temp.get(i));
-					s.onBoard= Shipment.LoadAllForSegment(s.getID());
-					returnList.add(s);
-				}
-			}
-			else{
-				Log.writeLogWarning("No Segments matched the given where clause, no an empty list was returned.");
-			}
-		}//End of try block
-		catch(Exception ex)
-		{
-=======
 		try {
 			// Create and populate an ArrayList of Segments
 			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
@@ -707,7 +685,6 @@ public class Segment extends BaseClass {
 
 		}// End of try block
 		catch (Exception ex) {
->>>>>>> 38cd440587f276ad4cdafd815f1619885643696c
 			System.out.println("Error " + ex);
 			ex.printStackTrace();
 		}// End of catch block

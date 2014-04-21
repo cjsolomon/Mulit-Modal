@@ -73,7 +73,7 @@ public class VehicleTable extends JTable {
 		setData();
 	}
 
-	private void setData() {
+	public void setData() {
 
 		if (type.equals("Truck")) {
 			vehicles.clear();

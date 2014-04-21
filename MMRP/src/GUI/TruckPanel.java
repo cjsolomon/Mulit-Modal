@@ -29,6 +29,7 @@ public class TruckPanel extends Panel {
 	JTabbedPane jp;
 	SegmentTable schedule;
 	Truck t;
+	 JScrollPane sp;
 	public TruckPanel()
 	{
 		
@@ -67,7 +68,7 @@ public class TruckPanel extends Panel {
 		jp.addTab("Basic", getBasicPanel());
 		schedule=new SegmentTable();
 		jp.add("Schedule",schedule);
-		JScrollPane sp = new JScrollPane();
+		 sp = new JScrollPane();
 		sp.setViewportView(truckTable);
 		truckTable.setVisible(false);
 		jp.setVisible(false);
@@ -77,8 +78,10 @@ public class TruckPanel extends Panel {
 	public void showPanel()
 	{
 		System.out.println("Called show truck panel");
-		truckTable.showPanel();
+		truckTable.setData();
 		jp.setVisible(false);
+		this.sp.setViewportView(truckTable);
+		truckTable.setVisible(true);
 		this.setVisible(true);
 		
 	}
@@ -88,45 +91,7 @@ public class TruckPanel extends Panel {
 		this.cmbCarrier.setSelectedItem(t.getCarrier());
 		this.cmbStatus.setSelectedItem(t.getStatus());
 	}
-	private JPanel getBasicPanel()
-	{
-		JPanel basicInfo = new JPanel();
-		basicInfo.setLayout(new FormLayout(new ColumnSpec[] {
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(67dlu;default)"),},
-			new RowSpec[] {
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,}));
-		
-		lblName=new JLabel("Name:");
-		lblCarrier = new JLabel("Carrier:");
-		lblStatus = new JLabel("Status:");
-		
-		txtName = new JTextField(20);
 
-		cmbStatus = new JComboBox(core.Vehicle.Status.values());
-		cmbCarrier = new JComboBox(Carrier.LoadAll("").toArray());
-		
-		
-		basicInfo.add(lblName,"2,4,right,center");
-		basicInfo.add(txtName,"4,4");
-		
-		basicInfo.add(lblStatus,"2,6,right,center");
-		basicInfo.add(cmbStatus,"4,6");
-		basicInfo.add(lblCarrier,"2,8,right,center");
-		basicInfo.add(cmbCarrier,"4,8");
-		return basicInfo;
-		
-	}
 
 	
 }

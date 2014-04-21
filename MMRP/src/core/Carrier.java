@@ -916,4 +916,17 @@ public class Carrier extends BaseClass
 	{
 		return this.getCarrierName();
 	}
+	
+	public boolean equals(Object obj) {
+        if (obj == null)
+            return false;
+        if (obj == this)
+            return true;
+        if (!(obj instanceof Carrier))
+            return false;
+
+        Carrier test = (Carrier) obj;
+        if(test.getId()==this.getId())return true;
+        return false;
+    }
 }//End of Carrier Class
