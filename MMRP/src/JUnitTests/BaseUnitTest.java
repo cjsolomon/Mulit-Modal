@@ -5,17 +5,20 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Assert;
 
+import com.mysql.jdbc.exceptions.MySQLSyntaxErrorException;
+
 import core.BaseClass;
 import core.Bike;
 
 public class BaseUnitTest {
 	
-	@Test
+	@Test()
 	public void testExecuteQuery() {
-		//ArrayList<Bike> bList = Bike.LoadAll("where Status = 'RUNNING'");
-		//Assert.assertFalse(bList.isEmpty());
-		//ArrayList<Bike> bList2 = Bike.LoadAll("Bull Crapped Here");
-		//Assert.assertNull(null);
+		ArrayList<Bike> bList = Bike.LoadAll("where Status = 'RUNNING'");
+		Assert.assertFalse(bList.isEmpty());
+		bList = Bike.LoadAll("Bull Crapped Here");
+		Assert.assertTrue(bList.isEmpty());
+		
 	}
 	
 	@Test

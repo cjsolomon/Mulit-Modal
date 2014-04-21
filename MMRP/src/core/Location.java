@@ -179,6 +179,17 @@ public class Location extends BaseClass {
 	}//End of addTravelMode(Vehicle.TravelModes mode)
 	
 	/**
+	 * This function removes a Travel Mode option to this Location
+	 * @param mode This is the new Travel Mode to add to this Location
+	 */	
+	public void removeTravleMode(Vehicle.TravelModes mode) {
+		if (travelModes.contains(mode)) {
+			travelModes.remove(mode);
+			MarkDirty();
+		}
+	}//End of remove travel mode
+	
+	/**
 	 * This function will return an ArrayList of Travel modes that can reach this Location
 	 * @return Returns an ArrayList of Travel modes that can reach this Location
 	 */
