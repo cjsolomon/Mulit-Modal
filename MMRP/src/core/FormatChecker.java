@@ -1,6 +1,9 @@
 package core;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import GUI.Log;
 
 public class FormatChecker {
@@ -36,7 +39,7 @@ public class FormatChecker {
 	 */
 	static public boolean isValidEmail(String address)
 	{
-		Pattern pattern = Pattern.compile("\\S+@\\S+\\.\\S{3,4}");
+		Pattern pattern = Pattern.compile("\\S+@\\S+\\.\\S{2,4}");
 	    Matcher matcher = pattern.matcher(address);
 	    if (matcher.matches()) {
 	    	return true;
@@ -91,24 +94,43 @@ public class FormatChecker {
 
 	/**
 	 * 
-	 * @param day
+	 * @param String to be tested as a date
 	 * @return True/False
-	 * Returns true if day is of the proper format: MonthName DayNumber Year 
+	 * Returns true if day is of the proper format: MonthName DayNumber Year or month#/day/Year(4 digit)
 	 * ex) January 7th 2014
+	 * ex) 01/7/2014 
 	 */
-	static public boolean isValidDate(String day)
+	static public boolean isValidDate(String date)
 	{
-		Pattern pattern = Pattern.compile("*");
-	    Matcher matcher = pattern.matcher(day);
-	    if (matcher.matches()) {
-	    	return true;
+		SimpleDateFormat format = (date.charAt(2) == '/') ? new SimpleDateFormat("MM/D/YYYY")
+														   :new SimpleDateFormat("MMM D YYYY");
+		boolean ret = true;
+		try {
+			format.parse(date);
+		}
+		catch(ParseException e){
+			ret = false;
+		}
+		return ret;
+	}
+	
+	/**
+	 * 
+	 * @param String to be tested if numeric
+	 * @return True if the string passed is a numeric, false if it can not be converted to a number
+	 */
+	static public boolean isNumeric(String number)
+	{
+		boolean ret = true;
+	    try {
+
+	        Double.parseDouble(number);
+
+	    }catch (NumberFormatException e) {
+	    	//Log.writeLogWarning("String failed numeric test, NAN");
+	        ret = false;
 	    }
-	    else
-	    {
-	    	//Log.writeLogWarning("Invalid format on date.");
-	    	return false;
-	    }
-		
+	    return ret;
 	}
 
 }
