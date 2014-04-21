@@ -259,14 +259,16 @@ public class LocationForm extends JPanel {
 		    public void itemStateChanged(ItemEvent e)
 		    {
 		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	if(cbStartCountry.getSelectedIndex()!=-1)
+		        	{
+		        		//	Clear out the states and the cities
+		        		//cbStartState.removeAllItems();
+		        		//cbStartCity.removeAllItems();
 		        	
-		        	//Clear out the states and the cities
-		        	cbStartState.removeAllItems();
-		        	cbStartCity.removeAllItems();
-		        	
-		        	//Load the new states according to the country selected
-		        	loadStates(cbStartState, cbStartCountry);
-		        	cbStartState.setSelectedIndex(0);
+		        		//Load the new states according to the country selected
+		        		loadStates(cbStartState, cbStartCountry);
+		        		//cbStartState.setSelectedIndex(0);
+		        	}
 		        
 		        }//End of stateChange if
 		    }//End of itemStateChanged(ItemEvent e)
@@ -277,12 +279,15 @@ public class LocationForm extends JPanel {
 		    @Override
 		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED){
-
-		        	loadCities(cbStartCity, cbStartState, cbStartCountry);
-		        	cbStartCity.setSelectedIndex(0);
-		            
-		        }
+		    	if(cbStartState.getSelectedIndex()!=-1)
+		    	{
+			        if (e.getStateChange() == ItemEvent.SELECTED){
+			
+			        	loadCities(cbStartCity, cbStartState, cbStartCountry);
+			        	cbStartCity.setSelectedIndex(0);
+			            
+			        }
+		    	}
 		    }
 		});
 		
@@ -293,8 +298,8 @@ public class LocationForm extends JPanel {
 		    public void itemStateChanged(ItemEvent e)
 		    {
 		        if (e.getStateChange() == ItemEvent.SELECTED){
-		        	
-		        	Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
+		        	//if(cbStartCity.getSelectedIndex()==-1){cbStartCity.setSelectedIndex(0);return;}
+		        	Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), e.getItem().toString());
 		        	
 		        	loadStartLocation(thisLocation);
 		        	
@@ -384,9 +389,9 @@ public class LocationForm extends JPanel {
     	txtStartLat.setText(String.valueOf(start.getLatitude()));
     	txtStartLon.setText(String.valueOf(start.getLongitude()));
     	txtStartID.setText(String.valueOf(start.getID()));
-    	cbStartCountry.setSelectedItem(start.getCountry());
-    	cbStartState.setSelectedItem(start.getState());
-    	cbStartCity.setSelectedItem(start.getName());
+    	//cbStartCountry.setSelectedItem(start.getCountry());
+    	//cbStartState.setSelectedItem(start.getState());
+    	//cbStartCity.setSelectedItem(start.getName());
 		
 	}//End of loadStartLocation(Location start)
 	
@@ -427,6 +432,7 @@ public class LocationForm extends JPanel {
 	}//End of loadSegments()
 	
 	public void loadCountries(JComboBox<String> countryComboBox){
+		
 		
 		boolean addLocation = true;
 		countries.clear();

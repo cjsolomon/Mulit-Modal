@@ -217,7 +217,7 @@ public class VehicleTruckForm extends JPanel {
 	private void setTruck()
 	{
 		this.nameTextReadOnly.setText(t.getVehicleName());
-		this.statusTextReadOnly.setText(t.getStatus());
+		//this.statusTextReadOnly.setText(t.getStatus());
 		this.contractorTextReadOnly.setText(t.getCarrier().getCarrierName());
 		//this.contractorDropDown.setSelectedItem(Vehicle.loadContractor(t.getContractor()));
 		//this.nameText.setText(t.getTruckName());
@@ -238,7 +238,7 @@ public class VehicleTruckForm extends JPanel {
 	}
 	private void setEditable()
 	{
-		this.status.setSelectedItem(Vehicle.loadStatus(t.getStatus()));
+		//this.status.setSelectedItem(Vehicle.loadStatus(t.getStatus()));
 		this.contractorDropDown.setSelectedItem(t.getCarrier().getCarrierName());
 		this.nameText.setText(t.getVehicleName());
 		
