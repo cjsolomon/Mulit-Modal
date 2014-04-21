@@ -1,6 +1,14 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
+import core.Bike;
+import core.Cargo;
 import core.Location;
+import core.Plane;
+import core.Rail;
+import core.Truck;
+import core.Vehicle;
 
 import org.junit.*;
 
@@ -71,5 +79,76 @@ public class LocationTest {
 		
 		test_location.setState(test_string);
 		Assert.assertEquals(test_string, test_location.getState());
+	}
+	
+	@Test
+	public void testSetCountry() {
+		Location test_location = new Location();
+		String test_string = new String("Canada, Eh?");
+		
+		test_location.setState(test_string);
+		Assert.assertEquals(test_string, test_location.getState());
+	}
+	
+	@Test
+	public void testVehiclesAtLocation() {
+		Location test_location = new Location();
+		ArrayList<Vehicle> test_vehicles = new ArrayList<Vehicle>();
+		test_vehicles.add(new Bike());
+		test_vehicles.add(new Plane());
+		test_vehicles.add(new Rail());
+		test_vehicles.add(new Cargo());
+		test_vehicles.add(new Truck());
+		
+		Integer counter = new Integer(0);
+		while (!test_vehicles.isEmpty()) {
+			Assert.assertEquals(new Integer(counter), new Integer(test_location.getVehiclesAtLocation().size()));
+			test_location.VehicleArriving(test_vehicles.remove(0));
+			counter++;
+		}
+		
+		while(!test_location.getVehiclesAtLocation().isEmpty()) {
+			Assert.assertEquals(new Integer(counter), new Integer(test_location.getVehiclesAtLocation().size()));
+			test_location.VehicleDeparting(test_location.getVehiclesAtLocation().get(0));
+			counter--;
+		}
+	}
+	
+	@Test
+	public void testTravelModes() {
+		Location test_location = new Location();
+		Assert.assertTrue(test_location.getTravelModes().isEmpty());
+		
+		test_location.addTravelMode(Vehicle.TravelModes.CARGO);
+		Assert.assertTrue(test_location.getTravelModes().contains(Vehicle.TravelModes.CARGO));
+		
+		test_location.addTravelMode(Vehicle.TravelModes.CARGO);
+		Assert.assertEquals(new Integer(1), new Integer(test_location.getTravelModes().size()));
+		
+		test_location.removeTravleMode(Vehicle.TravelModes.CARGO);
+		Assert.assertFalse(test_location.getTravelModes().contains(Vehicle.TravelModes.CARGO));
+	}
+	
+	@Test
+	public void testLoad() {
+		Location test_location = new Location();
+		String test_string = new String("Load Test String For The Homies");
+		for (int i = 0; i < 6; i++) {
+			test_location.addTravelMode(Vehicle.TravelModes.NONE);
+		}
+		
+		test_location.setName(test_string);
+		test_location.Update();
+		
+		//System.out.println("The id of the Location is " + test_location.getID());
+		//Location test_location2 = Location.Load(test_location.getID());
+		//Assert.assertEquals(test_location.getCountry(), test_location2.getCountry());
+		//Assert.assertEquals(test_location.getName(), test_location2.getName());
+		
+	}
+	
+	@Test
+	public void testUpdateLoad() {
+		
 	}
 }
