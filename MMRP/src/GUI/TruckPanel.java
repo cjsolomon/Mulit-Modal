@@ -65,7 +65,7 @@ public class TruckPanel extends Panel {
 		});
 		
 		jp=new JTabbedPane();
-		jp.addTab("Basic", getBasicPanel());
+		//jp.addTab("Basic", getBasicPanel());
 		schedule=new SegmentTable();
 		jp.add("Schedule",schedule);
 		 sp = new JScrollPane();
