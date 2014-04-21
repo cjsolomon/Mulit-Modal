@@ -207,8 +207,15 @@ public class LocationForm extends JPanel {
 		loadCities(cbEndCity, cbEndState, cbEndCountry);
 		//Set up the travel modes
 		loadTravelModes(allLocations.get(0));
-
+		
+		
+		//Initialize the fields
+		
+		cbEndCountry.setSelectedIndex(1);
+		loadStartLocation(allLocations.get(0));
+    	loadEndLocation(allLocations.get(1));
     	//End Location
+    	
     	add(lblEndLocation, "10, 2, center, center");
 		add(txtEndID, "10, 4, left, center");
 		add(lblEndID, "8, 4, right, center");
@@ -226,13 +233,7 @@ public class LocationForm extends JPanel {
 		add(cbEndState, "11, 8, left, top");
 		add(cbEndCity, "11, 10, left, top");
     	
-		//Initialize the fields
-		
-		cbStartCountry.setSelectedIndex(0);
-		cbEndCountry.setSelectedIndex(1);
-		//loadStartLocation(allLocations.get(0));
-		//loadEndLocation(allLocations.get(1));
-		 
+    	
     	//Initialize the Segment table
     	
     	loadSegments();
@@ -257,7 +258,7 @@ public class LocationForm extends JPanel {
 		    @Override
 		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED && cbStartCountry.getSelectedIndex() > 0){
+		        if (e.getStateChange() == ItemEvent.SELECTED){
 		        	
 		        	//Clear out the states and the cities
 		        	cbStartState.removeAllItems();
@@ -265,16 +266,7 @@ public class LocationForm extends JPanel {
 		        	
 		        	//Load the new states according to the country selected
 		        	loadStates(cbStartState, cbStartCountry);
-		        	//Load the new cities according to the country and state selected
-		        	loadCities(cbStartCity, cbStartState, cbStartCountry);
-		        	
-		        	Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
-		        	
-		        	loadStartLocation(thisLocation);
-		        	
-		        	loadTravelModes(thisLocation);
-		        	
-		        	loadSegments();
+		        	cbStartState.setSelectedIndex(0);
 		        
 		        }//End of stateChange if
 		    }//End of itemStateChanged(ItemEvent e)
@@ -285,17 +277,10 @@ public class LocationForm extends JPanel {
 		    @Override
 		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED && cbStartState.getSelectedIndex() > 0){
+		        if (e.getStateChange() == ItemEvent.SELECTED){
 
 		        	loadCities(cbStartCity, cbStartState, cbStartCountry);
-		        	
-		        	Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
-		        	
-		        	loadStartLocation(thisLocation);
-		        	
-		        	loadTravelModes(thisLocation);
-		        	
-		        	loadSegments();
+		        	cbStartCity.setSelectedIndex(0);
 		            
 		        }
 		    }
@@ -307,7 +292,7 @@ public class LocationForm extends JPanel {
 		    @Override
 		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED  && cbStartCity.getSelectedIndex() > 0){
+		        if (e.getStateChange() == ItemEvent.SELECTED){
 		        	
 		        	Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), cbStartCity.getSelectedItem().toString());
 		        	
@@ -324,9 +309,9 @@ public class LocationForm extends JPanel {
 		cbEndCountry.addItemListener(new ItemListener()
 		{            
 		    @Override
-		    public void itemStateChanged(ItemEvent e )
+		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED && cbEndCountry.getSelectedIndex() > 0){
+		        if (e.getStateChange() == ItemEvent.SELECTED){
 
 		        	//Clear out the states and the cities
 		        	cbEndState.removeAllItems();
@@ -334,18 +319,8 @@ public class LocationForm extends JPanel {
 		        	
 		        	//Load the new states according to the country selected
 		        	loadStates(cbEndState, cbEndCountry);
-		        	
-		        	//Load the new cities according to the country and state selected
-		        	loadCities(cbEndCity, cbEndState, cbEndCountry);
+		        	cbEndState.setSelectedIndex(0);
 
-		        	Location thisLocation = findLocation(cbEndCountry.getSelectedItem().toString(), cbEndState.getSelectedItem().toString(), cbEndCity.getSelectedItem().toString());
-		        	
-		        	loadEndLocation(thisLocation);
-		        	
-		        	loadTravelModes(thisLocation);
-		        	
-		        	loadSegments();
-		        	
 		        }//End of stateChange if
 		    }//End of itemStateChanged(ItemEvent e)
 		});
@@ -355,17 +330,10 @@ public class LocationForm extends JPanel {
 		    @Override
 		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED  && cbEndState.getSelectedIndex() > 0){
+		        if (e.getStateChange() == ItemEvent.SELECTED){
 
 		        	loadCities(cbEndCity, cbEndState, cbEndCountry);
-		        	
-		        	Location thisLocation = findLocation(cbEndCountry.getSelectedItem().toString(), cbEndState.getSelectedItem().toString(), cbEndCity.getSelectedItem().toString());
-		        	
-		        	loadEndLocation(thisLocation);
-		        	
-		        	loadTravelModes(thisLocation);
-		        	
-		        	loadSegments();
+		        	cbEndCity.setSelectedIndex(0);
 
 		        }
 		    }
@@ -377,7 +345,7 @@ public class LocationForm extends JPanel {
 		    @Override
 		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED  && cbEndCity.getSelectedIndex() > 0){
+		        if (e.getStateChange() == ItemEvent.SELECTED){
 
 		        	Location thisLocation = findLocation(cbEndCountry.getSelectedItem().toString(), cbEndState.getSelectedItem().toString(), cbEndCity.getSelectedItem().toString());
 		        	
@@ -385,7 +353,7 @@ public class LocationForm extends JPanel {
 		        	
 		        	loadTravelModes(thisLocation);
 		        	
-		        	loadSegments();
+		        	//loadSegments();
 		            
 		        }
 		    }
@@ -397,7 +365,7 @@ public class LocationForm extends JPanel {
 		    @Override
 		    public void itemStateChanged(ItemEvent e)
 		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED && cbTravelModes.getSelectedIndex() > 0){
+		        if (e.getStateChange() == ItemEvent.SELECTED){
 		        	loadSegments();
 		        }
 		    }
@@ -407,7 +375,9 @@ public class LocationForm extends JPanel {
 	}//End of LocationForm Constructor
 	
 	public void loadStartLocation(Location start){
-
+		
+		System.out.println("Load start location has been called");
+    	
 		txtStartCity.setText(start.getName());
     	txtStartState.setText(start.getState());
     	txtStartCountry.setText(start.getCountry());
@@ -421,6 +391,8 @@ public class LocationForm extends JPanel {
 	}//End of loadStartLocation(Location start)
 	
 	public void loadEndLocation(Location end){
+		
+		System.out.println("Load end location has been called");
 		
 		txtEndCity.setText(end.getName());
     	txtEndState.setText(end.getState());
