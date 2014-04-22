@@ -64,7 +64,7 @@ public class Cargo extends Vehicle {
 			//If this cargo exists on the database mark it as old and clean
 			if(temp.size()>0)
 			{
-				this.id = (Integer)temp.get(0).get("ShipID");					//Set this Cargo's id
+				this.id = (Integer)temp.get(temp.size()-1).get("ShipID");					//Set this Cargo's id
 				
 			}
 			MarkClean();														//Mark the Cargo as clean

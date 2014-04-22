@@ -24,7 +24,7 @@ public class Test extends BaseClass
 	{
 		
 		Cargo newC = new Cargo();
-		newC.setVehicleName("SUPERNEW");
+		newC.setVehicleName("SUPERNEW2");
 		newC.Update();
 		newC.Delete();
 		//Bike newC2 = Bike.LoadAll("where BikeID = " + newC.getId()).get(0);
