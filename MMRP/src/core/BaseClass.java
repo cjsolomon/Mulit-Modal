@@ -95,7 +95,7 @@ public abstract class BaseClass {
 	 * This function will mark this object as deleted and old so that it will be updated in the database
 	 */
 	public void MarkDeleted(){
-		if(!deleted){
+		if(deleted == null || !deleted){
 			deleted = true;
 			dirty = true;
 		}
@@ -105,7 +105,7 @@ public abstract class BaseClass {
 	 * This function will undelete an object
 	 */
 	public void MarkUndeleted(){
-		if(deleted){
+		if(deleted == null || deleted){
 			deleted = false;
 			dirty = true;
 		}
