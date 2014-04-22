@@ -7,15 +7,21 @@ import org.junit.Assert;
 
 import core.Bike;
 import core.Truck;
+import core.Truck;
 import core.Carrier;
 import core.Vehicle;
 
 public class TruckTest {
 
 	@Test
-	public void testTravelMode() {
-		Truck test_Truck = new Truck();
-		Assert.assertEquals(Vehicle.TravelModes.TRUCK.toString(), test_Truck.getTravelMode());
+	public void testDefaultConstructor() {
+		Truck test_truck = new Truck();
+		Assert.assertEquals(Vehicle.TravelModes.TRUCK.toString(), test_truck.getTravelMode());
+		Assert.assertTrue(test_truck.isNew());
+		Assert.assertFalse(test_truck.isDeleted());
+		Assert.assertFalse(test_truck.isDirty());
+		Assert.assertEquals(Vehicle.Status.Running, test_truck.getStatus());
+		Assert.assertEquals(Truck.getDefaultName(),test_truck.getVehicleName());
 		
 	}
 	

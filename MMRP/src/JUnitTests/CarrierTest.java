@@ -35,6 +35,7 @@ public class CarrierTest {
 		Assert.assertFalse(test_carrier.isSendByFax());
 		Assert.assertTrue(test_carrier.isNew());
 		Assert.assertFalse(test_carrier.isDirty());
+		Assert.assertFalse(test_carrier.isDeleted());
 	}
 
 	@Test

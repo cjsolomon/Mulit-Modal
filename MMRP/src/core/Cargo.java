@@ -10,12 +10,13 @@ package core;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
+
 import GUI.Log;
 
 public class Cargo extends Vehicle {
 	
 	//Default Variables
-	private final String DEFAULT_CARGO_NAME = "defaultCargoName";
+	private final static String DEFAULT_CARGO_NAME = "defaultCargoName";
 	
 	/**
 	 * This is the default Cargo constructor
@@ -186,5 +187,10 @@ public class Cargo extends Vehicle {
 		return c;
 		
 	}//End of the BuildFromDataRow(Map<String, Object> data)
+
+	public static String getDefaultName() {
+		// TODO Auto-generated method stub
+		return DEFAULT_CARGO_NAME;
+	}
 	
 }//End of Cargo class

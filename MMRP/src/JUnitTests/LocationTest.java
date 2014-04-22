@@ -28,6 +28,7 @@ public class LocationTest {
 		Assert.assertEquals(new Integer(0), new Integer(test_location.getVehiclesAtLocation().size()));
 		Assert.assertTrue(test_location.isNew());
 		Assert.assertFalse(test_location.isDirty());
+		Assert.assertFalse(test_location.isDeleted());
 		
 	}
 	

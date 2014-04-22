@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Assert;
 
+import core.Bike;
 import core.Cargo;
 import core.Cargo;
 import core.Carrier;
@@ -13,9 +14,14 @@ import core.Vehicle;
 public class CargoTest {
 
 	@Test
-	public void testTravelMode() {
+	public void testDefaultConstructor() {
 		Cargo test_cargo = new Cargo();
 		Assert.assertEquals(Vehicle.TravelModes.CARGO.toString(), test_cargo.getTravelMode());
+		Assert.assertTrue(test_cargo.isNew());
+		Assert.assertFalse(test_cargo.isDeleted());
+		Assert.assertFalse(test_cargo.isDirty());
+		Assert.assertEquals(Vehicle.Status.Running, test_cargo.getStatus());
+		Assert.assertEquals(Cargo.getDefaultName(),test_cargo.getVehicleName());
 		
 	}
 	

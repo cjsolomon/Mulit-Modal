@@ -16,7 +16,7 @@ import java.util.Map;
 public class Truck extends Vehicle {											
 	
 	//Default Variables
-	private final String DEFAULT_TRUCK_NAME = "defaultTruckName";
+	private final static String DEFAULT_TRUCK_NAME = "defaultTruckName";
 	
 	/**
 	 * The default Truck constructor
@@ -187,5 +187,10 @@ public class Truck extends Vehicle {
 		return t;
 			
 	}//End of BuildFromDataRow(Map<String,Object> data)
+
+	public static String getDefaultName() {
+		// TODO Auto-generated method stub
+		return DEFAULT_TRUCK_NAME;
+	}
 
 }//End of Truck Class

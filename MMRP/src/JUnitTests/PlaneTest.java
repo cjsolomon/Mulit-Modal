@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.Assert;
 
 import core.Bike;
+import core.Cargo;
 import core.Plane;
 import core.Carrier;
 import core.Vehicle;
@@ -13,9 +14,14 @@ import core.Vehicle;
 public class PlaneTest {
 
 	@Test
-	public void testTravelMode() {
-		Plane test_Plane = new Plane();
-		Assert.assertEquals(Vehicle.TravelModes.PLANE.toString(), test_Plane.getTravelMode());
+	public void testDefaultConstructor() {
+		Plane test_plane = new Plane();
+		Assert.assertEquals(Vehicle.TravelModes.PLANE.toString(), test_plane.getTravelMode());
+		Assert.assertTrue(test_plane.isNew());
+		Assert.assertFalse(test_plane.isDeleted());
+		Assert.assertFalse(test_plane.isDirty());
+		Assert.assertEquals(Vehicle.Status.Running, test_plane.getStatus());
+		Assert.assertEquals(Plane.getDefaultName(),test_plane.getVehicleName());
 		
 	}
 	

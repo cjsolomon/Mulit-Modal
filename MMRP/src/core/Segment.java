@@ -1072,4 +1072,48 @@ public class Segment extends BaseClass {
 		return this.fromID + "   " + this.toID;
 	}// End of toString()
 
+	public static int getDefaultArrivalTime() {
+		return DEFAULT_ARRIVAL_TIME;
+	}
+
+	public static int getDefaultDepartureTime() {
+		return DEFAULT_DEPARTURE_TIME;
+	}
+
+	public static double getDefaultDistance() {
+		return DEFAULT_DISTANCE;
+	}
+
+	public static int getDefaultEarliestArrivalTime() {
+		return DEFAULT_EARLIEST_ARRIVAL_TIME;
+	}
+
+	public static int getDefaultEarliestDepartureTime() {
+		return DEFAULT_EARLIEST_DEPARTURE_TIME;
+	}
+
+	public static int getDefaultStartLocationId() {
+		return DEFAULT_START_LOCATION_ID;
+	}
+
+	public static String getDefaultLanes() {
+		return DEFAULT_LANES;
+	}
+
+	public static int getDefaultLatestArrivalTime() {
+		return DEFAULT_LATEST_ARRIVAL_TIME;
+	}
+
+	public static int getDefaultLatestDepartureTime() {
+		return DEFAULT_LATEST_DEPARTURE_TIME;
+	}
+
+	public static String getDefaultMode() {
+		return DEFAULT_MODE;
+	}
+
+	public static int getDefaultEndLocationId() {
+		return DEFAULT_END_LOCATION_ID;
+	}
+
 }// End of Segment Class

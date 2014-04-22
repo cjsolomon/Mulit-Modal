@@ -18,7 +18,7 @@ import java.util.Map;
 public class Rail extends Vehicle {
 	
 	//Default Variables
-	private final String DEFAULT_RAIL_NAME = "defaultRailName";
+	private final static String DEFAULT_RAIL_NAME = "defaultRailName";
 	
 	/**
 	 * This is the default Rail constructor
@@ -186,5 +186,10 @@ public class Rail extends Vehicle {
 		return r;
 			
 	}//End of BuildFromDataRow(Map<String,Object> data)
+
+	public static String getDefaultName() {
+		// TODO Auto-generated method stub
+		return DEFAULT_RAIL_NAME;
+	}
 
 }//End of Rail class

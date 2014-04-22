@@ -14,7 +14,7 @@ import java.util.Map;
 public class Bike extends Vehicle {
 	
 	//Default Variables
-	private final String DEFAULT_BIKE_NAME = "defaultBikeName";
+	private final static String DEFAULT_BIKE_NAME = "defaultBikeName";
 
 	/**
 	 * Default Constructor for Bike Class
@@ -195,6 +195,10 @@ public class Bike extends Vehicle {
 		return b;
 
 	}//End of BuildFromDataRow(Map<String,Object> data)
+	
+	public static String getDefaultName() {
+		return DEFAULT_BIKE_NAME;
+	}
 
 
 }//End of Bike Class

@@ -18,7 +18,7 @@ import java.util.Map;
 public class Plane extends Vehicle {
 	
 	//Default Variables
-	private final String DEFAULT_PLANE_NAME = "defaultPlaneName";
+	private final static String DEFAULT_PLANE_NAME = "defaultPlaneName";
 	
 	/**
 	 * This is the plane default constructor
@@ -190,5 +190,10 @@ public class Plane extends Vehicle {
 		return p;
 		
 	}//End of BuildDataFromRow(Map<String,Object> data)
+
+	public static String getDefaultName() {
+		// TODO Auto-generated method stub
+		return DEFAULT_PLANE_NAME;
+	}
 	
 }//End of Plane Class
