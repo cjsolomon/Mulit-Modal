@@ -184,8 +184,13 @@ public class Location extends BaseClass {
 		//DO WE NEED ANY ERROR CHECKING HERE?
 		if(!travelModes.contains(mode) || mode == Vehicle.TravelModes.NONE)
 		{
-			travelModes.add(mode);
-			MarkDirty();
+			for(int i = 0; i < this.travelModes.size(); i++){
+				if(travelModes.get(i) == Vehicle.TravelModes.NONE){
+					travelModes.remove(i);
+					travelModes.add(i, mode);
+					MarkDirty();
+				}
+			}
 		}
 	}//End of addTravelMode(Vehicle.TravelModes mode)
 	
@@ -193,9 +198,11 @@ public class Location extends BaseClass {
 	 * This function removes a Travel Mode option to this Location
 	 * @param mode This is the new Travel Mode to add to this Location
 	 */	
-	public void removeTravleMode(Vehicle.TravelModes mode) {
+	public void removeTravelMode(Vehicle.TravelModes mode) {
 		if (travelModes.contains(mode)) {
-			travelModes.remove(mode);
+			while(travelModes.contains(mode)){
+				travelModes.remove(mode);
+			}
 			MarkDirty();
 		}
 	}//End of remove travel mode

@@ -124,7 +124,7 @@ public class LocationTest {
 		test_location.addTravelMode(Vehicle.TravelModes.CARGO);
 		Assert.assertTrue(test_location.getTravelModes().contains(Vehicle.TravelModes.CARGO));
 		
-		test_location.removeTravleMode(Vehicle.TravelModes.CARGO);
+		test_location.removeTravelMode(Vehicle.TravelModes.CARGO);
 		Assert.assertFalse(test_location.getTravelModes().contains(Vehicle.TravelModes.CARGO));
 	}
 	
