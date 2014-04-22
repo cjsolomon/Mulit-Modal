@@ -992,6 +992,7 @@ public class Shipment extends BaseClass {
 		try
 		{
 			executeCommand("Update Shipment Set Deleted = true Where ShipmentID = " + this.id  + " AND Deleted = false");	
+			this.MarkDeleted();
 			return true;
 		}//End of the try block
 		catch(Exception ex)

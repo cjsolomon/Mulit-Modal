@@ -766,7 +766,7 @@ public class Carrier extends BaseClass
 			executeCommand("Update Plane Set Deleted = true Where Carrier = "+ this.id);
 			executeCommand("Update Rail Set Deleted = true Where Carrier = "+ this.id);
 			executeCommand("Update Truck Set Deleted = true Where Carrier = "+ this.id);
-			
+			this.MarkDeleted();
 			return true;
 		}//End of the try block
 		catch(Exception ex)

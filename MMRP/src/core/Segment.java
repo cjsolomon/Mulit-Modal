@@ -1052,6 +1052,7 @@ public class Segment extends BaseClass {
 	public boolean Delete() {
 		try {
 			executeCommand("Update Segment Set Deleted = true Where SegmentID = " + this.id);
+			this.MarkDeleted();
 			return true;
 		}// End of try block
 		catch (Exception ex) {

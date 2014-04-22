@@ -103,6 +103,7 @@ public class Rail extends Vehicle {
 		try
 		{
 			executeCommand("Update Rail Set Deleted = true Where RailID = " + this.id);			//Delete the Rail
+			this.MarkDeleted();
 			return true;
 		}//End of try block
 		catch(Exception ex)

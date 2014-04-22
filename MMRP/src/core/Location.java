@@ -328,6 +328,7 @@ public class Location extends BaseClass {
 		try
 		{
 			executeCommand("Update Location Set Deleted = true where locationID = " + id);
+			this.MarkDeleted();
 			return true;
 		}
 		catch(Exception ex)

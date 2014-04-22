@@ -115,6 +115,7 @@ public class Bike extends Vehicle {
 				segments.add(Segment.Load((Integer)temp.get(i).get("SegmentID")));
 				segments.get(i).Delete();
 			}
+			this.MarkDeleted();
 			return true;
 		}//End of try block
 		catch(Exception ex)

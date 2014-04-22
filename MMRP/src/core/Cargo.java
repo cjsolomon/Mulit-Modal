@@ -100,6 +100,7 @@ public class Cargo extends Vehicle {
 		try
 		{
 			executeCommand("Update CargoShip Set Deleted = true where ShipID = " + id);			//Delete this Cargo from the database
+			this.MarkDeleted();
 			return true;
 		}//End of try block
 		catch(Exception ex)

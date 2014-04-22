@@ -103,6 +103,7 @@ public class Plane extends Vehicle {
 		try
 		{
 			executeCommand("Update Plane Set Deleted = true Where PlaneID = " + this.id);					//Delete the plane
+			this.MarkDeleted();
 			return true;
 		}//End of the try block
 		catch(Exception ex)
