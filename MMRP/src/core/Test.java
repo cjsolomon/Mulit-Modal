@@ -23,12 +23,12 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws IOException
 	{
 		
-		Shipment newC = new Shipment();
-		newC.setHazmat("SuperTestMAX");
+		Cargo newC = new Cargo();
+		newC.setVehicleName("SUPERNEW");
 		newC.Update();
 		newC.Delete();
-		Shipment newC2 = Shipment.Load(newC.getId());
-		if(newC2 == null)
+		//Bike newC2 = Bike.LoadAll("where BikeID = " + newC.getId()).get(0);
+		if(Cargo.LoadAll("where ShipID = " + newC.getId()).size() == 0)
 			System.out.println("Successful Delete and Load");
 		else
 			System.out.println("Failure Delete or Load");
