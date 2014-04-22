@@ -212,10 +212,10 @@ public class CarrierTest {
 		if (!cList.isEmpty()) {
 			Assert.assertEquals(test_carrier.getAreaCode(), cList.get(0).getAreaCode());
 			Assert.assertEquals(test_carrier.getAuthorize(), cList.get(0).getAuthorize());
-			//Assert.assertEquals(test_carrier.getCarrierCode(),cList.get(0).getCarrierCode());
-			System.out.println("Original Carrier Code is: " + test_carrier.getCarrierCode() + " but is returned from database as: " +cList.get(0).getCarrierCode());
-			//Assert.assertEquals(test_carrier.getCarrierName(), cList.get(0).getCarrierName());
-			System.out.println("Original Carrier Name is: " + test_carrier.getCarrierName() + " but is returned from database as: " +cList.get(0).getCarrierName());
+			Assert.assertEquals(test_carrier.getCarrierCode(),cList.get(0).getCarrierCode());
+			//System.out.println("Original Carrier Code is: " + test_carrier.getCarrierCode() + " but is returned from database as: " +cList.get(0).getCarrierCode());
+			Assert.assertEquals(test_carrier.getCarrierName(), cList.get(0).getCarrierName());
+			//System.out.println("Original Carrier Name is: " + test_carrier.getCarrierName() + " but is returned from database as: " +cList.get(0).getCarrierName());
 			Assert.assertEquals(test_carrier.getContractDate(), cList.get(0).getContractDate());
 			Assert.assertEquals(test_carrier.getCostModifierBike(), cList.get(0).getCostModifierBike());
 			Assert.assertEquals(test_carrier.getCostModifierCargoShip(), cList.get(0).getCostModifierCargoShip());

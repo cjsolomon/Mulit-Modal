@@ -17,12 +17,13 @@ public class LocationTest {
 	@Test
 	public void testDefaultConstructor() {
 		Location test_location = new Location();
+		Integer num_travel_modes = new Integer(6);			//By default a new location has 6 null travel modes added
 		Assert.assertEquals(Location.getDEFAULT_COUNTRY(), test_location.getCountry());
 		Assert.assertEquals(new Double(Location.getDEFAULT_LATITUDE()), new Double(test_location.getLatitude()));
 		Assert.assertEquals(new Double(Location.getDEFAULT_LONGITUDE()), new Double(test_location.getLongitude()));
 		Assert.assertEquals(Location.getDEFAULT_LOCATION_NAME(), test_location.getName());
 		Assert.assertEquals(Location.getDEFAULT_STATE(), test_location.getState());
-		Assert.assertEquals(new Integer(0), new Integer(test_location.getTravelModes().size()));
+		Assert.assertEquals(new Integer(num_travel_modes), new Integer(test_location.getTravelModes().size()));
 		Assert.assertEquals(new Integer(0), new Integer(test_location.getVehiclesAtLocation().size()));
 		Assert.assertTrue(test_location.isNew());
 		Assert.assertFalse(test_location.isDirty());
@@ -115,15 +116,13 @@ public class LocationTest {
 	}
 	
 	@Test
-	public void testTravelModes() {
+	public void testAddRemoveTravelModes() {
 		Location test_location = new Location();
-		Assert.assertTrue(test_location.getTravelModes().isEmpty());
+		Integer num_travel_modes = new Integer(6);			//By default a new location has 6 null travel modes added
+		Assert.assertEquals(num_travel_modes,new Integer(test_location.getTravelModes().size()));
 		
 		test_location.addTravelMode(Vehicle.TravelModes.CARGO);
 		Assert.assertTrue(test_location.getTravelModes().contains(Vehicle.TravelModes.CARGO));
-		
-		test_location.addTravelMode(Vehicle.TravelModes.CARGO);
-		Assert.assertEquals(new Integer(1), new Integer(test_location.getTravelModes().size()));
 		
 		test_location.removeTravleMode(Vehicle.TravelModes.CARGO);
 		Assert.assertFalse(test_location.getTravelModes().contains(Vehicle.TravelModes.CARGO));
@@ -133,17 +132,17 @@ public class LocationTest {
 	public void testLoad() {
 		Location test_location = new Location();
 		String test_string = new String("Load Test String For The Homies");
-		for (int i = 0; i < 6; i++) {
-			test_location.addTravelMode(Vehicle.TravelModes.NONE);
-		}
+		test_location.addTravelMode(Vehicle.TravelModes.RAIL);
+		
 		
 		test_location.setName(test_string);
 		test_location.Update();
-		
+		System.out.println(test_location.getID());
 		//System.out.println("The id of the Location is " + test_location.getID());
-		//Location test_location2 = Location.Load(test_location.getID());
+		Location test_location2 = Location.Load(test_location.getID());
 		//Assert.assertEquals(test_location.getCountry(), test_location2.getCountry());
 		//Assert.assertEquals(test_location.getName(), test_location2.getName());
+		//test_location.Delete();
 		
 	}
 	

@@ -82,4 +82,54 @@ public class FormatCheckerTest {
 		Assert.assertFalse(flag);
 	}
 	
+	@Test
+	public void testIsValidDate() {
+		String good_date1[] = {"02/4/1999","02/04/1999","2/4/1999","2/04/1999"};
+		String good_date2[] = {"JUN 6 1983", "JUN 06 1983"};
+		String bad_date[] = {"123 h 1983","MA 6 1943","AB/12/3456","I am THE hero"};
+		
+		boolean flag;
+		for(String check:good_date1) {
+			flag = FormatChecker.isValidDate(check);
+			if (!flag) {
+				System.out.println("The following date is returning as invalid " + check);
+			}
+			Assert.assertTrue(flag);
+		}
+		for(String check:good_date2) {
+			flag = FormatChecker.isValidDate(check);
+			if (!flag) {
+				System.out.println("The following date is returning as invalid " + check);
+			}
+			Assert.assertTrue(flag);
+		}
+		for(String check:bad_date) {
+			flag = FormatChecker.isValidDate(check);
+			if (flag) {
+				System.out.println("The following date is returning as valid " + check);
+			}
+			Assert.assertFalse(flag);
+		}
+	}
+	
+	@Test
+	public void testIsNumeric() {
+		String good_numerics[] = {"23","0.076","-123","55"};
+		String bad_numerics[] = {"happy", "a"," ","Hello Nurse","Sacrifice"};
+		
+		boolean flag;
+		for (String check : good_numerics) {
+			flag = FormatChecker.isNumeric(check);
+			if (!flag) 
+				System.out.println("The string " + check + " is returning non-numeric");
+			Assert.assertTrue(flag);
+		}
+		for (String check : bad_numerics) {
+			flag = FormatChecker.isNumeric(check);
+			if (flag)
+				System.out.println("The string " + check + " is returning as a numeric");
+			Assert.assertFalse(flag);
+		}
+	}
+	
 }

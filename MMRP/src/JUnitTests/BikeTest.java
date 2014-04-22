@@ -40,11 +40,11 @@ public class BikeTest {
 	@Test
 	public void testIsDirty() {
 		Bike test_Bike = new Bike();
-		Assert.assertEquals(false, test_Bike.isDirty());
+		Assert.assertEquals(new String("New Bikes aren't dirty"),false, test_Bike.isDirty());
 		test_Bike.setStatus(Vehicle.Status.Delayed);
 		Assert.assertEquals(true, test_Bike.isDirty());
 		test_Bike.Update();
-		Assert.assertEquals(false, test_Bike.isDirty());
+		Assert.assertEquals(new String("Updated bikes aren't dirty"),false, test_Bike.isDirty());
 		test_Bike.Delete();		
 	}
 	
@@ -58,6 +58,7 @@ public class BikeTest {
 		ArrayList<Bike> bList = Bike.LoadAll(new String("where BikeName = 'InsertLoadTest'"));
 		if (!bList.isEmpty()) {
 			Assert.assertEquals(test_Bike.getVehicleName().toString().trim(), bList.get(0).getVehicleName().toString().trim());
+
 			Assert.assertEquals(test_Bike.getId(),bList.get(0).getId());
 			Assert.assertEquals(test_Bike.getCarrier().getCarrierName().trim(),bList.get(0).getCarrier().getCarrierName().trim());
 			Assert.assertEquals(test_Bike.getStatus().toString().trim(), bList.get(0).getStatus().toString().trim());
