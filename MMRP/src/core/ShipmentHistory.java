@@ -233,6 +233,7 @@ public class ShipmentHistory extends BaseClass {
 		try
 		{
 			executeCommand("Update ShipmentHistory Set Deleted = true where ShipmentHistoryID = '"+this.id+"'");
+			this.MarkDeleted();
 			return true;
 		}
 		catch(Exception ex)

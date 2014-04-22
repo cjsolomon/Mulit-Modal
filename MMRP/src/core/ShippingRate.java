@@ -373,6 +373,7 @@ public class ShippingRate extends BaseClass{
 			try
 			{
 				executeCommand("Update ShippingRates Set Deleted = true Where ShippingRateID = " + this.id);			//Delete the ShippingRate
+				this.MarkDeleted();
 				return true;
 			}//End of try block
 			catch(Exception ex)

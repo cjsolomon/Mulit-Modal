@@ -359,6 +359,7 @@ public class Shipper extends BaseClass {
 		try
 		{
 			executeCommand("Update Shipper Set Deleted = true where ShipperID = '" + this.id+"'");
+			this.MarkDeleted();
 			return true;
 		}
 		catch(Exception ex)

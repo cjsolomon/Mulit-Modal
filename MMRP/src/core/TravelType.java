@@ -466,6 +466,7 @@ public class TravelType extends BaseClass {
 		try
 		{
 			executeCommand("Update TravelTypes Set Deleted = true Where VehicleTypeID = " + this.vehicleTypeID);							//Delete this Truck
+			this.MarkDeleted();
 			return true;
 		}//End of try block
 		catch(Exception ex)
