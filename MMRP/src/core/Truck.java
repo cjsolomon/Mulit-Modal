@@ -122,7 +122,7 @@ public class Truck extends Vehicle {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Truck where TruckId = " + id);
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Truck where TruckId = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 			{
 				Truck t = BuildFromDataRow(temp.get(0));
@@ -148,7 +148,7 @@ public class Truck extends Vehicle {
 		ArrayList<Truck> returnList = new ArrayList<Truck>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Truck " +where );
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Truck " +where   + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Truck t = BuildFromDataRow(temp.get(i));
