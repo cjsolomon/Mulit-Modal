@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import core.Bike;
 import core.Cargo;
+import core.Carrier;
 import core.Location;
 import core.Plane;
 import core.Rail;
@@ -137,17 +138,55 @@ public class LocationTest {
 		
 		test_location.setName(test_string);
 		test_location.Update();
-		System.out.println(test_location.getID());
-		//System.out.println("The id of the Location is " + test_location.getID());
 		Location test_location2 = Location.Load(test_location.getID());
-		//Assert.assertEquals(test_location.getCountry(), test_location2.getCountry());
-		//Assert.assertEquals(test_location.getName(), test_location2.getName());
-		//test_location.Delete();
+		Assert.assertEquals(new Integer(test_location.getID()), new Integer(test_location2.getID()));
+		Assert.assertEquals(test_location.getCountry(), test_location2.getCountry());
+		Assert.assertEquals(test_location.getName(), test_location2.getName());
+		Assert.assertEquals(new Double(test_location.getLatitude()), new Double(test_location2.getLatitude()));
+		Assert.assertEquals(new Double(test_location.getLongitude()), new Double(test_location2.getLongitude()));
+		Assert.assertEquals(test_location.getTravelModes(), test_location2.getTravelModes());
+		Assert.assertEquals(test_location.getVehiclesAtLocation(), test_location2.getVehiclesAtLocation());
+		Assert.assertEquals(test_location.getState(), test_location2.getState());
+		test_location.Delete();
 		
 	}
 	
 	@Test
 	public void testUpdateLoad() {
+		Location test_location = new Location();
+		test_location.setName("InsertLoadTest");
+		
+		test_location.Update();
+		ArrayList<Location> lList = Location.LoadAll(new String("where Name = 'InsertLoadTest'"));
+		if (!lList.isEmpty()) {
+			Location test_location2 = lList.get(0);
+			Assert.assertEquals(new Integer(test_location.getID()), new Integer(test_location2.getID()));
+			Assert.assertEquals(test_location.getCountry(), test_location2.getCountry());
+			Assert.assertEquals(test_location.getName(), test_location2.getName());
+			Assert.assertEquals(new Double(test_location.getLatitude()), new Double(test_location2.getLatitude()));
+			Assert.assertEquals(new Double(test_location.getLongitude()), new Double(test_location2.getLongitude()));
+			Assert.assertEquals(test_location.getTravelModes(), test_location2.getTravelModes());
+			Assert.assertEquals(test_location.getVehiclesAtLocation(), test_location2.getVehiclesAtLocation());
+			Assert.assertEquals(test_location.getState(), test_location2.getState());
+			for (Location delete : lList)
+				delete.Delete();
+		}
+		else {
+			Assert.assertEquals(false, true);
+		}
 		
 	}
+	
+	@Test
+	public void testDelete() {
+		Location test_location = new Location();
+		test_location.setName("deleteTest");
+		test_location.Update();
+		test_location.Delete();
+		ArrayList<Location> lList = Location.LoadAll(new String("where Name = 'deleteTest'"));
+		Assert.assertTrue(lList.isEmpty());
+		for (Location delete : lList)
+			delete.Delete();	
+	}
+	
 }
