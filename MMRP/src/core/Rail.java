@@ -103,6 +103,8 @@ public class Rail extends Vehicle {
 		try
 		{
 			executeCommand("Update Rail Set Deleted = true Where RailID = " + this.id);			//Delete the Rail
+			//Now we need mark all the segments that use this rail as deleted
+			executeQuery("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
 			this.MarkDeleted();
 			return true;
 		}//End of try block

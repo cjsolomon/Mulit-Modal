@@ -102,6 +102,8 @@ public class Truck extends Vehicle {
 		try
 		{
 			executeCommand("Update Truck Set Deleted = true Where TruckID = " + this.id);							//Delete this Truck
+			//Now we need mark all the segments that use this truck as deleted
+			executeQuery("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
 			this.MarkDeleted();
 			return true;
 		}//End of try block

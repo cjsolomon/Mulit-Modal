@@ -328,6 +328,9 @@ public class Location extends BaseClass {
 		try
 		{
 			executeCommand("Update Location Set Deleted = true where locationID = " + id);
+			//Now we need mark all the segments that use this bike as deleted
+			executeQuery("Update Segment set Deleted = true Where ToLocationID = " + this.id + " OR FromLocationID = '" +this.getID() + "'");
+	
 			this.MarkDeleted();
 			return true;
 		}
