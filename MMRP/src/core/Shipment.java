@@ -127,9 +127,7 @@ public class Shipment extends BaseClass {
 		this.unloadingType = DEFAULT_UNLOADING_TYPE;
 		this.weight = DEFAULT_WEIGHT;
 		this.currentLocation = DEFAULT_START_LOCATION_ID;
-		this.MarkNew();
 		this.MarkClean();
-		this.MarkUndeleted();
 	}//End of the Shipment(int id) constructor
 	
 	/**
@@ -862,12 +860,12 @@ public class Shipment extends BaseClass {
 			s.setTimeToUnload((Integer)data.get("unloadingTime"));
 		if((Integer)data.get("shipper")!=null)
 			s.setShipperID((Integer)data.get("shipper"));
-		if((Boolean)data.get("takeTollRoads")){
+		if(Boolean.getBoolean(data.get("takeTollRoads").toString())){
 			s.setTollRoadsTrue();
 		}else{
 			s.setTollRoadsFalse();
 		}
-		if((Boolean)data.get("localCongestionByPass")){
+		if(Boolean.getBoolean(data.get("localCongestionByPass").toString())){
 			s.setCongestionByPassTrue();
 		}else{
 			s.setCongestionByPassFalse();
@@ -879,7 +877,7 @@ public class Shipment extends BaseClass {
 		s.setPrefCarrier((String)data.get("prefCarriers"));
 		if((Integer)data.get("maxStops")!=null)
 			s.setMaxStops((Integer)data.get("maxStops"));
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			s.MarkDeleted();
 		else
 			s.MarkUndeleted();

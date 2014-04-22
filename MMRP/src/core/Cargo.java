@@ -42,9 +42,7 @@ public class Cargo extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Cargo's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Cargo's status to RUNNING
 		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
-		this.MarkOld();													//Mark the Cargo as new
 		this.MarkClean();												//Mark the Cargo as clean	
-		this.MarkUndeleted();											//Mark the Cargo as not deleted
 	}//End of arguemented Cargo constructor
 	
 	/**
@@ -176,7 +174,7 @@ public class Cargo extends Vehicle {
 		c.setVehicleName((String)data.get("ShipName"));
 		c.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		c.setStatus((String)data.get("Status"));
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			c.MarkDeleted();
 		else
 			c.MarkUndeleted();

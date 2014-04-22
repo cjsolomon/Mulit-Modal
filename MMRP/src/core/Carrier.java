@@ -108,9 +108,7 @@ public class Carrier extends BaseClass
 		this.safetyRating = DEFAULT_SAFETY_RATING;
 		this.sendByEmail = false;
 		this.sendByFax = false;
-		this.MarkNew();
 		this.MarkClean();
-		this.MarkUndeleted();
 	}//End of argumented Carrier constructor
 	
 	/**
@@ -862,7 +860,7 @@ public class Carrier extends BaseClass
 		}
 		if((Boolean)data.get("SendByFax") != null)
 		{
-			if((Boolean)data.get("SendByFax")){	
+			if(Boolean.getBoolean(data.get("SendByFax").toString())){	
 				c.setSendByFaxTrue();
 			}else
 			{
@@ -871,7 +869,7 @@ public class Carrier extends BaseClass
 		}
 		if((Boolean)data.get("SendByEmail") != null)
 		{
-			if((Boolean)data.get("SendByEmail")){
+			if(Boolean.getBoolean(data.get("SendByEmail").toString())){
 				c.setSendByEmailTrue();
 			}else{
 				c.setSendByEmailFalse();
@@ -910,7 +908,7 @@ public class Carrier extends BaseClass
 			c.setInsEndDate((String)data.get("InsEndDate"));
 		}
 		
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			c.MarkDeleted();
 		else
 			c.MarkUndeleted();

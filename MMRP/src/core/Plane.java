@@ -45,9 +45,7 @@ public class Plane extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Plane Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Plane status to RUNNING
 		this.name = DEFAULT_PLANE_NAME;									//Set the Plane name					
-		this.MarkOld();													//Mark the Plane as new
 		this.MarkClean();												//Mark the Plane as clean
-		this.MarkUndeleted();											//Mark the Plane as not deleted
 	}//End of the Plane(int id) constructor
 	
 	/**
@@ -180,7 +178,7 @@ public class Plane extends Vehicle {
 		p.setVehicleName((String)data.get("PlaneName"));
 		p.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		p.setStatus((String)data.get("Status"));	
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			p.MarkDeleted();
 		else
 			p.MarkUndeleted();

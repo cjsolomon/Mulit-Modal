@@ -44,9 +44,7 @@ public class Bike extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Bike's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Bike's status to RUNNING
 		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
-		this.MarkOld();													//Mark the Bike as new
 		this.MarkClean();												//Mark the Bike as clean
-		this.MarkUndeleted();											//Mark the Bike as not deleted
 
 	}//End of Bike(int id)
 
@@ -184,7 +182,7 @@ public class Bike extends Vehicle {
 		b.setVehicleName((String)data.get("BikeName"));
 		b.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		b.setStatus((String)data.get("Status"));
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			b.MarkDeleted();
 		else
 			b.MarkUndeleted();

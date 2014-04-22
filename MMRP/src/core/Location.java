@@ -50,9 +50,7 @@ public class Location extends BaseClass {
 		this.state = DEFAULT_STATE;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
 		vehiclesAtLocation=new ArrayList<Vehicle>();
-		MarkNew();
 		MarkClean();
-		MarkUndeleted();
 	}//End of Location(int id)
 	
 	/**
@@ -401,7 +399,7 @@ public class Location extends BaseClass {
 			}
 		}
 		
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			temp.MarkDeleted();
 		else
 			temp.MarkUndeleted();

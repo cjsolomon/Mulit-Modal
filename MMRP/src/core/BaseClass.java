@@ -88,7 +88,7 @@ public abstract class BaseClass {
 	 */
 	public void MarkOld()
 	{
-			newObject=false;
+		newObject=false;
 	}//End of MarkOld
 	
 	/**

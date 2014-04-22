@@ -96,9 +96,7 @@ public class Segment extends BaseClass {
 		this.travelType = new TravelType();
 		this.vehicle = new Truck();
 		this.onBoard = new ArrayList<Shipment>();
-		MarkNew(); // Mark this Segment as new
 		MarkClean();
-		MarkUndeleted();
 	}// End of the arguemented Segment constructor
 
 	/**
@@ -686,7 +684,7 @@ public class Segment extends BaseClass {
 		s.setLatestArrivalTime((Integer) data.get("LatestArrivalTime"));
 		s.setLatestDepartureTime((Integer) data.get("LatestDepartureTime"));
 		s.setLane((String) data.get("Lane"));
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			s.MarkDeleted();
 		else
 			s.MarkUndeleted();

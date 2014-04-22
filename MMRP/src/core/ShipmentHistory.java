@@ -40,8 +40,6 @@ public class ShipmentHistory extends BaseClass {
 		this.segmentID = DEFAULT_SEGMENT_ID;
 		this.shipmentID = DEFAULT_SHIPMENT_ID;
 		MarkClean();
-		MarkNew();
-		MarkUndeleted();
 	}//End of ShipmentHistory(int id)
 	
 	/**
@@ -167,7 +165,7 @@ public class ShipmentHistory extends BaseClass {
 		sh.setSegmentID(Integer.parseInt(data.get("SegmentID").toString()));
 		sh.setShipmentID((Integer)data.get("ShipmentID"));
 		sh.setNodeNumber((Integer)data.get("NodeNumber"));
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			sh.MarkDeleted();
 		else
 			sh.MarkUndeleted();

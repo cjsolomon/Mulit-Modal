@@ -53,8 +53,6 @@ public class Shipper extends BaseClass {
 		this.phone = DEFAULT_PHONE_NUMBER;
 		this.prefCarriers = DEFAULT_PREFERRED_CARRIERS;
 		MarkClean();
-		MarkNew();
-		MarkUndeleted();
 	}//End of Shipper(int id)
 	
 	//Setters & getters
@@ -277,7 +275,7 @@ public class Shipper extends BaseClass {
 		s.setContactName((String)data.get("ContactName"));
 		s.setPhoneNumber((String)data.get("phone"));
 		s.setEmailAddress((String)data.get("email"));
-		if((Boolean)data.get("Deleted"))
+		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			s.MarkDeleted();
 		else
 			s.MarkUndeleted();

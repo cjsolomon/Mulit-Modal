@@ -80,9 +80,7 @@ public class TravelType extends BaseClass {
 		this.vehicleMode = DEFAULT_VEHICLE_MODE;
 		this.vehicleTypeName = DEFAULT_VEHICLE_TYPE_NAME;
 		this.vehicleTypeID = DEFAULT_VEHICLE_TYPE_ID;
-		MarkClean();
-		MarkNew();																//Mark the Truck as new
-		MarkUndeleted();
+		MarkClean();									
 	}//End of the argumented TravelType constructor
 	
 	/**
@@ -573,7 +571,7 @@ public class TravelType extends BaseClass {
 			}
 			else
 				t.setTrackingFalse();
-			if((Boolean)data.get("Deleted"))
+			if(Boolean.getBoolean(data.get("Deleted").toString()))
 				t.MarkDeleted();
 			else
 				t.MarkUndeleted();

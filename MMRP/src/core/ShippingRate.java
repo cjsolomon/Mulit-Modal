@@ -74,10 +74,8 @@ public class ShippingRate extends BaseClass{
 			this.type = new TravelType();
 			this.weight1 = DEFAULT_WEIGHT1;
 			this.weight2 = DEFAULT_WEIGHT2;
-			this.weight3 = DEFAULT_WEIGHT3;
-			MarkNew();													//Mark this ShippingRate as new
-			MarkClean();
-			MarkUndeleted();												
+			this.weight3 = DEFAULT_WEIGHT3;												//Mark this ShippingRate as new
+			MarkClean();												
 		}//End of the argumented constructor ShippingRate(int id)
 		
 		/**
@@ -454,7 +452,7 @@ public class ShippingRate extends BaseClass{
 				sr.setMileRate((Double)data.get("MileRate"));
 				sr.setFlatRate((Double)data.get("FlatRate"));
 				sr.setRank((Integer)data.get("Rank"));
-				if((Boolean)data.get("Deleted"))
+				if(Boolean.getBoolean(data.get("Deleted").toString()))
 					sr.MarkDeleted();
 				else
 					sr.MarkUndeleted();
