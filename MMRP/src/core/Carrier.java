@@ -780,7 +780,7 @@ public class Carrier extends BaseClass
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers where CarrierID = " + id);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers where CarrierID = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 			{
 				Carrier c = BuildFromDataRow(temp.get(0));
@@ -806,7 +806,7 @@ public class Carrier extends BaseClass
 		ArrayList<Carrier> returnList = new ArrayList<Carrier>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers " +  where);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers " +  where  + " AND Deleted = false");
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Carrier c = BuildFromDataRow(temp.get(i));

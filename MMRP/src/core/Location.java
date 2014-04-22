@@ -328,7 +328,7 @@ public class Location extends BaseClass {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Location where LocationId = " + id);
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Location where LocationId = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 				return BuildFromDataRow(temp.get(0));
 			return null;
@@ -351,7 +351,7 @@ public class Location extends BaseClass {
 		ArrayList<Location> temp = new ArrayList<Location>();
 		try
 		{
-			ArrayList<Map<String,Object>> data = executeQuery("Select * from Location " + where);
+			ArrayList<Map<String,Object>> data = executeQuery("Select * from Location " + where  + " AND Deleted = false");
 			for(int i = 0 ;i< data.size();i++)
 				temp.add(BuildFromDataRow(data.get(i)));
 		}

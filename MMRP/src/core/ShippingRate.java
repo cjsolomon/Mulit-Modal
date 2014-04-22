@@ -388,7 +388,7 @@ public class ShippingRate extends BaseClass{
 		{
 			try
 			{
-				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRates where ShippingRateID = " + id);
+				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRates where ShippingRateID = " + id  + " AND Deleted = false");
 				if(temp.size()>0)
 				{
 					ShippingRate sr = BuildFromDataRow(temp.get(0));
@@ -414,7 +414,7 @@ public class ShippingRate extends BaseClass{
 			ArrayList<ShippingRate> returnList = new ArrayList<ShippingRate>();
 			try 
 			{
-				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRates " +  where);
+				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRates " +  where  + " AND Deleted = false");
 				for(int i = 0; i<temp.size();i++)
 				{
 					ShippingRate sr = BuildFromDataRow(temp.get(i));

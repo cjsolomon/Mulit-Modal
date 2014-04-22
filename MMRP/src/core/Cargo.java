@@ -120,7 +120,7 @@ public class Cargo extends Vehicle {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from CargoShip where ShipID = " + id);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from CargoShip where ShipID = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 			{
 				Cargo c = BuildFromDataRow(temp.get(0));
@@ -146,7 +146,7 @@ public class Cargo extends Vehicle {
 		ArrayList<Cargo> returnList = new ArrayList<Cargo>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from CargoShip " +  where);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from CargoShip " +  where  + " AND Deleted = false");
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Cargo c = BuildFromDataRow(temp.get(i));

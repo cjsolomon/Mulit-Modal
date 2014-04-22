@@ -223,7 +223,7 @@ public class Shipper extends BaseClass {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * From Shipper where ShipperID = '" + id+"'");
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * From Shipper where ShipperID = '" + id+"'"  + " AND Deleted = false");
 			if(temp.size()>0)
 				return BuildFromDataRow(temp.get(0));
 			return null;
@@ -245,7 +245,7 @@ public class Shipper extends BaseClass {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Shipper "+where);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Shipper "+where  + " AND Deleted = false");
 			ArrayList<Shipper> returnList=new ArrayList<Shipper>();
 			for(int i = 0;i<temp.size();i++ )
 			{

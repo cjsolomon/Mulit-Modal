@@ -123,7 +123,7 @@ public class Rail extends Vehicle {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Rail where RailID = " + id);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Rail where RailID = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 			{
 				Rail r = BuildFromDataRow(temp.get(0));
@@ -149,7 +149,7 @@ public class Rail extends Vehicle {
 		ArrayList<Rail> returnList = new ArrayList<Rail>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Rail " +  where);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Rail " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Rail r = BuildFromDataRow(temp.get(i));

@@ -486,7 +486,7 @@ public class TravelType extends BaseClass {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from TravelTypes where VehicleTypeID = " + id);
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from TravelTypes where VehicleTypeID = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 			{
 				TravelType t = BuildFromDataRow(temp.get(0));
@@ -512,7 +512,7 @@ public class TravelType extends BaseClass {
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from TravelType " +where );
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from TravelType " +where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));

@@ -139,7 +139,7 @@ public class ShipmentHistory extends BaseClass {
 		ArrayList<ShipmentHistory> returnList = new ArrayList<ShipmentHistory>();
 		try
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShipmentHistory where ShipmentID = " + id + " order by NodeNumber");
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShipmentHistory where ShipmentID = " + id  + " AND Deleted = false" + " order by NodeNumber");
 			for(int i = 0;i<temp.size();i++)
 			{
 				returnList.add(BuildFromDataRow(temp.get(i)));

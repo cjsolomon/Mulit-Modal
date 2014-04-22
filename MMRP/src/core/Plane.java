@@ -123,7 +123,7 @@ public class Plane extends Vehicle {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp= executeQuery("Select * from Plane where PlaneID = " + id);
+			ArrayList<Map<String,Object>> temp= executeQuery("Select * from Plane where PlaneID = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 			{
 				
@@ -150,7 +150,7 @@ public class Plane extends Vehicle {
 		ArrayList<Plane> returnList = new ArrayList<Plane>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Plane " +  where);
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Plane " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Plane p = BuildFromDataRow(temp.get(i));

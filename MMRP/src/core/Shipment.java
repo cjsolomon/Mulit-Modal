@@ -763,7 +763,7 @@ public class Shipment extends BaseClass {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment where ShipmentID = " + id);
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment where ShipmentID = " + id  + " AND Deleted = false");
 			if(temp.size()>0)
 			{
 				Shipment s = BuildFromDataRow(temp.get(0));
@@ -791,7 +791,7 @@ public class Shipment extends BaseClass {
 		try 
 		{
 			
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment " +  where);
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Shipment s =BuildFromDataRow(temp.get(i));
@@ -817,7 +817,7 @@ public class Shipment extends BaseClass {
 		ArrayList<Shipment> returnList = new ArrayList<Shipment>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment where shipmentID in ( Select shipmentID from shipmentHistory where segmentID = " +  segID+")");
+			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment where shipmentID in ( Select shipmentID from shipmentHistory where segmentID = " +  segID + " AND Deleted = false" +" )");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Shipment s =BuildFromDataRow(temp.get(i));
@@ -987,7 +987,7 @@ public class Shipment extends BaseClass {
 	boolean Delete() {
 		try
 		{
-			executeCommand("Update Shipment Set Deleted = true Where ShipmentID = " + this.id);	
+			executeCommand("Update Shipment Set Deleted = true Where ShipmentID = " + this.id  + " AND Deleted = false");	
 			return true;
 		}//End of the try block
 		catch(Exception ex)
