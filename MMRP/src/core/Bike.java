@@ -108,6 +108,13 @@ public class Bike extends Vehicle {
 		try
 		{
 			executeCommand("Update Bike Set Deleted = true Where BikeID = " + this.id);		//Delete this Bike from the database
+			//Now we need mark all the segments that use this bike as deleted
+			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Segment where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
+			ArrayList<Segment> segments = new ArrayList<Segment>();
+			for(int i = 0; i < temp.size(); i++){
+				segments.add(Segment.Load((Integer)temp.get(i).get("SegmentID")));
+				segments.get(i).Delete();
+			}
 			return true;
 		}//End of try block
 		catch(Exception ex)
