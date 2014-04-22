@@ -23,10 +23,15 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws IOException
 	{
 		
-		TravelType newC = new TravelType();
+		Shipment newC = new Shipment();
+		newC.setHazmat("SuperTestMAX");
 		newC.Update();
-		newC.setMaxWeight(1);
-		newC.Update();
+		newC.Delete();
+		Shipment newC2 = Shipment.Load(newC.getId());
+		if(newC2 == null)
+			System.out.println("Successful Delete and Load");
+		else
+			System.out.println("Failure Delete or Load");
 		/*ArrayList<Shipment> shipments = Shipment.LoadAll("");
 		for(int i = 0; i< shipments.size(); i++)	
 		{

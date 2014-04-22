@@ -314,13 +314,18 @@ public class ShippingRate extends BaseClass{
 							+ this.getWeight3() +"','"+ this.getRate3() +"','"+ this.getMileRate() +"','"
 							+ this.getFlatRate() +"','"+ this.getRank() +"')");
 					//Grab this ShippingRate from the database
-					ArrayList<Map<String,Object>> temp =executeQuery("Select ShippingRateID from shippingrates where CarrierID = '" + 
-					this.getCarrier().getId() + "' AND StartLocation = '"+this.getStartLocation().getID() +
-					"' AND EndLocation = '"+this.getEndLocation().getID() + "' AND TravelType = '"+this.getType().getVehicleTypeID() +
-					"' AND Weight1 = '"+this.getWeight1() + "' AND Rate1 = '"+this.getRate1() +
-					"' AND Weight2 = '"+this.getWeight2() + "' AND Rate2 = '"+this.getRate2() +
-					"' AND Weight3 = '"+this.getWeight3() + "' AND Rate2 = '"+this.getRate3() +
-					"' AND MileRate = '"+this.getMileRate() + "' AND FlatRate = '"+this.getFlatRate() +
+					ArrayList<Map<String,Object>> temp =executeQuery("Select * from shippingrates where CarrierID = '" + this.getCarrier().getId() + 
+					"' AND StartLocation = '"+this.getStartLocation().getID() +
+					"' AND EndLocation = '"+this.getEndLocation().getID() + 
+					"' AND TravelType = '"+this.getType().getVehicleTypeID() +
+					"' AND Weight1 = '"+this.getWeight1() + 
+					"' AND Rate1 = '"+this.getRate1() +
+					"' AND Weight2 = '"+this.getWeight2() + 
+					"' AND Rate2 = '"+this.getRate2() +
+					"' AND Weight3 = '"+this.getWeight3() + 
+					"' AND Rate3 = '"+this.getRate3() +
+					"' AND MileRate = '"+this.getMileRate() + 
+					"' AND FlatRate = '"+this.getFlatRate() +
 					"' AND Rank = '"+this.getRank()  +"'");
 					//If this ShippingRate exists on the database mark it as old and clean
 					if(temp.size()>0)
@@ -367,7 +372,7 @@ public class ShippingRate extends BaseClass{
 		{
 			try
 			{
-				executeCommand("Update ShippingRates Set Delete = true Where ShippingRateID = " + this.id);			//Delete the ShippingRate
+				executeCommand("Update ShippingRates Set Deleted = true Where ShippingRateID = " + this.id);			//Delete the ShippingRate
 				return true;
 			}//End of try block
 			catch(Exception ex)

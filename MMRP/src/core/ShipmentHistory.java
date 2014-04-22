@@ -43,6 +43,14 @@ public class ShipmentHistory extends BaseClass {
 	}//End of ShipmentHistory(int id)
 	
 	/**
+	 * This function will return the unique id of the ShipmentHistory assigned by the database
+	 * @return Returns the unique id assigned by the database
+	 */
+	public int getShipmentHistoryID(){
+		return this.id;
+	}//End of getShipmentHistoryID()
+	
+	/**
 	 * This function will set the Segment's id for this ShipmentHistory
 	 * @param id This is the new Segment id for the ShipmentHistory
 	 */
