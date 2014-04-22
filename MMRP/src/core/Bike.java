@@ -108,6 +108,7 @@ public class Bike extends Vehicle {
 		try
 		{
 			executeCommand("Update Bike Set Deleted = true Where BikeID = " + this.id);		//Delete this Bike from the database
+			this.MarkDeleted();
 			return true;
 		}//End of try block
 		catch(Exception ex)

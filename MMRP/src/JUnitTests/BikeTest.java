@@ -96,5 +96,18 @@ public class BikeTest {
 		}
 	}
 	
+	@Test
+	public void testDeleted() {
+		Bike test_bike = new Bike();
+		Assert.assertFalse(test_bike.isDeleted());
+		Assert.assertFalse(test_bike.isDirty());
+		
+		test_bike.setVehicleName("This is the test that never ends");
+		test_bike.Update();
+		test_bike.Delete();
+		Assert.assertTrue(test_bike.isDeleted());
+		Assert.assertTrue(test_bike.isDirty());
+	}
+	
 	
 }
