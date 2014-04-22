@@ -16,8 +16,8 @@ public class Location extends BaseClass {
 	private static final double DEFAULT_LATITUDE = 0;
 	private static final  double DEFAULT_LONGITUDE = 0;
 	private static final String DEFAULT_LOCATION_NAME = "defaultLocationName";
-	private static final String DEFAULT_STATE = "PA";
-	private static final String DEFAULT_COUNTRY = "USA";
+	private static final String DEFAULT_STATE = "DF";
+	private static final String DEFAULT_COUNTRY = "DEFAULT";
 	
 	/**
 	 * This is the default constructor for the Location object
@@ -30,6 +30,12 @@ public class Location extends BaseClass {
 		this.name = DEFAULT_LOCATION_NAME;
 		this.state = DEFAULT_STATE;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkNew();
 		MarkClean();
@@ -49,6 +55,12 @@ public class Location extends BaseClass {
 		this.name = DEFAULT_LOCATION_NAME;
 		this.state = DEFAULT_STATE;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
+		travelModes.add(Vehicle.TravelModes.NONE);
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkClean();
 	}//End of Location(int id)
@@ -255,7 +267,7 @@ public class Location extends BaseClass {
 				String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1,TravelType2,TravelType3,TravelType4,TravelType5,TravelType6,State, Country)";
 
 				sql+=" Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString() + "','"+travelModes.get(1).toString()
-						+ "','"+travelModes.get(2).toString() + "','"+travelModes.get(3).toString() + "','"+travelModes.get(4).toString() + "','"+travelModes.get(5).toString() + ", '" + this.getState() + "', '" + this.getCountry() +"')";
+						+ "','"+travelModes.get(2).toString() + "','"+travelModes.get(3).toString() + "','"+travelModes.get(4).toString() + "','"+travelModes.get(5).toString() + "', '" + this.getState() + "', '" + this.getCountry() +"')";
 
 				executeCommand(sql);
 

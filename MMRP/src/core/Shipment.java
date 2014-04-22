@@ -790,8 +790,12 @@ public class Shipment extends BaseClass {
 		ArrayList<Shipment> returnList = new ArrayList<Shipment>();
 		try 
 		{
-			
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Shipment " +  where  + " AND Deleted = false");
+			String sql = " where Deleted = false";
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp =executeQuery("Select * from Shipment " +  sql);
+			else
+				temp =executeQuery("Select * from Shipment " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Shipment s =BuildFromDataRow(temp.get(i));
@@ -900,8 +904,8 @@ public class Shipment extends BaseClass {
 				executeCommand("Insert into Shipment (FromLocationID,ToLocationID,Priority,EarliestDepartureFromStart,LatestDepartureFromStart,EarliestArrival,LatestArrival,Size,weight,CurrentLocation,loadingTime"+
 				",unloadingTime,loadingRate,shipper,takeTollRoads,localCongestionByPass,trailerType,loadingType,unloadingType,hazmatConstraints,prefCarriers,maxStops) Values ('"+
 						this.fromLocationID+ "','" + this.toLocationID + "','"+ this.priority+"','"+this.earliestDeparture+"','"+this.latestDeparture+"','" + this.earliestArrival + "','" + this.latestArrival+ "','"+
-						this.size+"','"+this.weight+"','"+this.currentLocation+this.timeToLoad+"','"+this.timeToUnload+"','"+this.loadingRate+"','"+this.shipperID+"','"+this.tollRoads+"','"+this.congestionByPass+
-						"','"+this.trailerType+"','"+this.loadingType+"','"+this.unloadingType+"','"+this.hazmatConstraints+"','"+this.prefCarriers+"','"+this.maxStops+"')");
+						this.size+"','"+this.weight+"','"+this.currentLocation+ "','" + this.timeToLoad+"','"+this.timeToUnload+"','"+this.loadingRate+"','"+this.shipperID+"',"+this.tollRoads+","+this.congestionByPass+
+						",'"+this.trailerType+"','"+this.loadingType+"','"+this.unloadingType+"','"+this.hazmatConstraints+"','"+this.prefCarriers+"','"+this.maxStops+"')");
 				//Grab this plane from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select ShipmentID from Shipment where "+
 						"FromLocationID = '" + this.fromLocationID +"' "+
@@ -955,8 +959,8 @@ public class Shipment extends BaseClass {
 							", unloadingTime = '" + this.timeToUnload + "' "+
 							", loadingRate = '" + this.loadingRate +"' "+
 							", shipper = '" + this.shipperID +"' "+
-							", takeTollRoads = '" + this.tollRoads +"' "+
-							", localCongestionByPass = '" + this.congestionByPass +"' "+
+							", takeTollRoads = " + this.tollRoads +" "+
+							", localCongestionByPass = " + this.congestionByPass +" "+
 							", trailerType = '" + this.trailerType +"' "+
 							", loadingType = '" + this.loadingType+"' "+
 							", unloadingType = '" + this.unloadingType+"' "+

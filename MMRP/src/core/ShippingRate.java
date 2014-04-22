@@ -308,15 +308,15 @@ public class ShippingRate extends BaseClass{
 				{
 					//If the ShippingRate is new insert it into the database by executing the following
 					executeCommand("Insert into shippingrates (ShippingRateID, CarrierID, StartLocation, EndLocation, TravelType, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
-							this.getId() + "','" + this.getCarrier().getId() +"','"+this.getStartLocation()
-							+ this.getEndLocation() +"','"+ this.getType() +"','"+ this.getWeight1() +"','"
+							this.getId() + "','" + this.getCarrier().getId() +"','"+this.getStartLocation().getID() + "','"
+							+ this.getEndLocation().getID() +"','"+ this.getType().getVehicleTypeID() +"','"+ this.getWeight1() +"','"
 							+ this.getRate1() +"','"+ this.getWeight2() +"','"+ this.getRate2() +"','"
 							+ this.getWeight3() +"','"+ this.getRate3() +"','"+ this.getMileRate() +"','"
 							+ this.getFlatRate() +"','"+ this.getRank() +"')");
 					//Grab this ShippingRate from the database
 					ArrayList<Map<String,Object>> temp =executeQuery("Select ShippingRateID from shippingrates where CarrierID = '" + 
-					this.getCarrier().getId() + "' AND StartLocation = '"+this.getStartLocation() +
-					"' AND EndLocation = '"+this.getEndLocation() + "' AND TravelType = '"+this.getType() +
+					this.getCarrier().getId() + "' AND StartLocation = '"+this.getStartLocation().getID() +
+					"' AND EndLocation = '"+this.getEndLocation().getID() + "' AND TravelType = '"+this.getType().getVehicleTypeID() +
 					"' AND Weight1 = '"+this.getWeight1() + "' AND Rate1 = '"+this.getRate1() +
 					"' AND Weight2 = '"+this.getWeight2() + "' AND Rate2 = '"+this.getRate2() +
 					"' AND Weight3 = '"+this.getWeight3() + "' AND Rate2 = '"+this.getRate3() +

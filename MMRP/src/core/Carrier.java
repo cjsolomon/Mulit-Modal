@@ -731,13 +731,13 @@ public class Carrier extends BaseClass
 			{
 				if(isDirty())
 				{
-				executeQuery("Update Carriers set CarrierCode = '" + this.getCarrierCode() + "' , CarrierName = '"+this.getCarrierName()+
+				executeCommand("Update Carriers set CarrierCode = '" + this.getCarrierCode() + "' , CarrierName = '"+this.getCarrierName()+
 				"' , CostModifierTruck = '" + this.getCostModifierTruck() + "' , CostModifierBike = '" + this.getCostModifierBike() +"' , CostModifierCargoShip = '" + this.getCostModifierCargoShip() +
 				"' , CostModifierRail = '" + this.getCostModifierRail() + "' , CostModifierPlane = '" + this.getCostModifierPlane() +
-				"' , SendByFax = '" + this.isSendByFax() + "' , SendByEmail = '" + this.isSendByEmail() + "' , AreaCode = '" + this.getAreaCode() + 
-				"' , FaxNumber = '" + this.getFaxNumber() + "' , EmailAddress = '" +this.getEmailAddress() + "' , SafetyRating = '" + this.getSafetyRating()+"'"+
-				"' , SafetyRateDate = '"+ this.getSafetyRateDate() + " , Authorize = '" + this.getAuthorize() + 
-				"', ContractDate = '"+ this.getContractDate() + "' , InsEndDate = '"+ this.getInsEndDate()+"' , Deleted = " +this.isDeleted());
+				"' , SendByFax = " + this.isSendByFax() + " , SendByEmail = " + this.isSendByEmail() + " , AreaCode = '" + this.getAreaCode() + 
+				"' , FaxNumber = '" + this.getFaxNumber() + "' , EmailAddress = '" +this.getEmailAddress() + "' , SafetyRating = '" + this.getSafetyRating()+
+				"' , SafetyRateDate = '"+ this.getSafetyRateDate() + "' , Authorize = '" + this.getAuthorize() + 
+				"' , ContractDate = '"+ this.getContractDate() + "' , InsEndDate = '"+ this.getInsEndDate()+"' , Deleted = " +this.isDeleted() + " where CarrierID = '" + this.getId() + "'");
 				MarkClean();												
 				}//End of isDirty if
 			}//End of isOld else

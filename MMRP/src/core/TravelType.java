@@ -415,9 +415,9 @@ public class TravelType extends BaseClass {
 			if(isNew())
 			{
 				//If the Truck is new insert it into the database by executing the following
-				executeCommand("Insert into TravelTypes (VehicleTypeName,VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,ActualCapacity,MaxWeight,ServiceType,Radiation, Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
-						this.getTravelTypeName() + "','" + this.getTravelTypeMode() + "','"+ this.getTrailer1()+"','"+this.getTrailer2() + "','" + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
-						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"','"+this.getRadiation()+"','"+this.getRefridgeration()+"','"+this.getHazmat()+"','"+this.getExplosives()+"','"+this.getTracking()+"')");
+				executeCommand("Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,ActualCapacity,MaxWeight,ServiceType,Radiation, Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
+					    this.getTravelTypeName() + "','" +this.getTravelTypeMode() + "','"+ this.getTrailer1()+"','"+this.getTrailer2() + "','" + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
+						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");
 				//Grab this Truck from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select VehicleTypeID from TravelTypes where VehicleTypeName = '" + this.getTravelTypeName() + "' AND VehicleMode = '"+this.getTravelTypeMode()+
 						"' AND Trailer1 = '" + this.getTrailer1() + "' AND Trailer2 = '" + this.getTrailer2() + "' AND MinimumCapacity = '" + this.getMinCap() + 

@@ -22,7 +22,12 @@ public class Test extends BaseClass
 	}
 	public static void main(String[] args) throws IOException
 	{
-		ArrayList<Shipment> shipments = Shipment.LoadAll("");
+		
+		TravelType newC = new TravelType();
+		newC.Update();
+		newC.setMaxWeight(1);
+		newC.Update();
+		/*ArrayList<Shipment> shipments = Shipment.LoadAll("");
 		for(int i = 0; i< shipments.size(); i++)	
 		{
 			System.out.println("Starting " + (i+1));
@@ -49,8 +54,8 @@ public class Test extends BaseClass
 			shipments.get(i).setHistoryFromSegments(route4);*/
 			//Carrier nc = new Carrier();
 			//nc.Update();
-			Location newL = new Location();
-			newL.Update();
+			//Location newL = new Location();
+			//newL.Update();
 			
 			
 			/*Routing.NextAvailableVehicle NAV =  new Routing.NextAvailableVehicle(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
@@ -58,9 +63,9 @@ public class Test extends BaseClass
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route5);*/
 			
-			System.out.println("Done with " + (i+1));
-		}
-		printSolution();
+			//System.out.println("Done with " + (i+1));
+		//}*/
+		//printSolution();
 		//printShipmentInfoToFile();
 		//printVehicleInfo();
 		//printVehicleRoute();

@@ -76,7 +76,7 @@ public class Cargo extends Vehicle {
 			{
 				//If the Cargo is not new, but is dirty then it needs to be updated by the following SQL command
 				executeCommand("Update CargoShip Set ShipName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
-					"' , Status = '" + this.getStatus() +"' Deleted = " + this.isDeleted() + " Where ShipID = " +this.id);
+					"' , Status = '" + this.getStatus() +"', Deleted = " + this.isDeleted() + " Where ShipID = " +this.id);
 				MarkClean();													//Mark the cargo as clean
 			}//End of isDirty if
 		}//End of isOld else

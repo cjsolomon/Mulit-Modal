@@ -203,7 +203,7 @@ public class ShipmentHistory extends BaseClass {
 				{
 					//If the Plane is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update ShipmentHistory Set SegmentID = '" + this.segmentID + "' , ShipmentID = '"+this.shipmentID+
-						"' , NodeNumber = '" + this.nodeNumber + "', deleted = " + this.isDeleted() + " where ShipmentHistorID ='"+this.id+"'");
+						"' , NodeNumber = '" + this.nodeNumber + "', deleted = " + this.isDeleted() + " where ShipmentHistoryID ='"+this.id+"'");
 					MarkClean();
 				}//End of isDirty if
 			}//End of isOld else

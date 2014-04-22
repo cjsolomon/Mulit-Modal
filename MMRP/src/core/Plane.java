@@ -79,7 +79,7 @@ public class Plane extends Vehicle {
 				{
 					//If the Plane is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update Plane Set PlaneName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
-						 "' , Status = '" + this.getStatus() + "', Deleted = " + this.isDeleted() + " Where Plane = " +this.id);
+						 "' , Status = '" + this.getStatus() + "', Deleted = " + this.isDeleted() + " Where PlaneID = " +this.id);
 					MarkClean();
 				}//End of isDirty if
 			}//End of isOld else
