@@ -721,7 +721,7 @@ public class Carrier extends BaseClass
 				"' AND InsEndDate = '"+ this.getInsEndDate()+"'");
 				if(temp.size()>0)
 				{
-					this.id = (Integer)temp.get(0).get("CarrierID");			
+					this.id = (Integer)temp.get(temp.size()-1).get("CarrierID");			
 					MarkClean();												
 					MarkOld();													
 				}//End of entry found if

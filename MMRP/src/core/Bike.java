@@ -72,7 +72,7 @@ public class Bike extends Vehicle {
 				//If this bike exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
-					this.id = (Integer)temp.get(0).get("BikeID");				//Set this Bike's id
+					this.id = (Integer)temp.get(temp.size()-1).get("BikeID");				//Set this Bike's id
 					MarkClean();												//Set the bike to clean
 					MarkOld();													//Set the bike to old
 				}//End of entry found if

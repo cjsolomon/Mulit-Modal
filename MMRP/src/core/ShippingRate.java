@@ -330,7 +330,7 @@ public class ShippingRate extends BaseClass{
 					//If this ShippingRate exists on the database mark it as old and clean
 					if(temp.size()>0)
 					{
-						this.id = (Integer)temp.get(0).get("ShippingRateID");			//Set this ShippingRate id to the id in the database
+						this.id = (Integer)temp.get(temp.size()-1).get("ShippingRateID");			//Set this ShippingRate id to the id in the database
 						MarkClean();													//Mark this ShippingRate as clean
 						MarkOld();														//Mark this ShippingRate as old
 					}//End of found something if

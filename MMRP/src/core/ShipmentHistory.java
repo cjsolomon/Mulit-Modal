@@ -200,7 +200,7 @@ public class ShipmentHistory extends BaseClass {
 				//If this plane exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
-					this.id = (Integer)temp.get(0).get("ShipmentHistoryID");								//Set this Plane's id to the database id
+					this.id = (Integer)temp.get(temp.size()-1).get("ShipmentHistoryID");								//Set this Plane's id to the database id
 					MarkClean();																//Mark the Plane as clean
 					MarkOld();																	//Mark the Plane as old
 				}//End of found something if

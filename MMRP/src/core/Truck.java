@@ -67,7 +67,7 @@ public class Truck extends Vehicle {
 				//If this Truck exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
-					this.id = (Integer)temp.get(0).get("TruckID");									//Set the Truck id
+					this.id = (Integer)temp.get(temp.size()-1).get("TruckID");									//Set the Truck id
 					MarkClean();																	//Mark the Truck as clean
 					MarkOld();																		//Mark the Truck as old
 				}//End of found something if

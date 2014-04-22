@@ -971,7 +971,7 @@ public class Segment extends BaseClass {
 				// If this Segment exists on the database mark it as old and
 				// clean
 				if (temp.size() > 0) {
-					this.id = (Integer) temp.get(0).get("SegmentID"); // Set the
+					this.id = (Integer) temp.get(temp.size()-1).get("SegmentID"); // Set the
 																		// Segment
 																		// id to
 																		// the

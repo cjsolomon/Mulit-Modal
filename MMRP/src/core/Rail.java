@@ -68,7 +68,7 @@ public class Rail extends Vehicle {
 				//If this rail exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
-					this.id = (Integer)temp.get(0).get("RailID");					//Set this Rail id to the id in the database
+					this.id = (Integer)temp.get(temp.size()-1).get("RailID");					//Set this Rail id to the id in the database
 					MarkClean();													//Mark this Rail as clean
 					MarkOld();														//Mark this Rail as old
 				}//End of found something if

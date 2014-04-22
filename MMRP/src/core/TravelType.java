@@ -427,7 +427,7 @@ public class TravelType extends BaseClass {
 				//If this TravelType exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
-					this.vehicleTypeID = (Integer)temp.get(0).get("VehicleTypeID");									//Set the Truck id
+					this.vehicleTypeID = (Integer)temp.get(temp.size()-1).get("VehicleTypeID");									//Set the Truck id
 					MarkClean();																	//Mark the Truck as clean
 					MarkOld();																		//Mark the Truck as old
 				}//End of found something if
