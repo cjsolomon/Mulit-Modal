@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Assert;
 
+import core.Bike;
 import core.Plane;
 import core.Carrier;
 import core.Vehicle;
@@ -93,6 +94,19 @@ public class PlaneTest {
 			Plane test_Plane = new Plane(testValues[i]);
 			Assert.assertEquals(testValues[i],test_Plane.getId());
 		}
+	}
+	
+	@Test
+	public void testDeleted() {
+		Plane test_plane = new Plane();
+		Assert.assertFalse(test_plane.isDeleted());
+		Assert.assertFalse(test_plane.isDirty());
+		
+		test_plane.setVehicleName("This is the test that never ends");
+		test_plane.Update();
+		test_plane.Delete();
+		Assert.assertTrue(test_plane.isDeleted());
+		Assert.assertTrue(test_plane.isDirty());
 	}
 	
 	

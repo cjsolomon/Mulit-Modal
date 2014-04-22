@@ -189,4 +189,17 @@ public class LocationTest {
 			delete.Delete();	
 	}
 	
+	@Test
+	public void testDeleted() {
+		Location test_location = new Location();
+		Assert.assertFalse(test_location.isDeleted());
+		Assert.assertFalse(test_location.isDirty());
+		
+		test_location.setName("This is the test that never ends");
+		test_location.Update();
+		test_location.Delete();
+		Assert.assertTrue(test_location.isDeleted());
+		Assert.assertTrue(test_location.isDirty());
+	}
+	
 }

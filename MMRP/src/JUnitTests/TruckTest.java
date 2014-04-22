@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Assert;
 
+import core.Bike;
 import core.Truck;
 import core.Carrier;
 import core.Vehicle;
@@ -95,5 +96,17 @@ public class TruckTest {
 		}
 	}
 	
+	@Test
+	public void testDeleted() {
+		Truck test_truck = new Truck();
+		Assert.assertFalse(test_truck.isDeleted());
+		Assert.assertFalse(test_truck.isDirty());
+		
+		test_truck.setVehicleName("This is the test that never ends");
+		test_truck.Update();
+		test_truck.Delete();
+		Assert.assertTrue(test_truck.isDeleted());
+		Assert.assertTrue(test_truck.isDirty());
+	}
 	
 }

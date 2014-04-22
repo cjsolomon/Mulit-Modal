@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Assert;
 
+import core.Bike;
 import core.Rail;
 import core.Carrier;
 import core.Vehicle;
@@ -93,6 +94,19 @@ public class RailTest {
 			Rail test_Rail = new Rail(testValues[i]);
 			Assert.assertEquals(testValues[i],test_Rail.getId());
 		}
+	}
+	
+	@Test
+	public void testDeleted() {
+		Rail test_rail = new Rail();
+		Assert.assertFalse(test_rail.isDeleted());
+		Assert.assertFalse(test_rail.isDirty());
+		
+		test_rail.setVehicleName("This is the test that never ends");
+		test_rail.Update();
+		test_rail.Delete();
+		Assert.assertTrue(test_rail.isDeleted());
+		Assert.assertTrue(test_rail.isDirty());
 	}
 	
 	

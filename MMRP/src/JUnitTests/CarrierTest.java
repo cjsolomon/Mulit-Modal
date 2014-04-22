@@ -249,4 +249,17 @@ public class CarrierTest {
 			delete.Delete();	
 	}
 	
+	@Test
+	public void testDeleted() {
+		Carrier test_carrier = new Carrier();
+		Assert.assertFalse(test_carrier.isDeleted());
+		Assert.assertFalse(test_carrier.isDirty());
+		
+		test_carrier.setCarrierName("This is the test that never ends");
+		test_carrier.Update();
+		test_carrier.Delete();
+		Assert.assertTrue(test_carrier.isDeleted());
+		Assert.assertTrue(test_carrier.isDirty());
+	}
+	
 }

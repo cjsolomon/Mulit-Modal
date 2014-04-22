@@ -6,6 +6,7 @@ import org.junit.Test;
 import org.junit.Assert;
 
 import core.Cargo;
+import core.Cargo;
 import core.Carrier;
 import core.Vehicle;
 
@@ -95,6 +96,19 @@ public class CargoTest {
 			Cargo test_cargo = new Cargo(testValues[i]);
 			Assert.assertEquals(testValues[i],test_cargo.getId());
 		}
+	}
+	
+	@Test
+	public void testDeleted() {
+		Cargo test_cargo = new Cargo();
+		Assert.assertFalse(test_cargo.isDeleted());
+		Assert.assertFalse(test_cargo.isDirty());
+		
+		test_cargo.setVehicleName("This is the test that never ends");
+		test_cargo.Update();
+		test_cargo.Delete();
+		Assert.assertTrue(test_cargo.isDeleted());
+		Assert.assertTrue(test_cargo.isDirty());
 	}
 	
 	
