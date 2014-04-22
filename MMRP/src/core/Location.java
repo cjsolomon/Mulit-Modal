@@ -33,6 +33,7 @@ public class Location extends BaseClass {
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkNew();
 		MarkClean();
+		MarkUndeleted();
 	}//End of default Location constructor
 	
 	/**
@@ -51,7 +52,7 @@ public class Location extends BaseClass {
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkNew();
 		MarkClean();
-
+		MarkUndeleted();
 	}//End of Location(int id)
 	
 	/**
@@ -284,7 +285,7 @@ public class Location extends BaseClass {
 					{
 						sql+= " , TravelType"+(i+1)+" = '" + travelModes.get(i).toString() + "'";
 					}
-					sql += ", State = '" + this.getState() + "', Country = '" + this.getCountry() +"'";
+					sql += ", State = '" + this.getState() + "', Country = '" + this.getCountry() +"', Deleted = " + this.isDeleted();
 					sql += " Where LocationID = "+this.id;
 					executeCommand(sql);
 					MarkClean();
@@ -302,14 +303,14 @@ public class Location extends BaseClass {
 	}//End of Update()
 
 	/**
-	 * This is the overridden Delete function, it will remove this Location from the database
+	 * This is the overridden Delete function, it will set this Location as deleted
 	 */
 	@Override
 	public  boolean Delete() 
 	{
 		try
 		{
-			executeCommand("Delete From location where locationID = " + id);
+			executeCommand("Update Location Set Deleted = true where locationID = " + id);
 			return true;
 		}
 		catch(Exception ex)
@@ -399,6 +400,12 @@ public class Location extends BaseClass {
 				}
 			}
 		}
+		
+		if((Boolean)data.get("Deleted"))
+			temp.MarkDeleted();
+		else
+			temp.MarkUndeleted();
+		
 		temp.MarkClean();
 
 		return temp;

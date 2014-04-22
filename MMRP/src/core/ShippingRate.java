@@ -52,6 +52,7 @@ public class ShippingRate extends BaseClass{
 			this.weight3 = DEFAULT_WEIGHT3;
 			MarkNew();													//Mark this ShippingRate as new
 			MarkClean();
+			MarkUndeleted();
 		}//End of default ShippingRate constructor
 		
 		/**
@@ -76,7 +77,7 @@ public class ShippingRate extends BaseClass{
 			this.weight3 = DEFAULT_WEIGHT3;
 			MarkNew();													//Mark this ShippingRate as new
 			MarkClean();
-																		
+			MarkUndeleted();												
 		}//End of the argumented constructor ShippingRate(int id)
 		
 		/**
@@ -343,7 +344,8 @@ public class ShippingRate extends BaseClass{
 								"' , Rate2 = '"+this.getRate2() + "' , Weight3 = '" + this.getWeight3() +
 								"' , Rate3 = '"+this.getRate3() + "' , MileRate = '" + this.getMileRate() +
 								"' , FlatRate = '"+this.getFlatRate() + "' , Rank = '" + this.getRank() +
-								"' Where ShippingRateID = " +this.id);
+								"' , Deleted = " + this.isDeleted() +
+								" Where ShippingRateID = " +this.id);
 						MarkClean();													//Mark the ShippingRate as clean
 					}//End of isDirty else
 				}//End of isOld else
@@ -359,15 +361,15 @@ public class ShippingRate extends BaseClass{
 		}//End of the overridden Update()
 
 		/**
-		 * This is the overridden Delete function of the parent class and will remove this ShippingRate from the database
-		 * @return 
+		 * This is the overridden Delete function of the parent class and will mark the ShippingRate as deleted in the database
+		 * @return Returns a boolean indicating is the ShippingRate was successfully marked as deleted
 		 */
 		@Override
 		public  boolean Delete() 
 		{
 			try
 			{
-				executeCommand("Delete from ShippingRates Where ShippingRateID = " + this.id);			//Delete the ShippingRate
+				executeCommand("Update ShippingRates Set Delete = true Where ShippingRateID = " + this.id);			//Delete the ShippingRate
 				return true;
 			}//End of try block
 			catch(Exception ex)
@@ -452,6 +454,10 @@ public class ShippingRate extends BaseClass{
 				sr.setMileRate((Double)data.get("MileRate"));
 				sr.setFlatRate((Double)data.get("FlatRate"));
 				sr.setRank((Integer)data.get("Rank"));
+				if((Boolean)data.get("Deleted"))
+					sr.MarkDeleted();
+				else
+					sr.MarkUndeleted();
 				sr.MarkClean();															//Mark the ShippingRate as clean
 				return sr;
 				

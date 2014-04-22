@@ -31,6 +31,7 @@ public class Rail extends Vehicle {
 		this.name = DEFAULT_RAIL_NAME;									//Set the Rail name					
 		this.MarkNew();													//Mark the Rail as new
 		this.MarkClean();												//Mark the Rail as clean
+		this.MarkUndeleted();											//Mark the Rail as not deleted
 	}//End of default Rail constructor
 	
 	/**
@@ -46,7 +47,7 @@ public class Rail extends Vehicle {
 		this.name = DEFAULT_RAIL_NAME;									//Set the Rail name					
 		this.MarkOld();													//Mark the Rail as new
 		this.MarkClean();												//Mark the Rail as clean
-																	
+		this.MarkUndeleted();											//Mark the Rail as not deleted
 	}//End of the argumented constructor Rail(int id)
 	
 	/**
@@ -80,7 +81,7 @@ public class Rail extends Vehicle {
 				{
 					//If the Rail is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update Rail Set RailName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
-						 "' , Status = '" + this.getStatus() + "' Where RailID = " +this.id);
+						 "' , Status = '" + this.getStatus() + "', Deleted = " +this.isDeleted() + " Where RailID = " +this.id);
 					MarkClean();													//Mark the Rail as clean
 				}//End of isDirty else
 			}//End of isOld else
@@ -96,14 +97,14 @@ public class Rail extends Vehicle {
 	}//End of the overridden Update()
 
 	/**
-	 * This is the overridden Delete function of the parent class and will remove this Rail from the database
+	 * This is the overridden Delete function of the parent class and will mark the Rail as deleted
 	 */
 	@Override
 	public  boolean Delete() 
 	{
 		try
 		{
-			executeCommand("Delete from Rail Where RailID = " + this.id);			//Delete the Rail
+			executeCommand("Update Rail Set Deleted = true Where RailID = " + this.id);			//Delete the Rail
 			return true;
 		}//End of try block
 		catch(Exception ex)
@@ -175,6 +176,10 @@ public class Rail extends Vehicle {
 		r.setVehicleName((String)data.get("RailName"));
 		r.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		r.setStatus((String)data.get("Status"));		
+		if((Boolean)data.get("Deleted"))
+			r.MarkDeleted();
+		else
+			r.MarkUndeleted();
 		r.MarkClean();	
 		r.MarkOld();
 		return r;

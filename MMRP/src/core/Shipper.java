@@ -36,6 +36,7 @@ public class Shipper extends BaseClass {
 		this.prefCarriers = DEFAULT_PREFERRED_CARRIERS;
 		MarkClean();
 		MarkNew();
+		MarkUndeleted();
 	}//End of Shipper()
 	
 	/**
@@ -53,6 +54,7 @@ public class Shipper extends BaseClass {
 		this.prefCarriers = DEFAULT_PREFERRED_CARRIERS;
 		MarkClean();
 		MarkNew();
+		MarkUndeleted();
 	}//End of Shipper(int id)
 	
 	//Setters & getters
@@ -275,6 +277,10 @@ public class Shipper extends BaseClass {
 		s.setContactName((String)data.get("ContactName"));
 		s.setPhoneNumber((String)data.get("phone"));
 		s.setEmailAddress((String)data.get("email"));
+		if((Boolean)data.get("Deleted"))
+			s.MarkDeleted();
+		else
+			s.MarkUndeleted();
 		s.MarkClean();
 		return s;
 	}//End of BuildFromDataRow(Map<String,Object> data)
@@ -323,17 +329,15 @@ public class Shipper extends BaseClass {
 			{
 				try
 				{
-				executeCommand("Update Shipper Set locationID ='"+ this.locationID+"' "+
-						"AND prefCarriers ='" + this.prefCarriers +"' "+
-						"AND CompanyName ='" + this.companyName+"' "+
-						"And ContactName='" + this.contactName+"' "+
-						"And phone='"+this.phone+"' "+
-						"And email ='"+this.email+"' "+
-						"Where ShipperID = '" +this.id +"'");
+				executeCommand("Update Shipper Set locationID ='"+ this.locationID + "', "+
+						"prefCarriers ='" + this.prefCarriers + "', "+
+						"CompanyName ='" + this.companyName + "', "+
+						"ContactName='" + this.contactName + "', "+
+						"phone='"+this.phone + "', "+
+						"email ='"+this.email + "', "+
+						"deleted = " + this.isDeleted() +
+						" Where ShipperID = '" +this.id +"'");
 				
-				
-				//If the Segment is not new, but is dirty then it needs to be updated by the following SQL command
-		
 				MarkClean();													//Mark the Segment as clean
 				
 				}
@@ -350,13 +354,13 @@ public class Shipper extends BaseClass {
 	
 
 	/**
-	 * This function will delete the Shipper from the database
+	 * This function will mark the Shipper as deleted in the database
 	 */
 	@Override
 	boolean Delete() {
 		try
 		{
-			executeCommand("Delete from Shipper where ShipperID = '" + this.id+"'");
+			executeCommand("Update Shipper Set Deleted = true where ShipperID = '" + this.id+"'");
 			return true;
 		}
 		catch(Exception ex)

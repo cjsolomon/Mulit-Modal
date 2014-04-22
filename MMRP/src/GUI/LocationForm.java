@@ -156,8 +156,8 @@ public class LocationForm extends JPanel {
 				Location editLocation = Location.Load(Integer.valueOf(txtStartID.getText()));
 				LocationCreateEdit lce = new LocationCreateEdit(editLocation);
 				add(lce,"2, 2, center, center");
-				lce.setVisible(true);
 				setVisible(false);
+				lce.setVisible(true);
 			}
 		});
 		add(btnEditStartLocation, "5, 4");
@@ -298,7 +298,7 @@ public class LocationForm extends JPanel {
 		    public void itemStateChanged(ItemEvent e)
 		    {
 		        if (e.getStateChange() == ItemEvent.SELECTED){
-		        	//if(cbStartCity.getSelectedIndex()==-1){cbStartCity.setSelectedIndex(0);return;}
+		        	
 		        	Location thisLocation = findLocation(cbStartCountry.getSelectedItem().toString(), cbStartState.getSelectedItem().toString(), e.getItem().toString());
 		        	
 		        	loadStartLocation(thisLocation);
@@ -352,7 +352,7 @@ public class LocationForm extends JPanel {
 		    {
 		        if (e.getStateChange() == ItemEvent.SELECTED){
 
-		        	Location thisLocation = findLocation(cbEndCountry.getSelectedItem().toString(), cbEndState.getSelectedItem().toString(), cbEndCity.getSelectedItem().toString());
+		        	Location thisLocation = findLocation(cbEndCountry.getSelectedItem().toString(), cbEndState.getSelectedItem().toString(), e.getItem().toString());
 		        	
 		        	loadEndLocation(thisLocation);
 		        	
@@ -495,12 +495,8 @@ public class LocationForm extends JPanel {
 	
 	public Location findLocation(String country, String state, String city){
 		Location foundLocation = new Location();
-		for(int i = 0; i < allLocations.size(); i++){
-			if(allLocations.get(i).getCountry() == country && allLocations.get(i).getState() == state && allLocations.get(i).getName() == city){
-				foundLocation = allLocations.get(i);
-				break;
-			}
-		}
+		foundLocation = Location.LoadAll(" where Country = '" + country + "' AND State = '" + state + "' AND Name = '" + city + "'").get(0);
+
 		return foundLocation;
 	}//End of findLocation(String country, String state, String city)
 	

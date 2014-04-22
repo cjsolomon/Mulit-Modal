@@ -28,6 +28,7 @@ public class Cargo extends Vehicle {
 		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
 		this.MarkNew();													//Mark the Cargo as new
 		this.MarkClean();												//Mark the Cargo as clean
+		this.MarkUndeleted();											//Mark the Cargo as not deleted
 	}//End of Cargo()
 	
 	/**
@@ -43,6 +44,7 @@ public class Cargo extends Vehicle {
 		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
 		this.MarkOld();													//Mark the Cargo as new
 		this.MarkClean();												//Mark the Cargo as clean	
+		this.MarkUndeleted();											//Mark the Cargo as not deleted
 	}//End of arguemented Cargo constructor
 	
 	/**
@@ -76,7 +78,7 @@ public class Cargo extends Vehicle {
 			{
 				//If the Cargo is not new, but is dirty then it needs to be updated by the following SQL command
 				executeCommand("Update CargoShip Set ShipName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
-					"' , Status = '" + this.getStatus() +"' Where ShipID = " +this.id);
+					"' , Status = '" + this.getStatus() +"' Deleted = " + this.isDeleted() + " Where ShipID = " +this.id);
 				MarkClean();													//Mark the cargo as clean
 			}//End of isDirty if
 		}//End of isOld else
@@ -92,14 +94,14 @@ public class Cargo extends Vehicle {
 	}//End of overridden Update()
 
 	/**
-	 * This is the overridden Delete function of the parent class and will remove this Cargo from the database
+	 * This is the overridden Delete function of the parent class and will set the cargo ship to deleted
 	 */
 	@Override
 	public  boolean Delete() 
 	{
 		try
 		{
-			executeCommand("Delete From CargoShip where ShipID = " + id);			//Delete this Cargo from the database
+			executeCommand("Update CargoShip Set Deleted = true where ShipID = " + id);			//Delete this Cargo from the database
 			return true;
 		}//End of try block
 		catch(Exception ex)
@@ -174,6 +176,10 @@ public class Cargo extends Vehicle {
 		c.setVehicleName((String)data.get("ShipName"));
 		c.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		c.setStatus((String)data.get("Status"));
+		if((Boolean)data.get("Deleted"))
+			c.MarkDeleted();
+		else
+			c.MarkUndeleted();
 		c.MarkClean();
 		c.MarkOld();
 		return c;

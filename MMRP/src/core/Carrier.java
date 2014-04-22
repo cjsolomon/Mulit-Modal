@@ -81,6 +81,7 @@ public class Carrier extends BaseClass
 		this.sendByFax = false;
 		this.MarkNew();
 		this.MarkClean();
+		this.MarkUndeleted();
 	}//End of default Carrier constructor
 	
 	/**
@@ -109,6 +110,7 @@ public class Carrier extends BaseClass
 		this.sendByFax = false;
 		this.MarkNew();
 		this.MarkClean();
+		this.MarkUndeleted();
 	}//End of argumented Carrier constructor
 	
 	/**
@@ -737,7 +739,7 @@ public class Carrier extends BaseClass
 				"' , SendByFax = '" + this.isSendByFax() + "' , SendByEmail = '" + this.isSendByEmail() + "' , AreaCode = '" + this.getAreaCode() + 
 				"' , FaxNumber = '" + this.getFaxNumber() + "' , EmailAddress = '" +this.getEmailAddress() + "' , SafetyRating = '" + this.getSafetyRating()+"'"+
 				"' , SafetyRateDate = '"+ this.getSafetyRateDate() + " , Authorize = '" + this.getAuthorize() + 
-				"', ContractDate = '"+ this.getContractDate() + "' , InsEndDate = '"+ this.getInsEndDate()+"'");
+				"', ContractDate = '"+ this.getContractDate() + "' , InsEndDate = '"+ this.getInsEndDate()+"' , Deleted = " +this.isDeleted());
 				MarkClean();												
 				}//End of isDirty if
 			}//End of isOld else
@@ -753,13 +755,13 @@ public class Carrier extends BaseClass
 	}//End of overridden Update()
 	
 	/**
-	 * This function is the overridden delete, it will remove this Carrier from the database
+	 * This function is the overridden delete, it will set the Carrier to deleted status
 	 */
 	@Override
 	public boolean Delete() {
 		try
 		{
-			executeCommand("Delete from Carriers Where CarrierID = " + this.id);	
+			executeCommand("Update Carriers Set Deleted = true Where CarrierID = " + this.id);	
 			return true;
 		}//End of the try block
 		catch(Exception ex)
@@ -907,6 +909,12 @@ public class Carrier extends BaseClass
 		{
 			c.setInsEndDate((String)data.get("InsEndDate"));
 		}
+		
+		if((Boolean)data.get("Deleted"))
+			c.MarkDeleted();
+		else
+			c.MarkUndeleted();
+		
 		c.MarkClean();
 		return c;
 		

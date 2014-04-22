@@ -72,13 +72,12 @@ public class Segment extends BaseClass {
 		this.onBoard = new ArrayList<Shipment>();
 		MarkNew(); // Mark this Segment as new
 		MarkClean();
+		MarkUndeleted();
 	}// End of the default Segment constructor
 
 	/**
 	 * This is the argumented Segment constructor that takes an id value
-	 * 
-	 * @param id
-	 *            This is the new id for the Segment
+	 * @param id This is the new id for the Segment
 	 */
 	public Segment(int id) {
 		this.id = id; // Set the Segment id
@@ -99,11 +98,11 @@ public class Segment extends BaseClass {
 		this.onBoard = new ArrayList<Shipment>();
 		MarkNew(); // Mark this Segment as new
 		MarkClean();
+		MarkUndeleted();
 	}// End of the arguemented Segment constructor
 
 	/**
 	 * This function will return the Segment id
-	 * 
 	 * @return Returns the ID of the Segment
 	 */
 	public int getID() {
@@ -112,9 +111,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function will set the Segment's distance
-	 * 
-	 * @param newDistance
-	 *            This is the Segments new distance
+	 * @param newDistance This is the Segments new distance
 	 */
 	public void setDistance(double newDistance) {
 		// Some error checking
@@ -135,9 +132,8 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the distance along the Segment
-	 * 
 	 * @return Returns the distance between the start location and the end
-	 *         location on the Segment
+	 * location on the Segment
 	 */
 	public double getDistance() {
 		return this.distance; // Return the distance
@@ -145,7 +141,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the ShippingRate over the Segment
-	 * 
 	 * @return Returns the ShippingRate over the Segment
 	 */
 	public ShippingRate getShippingRate() {
@@ -154,9 +149,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function sets the ShippingRate over the Segment
-	 * 
-	 * @param shippingRate
-	 *            This is the new ShippingRate of the Segment
+	 * @param shippingRate This is the new ShippingRate of the Segment
 	 */
 	public void setShippingRate(ShippingRate shippingRate) {
 		this.shippingRate = shippingRate;
@@ -165,10 +158,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the estimated arrival time of the vehicle on this
 	 * Segment
-	 * 
-	 * @param newArrivalTime
-	 *            This is the new arrival time for the vehicle at the end
-	 *            location
+	 * @param newArrivalTime This is the new arrival time for the vehicle at the end
+	 * location
 	 */
 	public void setEstimatedArrivalTime(int newArrivalTime) {
 		// Some error checking
@@ -200,9 +191,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns the estimated arrival time of the vehicle traveling
 	 * over this Segment
-	 * 
 	 * @return Returns the estimated arrival time of the vehicle traveling over
-	 *         this Segment
+	 * this Segment
 	 */
 	public int getEstimatedArrivalTime() {
 		return this.arrivalTime; // Return the arrivalTime
@@ -211,10 +201,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the estimated departure time of the vehicle on this
 	 * Segment
-	 * 
-	 * @param newDepartureTime
-	 *            This is the new estimated departure time for the vehicle on
-	 *            this Segment
+	 * @param newDepartureTime This is the new estimated departure time for the vehicle on
+	 * this Segment
 	 */
 	public void setEstimatedDepartureTime(int newDepartureTime) {
 		// Some error checking
@@ -246,9 +234,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns the estimated departure time of the vehicle from
 	 * the start location
-	 * 
 	 * @return Returns the estimated departure time for the vehicle from the
-	 *         start location
+	 * start location
 	 */
 	public int getEstimatedDepartureTime() {
 		return this.departureTime; // Return departureTime
@@ -257,9 +244,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns the earliest arrival time of the vehicle at the end
 	 * location
-	 * 
 	 * @return Returns the earliest arrival time of the vehicle at the end
-	 *         location
+	 * location
 	 */
 	public int getEarliestArrivalTime() {
 		return earliestArrivalTime;
@@ -268,10 +254,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the earliest arrival time of the vehicle at the end
 	 * location
-	 * 
-	 * @param earliestArrivalTime
-	 *            This is the new earliest arrival time of the vehicle at the
-	 *            end location
+	 * @param earliestArrivalTime This is the new earliest arrival time of the vehicle at the
+	 * end location
 	 */
 	public void setEarliestArrivalTime(int earliestArrivalTime) {
 
@@ -300,9 +284,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns the latest arrival time of the vehicle at the end
 	 * location
-	 * 
 	 * @return Returns the latest arrival time of the vehicle at the end
-	 *         location
+	 * location
 	 */
 	public int getLatestArrivalTime() {
 		return latestArrivalTime;
@@ -311,10 +294,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the latest arrival time of the vehicle at the end
 	 * location
-	 * 
-	 * @param latestArrivalTime
-	 *            This is the new latest arrival time of the vehicle at the end
-	 *            location
+	 * @param latestArrivalTime This is the new latest arrival time of the vehicle at the end
+	 * location
 	 */
 	public void setLatestArrivalTime(int latestArrivalTime) {
 
@@ -342,10 +323,9 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the earliest departure time of the vehicle from the
-	 * start location
-	 * 
+	 * start location 
 	 * @return Returns the earliest departure time of the vehicle from the start
-	 *         location
+	 * location
 	 */
 	public int getEarliestDepartureTime() {
 		return earliestDepartureTime;
@@ -354,10 +334,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the earliest departure time for the vehicle from the
 	 * start location
-	 * 
-	 * @param earliestDepartureTime
-	 *            This is the new earliest departure time for the vehicle from
-	 *            the start location
+	 * @param earliestDepartureTime This is the new earliest departure time for the vehicle from
+	 * the start location
 	 */
 	public void setEarliestDepartureTime(int earliestDepartureTime) {
 
@@ -386,9 +364,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns the latest departure time for the vehicle from the
 	 * start location
-	 * 
 	 * @return Returns the latest departure time for the vehicle from the start
-	 *         location
+	 * location
 	 */
 	public int getLatestDepartureTime() {
 		return latestDepartureTime;
@@ -397,10 +374,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the latest departure time for the vehicle from the
 	 * start location
-	 * 
-	 * @param latestDepartureTime
-	 *            This is the new latest departure time for the vehicle from the
-	 *            start location
+	 * @param latestDepartureTime This is the new latest departure time for the vehicle from the
+	 * start location
 	 */
 	public void setLatestDepartureTime(int latestDepartureTime) {
 
@@ -428,9 +403,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function sets the starting location of this Segment
-	 * 
-	 * @param startLocationID
-	 *            This is the ID of the new start location of the Segment
+	 * @param startLocationID This is the ID of the new start location of the Segment
 	 */
 	public void setStartLocation(int startLocationID) {
 		if (fromID != startLocationID) {
@@ -442,9 +415,7 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the starting location of this Segment using a Location
 	 * object
-	 * 
-	 * @param start
-	 *            This is the new starting location for the Segment
+	 * @param start This is the new starting location for the Segment
 	 */
 	public void setStartLocation(Location start) {
 		if(this.start==null)this.start=start;
@@ -457,7 +428,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the starting location id
-	 * 
 	 * @return Returns the ID of the start location
 	 */
 	public int getStartLocationID() {
@@ -466,7 +436,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the Location object associated with the fromID
-	 * 
 	 * @return Returns the start location of this Segment
 	 */
 	public Location getStartLocation() {
@@ -478,9 +447,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function sets the end location of the Segment
-	 * 
-	 * @param endLocationID
-	 *            This is the ID of the new end location for the Segment
+	 * @param endLocationID This is the ID of the new end location for the Segment
 	 */
 	public void setEndLocation(int endLocationID) {
 		if (toID != endLocationID) {
@@ -491,9 +458,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function sets the endpoint of Segment using a Location object
-	 * 
-	 * @param end
-	 *            This is the new ending location of the Segment
+	 * @param end This is the new ending location of the Segment
 	 */
 	public void setEndLocation(Location end) {
 		if(this.end==null)this.end=end;
@@ -506,7 +471,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the end location of the Segment
-	 * 
 	 * @return Returns the ID of the end location
 	 */
 	public int getEndLocationID() {
@@ -516,7 +480,6 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns the end location of the Segment as a Location
 	 * object
-	 * 
 	 * @return Returns the end location of the Segment
 	 */
 	public Location getEndLocation() {
@@ -527,9 +490,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function sets the Segment's Vehicle
-	 * 
-	 * @param vehicle
-	 *            This is the vehicle traveling over the Segment
+	 * @param vehicle This is the vehicle traveling over the Segment
 	 */
 	public void setVehicle(Vehicle vehicle) {
 		if (this.vehicle != vehicle || this.mode == null
@@ -542,7 +503,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the Travel Mode on this Segment
-	 * 
 	 * @return Returns the mode of travel along this Segment
 	 */
 	public String getTravelMode() {
@@ -551,7 +511,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the Vehicle object on this Segment
-	 * 
 	 * @return Returns the vehicle object on this Segment
 	 */
 	public Vehicle getVehicle() {
@@ -567,6 +526,10 @@ public class Segment extends BaseClass {
 			return Plane.Load(this.vehicle.getId()); // Return Plane
 		case BIKE:
 			return Bike.Load(this.vehicle.getId()); // Return Bike
+		case NONE:
+			return null;
+		case ALL:
+			return null;
 
 		}// End of switch
 		return null;
@@ -575,11 +538,8 @@ public class Segment extends BaseClass {
 	/**
 	 * This function sets the vehicle traveling over the Segment based on an ID
 	 * from the database and the TravelMode of the vehicle
-	 * 
-	 * @param id
-	 *            This is the ID of the vehicle to load from the database
-	 * @param mode
-	 *            This is the mode of travel of the vehicle
+	 * @param id This is the ID of the vehicle to load from the database
+	 * @param mode This is the mode of travel of the vehicle
 	 */
 	public void setVehicle(int id, Vehicle.TravelModes mode) {
 		// Load the Vehicle from the database based on the type of the Vehicle
@@ -599,15 +559,17 @@ public class Segment extends BaseClass {
 		case BIKE:
 			this.vehicle = Bike.Load(id); // Return Bike
 			break;
+		case NONE:
+			break;
+		case ALL:
+			break;
 
 		}// End of switch
 	}// End of setVehicle(int id, Vehicle.TravelModes mode)
 
 	/**
 	 * This function sets the lane of travel on the Segment
-	 * 
-	 * @param newLane
-	 *            This is the new lane of travel for the Segment
+	 * @param newLane This is the new lane of travel for the Segment
 	 */
 	public void setLane(String newLane) {
 		if (lanes == null || !lanes.equals(newLane)) {
@@ -618,7 +580,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the lane of travel along this Segment
-	 * 
 	 * @return Returns the lane of travel on this Segment
 	 */
 	public String getLane() {
@@ -627,7 +588,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function returns the TravelType of the vehicle over this Segment
-	 * 
 	 * @return Returns the TravelType of the vehicle over the Segment
 	 */
 	public TravelType getTravelType() {
@@ -636,9 +596,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function sets the TravelType for the vehicle over the Segment
-	 * 
-	 * @param travelType
-	 *            This is the new TravelType of the vehicle over the Segment
+	 * @param travelType This is the new TravelType of the vehicle over the Segment
 	 */
 	public void setTravelType(TravelType travelType) {
 
@@ -659,12 +617,10 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns all the Segments specified in the given where
 	 * clause
-	 * 
-	 * @param where
-	 *            This is the where clause specifying the Segments to load from
-	 *            the database
+	 * @param where This is the where clause specifying the Segments to load from
+	 * the database
 	 * @return Returns an ArrayList of the Segments specified in the where
-	 *         clause
+	 * clause
 	 */
 	public static ArrayList<Segment> LoadAll(String where) {
 		// System.out.println("Loading all the segments from the where clause");
@@ -694,9 +650,7 @@ public class Segment extends BaseClass {
 	/**
 	 * This function builds objects from returned data from SQL queries against
 	 * our database
-	 * 
-	 * @param data
-	 *            This is the data that will be used to build the Segment object
+	 * @param data This is the data that will be used to build the Segment object
 	 * @return Returns a Segment object built from the passed in data
 	 * @throws SQLException
 	 */
@@ -732,6 +686,10 @@ public class Segment extends BaseClass {
 		s.setLatestArrivalTime((Integer) data.get("LatestArrivalTime"));
 		s.setLatestDepartureTime((Integer) data.get("LatestDepartureTime"));
 		s.setLane((String) data.get("Lane"));
+		if((Boolean)data.get("Deleted"))
+			s.MarkDeleted();
+		else
+			s.MarkUndeleted();
 		// s.setShippingRate(ShippingRate.Load((Integer)data.get("ShippingRateID")));
 
 		Location tstart = new Location((Integer) data.get("StartID"));
@@ -802,11 +760,9 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns an ArrayList of all the Segments that begin at the
 	 * given Location
-	 * 
-	 * @param start
-	 *            This is the start location of all the Segments to be loaded
+	 * @param start This is the start location of all the Segments to be loaded
 	 * @return Returns an ArrayList of all the Segments that start at the given
-	 *         location
+	 * location
 	 */
 	public static ArrayList<Segment> LoadAllAtLocation(Location start) {
 		// Create an empty list of Segments
@@ -832,14 +788,11 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns an ArrayList of Segments of all the Segments that
 	 * start at the given Location and leave after the given start time
-	 * 
-	 * @param start
-	 *            This is the starting location of the Segments to load
-	 * @param startTime
-	 *            This is the earliest estimated time that the vehicle on this
-	 *            Segment can leave
+	 * @param start This is the starting location of the Segments to load
+	 * @param startTime This is the earliest estimated time that the vehicle on this
+	 * Segment can leave
 	 * @return Returns an ArrayList of the Segments that start at the given
-	 *         location and leave after the given time
+	 * location and leave after the given time
 	 */
 	public static ArrayList<Segment> LoadAllAtLocation(Location start,
 			int startTime) {
@@ -866,11 +819,9 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns an ArrayList of all the Segments that begin at the
 	 * given LocationID
-	 * 
-	 * @param startLocationID
-	 *            This is the start location ID of all the Segments to be loaded
+	 * @param startLocationID This is the start location ID of all the Segments to be loaded
 	 * @return Returns an ArrayList of all the Segments that start at the given
-	 *         locationID
+	 * locationID
 	 */
 	public static ArrayList<Segment> LoadAllAtLocation(int startLocationID) {
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
@@ -892,14 +843,11 @@ public class Segment extends BaseClass {
 	/**
 	 * This function returns an ArrayList of Segments of all the Segments that
 	 * start at the given Location id and leave after the given start time
-	 * 
-	 * @param locationID
-	 *            This is the starting location id of the Segments to load
-	 * @param startTime
-	 *            This is the earliest estimated time that the vehicle on this
-	 *            Segment can leave
+	 * @param locationID This is the starting location id of the Segments to load
+	 * @param startTime This is the earliest estimated time that the vehicle on this
+	 * Segment can leave
 	 * @return Returns an ArrayList of the Segments that start at the given
-	 *         location id and leave after the given time
+	 * location id and leave after the given time
 	 */
 	public static ArrayList<Segment> LoadAllAtLocation(int locationID,
 			int startTime) {
@@ -921,9 +869,7 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function will load a Segment from the database based on the given ID
-	 * 
-	 * @param id
-	 *            This is the ID of the Segment to load from the database
+	 * @param id This is the ID of the Segment to load from the database
 	 * @return Returns a Segment object based on the id passed in
 	 */
 	public static Segment Load(int id) {
@@ -950,12 +896,10 @@ public class Segment extends BaseClass {
 	/**
 	 * This function overrides the parent's Update function and will handle
 	 * changes made to the Segment object in the database
-	 * 
-	 * @return
+	 * @return Returns a boolean indicating if the Update completed successfully or not
 	 */
 	@Override
 	public boolean Update() {
-		// MORE COMMENTS. CATDOG FOR THE WIN!!!!
 		try {
 			// toDo: set id on insert set update statement
 			if (isNew()) {
@@ -1046,27 +990,28 @@ public class Segment extends BaseClass {
 					// If the Segment is not new, but is dirty then it needs to
 					// be updated by the following SQL command
 					executeCommand("Update Segment Set FromLocationID ='"
-							+ this.getStartLocationID() + "' "
-							+ "AND ToLocationID ='" + this.getEndLocationID()
-							+ "' " + "AND VehicleID='" + this.vehicle.getId()
-							+ "' " + "And ModeType='" + this.getTravelMode()
-							+ "' " + "And Distance='" + this.getDistance()
-							+ "' " + "And TimeOfDeparture ='"
-							+ this.getEstimatedDepartureTime() + "' "
-							+ "And Lane ='" + this.getLane() + "' "
-							+ "And ShippingRateID ='"
-							+ this.getShippingRate().getId() + "' "
-							+ "And EarliestArrivalTime ='"
-							+ this.getEarliestArrivalTime() + "' "
-							+ "And LatestArrivalTime ='"
-							+ this.getLatestArrivalTime() + "' "
-							+ "And EarliestDepartureTime ='"
-							+ this.getEarliestDepartureTime() + "' "
-							+ "And LatestDepatureTime ='"
-							+ this.getLatestDepartureTime() + "' "
-							+ "And TimeOfArrival = '"
-							+ this.getEstimatedArrivalTime()
-							+ "' Where SegmentID=" + this.id);
+							+ this.getStartLocationID() + "', "
+							+ "ToLocationID ='" + this.getEndLocationID() + "', "
+							+ "'VehicleID='" + this.vehicle.getId() + "', "
+							+ "ModeType='" + this.getTravelMode() + "', "
+							+ "Distance='" + this.getDistance() + "', "
+							+ "TimeOfDeparture ='"
+							+ this.getEstimatedDepartureTime() + "', "
+							+ "Lane ='" + this.getLane() + "', "
+							+ "ShippingRateID ='"
+							+ this.getShippingRate().getId() + "', "
+							+ "EarliestArrivalTime ='"
+							+ this.getEarliestArrivalTime() + "', "
+							+ "LatestArrivalTime ='"
+							+ this.getLatestArrivalTime() + "', "
+							+ "EarliestDepartureTime ='"
+							+ this.getEarliestDepartureTime() + "', "
+							+ "LatestDepatureTime ='"
+							+ this.getLatestDepartureTime() + "', "
+							+ "TimeOfArrival = '"
+							+ this.getEstimatedArrivalTime() + "', "
+							+ "Deleted = " + this.isDeleted() 
+							+ " Where SegmentID=" + this.id);
 					MarkClean(); // Mark the Segment as clean
 				}// End of isDirty if
 			}// End of isOld else
@@ -1082,7 +1027,6 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This function estimates the capacity available over this Segment
-	 * 
 	 * @return Returns the estimated capacity along this Segment
 	 */
 	public int estimateCapacity() {
@@ -1103,16 +1047,13 @@ public class Segment extends BaseClass {
 
 	/**
 	 * This is the overridden Delete function of the parent class and will
-	 * remove this Segment from the database
-	 * 
-	 * @return
+	 * mark this segment as deleted
+	 * @return Returns a boolean indicating if the segment was successfully marked as deleted or not
 	 */
 	@Override
 	public boolean Delete() {
 		try {
-			executeCommand("Delete from Segment Where SegmentID = " + this.id); // Delete
-																				// the
-																				// Segment
+			executeCommand("Update Segment Set Deleted = true Where SegmentID = " + this.id);
 			return true;
 		}// End of try block
 		catch (Exception ex) {
@@ -1124,8 +1065,7 @@ public class Segment extends BaseClass {
 	}// End of the overridden Delete()
 
 	/**
-	 * This is the overridden toString function for the Segment
-	 * 
+	 * This is the overridden toString function for the Segment 
 	 * @return Returns the id of the start location and the end location
 	 */
 	@Override

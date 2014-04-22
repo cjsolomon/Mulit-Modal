@@ -6,8 +6,6 @@ import java.util.Map;
 import GUI.Log;
 
 //Shipment class
-//Lets try this again
-//YEAH!!!! ITS WORKING!!!!!
 public class Shipment extends BaseClass {
 
 	private int fromLocationID,toLocationID;
@@ -97,6 +95,7 @@ public class Shipment extends BaseClass {
 		this.currentLocation = DEFAULT_START_LOCATION_ID;
 		this.MarkNew();
 		this.MarkClean();
+		this.MarkUndeleted();
 	}//End of the default Shipment constructor
 	
 	/**
@@ -130,6 +129,7 @@ public class Shipment extends BaseClass {
 		this.currentLocation = DEFAULT_START_LOCATION_ID;
 		this.MarkNew();
 		this.MarkClean();
+		this.MarkUndeleted();
 	}//End of the Shipment(int id) constructor
 	
 	/**
@@ -879,6 +879,10 @@ public class Shipment extends BaseClass {
 		s.setPrefCarrier((String)data.get("prefCarriers"));
 		if((Integer)data.get("maxStops")!=null)
 			s.setMaxStops((Integer)data.get("maxStops"));
+		if((Boolean)data.get("Deleted"))
+			s.MarkDeleted();
+		else
+			s.MarkUndeleted();
 		s.MarkClean();
 		return s;
 		
@@ -961,6 +965,7 @@ public class Shipment extends BaseClass {
 							", hazmatConstraints = '" + this.hazmatConstraints + "' "+
 							", prefCarriers = '" + this.prefCarriers +"' "+
 							", maxStops = '"+this.maxStops+"'"+
+							", deleted = " + this.isDeleted() +
 							" where ShipmentID = '" + this.id +"'");
 							
 					MarkClean();
@@ -978,13 +983,13 @@ public class Shipment extends BaseClass {
 	}//End of Update()
 
 	/**
-	 * This function will delete the shipment from the database
+	 * This function will mark this shipment as deleted in the database
 	 */
 	@Override
 	boolean Delete() {
 		try
 		{
-			executeCommand("Delete from Shipment Where ShipmentID = " + this.id);					//Delete the plane
+			executeCommand("Update Shipment Set Deleted = true Where ShipmentID = " + this.id);	
 			return true;
 		}//End of the try block
 		catch(Exception ex)

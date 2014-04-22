@@ -15,6 +15,7 @@ import java.util.Map;
 public abstract class BaseClass {
 	private Boolean dirty;																	//The dirty/clean flag for DB management
 	private Boolean newObject;																//The new/old flag for DB management
+	private Boolean deleted;
 	private static final String DRIVER = "com.mysql.jdbc.Driver";							//Location of the driver
 	private static final String URL="jdbc:mysql://Excalibur.sru.edu:3306/Multi-Modal";		//URL to connect to the database
 	private static final String USER = "thangiah";											//Default user name
@@ -89,6 +90,36 @@ public abstract class BaseClass {
 	{
 			newObject=false;
 	}//End of MarkOld
+	
+	/**
+	 * This function will mark this object as deleted and old so that it will be updated in the database
+	 */
+	public void MarkDeleted(){
+		if(!deleted){
+			deleted = true;
+			dirty = true;
+		}
+	}//End of MarkDeleted()
+	
+	/**
+	 * This function will undelete an object
+	 */
+	public void MarkUndeleted(){
+		if(deleted){
+			deleted = false;
+			dirty = true;
+		}
+	}//End of MarkUndeleted()
+	
+	/**
+	 * This function will return the boolean indicating if this object is deleted or not
+	 * @return
+	 */
+	public boolean isDeleted(){
+		return deleted;
+	}//End
+	
+	
 	
 	/**
 	 * Returns the connection to the database

@@ -55,6 +55,7 @@ public class TravelType extends BaseClass {
 		this.vehicleTypeID = DEFAULT_VEHICLE_TYPE_ID;
 		MarkClean();
 		MarkNew();																//Mark the Truck as new
+		MarkUndeleted();
 	}//End of the default TravelType constructor
 	
 	/**
@@ -81,7 +82,7 @@ public class TravelType extends BaseClass {
 		this.vehicleTypeID = DEFAULT_VEHICLE_TYPE_ID;
 		MarkClean();
 		MarkNew();																//Mark the Truck as new
-
+		MarkUndeleted();
 	}//End of the argumented TravelType constructor
 	
 	/**
@@ -441,9 +442,9 @@ public class TravelType extends BaseClass {
 					executeCommand("Update TravelTypes Set VehicleTypeName = '" + this.getTravelTypeName() + "' , VehicleMode = '"+this.getTravelTypeMode()+
 						"' , Trailer1 = '" + this.getTrailer1() + "' , Trailer2 = '" + this.getTrailer2() + "' , MinimumCapacity = '" + this.getMinCap() + 
 						"' , MaximumCapacity = '" + this.getMaxCap() + "' , ActualCapacity = '" +this.getActCap() + "' , MaxWeight = '" + this.getMaxWeight() +
-						"' , ServiceType = '" + this.getServiceType() + "' , Radiation = '" + this.getRadiation() + "' , Refridgeration = '" + this.getRefridgeration() +
-						"' , HazardousMaterial = '" + this.getHazmat() + "' , ExplosiveMaterial = '" + this.getExplosives() + "' , Tracking = '" + this.getTracking() +
-						"' Where VehicleTypeID = " +this.vehicleTypeID);
+						"' , ServiceType = '" + this.getServiceType() + "' , Radiation = " + this.getRadiation() + " , Refridgeration = " + this.getRefridgeration() +
+						" , HazardousMaterial = " + this.getHazmat() + " , ExplosiveMaterial = " + this.getExplosives() + " , Tracking = " + this.getTracking() +
+						", Deleted = " +this.isDeleted() + " Where VehicleTypeID = " +this.vehicleTypeID);
 					MarkClean();																	//Mark the TravelType as clean
 				}//End of isDirty if
 			}//End of isOld else
@@ -459,14 +460,14 @@ public class TravelType extends BaseClass {
 	}//End of overridden Update()
 
 	/**
-	 * This is the overridden Delete function of the parent class and will remove this Truck from the database
+	 * This is the overridden Delete function of the parent class and will set this TravelType as deleted in the database
 	 */
 	@Override
 	public  boolean Delete() 
 	{
 		try
 		{
-			executeCommand("Delete from TravelTypes Where VehicleTypeID = " + this.vehicleTypeID);							//Delete this Truck
+			executeCommand("Update TravelTypes Set Deleted = true Where VehicleTypeID = " + this.vehicleTypeID);							//Delete this Truck
 			return true;
 		}//End of try block
 		catch(Exception ex)
@@ -572,6 +573,11 @@ public class TravelType extends BaseClass {
 			}
 			else
 				t.setTrackingFalse();
+			if((Boolean)data.get("Deleted"))
+				t.MarkDeleted();
+			else
+				t.MarkUndeleted();
+			
 			t.MarkClean();																//Mark the Truck as clean
 			return t;
 			

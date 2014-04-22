@@ -26,6 +26,7 @@ public class ShipmentHistory extends BaseClass {
 		this.shipmentID = DEFAULT_SHIPMENT_ID;
 		MarkClean();
 		MarkNew();
+		MarkUndeleted();
 	}//End of ShipmentHistory()
 	
 	/**
@@ -40,6 +41,7 @@ public class ShipmentHistory extends BaseClass {
 		this.shipmentID = DEFAULT_SHIPMENT_ID;
 		MarkClean();
 		MarkNew();
+		MarkUndeleted();
 	}//End of ShipmentHistory(int id)
 	
 	/**
@@ -165,6 +167,10 @@ public class ShipmentHistory extends BaseClass {
 		sh.setSegmentID(Integer.parseInt(data.get("SegmentID").toString()));
 		sh.setShipmentID((Integer)data.get("ShipmentID"));
 		sh.setNodeNumber((Integer)data.get("NodeNumber"));
+		if((Boolean)data.get("Deleted"))
+			sh.MarkDeleted();
+		else
+			sh.MarkUndeleted();
 		sh.MarkClean();
 		return sh;
 	}//End of BuildFromDataRow(Map<String,Object> data)
@@ -199,7 +205,7 @@ public class ShipmentHistory extends BaseClass {
 				{
 					//If the Plane is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update ShipmentHistory Set SegmentID = '" + this.segmentID + "' , ShipmentID = '"+this.shipmentID+
-						"' , NodeNumber = '" + this.nodeNumber + "' where ShipmentHistorID ='"+this.id+"'");
+						"' , NodeNumber = '" + this.nodeNumber + "', deleted = " + this.isDeleted() + " where ShipmentHistorID ='"+this.id+"'");
 					MarkClean();
 				}//End of isDirty if
 			}//End of isOld else
@@ -214,13 +220,13 @@ public class ShipmentHistory extends BaseClass {
 	}//End of Update()
 
 	/**
-	 * This function will delete the ShipmentHistory from the database
+	 * This function will mark the ShipmentHistory as deleted
 	 */
 	@Override
 	boolean Delete() {
 		try
 		{
-			executeCommand("Delete from ShipmentHistory where ShipmentHistoryID = '"+this.id+"'");
+			executeCommand("Update ShipmentHistory Set Deleted = true where ShipmentHistoryID = '"+this.id+"'");
 			return true;
 		}
 		catch(Exception ex)

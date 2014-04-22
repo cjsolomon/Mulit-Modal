@@ -29,6 +29,7 @@ public class Truck extends Vehicle {
 		this.name = DEFAULT_TRUCK_NAME;									//Set the Truck name					
 		this.MarkNew();													//Mark the Truck as new
 		this.MarkClean();												//Mark the Truck as clean
+		this.MarkUndeleted();
 	}//End of the default Truck constructor
 	
 	/**
@@ -44,7 +45,7 @@ public class Truck extends Vehicle {
 		this.name = DEFAULT_TRUCK_NAME;									//Set the Truck name					
 		this.MarkOld();													//Mark the Truck as new
 		this.MarkClean();												//Mark the Truck as clean
-																				
+		this.MarkUndeleted();
 	}//End of the argumented Truck constructor
 	
 	/**
@@ -78,7 +79,7 @@ public class Truck extends Vehicle {
 				{
 					//If the Truck is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update Truck Set TruckName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
-						 "' , Status = '" + this.getStatus() + "' Where TruckID = " +this.id);
+						 "' , Status = '" + this.getStatus() + "', Deleted = " + this.isDeleted() + " Where TruckID = " +this.id);
 					MarkClean();																	//Mark the Truck as clean
 				}//End of isDirty if
 			}//End of isOld else
@@ -94,14 +95,14 @@ public class Truck extends Vehicle {
 	}//End of overridden Update()
 
 	/**
-	 * This is the overridden Delete function of the parent class and will remove this Truck from the database
+	 * This is the overridden Delete function of the parent class and will mark this Truck as deleted in the database
 	 */
 	@Override
 	public  boolean Delete() 
 	{
 		try
 		{
-			executeCommand("Delete from Truck Where TruckID = " + this.id);							//Delete this Truck
+			executeCommand("Update Truck Set Deleted = true Where TruckID = " + this.id);							//Delete this Truck
 			return true;
 		}//End of try block
 		catch(Exception ex)
@@ -175,6 +176,10 @@ public class Truck extends Vehicle {
 		t.setVehicleName((String)data.get("TruckName"));
 		t.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
 		t.setStatus((String)data.get("Status"));	
+		if((Boolean)data.get("Deleted"))
+			t.MarkDeleted();
+		else
+			t.MarkUndeleted();
 		t.MarkClean();																//Mark the Truck as clean
 		t.MarkOld();
 		return t;

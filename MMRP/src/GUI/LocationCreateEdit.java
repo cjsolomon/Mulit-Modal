@@ -36,6 +36,7 @@ public class LocationCreateEdit extends JPanel {
 	private JButton btnCommitToDatabase;
 	
 	private boolean edit = false;
+	private JButton btnCancel;
 	
 	public LocationCreateEdit(Location editLocation) {
 		
@@ -200,6 +201,14 @@ public class LocationCreateEdit extends JPanel {
 		cbTravelMode5.setSelectedItem(Vehicle.TravelModes.NONE);
 		loadTravelComboBox(cbTravelMode6);
 		cbTravelMode6.setSelectedItem(Vehicle.TravelModes.NONE);
+		
+		btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		add(btnCancel, "7, 17");
 		
 		if(editLocation != null){
 			loadLocation(editLocation);

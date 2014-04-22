@@ -29,6 +29,7 @@ public class Bike extends Vehicle {
 		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
 		this.MarkNew();													//Mark the Bike as new
 		this.MarkClean();												//Mark the Bike as clean
+		this.MarkUndeleted();											//Mark the bike as not deleted
 	}//End of Bike()
 
 	//This is the arguemented Bike constructor to set the id of the Bike
@@ -45,6 +46,7 @@ public class Bike extends Vehicle {
 		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name					
 		this.MarkOld();													//Mark the Bike as new
 		this.MarkClean();												//Mark the Bike as clean
+		this.MarkUndeleted();											//Mark the Bike as not deleted
 
 	}//End of Bike(int id)
 
@@ -83,7 +85,7 @@ public class Bike extends Vehicle {
 				{
 					//If the Bike is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update Bike Set BikeName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId() +
-							"' , Status = '" + this.getStatus() + "' Where BikeID = " +this.id);
+							"' , Status = '" + this.getStatus() + "', Deleted = " + this.isDeleted() + " Where BikeID = " +this.id);
 					MarkClean();												//Now mark the bike as clean
 				}//End of isDirty if
 			}//End of isOld else
@@ -100,14 +102,14 @@ public class Bike extends Vehicle {
 	}//End of overridden Update()
 
 	/**
-	 * Deletes the bike from the database
+	 * Sets the Bike as deleted in the database
 	 */
 	@Override
 	public  boolean Delete() 
 	{
 		try
 		{
-			executeCommand("Delete from Bike Where BikeID = " + this.id);		//Delete this Bike from the database
+			executeCommand("Update Bike Set Deleted = true Where BikeID = " + this.id);		//Delete this Bike from the database
 			return true;
 		}//End of try block
 		catch(Exception ex)
@@ -118,8 +120,9 @@ public class Bike extends Vehicle {
 		}//End of catch block
 
 	}//End of overridden Delete()
+	
 	/**
-	 * Static method that loads a bike from the databse
+	 * Static method that loads a bike from the database
 	 * @param id BikeID
 	 * @return Instance of Bike where BikedID=id
 	 */
@@ -170,7 +173,7 @@ public class Bike extends Vehicle {
 	/**
 	 * Builds a Bike object from the results obtained from a database query
 	 * @param data Mapping from database query
-	 * @return
+	 * @return Returns a new Bike object that was created from the passed in data
 	 * @throws SQLException
 	 */
 	public static Bike BuildFromDataRow(Map<String,Object> data) throws SQLException
@@ -180,7 +183,11 @@ public class Bike extends Vehicle {
 		Bike b = new Bike((Integer)data.get("BikeID"));
 		b.setVehicleName((String)data.get("BikeName"));
 		b.setCarrier(Carrier.Load((Integer)data.get("Carrier")));
-		b.setStatus((String)data.get("Status"));		
+		b.setStatus((String)data.get("Status"));
+		if((Boolean)data.get("Deleted"))
+			b.MarkDeleted();
+		else
+			b.MarkUndeleted();
 		b.MarkClean();
 		b.MarkOld();
 		return b;
@@ -188,4 +195,4 @@ public class Bike extends Vehicle {
 	}//End of BuildFromDataRow(Map<String,Object> data)
 
 
-}
+}//End of Bike Class
