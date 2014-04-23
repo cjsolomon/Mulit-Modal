@@ -81,7 +81,7 @@ public class TravelType extends BaseClass {
 		this.trailer2 = DEFAULT_TRAILER2;
 		this.vehicleMode = DEFAULT_VEHICLE_MODE;
 		this.vehicleTypeName = DEFAULT_VEHICLE_TYPE_NAME;
-		this.vehicleTypeID = DEFAULT_VEHICLE_TYPE_ID;
+		//this.vehicleTypeID = DEFAULT_VEHICLE_TYPE_ID;
 		MarkClean();									
 	}//End of the argumented TravelType constructor
 	
@@ -547,7 +547,7 @@ public class TravelType extends BaseClass {
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND tt.Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));
@@ -581,6 +581,49 @@ public class TravelType extends BaseClass {
 			ex.printStackTrace();
 		}
 		return returnList;
+	}
+	public void addToVehilce(Vehicle v)
+	{
+		if(v.getTravelMode().equals(this.getTravelTypeMode()))
+		{
+			try
+			{
+				if(executeQuery("Select * from vehicletraveltypeindex where VehicleID = '" + v.getId() +"' AND TravelMode = '"+ v.getTravelMode() + "' AND TravelTypeID = '" + this.getVehicleTypeID()+"'").size()==0)
+				{
+					/*Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,ActualCapacity,MaxWeight,ServiceType,Radiation
+					 * , Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
+					    this.getTravelTypeName() + "','" +this.getTravelTypeMode() + "','"+ this.getTrailer1()+"','"+this.getTrailer2() + "','"
+					     + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
+						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","
+						+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");*/
+					executeCommand("Insert into vehicletraveltypeindex (VehicleID,TravelTypeID,TravelMode,inUse,Deleted) Values('"+v.getId()+"','"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
+				}
+				else
+				{
+					executeCommand("Update vehicletraveltypeindex set Deleted = false where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+				}
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+	}
+	public void removeFromVehilce(Vehicle v)
+	{
+		if(v.getTravelMode().equals(this.getTravelTypeMode()))
+		{
+			try
+			{
+				
+				executeCommand("Update vehicletraveltypeindex set Deleted = true where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+				
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
 	}
 	/**
 	 * This function returns an ArrayList of TravelTypes loaded from the database based on the given where clause

@@ -33,7 +33,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
 import core.Location;
-
+import GUI.TruckForms.*;
 
 
 public class Main_Source {

@@ -95,7 +95,7 @@ public class FormatChecker {
 	 */
 	static public boolean isValidDate(String date)
 	{
-		SimpleDateFormat format = (date.charAt(2) == '/' || date.charAt(1) == '/') 
+		/*SimpleDateFormat format = (date.charAt(2) == '/' || date.charAt(1) == '/') 
 															? new SimpleDateFormat("MM/D/YYYY")
 														   	:new SimpleDateFormat("MMM D YYYY");
 		boolean ret = true;
@@ -106,7 +106,8 @@ public class FormatChecker {
 			//Log.writeLogWarning("Invalid format on date entry.");
 			ret = false;
 		}
-		return ret;
+		return ret;*/
+		return true;
 	}
 	
 	/**
