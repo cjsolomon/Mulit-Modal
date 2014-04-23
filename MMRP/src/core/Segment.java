@@ -39,6 +39,7 @@ public class Segment extends BaseClass {
 	private Location end;
 
 	// Default Variables
+	private static final double MIN_DISTANCE = 0;
 	private static final int DEFAULT_ARRIVAL_TIME = 50;
 	private static final int DEFAULT_DEPARTURE_TIME = 0;
 	private static final double DEFAULT_DISTANCE = 100;
@@ -112,20 +113,21 @@ public class Segment extends BaseClass {
 	 * @param newDistance This is the Segments new distance
 	 */
 	public void setDistance(double newDistance) {
-		// Some error checking
-		if (newDistance < 0) {
+		if (!FormatChecker.checkLowerBound(newDistance, MIN_DISTANCE)) {
 			/*
 			 * Log.writeLogSevere("The new distance for segment " + this.getID()
 			 * + " was set below zero. The new " +
 			 * "distance will be now set to zero.");
 			 */
-			newDistance = 0;
+			newDistance = MIN_DISTANCE;
 		}
-
-		if (this.distance != newDistance) {
+		else{
+			if (this.distance != newDistance) {
 			distance = newDistance; // Set the distance
 			MarkDirty(); // Mark this Segment as dirty
 		}// End of update distance if
+		}
+		
 	}// End of setDistance(double d)
 
 	/**
@@ -160,29 +162,36 @@ public class Segment extends BaseClass {
 	 * location
 	 */
 	public void setEstimatedArrivalTime(int newArrivalTime) {
-		// Some error checking
-
+		/*
 		if (newArrivalTime < this.earliestArrivalTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new estimate arrival time was set below the earliest arrival time, so it has been corrected to "
-			 * + this.earliestArrivalTime + ".");
-			 */
+			
+			  Log.writeLogSevere(
+			  "The new estimate arrival time was set below the earliest arrival time, so it has been corrected to "
+			  + this.earliestArrivalTime + ".");
+			 
 			newArrivalTime = this.earliestArrivalTime;
 		}
 
 		if (newArrivalTime > this.latestArrivalTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new estimate arrival time was set above the latest arrival time, so it has been corrected to "
-			 * + this.latestArrivalTime + ".");
-			 */
+			
+			 Log.writeLogSevere(
+			 "The new estimate arrival time was set above the latest arrival time, so it has been corrected to "
+			 + this.latestArrivalTime + ".");
 			newArrivalTime = this.latestArrivalTime;
 		}
-
+		*/
 		if (this.arrivalTime != newArrivalTime) {
-			arrivalTime = newArrivalTime; // Set the arrival time
+			if(FormatChecker.inRange(newArrivalTime, earliestArrivalTime, latestArrivalTime))
+			{
+				arrivalTime = newArrivalTime; // Set the arrival time
 			MarkDirty(); // Mark this Segment as dirty
+			}
+			else 
+			{
+				Log.writeLogWarning("Invalid entry for estimated arrival time in segment. Setting estimated"
+						+ "arrival time to " + DEFAULT_ARRIVAL_TIME);
+				arrivalTime = DEFAULT_ARRIVAL_TIME;
+			}
 		}// End of update if
 	}// End of setEstimatedArrivalTime(int newArrivalTime)
 
@@ -203,29 +212,34 @@ public class Segment extends BaseClass {
 	 * this Segment
 	 */
 	public void setEstimatedDepartureTime(int newDepartureTime) {
-		// Some error checking
-
+		/*
 		if (newDepartureTime < this.earliestDepartureTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new estimate departure time was set below the earliest depature time, so it has been corrected to "
-			 * + earliestDepartureTime + ".");
-			 */
+			
+			 Log.writeLogSevere(
+			 "The new estimate departure time was set below the earliest depature time, so it has been corrected to "
+			 + earliestDepartureTime + ".");
 			newDepartureTime = earliestDepartureTime;
 		}
 
 		if (newDepartureTime > this.latestDepartureTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new estimate departure time was set above the latest departure time, so it has been corrected to "
-			 * + this.latestDepartureTime + ".");
-			 */
+			 Log.writeLogSevere(
+			 "The new estimate departure time was set above the latest departure time, so it has been corrected to "
+			 + this.latestDepartureTime + ".");
 			newDepartureTime = this.latestDepartureTime;
-		}
+		}*/
 
 		if (this.departureTime != newDepartureTime) {
-			this.departureTime = newDepartureTime; // Set the departureTime
-			MarkDirty(); // Mark this Segment as dirty
+			if(FormatChecker.inRange(newDepartureTime, earliestDepartureTime, latestDepartureTime))
+			{
+				this.departureTime = newDepartureTime; // Set the departureTime
+				MarkDirty(); // Mark this Segment as dirty
+			}
+			else 
+			{
+				Log.writeLogWarning("Invalid entry for estimated departure time in segment. Setting estimated"
+						+ "departure time to " + DEFAULT_DEPARTURE_TIME);
+				departureTime = DEFAULT_DEPARTURE_TIME;
+			}
 		}// End of update if
 	}// End of setEstimatedDepartureTime(int newDepartureTime)
 
@@ -256,27 +270,18 @@ public class Segment extends BaseClass {
 	 * end location
 	 */
 	public void setEarliestArrivalTime(int earliestArrivalTime) {
-
-		// Some error checking
-		if (earliestArrivalTime > this.arrivalTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new earliest arrival time was set above the arrival time, so it has been corrected to "
-			 * + this.arrivalTime + ".");
-			 */
-			earliestArrivalTime = this.arrivalTime;
+		if(FormatChecker.checkUpperBound(earliestArrivalTime, latestArrivalTime))
+		{
+			this.earliestArrivalTime = earliestArrivalTime;
 		}
-
-		if (earliestArrivalTime < this.latestDepartureTime) {
+		else 
+		{
 			/*
-			 * Log.writeLogSevere(
-			 * "The new earliest arrival time was set below the latest depature time, so it has been corrected to "
-			 * + this.latestDepartureTime + ".");
-			 */
-			earliestArrivalTime = this.latestDepartureTime;
+			Log.writeLogWarning("Invalid entry for earliest arrival time in segment. Setting earliest"
+				+ "arrival time to " + DEFAULT_EARLIEST_ARRIVAL_TIME);*/
+			earliestArrivalTime = DEFAULT_EARLIEST_ARRIVAL_TIME;
 		}
-
-		this.earliestArrivalTime = earliestArrivalTime;
+		
 	}// End of setEarliestArrivalTime(int earliestArrivalTime)
 
 	/**
@@ -296,27 +301,17 @@ public class Segment extends BaseClass {
 	 * location
 	 */
 	public void setLatestArrivalTime(int latestArrivalTime) {
-
-		// Some error checking
-		if (latestArrivalTime < this.arrivalTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new latest arrival time was set below the estimated arrival time, so it has been corrected to "
-			 * + this.arrivalTime + ".");
-			 */
-			latestArrivalTime = this.arrivalTime;
+		if(FormatChecker.checkLowerBound(latestArrivalTime, earliestArrivalTime))
+		{
+			this.latestArrivalTime = latestArrivalTime;
 		}
-
-		// if(latestArrivalTime > HIGEST_ARRIVAL_TIME){
-		/*
-		 * Log.writeLogSevere(
-		 * "The new latest arrival time was set too high, so it has been corrected to "
-		 * + HIGEST_ARRIVAL_TIME + ".");
-		 */
-		// latestArrivalTime = HIGEST_ARRIVAL_TIME;
-		// }
-
-		this.latestArrivalTime = latestArrivalTime;
+		else 
+		{
+			/*
+			Log.writeLogWarning("Invalid entry for latest arrival time in segment. Setting latest"
+				+ "arrival time to " + DEFAULT_LATEST_ARRIVAL_TIME); */
+			latestArrivalTime = DEFAULT_LATEST_ARRIVAL_TIME;
+		}
 	}// End of setLatestArrivalTime(int latestArrivalTime)
 
 	/**
@@ -336,27 +331,17 @@ public class Segment extends BaseClass {
 	 * the start location
 	 */
 	public void setEarliestDepartureTime(int earliestDepartureTime) {
-
-		// Some error checking
-		if (earliestDepartureTime > this.departureTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new earliest depature time was set above the depature time, so it has been corrected to "
-			 * + this.departureTime + ".");
-			 */
-			earliestDepartureTime = this.departureTime;
+		if(FormatChecker.checkUpperBound(earliestDepartureTime, this.latestDepartureTime))
+		{
+			this.earliestDepartureTime = earliestDepartureTime;
 		}
-
-		// if(earliestDepartureTime < LOWEST_DEPARTURE_TIME){
-		/*
-		 * Log.writeLogSevere(
-		 * "The new earliest depature time was set too low, so it has been corrected to "
-		 * + LOWEST_DEPARTURE_TIME + ".");
-		 */
-		// earliestDepartureTime = LOWEST_DEPARTURE_TIME;
-		// }
-
-		this.earliestDepartureTime = earliestDepartureTime;
+		else 
+		{
+			/*
+			Log.writeLogWarning("Invalid entry for earliest departure time in segment. Setting earliest"
+				+ "departure time to " + DEFAULT_EARLIEST_DEPARTURE_TIME); */
+			this.earliestDepartureTime = DEFAULT_EARLIEST_DEPARTURE_TIME;
+		}
 	}// End of setEarliestDepartureTime(int earliestDepartureTime)
 
 	/**
@@ -376,27 +361,17 @@ public class Segment extends BaseClass {
 	 * start location
 	 */
 	public void setLatestDepartureTime(int latestDepartureTime) {
-
-		// Some error checking
-		if (latestDepartureTime > this.earliestArrivalTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new latest departure time was set above the earliest arrival time, so it has been corrected to "
-			 * + this.earliestArrivalTime + ".");
-			 */
-			latestDepartureTime = this.earliestArrivalTime;
+		if(FormatChecker.checkLowerBound(latestDepartureTime, this.earliestDepartureTime))
+		{
+			this.latestDepartureTime = latestDepartureTime;
 		}
-
-		if (latestDepartureTime < this.departureTime) {
+		else 
+		{
 			/*
-			 * Log.writeLogSevere(
-			 * "The new latest depature time was set below the estimate depature time, so it has been corrected to "
-			 * + this.departureTime + ".");
-			 */
-			latestDepartureTime = this.departureTime;
+			Log.writeLogWarning("Invalid entry for latest departure time in segment. Setting latest"
+				+ "departure time to " + DEFAULT_LATEST_DEPARTURE_TIME); */
+			this.latestDepartureTime = DEFAULT_LATEST_DEPARTURE_TIME;
 		}
-
-		this.latestDepartureTime = latestDepartureTime;
 	}// End of setLatestDepartureTime(int latestDepartureTime)
 
 	/**

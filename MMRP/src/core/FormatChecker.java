@@ -84,6 +84,32 @@ public class FormatChecker {
 			return false;
 		}
 	}
+	
+	static public boolean checkLowerBound(double check, double lowerBound)
+	{
+		if(check > lowerBound || Double.compare(check, lowerBound) == 0)
+		{
+			return true;
+		}
+		else 
+		{
+			//Log.writeLogWarning("Numerical entry given; below lower bound value.");
+			return false;
+		}
+	}
+	
+	static public boolean checkUpperBound(double check, double upperBound)
+	{
+		if(check < upperBound || Double.compare(check, upperBound) == 0)
+		{
+			return true;
+		}
+		else 
+		{
+			//Log.writeLogWarning("Numerical entry given; above upper bound value.");
+			return false;
+		}
+	}
 
 	/**
 	 * 
@@ -105,13 +131,17 @@ public class FormatChecker {
 				format.parse(date);
 			}
 			catch(ParseException e){
-				//Log.writeLogWarning("Invalid format on date entry.");
+				//Log.writeLogWarning("Invalid format on date entry - improper format.");
 				ret = false;
 			}
 		
 		}
 		else
+		{
+			//Log.writeLogWarning("Invalid format on date entry - too short.");
 			ret = false;
+		}
+			
 		return ret;
 	}
 	/**
