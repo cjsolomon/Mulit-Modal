@@ -357,4 +357,17 @@ public class SegmentTest {
 		Assert.assertTrue(test_segment.isDirty());
 	}
 	
+	@Test
+	public void testActualCapacity() {
+		Segment test_segment = new Segment();
+		Double test_capacity = new Double(37.3256);
+		Double test_capacity2 = new Double(-16.2345);
+		
+		test_segment.setActualCapacity(test_capacity);
+		Assert.assertEquals(test_capacity, new Double(test_segment.getActualCapacity()));
+		test_segment.setActualCapacity(test_capacity2);
+		Assert.assertEquals(new Double(0), new Double(test_segment.getActualCapacity()));
+		Assert.assertTrue(test_segment.isDirty());
+	}
+	
 }

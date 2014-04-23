@@ -126,22 +126,23 @@ public class Segment extends BaseClass {
 		}
 		else{
 			if (this.distance != newDistance) {
-			distance = newDistance; // Set the distance
-			MarkDirty(); // Mark this Segment as dirty
-		}// End of update distance if
+				distance = newDistance; // Set the distance
+				MarkDirty(); // Mark this Segment as dirty
+			}// End of update distance if
 		}
-		
+
 	}// End of setDistance(double d)
 
 	public void setActualCapacity(double newActualCapacity){
 		//NEED SOME ERROR CHECKING
 		this.actualCapacity = newActualCapacity;
+		this.MarkDirty();
 	}
-	
+
 	public double getActualCapacity(){
 		return this.actualCapacity;
 	}
-	
+
 	public ArrayList<Shipment> getOnBoard() {
 		return this.onBoard;
 	}
@@ -188,7 +189,7 @@ public class Segment extends BaseClass {
 		else 
 		{
 			Log.writeLogWarning("Invalid entry for estimated arrival time in segment. Setting estimated"
-				+ "arrival time to " + DEFAULT_ARRIVAL_TIME);
+					+ "arrival time to " + DEFAULT_ARRIVAL_TIME);
 			arrivalTime = DEFAULT_ARRIVAL_TIME;
 		}
 	}// End of setEstimatedArrivalTime(int newArrivalTime)
@@ -212,7 +213,7 @@ public class Segment extends BaseClass {
 	public void setEstimatedDepartureTime(int newDepartureTime) {
 		/*
 		if (newDepartureTime < this.earliestDepartureTime) {
-			
+
 			 Log.writeLogSevere(
 			 "The new estimate departure time was set below the earliest depature time, so it has been corrected to "
 			 + earliestDepartureTime + ".");
@@ -502,7 +503,7 @@ public class Segment extends BaseClass {
 			}//end switch
 			return null;
 		}// End of if
-		
+
 		else {
 			return this.vehicle;
 		}
