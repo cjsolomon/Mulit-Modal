@@ -624,11 +624,20 @@ public class Segment extends BaseClass {
 		// System.out.println("Loading all the segments from the where clause");
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try {
-			// Create and populate an ArrayList of Segments
-			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
+			String sql = "SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
 					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
 					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
-					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID " + where  + " AND Deleted = false");
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID ";
+			if(where.equals(""))
+			{
+				sql += "where Deleted = false";
+			}
+			else
+			{
+				sql+= where + " AND Deleted = false";
+			}
+			// Create and populate an ArrayList of Segments
+			ArrayList<Map<String, Object>> temp = executeQuery(sql);
 
 			// For each of the entries in our list create a Segment object
 			for (int i = 0; i < temp.size(); i++) {
@@ -767,7 +776,10 @@ public class Segment extends BaseClass {
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try {
 			// Populate the list with Segments starting at the given Location
-			ArrayList<Map<String, Object>> temp = executeQuery("Select * from Segment where FromLocationID = '"
+			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID " +"where StartID = '"
 					+ start.getID() + "'"  + " AND Deleted = false");
 			// For each returned Segment create a new Segment object
 			for (int i = 0; i < temp.size(); i++) {
@@ -798,7 +810,10 @@ public class Segment extends BaseClass {
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try {
 			// Populate a list with all the Segments that match the criteria
-			ArrayList<Map<String, Object>> temp = executeQuery("Select * from Segment where FromLocationID = '"
+			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID " +"where StartID = '"
 					+ start.getID() + "' and TimeOfDeparture > " + startTime  + " AND Deleted = false");
 			// For each returned Segment create a new Segment object on our list
 			for (int i = 0; i < temp.size(); i++) {
@@ -824,7 +839,10 @@ public class Segment extends BaseClass {
 	public static ArrayList<Segment> LoadAllAtLocation(int startLocationID) {
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try {
-			ArrayList<Map<String, Object>> temp = executeQuery("Select * from Segment where FromLocationID = '"
+			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID "+"where StartID = '"
 					+ startLocationID + "'"  + " AND Deleted = false");
 			for (int i = 0; i < temp.size(); i++) {
 				Segment s = BuildFromDataRow(temp.get(i));
@@ -851,7 +869,10 @@ public class Segment extends BaseClass {
 			int startTime) {
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try {
-			ArrayList<Map<String, Object>> temp = executeQuery("Select * from Segment where FromLocationID = '"
+			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID " +"where StartID = '"
 					+ locationID + "' and TimeOfDeparture > " + startTime  + " AND Deleted = false");
 			for (int i = 0; i < temp.size(); i++) {
 				Segment s = BuildFromDataRow(temp.get(i));
@@ -873,7 +894,10 @@ public class Segment extends BaseClass {
 	public static Segment Load(int id) {
 		try {
 			// Search the database for Segments with the given id
-			ArrayList<Map<String, Object>> temp = executeQuery("Select * from Segment where SegmentID = "
+			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,l.LocationID as StartID,"
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID " +"where SegmentID = "
 					+ id  + " AND Deleted = false");
 			// If something was returned build the Segment from it
 			if (temp.size() > 0) {
