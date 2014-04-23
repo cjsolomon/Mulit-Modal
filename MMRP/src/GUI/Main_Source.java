@@ -33,7 +33,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
 import core.Location;
-import GUI.ShipmentForms.ShipmentForm;
+import GUI.ShipmentForms.ShipmentPanel;
 import GUI.CargoForms.*;
 import GUI.PlaneForms.*;
 import GUI.RailForms.*;
@@ -44,7 +44,7 @@ public class Main_Source {
 
 	private JFrame frmMmrp;
 	private LocationForm locationForm;
-	private ShipmentForm shpFrm;
+	private ShipmentPanel shpFrm;
 	private TruckPanel truckForm;
 	private PlanePanel planeForm;
 	private RailPanel railForm;
@@ -86,7 +86,7 @@ public class Main_Source {
 		frmMmrp.setBackground(new Color(255, 255, 255));
 		frmMmrp.setBounds(100, 100, 941, 739);
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		shpFrm=new ShipmentForm();
+		shpFrm=new ShipmentPanel();
 		shpFrm.setVisible(false);
 		locationForm = new LocationForm();
 		locationForm.setVisible(false);
@@ -149,7 +149,7 @@ public class Main_Source {
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
-				shpFrm.setVisible(true);
+				shpFrm.showPanel();
 				
 			}
 		});

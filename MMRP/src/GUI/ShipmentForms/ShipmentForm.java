@@ -11,6 +11,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import core.Shipment;
+
 import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.MatteBorder;
@@ -23,7 +26,7 @@ public class ShipmentForm extends JPanel {
 	JLabel lblToLocation,lblPriority,lblSize,lblWeight,lblEarliestDateTimeArrival,lblEarliestDateTimeDeparture,lblLatestDateTimeArrival,lblLatestDateTimeDeparture,lblTimeToLoad,lblTimeToUnLoad,lblTollRoads,lblCongestionByPass,lblMaxStops;
 	JTextField txtSize,txtWeight,txtMaxStops,txtTimeUnLoad,txtTimeLoad;
 
-	
+	Shipment source;
 	public ShipmentForm() {
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -206,5 +209,20 @@ public class ShipmentForm extends JPanel {
 		
 	}
 	
+	public void showPanel()
+	{
+		this.setVisible(true);
+	}
 
+	public void showPanel(Shipment s)
+	{
+		source=s;
+		setReadOnly();
+		setVisible(true);
+	}
+	
+	private void setReadOnly()
+	{
+		//txtCompanyName.setText(source.get)
+	}
 }
