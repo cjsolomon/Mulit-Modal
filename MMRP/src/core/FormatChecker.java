@@ -74,7 +74,7 @@ public class FormatChecker {
 	 */
 	static public boolean inRange(double check, double min, double max)
 	{
-		if(check >= min && check <= max) 
+		if((check > min && check < max) || Double.compare(min, check) == 0 || Double.compare(max, check) == 0) 
 		{
 			return true;
 		}
