@@ -56,6 +56,10 @@ public class Cargo extends Vehicle {
 		{
 		if(isNew())
 		{
+			if(executeQuery("Select * from CargoShip where ShipName = '" + this.getVehicleName()+"'").size()==0)
+			{
+				generateUniqueName();
+			}
 			//If the cargo is new insert it into the database by executing the following
 			executeCommand("Insert into CargoShip (ShipName,Carrier,Status) Values ('"+
 					getVehicleName() + "','" +this.getCarrier().getId()+"','" +this.getStatus()+"')");
@@ -191,7 +195,17 @@ public class Cargo extends Vehicle {
 		return c;
 		
 	}//End of the BuildFromDataRow(Map<String, Object> data)
-
+	private void generateUniqueName() throws Exception
+	{
+		ArrayList<Map<String,Object>> tmp = executeQuery("SELECT Max(ShipName) FROM CargoShip where ShipName like 'Ship%'");
+		if(tmp.size()>0)
+		{
+			String largestPrevious = (String)tmp.get(0).get("Max(ShipName");
+			int val = Integer.parseInt(largestPrevious.substring(4));
+			val++;
+			this.setVehicleName("Ship"+val);
+		}
+	}
 	public static String getDefaultName() {
 		// TODO Auto-generated method stub
 		return DEFAULT_CARGO_NAME;
