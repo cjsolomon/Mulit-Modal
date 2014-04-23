@@ -1,4 +1,4 @@
-package  GUI.TruckForms;
+package  GUI.CargoForms;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import GUI.SegmentTable;
+import GUI.TravelTypeSelector;
 import GUI.*;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -17,17 +18,17 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JButton;
 
-public class TruckPanel extends JPanel {
-	TruckTable tt;
+public class CargoPanel extends JPanel {
+	CargoTable tt;
 	JScrollPane sp,sp2;
-	TruckBasicPanel tbp;
+	CargoBasicPanel tbp;
 	private JButton btnDelete;
 	private JButton btnView;
 	private JTabbedPane truckInfo;
 	private JButton btnNew;
 	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
-	public TruckPanel()
+	public CargoPanel()
 	{
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -52,13 +53,13 @@ public class TruckPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		
-		tt=new TruckTable();
+		tt=new CargoTable();
 		tt.setVisible(false);
 		sp=new JScrollPane();
 		sp.setViewportView(tt);
 		sp.setVisible(false);
 		add(sp,"2, 2, 7, 2");
-		tbp = new TruckBasicPanel();
+		tbp = new CargoBasicPanel();
 		tbp.addRefreshListener(new TableRefreshListener(){
 			public void refreshTable()
 			{

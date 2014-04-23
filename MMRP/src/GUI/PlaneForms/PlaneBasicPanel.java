@@ -1,4 +1,4 @@
-package  GUI.TruckForms;
+package  GUI.PlaneForms;
 
 import java.awt.List;
 import java.awt.event.ActionEvent;
@@ -14,24 +14,24 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import GUI.*;
-import core.Carrier;
-import core.Truck;
-import core.Vehicle;
 
+import core.Carrier;
+import core.Plane;
+import core.Vehicle;
+import GUI.*;
 import javax.swing.JButton;
 
-public class TruckBasicPanel extends JPanel {
+public class PlaneBasicPanel extends JPanel {
 	
 	JLabel lblName,lblCarrier,lblStatus;
 	JComboBox cmbStatus,cmbCarrier;
 	JTextField txtName;
-	Truck source;
+	Plane source;
 	private JButton btnEdit;
 	private JButton btnCancel;
 	private JButton btnSave;
 	ArrayList<TableRefreshListener> listener = new ArrayList<TableRefreshListener>();
-	public TruckBasicPanel()
+	public PlaneBasicPanel()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -118,7 +118,7 @@ public class TruckBasicPanel extends JPanel {
 		this.setVisible(true);
 	}
 	
-	public void showPanel(Truck t)
+	public void showPanel(Plane t)
 	{
 		
 		source=t;
@@ -143,7 +143,7 @@ public class TruckBasicPanel extends JPanel {
 	}
 	private void update()
 	{
-		if(source==null) source = new Truck();
+		if(source==null) source = new Plane();
 		source.setVehicleName(txtName.getText());
 		source.setStatus((Vehicle.Status)cmbStatus.getSelectedItem());
 		source.setCarrier((Carrier)cmbCarrier.getSelectedItem());

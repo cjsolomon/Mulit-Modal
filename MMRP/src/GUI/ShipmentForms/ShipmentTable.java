@@ -1,4 +1,4 @@
-package GUI;
+package GUI.ShipmentForms;
 
 import java.util.ArrayList;
 

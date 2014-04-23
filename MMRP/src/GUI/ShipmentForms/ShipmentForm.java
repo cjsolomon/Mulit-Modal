@@ -1,4 +1,4 @@
-package GUI;
+package GUI.ShipmentForms;
 
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;

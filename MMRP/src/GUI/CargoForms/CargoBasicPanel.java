@@ -1,4 +1,4 @@
-package  GUI.TruckForms;
+package  GUI.CargoForms;
 
 import java.awt.List;
 import java.awt.event.ActionEvent;
@@ -10,28 +10,30 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import GUI.TableRefreshListener;
+
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
-import GUI.*;
+
 import core.Carrier;
-import core.Truck;
+import core.Cargo;
 import core.Vehicle;
 
 import javax.swing.JButton;
 
-public class TruckBasicPanel extends JPanel {
+public class CargoBasicPanel extends JPanel {
 	
 	JLabel lblName,lblCarrier,lblStatus;
 	JComboBox cmbStatus,cmbCarrier;
 	JTextField txtName;
-	Truck source;
+	Cargo source;
 	private JButton btnEdit;
 	private JButton btnCancel;
 	private JButton btnSave;
 	ArrayList<TableRefreshListener> listener = new ArrayList<TableRefreshListener>();
-	public TruckBasicPanel()
+	public CargoBasicPanel()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -118,7 +120,7 @@ public class TruckBasicPanel extends JPanel {
 		this.setVisible(true);
 	}
 	
-	public void showPanel(Truck t)
+	public void showPanel(Cargo t)
 	{
 		
 		source=t;
@@ -127,7 +129,7 @@ public class TruckBasicPanel extends JPanel {
 		btnSave.setVisible(false);
 		btnEdit.setVisible(true);
 	}
-	public void addRefreshListener(TableRefreshListener t)
+	public void addRefreshListener(GUI.TableRefreshListener t)
 	{
 		listener.add(t);
 	}
@@ -143,7 +145,7 @@ public class TruckBasicPanel extends JPanel {
 	}
 	private void update()
 	{
-		if(source==null) source = new Truck();
+		if(source==null) source = new Cargo();
 		source.setVehicleName(txtName.getText());
 		source.setStatus((Vehicle.Status)cmbStatus.getSelectedItem());
 		source.setCarrier((Carrier)cmbCarrier.getSelectedItem());

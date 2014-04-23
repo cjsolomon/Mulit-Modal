@@ -33,6 +33,10 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
 import core.Location;
+import GUI.ShipmentForms.ShipmentForm;
+import GUI.CargoForms.*;
+import GUI.PlaneForms.*;
+import GUI.RailForms.*;
 import GUI.TruckForms.*;
 
 
@@ -42,6 +46,9 @@ public class Main_Source {
 	private LocationForm locationForm;
 	private ShipmentForm shpFrm;
 	private TruckPanel truckForm;
+	private PlanePanel planeForm;
+	private RailPanel railForm;
+	private CargoPanel cargoForm;
 	
 	/**
 	 * Launch the application.
@@ -83,8 +90,15 @@ public class Main_Source {
 		shpFrm.setVisible(false);
 		locationForm = new LocationForm();
 		locationForm.setVisible(false);
+		
 		truckForm=new TruckPanel();
 		truckForm.setVisible(false);
+		railForm = new RailPanel();
+		railForm.setVisible(false);
+		planeForm = new PlanePanel();
+		planeForm.setVisible(false);
+		cargoForm = new CargoPanel();
+		cargoForm.setVisible(false);
 		/*
 		 * Code defined here is for the shipments button
 		 */
@@ -145,6 +159,9 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(shpFrm, new CellConstraints().xywh(4,4,11,11));//, row, colSpan, rowSpan)"4,4,fill,fill");
 		frmMmrp.getContentPane().add(locationForm,new CellConstraints().xywh(4,4,11,11));
 		frmMmrp.getContentPane().add(truckForm,new CellConstraints().xywh(4,4,11,11));
+		frmMmrp.getContentPane().add(railForm,new CellConstraints().xywh(4,4,11,11));
+		frmMmrp.getContentPane().add(planeForm,new CellConstraints().xywh(4,4,11,11));
+		frmMmrp.getContentPane().add(cargoForm,new CellConstraints().xywh(4,4,11,11));
 		final JButton btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
@@ -171,16 +188,34 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(truckType,"2,9,right,center");
 
 		final JButton plane = new JButton("Planes");
+		plane.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hidePanels();
+				planeForm.showPanel();
+			}
+		});
 		frmMmrp.getContentPane().add(plane, "2, 10,fill,fill");
 		final JButton planeType = new JButton("Plane Types");
 		frmMmrp.getContentPane().add(planeType,"2,11,right,center");
 
 		final JButton rails = new JButton("Rails");
+		rails.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hidePanels();
+				railForm.showPanel();
+			}
+		});
 		frmMmrp.getContentPane().add(rails, "2, 12,fill,fill");
 		final JButton railType = new JButton("Rail Types");
 		frmMmrp.getContentPane().add(railType,"2,13,right,center");
 		
 		final JButton cargo = new JButton("Cargo Ships");
+		cargo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				hidePanels();
+				cargoForm.showPanel();
+			}
+		});
 		final JButton cargoType = new JButton("CargoType");
 		frmMmrp.getContentPane().add(cargo,"2,14,fill,fill");
 		frmMmrp.getContentPane().add(cargoType,"2,15,right,center");
@@ -221,6 +256,9 @@ public class Main_Source {
 		shpFrm.setVisible(false);
 		this.locationForm.setVisible(false);
 		truckForm.setVisible(false);
+		railForm.setVisible(false);
+		cargoForm.setVisible(false);
+		planeForm.setVisible(false);
 	}
 	
 	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {

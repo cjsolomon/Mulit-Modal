@@ -154,7 +154,7 @@ public class Plane extends Vehicle {
 		try 
 		{
 			ArrayList<Map<String,Object>> temp;
-			if(where.isEmpty())
+			if(where.equals(""))
 				temp = executeQuery("Select * from Plane where Deleted = false");
 			else
 				temp = executeQuery("Select * from Plane " +  where  + " AND Deleted = false");
