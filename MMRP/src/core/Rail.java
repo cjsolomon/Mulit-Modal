@@ -152,7 +152,11 @@ public class Rail extends Vehicle {
 		ArrayList<Rail> returnList = new ArrayList<Rail>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Rail " +  where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp = executeQuery("Select * from Rail where Deleted = false");
+			else
+				temp = executeQuery("Select * from Rail " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Rail r = BuildFromDataRow(temp.get(i));

@@ -157,8 +157,11 @@ public class Bike extends Vehicle {
 		ArrayList<Bike> returnList = new ArrayList<Bike>();
 		try 
 		{
-
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Bike " +  where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp =executeQuery("Select * from Bike where Deleted = false ");
+			else
+				temp =executeQuery("Select * from Bike " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Bike  b = BuildFromDataRow(temp.get(i));

@@ -813,7 +813,11 @@ public class Carrier extends BaseClass
 		ArrayList<Carrier> returnList = new ArrayList<Carrier>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Carriers " +  where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp = executeQuery("Select * from Carriers where Deleted = false");
+			else
+				temp = executeQuery("Select * from Carriers " +  where  + " AND Deleted = false");
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Carrier c = BuildFromDataRow(temp.get(i));

@@ -141,7 +141,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
-				segmentsToCheck.get(i).getVehicle().getStatus() != "RUNNING"){
+				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING"){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 			}//End of time, size and status restraint if

@@ -23,16 +23,7 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws IOException
 	{
 		
-		Cargo newC = new Cargo();
-		newC.setVehicleName("SUPERNEW2");
-		newC.Update();
-		newC.Delete();
-		//Bike newC2 = Bike.LoadAll("where BikeID = " + newC.getId()).get(0);
-		if(Cargo.LoadAll("where ShipID = " + newC.getId()).size() == 0)
-			System.out.println("Successful Delete and Load");
-		else
-			System.out.println("Failure Delete or Load");
-		/*ArrayList<Shipment> shipments = Shipment.LoadAll("");
+		ArrayList<Shipment> shipments = Shipment.LoadAll("");
 		for(int i = 0; i< shipments.size(); i++)	
 		{
 			System.out.println("Starting " + (i+1));
@@ -48,10 +39,10 @@ public class Test extends BaseClass
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route2);*/
 			
-			/*Routing.BestFirstFind bestFind = new Routing.BestFirstFind(new WeightedMetric(1,1,1), shipments.get(i));
+			Routing.BestFirstFind bestFind = new Routing.BestFirstFind(new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route3 =  bestFind.getPath();
 			shipments.get(i).DeleteAllHistory();
-			shipments.get(i).setHistoryFromSegments(route3);*/
+			shipments.get(i).setHistoryFromSegments(route3);
 			
 			/*Routing.TravelByType travelBT =  new Routing.TravelByType(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route4 =  travelBT.getPath();
@@ -68,9 +59,9 @@ public class Test extends BaseClass
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route5);*/
 			
-			//System.out.println("Done with " + (i+1));
-		//}*/
-		//printSolution();
+			System.out.println("Done with " + (i+1));
+		}
+		printSolution();
 		//printShipmentInfoToFile();
 		//printVehicleInfo();
 		//printVehicleRoute();
@@ -473,7 +464,7 @@ public class Test extends BaseClass
 		}
 		public static void printSolution()throws IOException
 		{
-			File f = new File("Shipments2.txt");
+			File f = new File("ShipmentsBestFind.txt");
 			Writer w2=null;
 			try
 			{

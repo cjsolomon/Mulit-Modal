@@ -119,7 +119,7 @@ public abstract class RoutingAlgorithm {
 	 * @return Returns an ArrayList of valid Segments between the starting and ending Locations
 	 */
 	public ArrayList<Segment> grabSegmentsBetween(Location start, Location end){
-		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"';");
+		ArrayList<Segment> directPath=Segment.LoadAll("Where FromLocationID = '"+ start.getID() +"' AND ToLocationID ='" + end.getID() +"'");
 		directPath = validPaths(directPath);
 		return directPath;
 	}//End of ArrayList<Segment> grabSegmentsBetween(Location start, Location end)

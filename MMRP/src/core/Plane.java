@@ -153,7 +153,11 @@ public class Plane extends Vehicle {
 		ArrayList<Plane> returnList = new ArrayList<Plane>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Plane " +  where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp = executeQuery("Select * from Plane where Deleted = false");
+			else
+				temp = executeQuery("Select * from Plane " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Plane p = BuildFromDataRow(temp.get(i));

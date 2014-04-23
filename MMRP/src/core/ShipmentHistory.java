@@ -79,7 +79,7 @@ public class ShipmentHistory extends BaseClass {
 	 */
 	public Segment getSegment()
 	{
-		return Segment.Load(this.segmentID);
+		return Segment.LoadAll("where SegmentID = " + this.segmentID).get(0);
 	}//End of getSegment()
 	
 	/**

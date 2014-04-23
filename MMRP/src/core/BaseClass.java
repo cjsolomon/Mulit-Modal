@@ -7,6 +7,7 @@
  * @see java.util.Map
  */
 package core;
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -223,5 +224,91 @@ public abstract class BaseClass {
 	//Abstract Functions
 	abstract boolean Update();
 	abstract boolean Delete();
+	
+	/**
+	 * This function will restore the database
+	 * @return Returns a boolean indicating if the database was restored correctly
+	 */
+	public static boolean RestoreDatabase(){
+		boolean success = false;        
+        String restorePath =System.getProperty("user.dir")+"MultiModal.sql";
+        String [] executeCmd = {"C:/Program Files/MySQL/MySQL Server 5.6/bin/mysql",URL,"-u "+USER,"-p "+PSWD,"-e", " source " +restorePath};
+        Process runtimeProcess;
+        try {
+        	runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+            int processComplete = runtimeProcess.waitFor();
+            if(processComplete ==0){
+            	success=true;
+            }
+            else{
+            	success=false;
+            }
+       } catch (IOException e) {
+           e.printStackTrace();
+           return false;
+       } catch (InterruptedException e) {
+    	   e.printStackTrace();
+    	   return false;
+       }
+
+
+        return success;
+ 	}//End of RestoreDatabase(String dbName)
+	
+	/**
+	 * This function will back up the database
+	 * @return Returns a boolean indicating if the database was backed up successfully
+	 */
+	public static boolean BackupDatabase(){
+          boolean success = true; 
+
+          String executeCmd = "C:/Program Files/MySQL/MySQL Server 5.6/bin/mysqldump -v -u" + USER + " -p" + PSWD + " --database " + URL + " -r " +"MultiModal.sql ";
+          Process runtimeProcess;
+          try {
+
+        	  runtimeProcess = Runtime.getRuntime().exec(executeCmd);
+        	  int processComplete = runtimeProcess.waitFor();
+
+        	  if (processComplete == 0) {
+        		  success=true;
+        	  } else {
+        		  success = false;
+        	  }
+          } catch (Exception ex) {
+        	  ex.printStackTrace();
+        	  return false;
+          }  
+          return success;
+	}//End of BackupDatabase(String dbName)
+	
+	/**
+	 * This function will permanently delete all the entries in the database that are marked deleted
+	 * @return Returns a boolean indicating if the purge was successful or not
+	 * @throws Exception
+	 */
+	public static boolean purgeDeleted() throws Exception{
+		try{
+			
+			executeCommand("Delete from Bike Where Deleted = true");
+			executeCommand("Delete from Plane Where Deleted = true");
+			executeCommand("Delete from Rail Where Deleted = true");
+			executeCommand("Delete from CargoShip Where Deleted = true");
+			executeCommand("Delete from Truck Where Deleted = true");
+			executeCommand("Delete from Location Where Deleted = true");
+			executeCommand("Delete from Carrier Where Deleted = true");
+			executeCommand("Delete from Segment Where Deleted = true");
+			executeCommand("Delete from Shipment Where Deleted = true");
+			executeCommand("Delete from Shipper Where Deleted = true");
+			executeCommand("Delete from ShippingRate Where Deleted = true");
+			executeCommand("Delete from TravelType Where Deleted = true");
+			
+			
+			return true;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+		
+	}//End of purgeDeleted()
 
 }//End of BaseClass

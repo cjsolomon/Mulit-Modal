@@ -374,7 +374,11 @@ public class Location extends BaseClass {
 		ArrayList<Location> temp = new ArrayList<Location>();
 		try
 		{
-			ArrayList<Map<String,Object>> data = executeQuery("Select * from Location " + where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> data;
+			if(where.isEmpty())
+				data = executeQuery("Select * from Location where Deleted = false");
+			else
+				data = executeQuery("Select * from Location " + where  + " AND Deleted = false");
 			for(int i = 0 ;i< data.size();i++)
 				temp.add(BuildFromDataRow(data.get(i)));
 		}

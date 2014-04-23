@@ -149,7 +149,11 @@ public class Cargo extends Vehicle {
 		ArrayList<Cargo> returnList = new ArrayList<Cargo>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from CargoShip " +  where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp = executeQuery("Select * from CargoShip where Deleted = false");
+			else
+				temp = executeQuery("Select * from CargoShip " +  where  + " AND Deleted = false");
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Cargo c = BuildFromDataRow(temp.get(i));
