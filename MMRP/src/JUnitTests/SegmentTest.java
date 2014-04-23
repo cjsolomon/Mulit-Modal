@@ -118,8 +118,8 @@ public class SegmentTest {
 		Integer bad_time_early[] = {-1,0,1};
 		Integer bad_time_late[] = {11,12,13};
 		
-		test_segment.setEarliestDepartureTime(early_time);
 		test_segment.setLatestDepartureTime(late_time);
+		test_segment.setEarliestDepartureTime(early_time);
 		
 		for (Integer check : good_time) {
 			test_segment.setEstimatedDepartureTime(check);
@@ -198,8 +198,8 @@ public class SegmentTest {
 		Integer good_values[] = {5000,6000,100000,5623};
 		Integer bad_values[] = {4999,0,123,12};
 		
-		test_segment.setEarliestArrivalTime(big_number);
 		test_segment.setLatestArrivalTime(bigger_number);
+		test_segment.setEarliestArrivalTime(big_number);
 		
 		for (Integer check : good_values) {
 			test_segment.setLatestArrivalTime(check);
@@ -222,8 +222,8 @@ public class SegmentTest {
 		Integer good_values[] = {5000,6000,100000,5623};
 		Integer bad_values[] = {4999,0,123,12};
 		
-		test_segment.setEarliestDepartureTime(big_number);
 		test_segment.setLatestDepartureTime(bigger_number);
+		test_segment.setEarliestDepartureTime(big_number);
 		
 		for (Integer check : good_values) {
 			test_segment.setLatestDepartureTime(check);

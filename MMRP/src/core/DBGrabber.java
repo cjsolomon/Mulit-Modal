@@ -430,14 +430,21 @@ public class DBGrabber {
 		
 	}
 	
+	public static void updateShipment() 
+	{
+		
+	}
+	
 	public static void main(String[] args)
 	{
 		//populateCustomer();
 		//populateCarrier();
 		//populateTruck();
-		populateShipRate();
 		//populateLocations();
 		//populateShips();
 		//updatePhone();  
+		updateShipment();
+		
+		//populateShipRate();
 	}
 }
