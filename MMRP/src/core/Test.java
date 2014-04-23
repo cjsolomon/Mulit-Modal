@@ -195,7 +195,7 @@ public class Test extends BaseClass
 				}
 			}*/
 		}
-		public static void printVehicleRoute() throws IOException
+		/*public static void printVehicleRoute() throws IOException
 		{
 			File f = new File("Vehicles.txt");
 			Writer w = null;
@@ -461,7 +461,7 @@ public class Test extends BaseClass
 				}
 			}
 			w.flush();
-		}
+		}*/
 		public static void printSolution()throws IOException
 		{
 			File f = new File("ShipmentsBestFind.txt");
