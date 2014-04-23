@@ -30,26 +30,15 @@ public class Segment extends BaseClass {
 	private int earliestDepartureTime; // This is the earliest departure time
 	private int latestDepartureTime; // This is the latest departure time
 	private ShippingRate shippingRate; // This is the shipping rate over the
-										// Segment
+	// Segment
 	private TravelType travelType; // This is the travelType used over this
-									// Segment
+	// Segment
 	private String lanes;
-	public ArrayList<Shipment> onBoard;
+	private ArrayList<Shipment> onBoard;
 	private Location start;
 	private Location end;
 
-	// Default Variables
-	private static final int DEFAULT_ARRIVAL_TIME = 50;
-	private static final int DEFAULT_DEPARTURE_TIME = 0;
-	private static final double DEFAULT_DISTANCE = 100;
-	private static final int DEFAULT_EARLIEST_ARRIVAL_TIME = 50;
-	private static final int DEFAULT_EARLIEST_DEPARTURE_TIME = 0;
-	private static final int DEFAULT_START_LOCATION_ID = 1;
-	private static final String DEFAULT_LANES = "defaultLanes";
-	private static final int DEFAULT_LATEST_ARRIVAL_TIME = 50;
-	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 0;
-	private static final String DEFAULT_MODE = "defaultMode";
-	private static final int DEFAULT_END_LOCATION_ID = 2;
+
 
 	/**
 	 * This is the default constructor for the Segment
@@ -128,6 +117,11 @@ public class Segment extends BaseClass {
 		}// End of update distance if
 	}// End of setDistance(double d)
 
+	public ArrayList<Shipment> getOnBoard() {
+		return this.onBoard;
+	}
+
+
 	/**
 	 * This function returns the distance along the Segment
 	 * @return Returns the distance between the start location and the end
@@ -151,6 +145,7 @@ public class Segment extends BaseClass {
 	 */
 	public void setShippingRate(ShippingRate shippingRate) {
 		this.shippingRate = shippingRate;
+		this.MarkDirty();
 	}
 
 	/**
@@ -171,7 +166,7 @@ public class Segment extends BaseClass {
 			newArrivalTime = this.earliestArrivalTime;
 		}
 
-		if (newArrivalTime > this.latestArrivalTime) {
+		else if (newArrivalTime > this.latestArrivalTime) {
 			/*
 			 * Log.writeLogSevere(
 			 * "The new estimate arrival time was set above the latest arrival time, so it has been corrected to "
@@ -182,7 +177,7 @@ public class Segment extends BaseClass {
 
 		if (this.arrivalTime != newArrivalTime) {
 			arrivalTime = newArrivalTime; // Set the arrival time
-			MarkDirty(); // Mark this Segment as dirty
+			this.MarkDirty(); // Mark this Segment as dirty
 		}// End of update if
 	}// End of setEstimatedArrivalTime(int newArrivalTime)
 
@@ -225,7 +220,7 @@ public class Segment extends BaseClass {
 
 		if (this.departureTime != newDepartureTime) {
 			this.departureTime = newDepartureTime; // Set the departureTime
-			MarkDirty(); // Mark this Segment as dirty
+			this.MarkDirty(); // Mark this Segment as dirty
 		}// End of update if
 	}// End of setEstimatedDepartureTime(int newDepartureTime)
 
@@ -257,26 +252,10 @@ public class Segment extends BaseClass {
 	 */
 	public void setEarliestArrivalTime(int earliestArrivalTime) {
 
-		// Some error checking
-		if (earliestArrivalTime > this.arrivalTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new earliest arrival time was set above the arrival time, so it has been corrected to "
-			 * + this.arrivalTime + ".");
-			 */
-			earliestArrivalTime = this.arrivalTime;
-		}
-
-		if (earliestArrivalTime < this.latestDepartureTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new earliest arrival time was set below the latest depature time, so it has been corrected to "
-			 * + this.latestDepartureTime + ".");
-			 */
-			earliestArrivalTime = this.latestDepartureTime;
-		}
+		
 
 		this.earliestArrivalTime = earliestArrivalTime;
+		this.MarkDirty();
 	}// End of setEarliestArrivalTime(int earliestArrivalTime)
 
 	/**
@@ -298,14 +277,14 @@ public class Segment extends BaseClass {
 	public void setLatestArrivalTime(int latestArrivalTime) {
 
 		// Some error checking
-		if (latestArrivalTime < this.arrivalTime) {
+		//if (latestArrivalTime < this.arrivalTime) {
 			/*
 			 * Log.writeLogSevere(
 			 * "The new latest arrival time was set below the estimated arrival time, so it has been corrected to "
 			 * + this.arrivalTime + ".");
 			 */
-			latestArrivalTime = this.arrivalTime;
-		}
+		//	latestArrivalTime = this.arrivalTime;
+		//}
 
 		// if(latestArrivalTime > HIGEST_ARRIVAL_TIME){
 		/*
@@ -317,6 +296,7 @@ public class Segment extends BaseClass {
 		// }
 
 		this.latestArrivalTime = latestArrivalTime;
+		this.MarkDirty();
 	}// End of setLatestArrivalTime(int latestArrivalTime)
 
 	/**
@@ -337,26 +317,10 @@ public class Segment extends BaseClass {
 	 */
 	public void setEarliestDepartureTime(int earliestDepartureTime) {
 
-		// Some error checking
-		if (earliestDepartureTime > this.departureTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new earliest depature time was set above the depature time, so it has been corrected to "
-			 * + this.departureTime + ".");
-			 */
-			earliestDepartureTime = this.departureTime;
-		}
-
-		// if(earliestDepartureTime < LOWEST_DEPARTURE_TIME){
-		/*
-		 * Log.writeLogSevere(
-		 * "The new earliest depature time was set too low, so it has been corrected to "
-		 * + LOWEST_DEPARTURE_TIME + ".");
-		 */
-		// earliestDepartureTime = LOWEST_DEPARTURE_TIME;
-		// }
+		
 
 		this.earliestDepartureTime = earliestDepartureTime;
+		this.MarkDirty();
 	}// End of setEarliestDepartureTime(int earliestDepartureTime)
 
 	/**
@@ -377,26 +341,10 @@ public class Segment extends BaseClass {
 	 */
 	public void setLatestDepartureTime(int latestDepartureTime) {
 
-		// Some error checking
-		if (latestDepartureTime > this.earliestArrivalTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new latest departure time was set above the earliest arrival time, so it has been corrected to "
-			 * + this.earliestArrivalTime + ".");
-			 */
-			latestDepartureTime = this.earliestArrivalTime;
-		}
-
-		if (latestDepartureTime < this.departureTime) {
-			/*
-			 * Log.writeLogSevere(
-			 * "The new latest depature time was set below the estimate depature time, so it has been corrected to "
-			 * + this.departureTime + ".");
-			 */
-			latestDepartureTime = this.departureTime;
-		}
+		
 
 		this.latestDepartureTime = latestDepartureTime;
+		this.MarkDirty();
 	}// End of setLatestDepartureTime(int latestDepartureTime)
 
 	/**
@@ -439,7 +387,7 @@ public class Segment extends BaseClass {
 	public Location getStartLocation() {
 		if (start == null)
 			return Location.Load(fromID); // Return the Location of this
-											// Segments start
+		// Segments start
 		return start;
 	}// End of getStartLocation()
 
@@ -513,24 +461,29 @@ public class Segment extends BaseClass {
 	 */
 	public Vehicle getVehicle() {
 		// Load the Vehicle from the database based on the type of the Vehicle
-		switch (Vehicle.loadMode(mode)) {
-		case TRUCK:
-			return Truck.Load(this.vehicle.getId()); // Return Truck
-		case RAIL:
-			return Rail.Load(this.vehicle.getId()); // Return Rail
-		case CARGO:
-			return Cargo.Load(this.vehicle.getId()); // Return Cargo
-		case PLANE:
-			return Plane.Load(this.vehicle.getId()); // Return Plane
-		case BIKE:
-			return Bike.Load(this.vehicle.getId()); // Return Bike
-		case NONE:
+		if (vehicle == null) {
+			switch (Vehicle.loadMode(mode)) {
+			case TRUCK:
+				return Truck.Load(this.vehicle.getId()); // Return Truck
+			case RAIL:
+				return Rail.Load(this.vehicle.getId()); // Return Rail
+			case CARGO:
+				return Cargo.Load(this.vehicle.getId()); // Return Cargo
+			case PLANE:
+				return Plane.Load(this.vehicle.getId()); // Return Plane
+			case BIKE:
+				return Bike.Load(this.vehicle.getId()); // Return Bike
+			case NONE:
+				return null;
+			case ALL:
+				return null;
+			}//end switch
 			return null;
-		case ALL:
-			return null;
-
-		}// End of switch
-		return null;
+		}// End of if
+		
+		else {
+			return this.vehicle;
+		}
 	}// End of getVehicle()
 
 	/**
@@ -628,9 +581,9 @@ public class Segment extends BaseClass {
 			ArrayList<Map<String, Object>> temp;
 			if(where.isEmpty())
 				temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,s.Deleted,l.LocationID as StartID,"
-					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
-					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
-					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID  where s.Deleted = false");
+						+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+						+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+						+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID  where s.Deleted = false");
 			else
 				temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,s.Deleted,l.LocationID as StartID,"
 						+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
@@ -756,7 +709,7 @@ public class Segment extends BaseClass {
 		}
 		tend.MarkClean();
 		s.setEndLocation(tend);
-	
+
 		s.MarkClean(); // Mark the Segment as clean
 		return s;
 	}// End of BuildFromDataRow(Map<String,Object> data)
@@ -978,13 +931,13 @@ public class Segment extends BaseClass {
 				// clean
 				if (temp.size() > 0) {
 					this.id = (Integer) temp.get(temp.size()-1).get("SegmentID"); // Set the
-																		// Segment
-																		// id to
-																		// the
-																		// id
-																		// from
-																		// the
-																		// database
+					// Segment
+					// id to
+					// the
+					// id
+					// from
+					// the
+					// database
 					MarkClean(); // Mark the Segment as clean
 					MarkOld(); // Mark the Segment as old
 				}// End of found something if
@@ -1077,5 +1030,64 @@ public class Segment extends BaseClass {
 	public String toString() {
 		return this.fromID + "   " + this.toID;
 	}// End of toString()
+
+	// Default Variables
+	private static final int DEFAULT_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_DEPARTURE_TIME = 0;
+	private static final double DEFAULT_DISTANCE = 100;
+	private static final int DEFAULT_EARLIEST_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_EARLIEST_DEPARTURE_TIME = 0;
+	private static final int DEFAULT_START_LOCATION_ID = 1;
+	private static final String DEFAULT_LANES = "defaultLanes";
+	private static final int DEFAULT_LATEST_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 0;
+	private static final String DEFAULT_MODE = "defaultMode";
+	private static final int DEFAULT_END_LOCATION_ID = 2;
+
+
+
+	public static int getDefaultArrivalTime() {
+		return DEFAULT_ARRIVAL_TIME;
+	}
+
+	public static int getDefaultDepartureTime() {
+		return DEFAULT_DEPARTURE_TIME;
+	}
+
+	public static double getDefaultDistance() {
+		return DEFAULT_DISTANCE;
+	}
+
+	public static int getDefaultEarliestArrivalTime() {
+		return DEFAULT_EARLIEST_ARRIVAL_TIME;
+	}
+
+	public static int getDefaultEarliestDepartureTime() {
+		return DEFAULT_EARLIEST_DEPARTURE_TIME;
+	}
+
+	public static int getDefaultStartLocationId() {
+		return DEFAULT_START_LOCATION_ID;
+	}
+
+	public static String getDefaultLanes() {
+		return DEFAULT_LANES;
+	}
+
+	public static int getDefaultLatestArrivalTime() {
+		return DEFAULT_LATEST_ARRIVAL_TIME;
+	}
+
+	public static int getDefaultLatestDepartureTime() {
+		return DEFAULT_LATEST_DEPARTURE_TIME;
+	}
+
+	public static String getDefaultMode() {
+		return DEFAULT_MODE;
+	}
+
+	public static int getDefaultEndLocationId() {
+		return DEFAULT_END_LOCATION_ID;
+	}
 
 }// End of Segment Class

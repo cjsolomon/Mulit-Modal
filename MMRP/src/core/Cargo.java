@@ -106,7 +106,7 @@ public class Cargo extends Vehicle {
 		{
 			executeCommand("Update CargoShip Set Deleted = true where ShipID = " + id);			//Delete this Cargo from the database
 			//Now we need mark all the segments that use this cargo as deleted
-			executeQuery("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
+			executeCommand("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
 			this.MarkDeleted();
 			return true;
 		}//End of try block
