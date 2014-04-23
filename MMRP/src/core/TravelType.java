@@ -3,6 +3,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
 
+import GUI.Log;
+
 public class TravelType extends BaseClass {
 
 	private int vehicleTypeID;
@@ -193,12 +195,15 @@ public class TravelType extends BaseClass {
 	 */
 	public void setMaxCap(double maxCapacity)
 	{
-		//NEEDS ERROR CHECKING
-		if(maxCapacity < 0){
-			System.out.println("Maximum Capacity was set below zero so the maximum capacity has defaulted to 0");
-			maxCapacity = 0;
+		if(FormatChecker.inRange(maxCapacity, DEFAULT_MINIMUM_CAPACITY, DEFAULT_MAXIMUM_CAPACITY))
+		{
+			maxCap = maxCapacity;
 		}
-		maxCap = maxCapacity;												//Set the TravelType's maximum capacity
+		else
+		{
+			Log.writeLogWarning("Invalid entry for max capacity in Travel Type. Setting max capacity to "+ DEFAULT_MAXIMUM_CAPACITY);
+			maxCap = DEFAULT_MAXIMUM_CAPACITY;
+		}
 	}//End of setMaxCap(double maxCapacity)
 		
 	/**
@@ -216,16 +221,15 @@ public class TravelType extends BaseClass {
 	 */
 	public void setActCap(double actCapacity)
 	{
-		//FIX THIS ERROR CHECKING
-		if(actCapacity < 0){
-			System.out.println("Actual Capacity was set below 0% so the actual capacity has defaulted to 0%");
-			actCapacity = 0;
+		if(FormatChecker.inRange(actCapacity, DEFAULT_MINIMUM_CAPACITY, DEFAULT_MAXIMUM_CAPACITY))
+		{
+			actCap = actCapacity;
 		}
-		else if(actCapacity > 100){
-			System.out.println("Actual Capacity was set above 100% so the actual capacity has defaulted to 100%");
-			actCapacity = 100;
+		else
+		{
+			Log.writeLogWarning("Invalid entry for actual capacity in Travel Type. Actual capacity set to " + DEFAULT_MAXIMUM_CAPACITY);
+			actCap = DEFAULT_MAXIMUM_CAPACITY;
 		}
-		actCap = actCapacity;												//Set the TravelType's actual capacity
 	}//End of setActCap(double actCapacity)
 			
 	/**
@@ -243,12 +247,15 @@ public class TravelType extends BaseClass {
 	 */
 	public void setMaxWeight(double weight)
 	{
-		//FIX THIS ERROR CHECKING
-		if(maxWeight < 0){
-			System.out.println("Maximum weight was set below 0 so the maximum weight has defaulted to 0");
-			maxWeight = 0;
+		if(FormatChecker.inRange(weight, 0, DEFAULT_MAXIMUM_WEIGHT))
+		{
+			maxWeight = weight;												//Set the TravelType's maximum weight
 		}
-		maxWeight = weight;												//Set the TravelType's maximum weight
+		else 
+		{
+			Log.writeLogWarning("Invalid entry for weight in Truck Type. Setting weight to " + DEFAULT_MAXIMUM_WEIGHT);
+			maxWeight = DEFAULT_MAXIMUM_WEIGHT;
+		}
 	}//End of setMaxWeight(double weight)
 				
 	/**
@@ -503,6 +510,78 @@ public class TravelType extends BaseClass {
  		return null;
 	}//End of Load(int id)
 	
+	/**
+	 * This function will load all TravelTypes for a given Vehicle
+	 * @param Vehicle v, the vehicle to retrieve data for
+	 * @return ArrayList<TravelTypes>
+	 */
+	
+	public static ArrayList<TravelType> LoadForVehicle(Vehicle v)
+	{
+		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		try 
+		{
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + v.getId() +"' AND vti.TravelMode = '" + v.getTravelMode()+"'"+ " AND Deleted = false");
+			for(int i = 0; i<temp.size();i++)
+			{
+				TravelType t = BuildFromDataRow(temp.get(i));
+				returnList.add(t);
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error " + ex);
+			ex.printStackTrace();
+		}
+		return returnList;
+	}
+	/**
+	 * Overload: This function will load all TravelTypes for a given Vehicle based on vehicle id and mode
+	 * @param id, int id for vehicle
+	 * @param mode, string for which travel mode the vehicle is
+	 * @return ArrayList<TravelTypes>
+	 */
+	
+	public static ArrayList<TravelType> LoadForVehicle(int id, String mode)
+	{
+		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		try 
+		{
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND Deleted = false");
+			for(int i = 0; i<temp.size();i++)
+			{
+				TravelType t = BuildFromDataRow(temp.get(i));
+				returnList.add(t);
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error " + ex);
+			ex.printStackTrace();
+		}
+		return returnList;
+	}
+	public static ArrayList<TravelType> LoadNotInVehilce(Vehicle v)
+	{
+		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		try 
+		{
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM `multi-modal`.traveltypes where VehicleTypeID Not In("+
+					"Select TravelTypeID from vehicletraveltypeindex where vehicleID = '" + v.getId() + "' AND TravelMode = '" + v.getTravelMode() + "'" + 
+					")" + " AND VehicleMode = '" + v.getTravelMode() + "' AND Deleted = false");
+			for(int i = 0; i<temp.size();i++)
+			{
+				TravelType t = BuildFromDataRow(temp.get(i));
+				returnList.add(t);
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error " + ex);
+			ex.printStackTrace();
+		}
+		return returnList;
+	}
 	/**
 	 * This function returns an ArrayList of TravelTypes loaded from the database based on the given where clause
 	 * @param where This is the clause that determines which TravelTypes to load from the database

@@ -12,9 +12,14 @@ import core.Vehicle;
 public class BikeTest {
 
 	@Test
-	public void testTravelMode() {
+	public void testDefaultConstructor() {
 		Bike test_Bike = new Bike();
 		Assert.assertEquals(Vehicle.TravelModes.BIKE.toString(), test_Bike.getTravelMode());
+		Assert.assertTrue(test_Bike.isNew());
+		Assert.assertFalse(test_Bike.isDeleted());
+		Assert.assertFalse(test_Bike.isDirty());
+		Assert.assertEquals(Vehicle.Status.Running, test_Bike.getStatus());
+		Assert.assertEquals(Bike.getDefaultName(),test_Bike.getVehicleName());
 		
 	}
 	

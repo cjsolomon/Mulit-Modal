@@ -1,21 +1,14 @@
 package core;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
+import java.text.*;
+import java.util.regex.*;
 import GUI.Log;
 
 public class FormatChecker {
-
-	/**
-	 * TODO - isNumeric()
-	 */
 	/**
 	 * 
-	 * @param tel
+	 * @param String telephone number
 	 * @return True/False
-	 * Returns true if tel fits the required telephone/fax format: xxx-xxx-xxxx
+	 * Returns true if telephone string fits the required telephone/fax format: xxx-xxx-xxxx
 	 */
 	static public boolean isValidPhone(String tel)
 	{
@@ -81,7 +74,7 @@ public class FormatChecker {
 	 */
 	static public boolean inRange(double check, double min, double max)
 	{
-		if(check >= min && check <= max) 
+		if((check > min && check < max) || Double.compare(min, check) == 0 || Double.compare(max, check) == 0) 
 		{
 			return true;
 		}
@@ -102,13 +95,15 @@ public class FormatChecker {
 	 */
 	static public boolean isValidDate(String date)
 	{
-		SimpleDateFormat format = (date.charAt(2) == '/') ? new SimpleDateFormat("MM/D/YYYY")
-														   :new SimpleDateFormat("MMM D YYYY");
+		SimpleDateFormat format = (date.charAt(2) == '/' || date.charAt(1) == '/') 
+															? new SimpleDateFormat("MM/D/YYYY")
+														   	:new SimpleDateFormat("MMM D YYYY");
 		boolean ret = true;
 		try {
 			format.parse(date);
 		}
 		catch(ParseException e){
+			//Log.writeLogWarning("Invalid format on date entry.");
 			ret = false;
 		}
 		return ret;

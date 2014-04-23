@@ -485,10 +485,17 @@ public class Carrier extends BaseClass
 	 * @param insEndDate This is the new Carrier's ins date
 	 */
 	public void setInsEndDate(String insEndDate) {
-		//NEED SOME ERROR CHECKING
-		if(this.insEndDate != insEndDate){
-			this.insEndDate = insEndDate;
-			MarkDirty();
+		if(FormatChecker.isValidDate(insEndDate))
+		{
+			if(this.insEndDate != insEndDate){
+				this.insEndDate = insEndDate;
+				MarkDirty();
+			}
+		}
+		else
+		{
+			Log.writeLogWarning("Invalid format for date in Carrier. Setting date to " + DEFAULT_INS_END_DATE);
+			this.insEndDate = DEFAULT_INS_END_DATE;
 		}
 	}//End of setInsEndDate(String insEndDate)
 	
@@ -630,10 +637,17 @@ public class Carrier extends BaseClass
 	 * @param safetyRateDate This is the Carrier's new safety rating
 	 */
 	public void setSafetyRateDate(String safetyRateDate) {
-		//Need some error checking
-		if(this.safetyRateDate != safetyRateDate){
-			this.safetyRateDate = safetyRateDate;
-			MarkDirty();
+		if(FormatChecker.isValidDate(safetyRateDate))
+		{
+			if(this.safetyRateDate != safetyRateDate){
+				this.safetyRateDate = safetyRateDate;
+				MarkDirty();
+			}
+		}
+		else
+		{
+			Log.writeLogWarning("Invalid date format in Carrier. Setting safety rating date to "+ DEFAULT_SAFETY_RATE_DATE);
+			this.safetyRateDate = DEFAULT_SAFETY_RATE_DATE;
 		}
 	}//End of setSafetyRateDate(String safetyRateDate)
 	
@@ -650,10 +664,17 @@ public class Carrier extends BaseClass
 	 * @param contractDate This is the Carrier's new contract date
 	 */
 	public void setContractDate(String contractDate) {
-		//Need error checking
-		if(this.contractDate != contractDate){
-			this.contractDate = contractDate;
-			MarkDirty();
+		if(FormatChecker.isValidDate(contractDate))
+		{
+			if(this.contractDate != contractDate){
+				this.contractDate = contractDate;
+				MarkDirty();
+			}
+		}
+		else
+		{
+			Log.writeLogWarning("Invalid date format in Carrier. Setting contract date to "+ DEFAULT_CONTRACT_DATE);
+			this.contractDate = DEFAULT_CONTRACT_DATE;
 		}
 	}//End of setContractDate(String contractDate)
 	

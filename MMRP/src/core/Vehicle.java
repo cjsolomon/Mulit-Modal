@@ -64,7 +64,7 @@ public abstract class Vehicle extends BaseClass {
 	protected int id;								//The unique vehicle ID
 	private ArrayList<Shipment> shipments;
 	private ArrayList<Segment> schedule;
-	
+	private ArrayList<TravelType> typesAvail;
 	
 	/**
 	 * Sets the travel mode of the vehicle 
@@ -262,6 +262,13 @@ public abstract class Vehicle extends BaseClass {
 		return schedule;
 	}
 
+	public ArrayList<TravelType> getAvailableTypes()
+	{
+		if(typesAvail == null)
+			typesAvail=TravelType.LoadForVehicle(this.getId(), this.getTravelMode());
+		return typesAvail;
+		
+	}
 	/**
 	* This function adds a segment to the trucks schedule
 	* @param s Segment to be added to schedule

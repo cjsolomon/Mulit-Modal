@@ -7,15 +7,21 @@ import org.junit.Assert;
 
 import core.Bike;
 import core.Rail;
+import core.Rail;
 import core.Carrier;
 import core.Vehicle;
 
 public class RailTest {
 
 	@Test
-	public void testTravelMode() {
-		Rail test_Rail = new Rail();
-		Assert.assertEquals(Vehicle.TravelModes.RAIL.toString(), test_Rail.getTravelMode());
+	public void testDefaultConstructor() {
+		Rail test_rail = new Rail();
+		Assert.assertEquals(Vehicle.TravelModes.RAIL.toString(), test_rail.getTravelMode());
+		Assert.assertTrue(test_rail.isNew());
+		Assert.assertFalse(test_rail.isDeleted());
+		Assert.assertFalse(test_rail.isDirty());
+		Assert.assertEquals(Vehicle.Status.Running, test_rail.getStatus());
+		Assert.assertEquals(Rail.getDefaultName(),test_rail.getVehicleName());
 		
 	}
 	

@@ -19,12 +19,13 @@ import javax.swing.JButton;
 
 public class TruckPanel extends JPanel {
 	TruckTable tt;
-	JScrollPane sp;
+	JScrollPane sp,sp2;
 	TruckBasicPanel tbp;
 	private JButton btnDelete;
 	private JButton btnView;
 	private JTabbedPane truckInfo;
 	private JButton btnNew;
+	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
 	public TruckPanel()
 	{
@@ -52,7 +53,6 @@ public class TruckPanel extends JPanel {
 		
 		
 		tt=new TruckTable();
-
 		tt.setVisible(false);
 		sp=new JScrollPane();
 		sp.setViewportView(tt);
@@ -66,12 +66,16 @@ public class TruckPanel extends JPanel {
 			}
 		});
 		tbp.setVisible(false);
-		
+		tts= new TravelTypeSelector();
+		tts.setVisible(false);
+		sp2 = new JScrollPane();
 		segments = new SegmentTable();
 		segments.setVisible(false);
+		sp2.setViewportView(segments);
 		truckInfo = new JTabbedPane();
 		truckInfo.addTab("Basic", tbp);
-		truckInfo.addTab("Segments",segments);
+		truckInfo.addTab("Segments",sp2);
+		truckInfo.addTab("Types",tts);
 		truckInfo.setVisible(false);
 		
 		btnNew = new JButton("New");
@@ -92,6 +96,8 @@ public class TruckPanel extends JPanel {
 					truckInfo.setVisible(true);
 					tbp.showPanel(tt.getSelectedTruck());
 					segments.showPanel(tt.getSelectedTruck());
+					sp2.setVisible(true);
+					tts.showPanel(tt.getSelectedTruck());
 				}
 			}
 		});

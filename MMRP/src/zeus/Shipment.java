@@ -416,6 +416,67 @@ public int tempDemand;
   * Get the road name
   * @return String
   */
+ 
+ public void setHazmat(String[] haz)
+ {
+	 hazmatConstraints = haz;
+ }
+ 
+ public void setLoadingTime(float load)
+ {
+	 loadTime = load;
+ }
+ 
+ public void setUnLoadingTime(float load)
+ {
+	 unloadTime = load;
+ }
+ 
+ public void setUnloadingRate(float rate)
+ {
+	 unloadingRate = rate;
+ }
+ 
+ public void setLoadingRate(float rate)
+ {
+	 loadingRate = rate;
+ }
+ 
+ public void setMaxStops(int max)
+ {
+	 maxStops = max;
+ }
+ 
+ public void setPrefCarriers(String[] pref)
+ {
+	 prefCarriers = pref;
+ }
+ 
+ public void setTollRoad(boolean tolls)
+ {
+	 takeTollRoads = tolls;
+ }
+ 
+ public void setLocalBypass(boolean bypass)
+ {
+	 localCongByPass = bypass;
+ }
+ 
+ public void setUnloadType(String[] type)
+ {
+	 unloadingType = type;
+ }
+ 
+ public void setLoadType(String[] type)
+ {
+	 loadingType = type;
+ }
+ 
+ public void setTrailerType(String[] type)
+ {
+	 trailerType = type;
+ }
+ 
  public String getRoadName() {
    return roadName;
  }
