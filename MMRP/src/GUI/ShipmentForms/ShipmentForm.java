@@ -12,6 +12,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 
+import core.Bike;
 import core.Shipment;
 
 import javax.swing.border.LineBorder;
@@ -223,6 +224,13 @@ public class ShipmentForm extends JPanel {
 	
 	private void setReadOnly()
 	{
+		txtCompanyName.setText("");
+		txtContactName.setText("");
+		txtPhone.setText("");
+		txtEmail.setText("");
+		txtPrefCarriers.setText("");
+		
+		
 		//txtCompanyName.setText(source.get)
 	}
 }
