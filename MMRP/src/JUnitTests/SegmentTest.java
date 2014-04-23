@@ -1,8 +1,13 @@
 package JUnitTests;
 
+import core.Bike;
+import core.Cargo;
 import core.Location;
+import core.Plane;
+import core.Rail;
 import core.Segment;
 import core.TravelType;
+import core.Truck;
 import core.Vehicle;
 import core.ShippingRate;
 
@@ -276,4 +281,80 @@ public class SegmentTest {
 		
 		Assert.assertTrue(test_segment.isDirty());
 	}
+	
+	@Test
+	public void testSetVehicle() {
+		Segment test_segment = new Segment();
+		Vehicle test_bike = new Bike();
+		Vehicle test_cargo = new Cargo();
+		Vehicle test_plane = new Plane();
+		Vehicle test_truck = new Truck();
+		Vehicle test_train = new Rail();
+		
+		test_segment.setVehicle(test_bike);
+		Assert.assertEquals(test_bike, test_segment.getVehicle());
+		test_segment.setVehicle(test_cargo);
+		Assert.assertEquals(test_cargo, test_segment.getVehicle());
+		test_segment.setVehicle(test_plane);
+		Assert.assertEquals(test_plane, test_segment.getVehicle());
+		test_segment.setVehicle(test_truck);
+		Assert.assertEquals(test_truck, test_segment.getVehicle());
+		test_segment.setVehicle(test_train);
+		Assert.assertEquals(test_train, test_segment.getVehicle());
+		
+		for (int i = 1; i < 5; i++) {
+			test_segment.setVehicle(i, Vehicle.TravelModes.BIKE);
+			Assert.assertEquals(new Integer(i),new Integer(test_segment.getVehicle().getId()));
+			test_segment.setVehicle(i, Vehicle.TravelModes.PLANE);
+			Assert.assertEquals(new Integer(i),new Integer(test_segment.getVehicle().getId()));
+			test_segment.setVehicle(i, Vehicle.TravelModes.CARGO);
+			Assert.assertEquals(new Integer(i),new Integer(test_segment.getVehicle().getId()));
+			test_segment.setVehicle(i, Vehicle.TravelModes.RAIL);
+			Assert.assertEquals(new Integer(i),new Integer(test_segment.getVehicle().getId()));
+			test_segment.setVehicle(i, Vehicle.TravelModes.TRUCK);
+			Assert.assertEquals(new Integer(i),new Integer(test_segment.getVehicle().getId()));
+		}
+		
+		Assert.assertTrue(test_segment.isDirty());
+	}
+	
+	@Test
+	public void testSetLane() {
+		Segment test_segment = new Segment();
+		String test_string = new String("This is the lane where the testing happens.");
+		
+		test_segment.setLane(test_string);
+		Assert.assertEquals(test_string, test_segment.getLane());
+		Assert.assertTrue(test_segment.isDirty());
+	}
+	
+	@Test
+	public void testSetTravelType() {
+		Segment test_segment = new Segment();
+		TravelType test_traveltype = new TravelType();
+		
+		test_segment.setTravelType(test_traveltype);
+		Assert.assertEquals(test_traveltype,test_segment.getTravelType());
+		Assert.assertTrue(test_segment.isDirty());
+	}
+	
+	@Test
+	public void testSetMode() {
+		Segment test_segment = new Segment();
+		String test_string_good[] = {"RAIL","PLANE","CARGO","BIKE","TRUCK"};
+		String test_string_bad[] = {"this","is","a","bad","string"};
+		
+		for (String check : test_string_good) {
+			test_segment.setMode(check);
+			Assert.assertEquals(check,test_segment.getMode());
+		}
+		
+		for (String check : test_string_bad) {
+			test_segment.setMode(check);
+			Assert.assertNotEquals(check,test_segment.getMode());
+		}
+		
+		Assert.assertTrue(test_segment.isDirty());
+	}
+	
 }

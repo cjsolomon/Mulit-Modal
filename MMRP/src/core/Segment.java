@@ -478,14 +478,6 @@ public class Segment extends BaseClass {
 	}// End of setVehicle(Vehicle vehicle)
 
 	/**
-	 * This function returns the Travel Mode on this Segment
-	 * @return Returns the mode of travel along this Segment
-	 */
-	public String getTravelMode() {
-		return this.mode; // Return the travel type
-	}// End of getTravelMode()
-
-	/**
 	 * This function returns the Vehicle object on this Segment
 	 * @return Returns the vehicle object on this Segment
 	 */
@@ -585,10 +577,12 @@ public class Segment extends BaseClass {
 		// FOR THIS VEHICLE
 
 		this.travelType = travelType;
+		this.MarkDirty();
 	}// End of setTravelType(TravelType travelType)
 
 	public void setMode(String mode) {
 		this.mode = mode;
+		this.MarkDirty();
 	}
 
 	public String getMode() {
@@ -899,7 +893,7 @@ public class Segment extends BaseClass {
 						+ "','"
 						+ this.vehicle.getId()
 						+ "','"
-						+ this.getTravelMode()
+						+ this.getMode()
 						+ "','"
 						+ this.getDistance()
 						+ "','"
@@ -929,7 +923,7 @@ public class Segment extends BaseClass {
 						+ this.vehicle.getId()
 						+ "' "
 						+ "And ModeType='"
-						+ this.getTravelMode()
+						+ this.getMode()
 						+ "' "
 						+ "And Distance='"
 						+ this.getDistance()
@@ -980,7 +974,7 @@ public class Segment extends BaseClass {
 							+ this.getStartLocationID() + "', "
 							+ "ToLocationID ='" + this.getEndLocationID() + "', "
 							+ "VehicleID='" + this.vehicle.getId() + "', "
-							+ "ModeType='" + this.getTravelMode() + "', "
+							+ "ModeType='" + this.getMode() + "', "
 							+ "Distance='" + this.getDistance() + "', "
 							+ "TimeOfDeparture ='"
 							+ this.getEstimatedDepartureTime() + "', "
