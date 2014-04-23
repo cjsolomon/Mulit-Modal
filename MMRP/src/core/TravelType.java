@@ -511,6 +511,78 @@ public class TravelType extends BaseClass {
 	}//End of Load(int id)
 	
 	/**
+	 * This function will load all TravelTypes for a given Vehicle
+	 * @param Vehicle v, the vehicle to retrieve data for
+	 * @return ArrayList<TravelTypes>
+	 */
+	
+	public static ArrayList<TravelType> LoadForVehicle(Vehicle v)
+	{
+		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		try 
+		{
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + v.getId() +"' AND vti.TravelMode = '" + v.getTravelMode()+"'"+ " AND Deleted = false");
+			for(int i = 0; i<temp.size();i++)
+			{
+				TravelType t = BuildFromDataRow(temp.get(i));
+				returnList.add(t);
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error " + ex);
+			ex.printStackTrace();
+		}
+		return returnList;
+	}
+	/**
+	 * Overload: This function will load all TravelTypes for a given Vehicle based on vehicle id and mode
+	 * @param id, int id for vehicle
+	 * @param mode, string for which travel mode the vehicle is
+	 * @return ArrayList<TravelTypes>
+	 */
+	
+	public static ArrayList<TravelType> LoadForVehicle(int id, String mode)
+	{
+		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		try 
+		{
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND Deleted = false");
+			for(int i = 0; i<temp.size();i++)
+			{
+				TravelType t = BuildFromDataRow(temp.get(i));
+				returnList.add(t);
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error " + ex);
+			ex.printStackTrace();
+		}
+		return returnList;
+	}
+	public static ArrayList<TravelType> LoadNotInVehilce(Vehicle v)
+	{
+		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		try 
+		{
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM `multi-modal`.traveltypes where VehicleTypeID Not In("+
+					"Select TravelTypeID from vehicletraveltypeindex where vehicleID = '" + v.getId() + "' AND TravelMode = '" + v.getTravelMode() + "'" + 
+					")" + " AND VehicleMode = '" + v.getTravelMode() + "' AND Deleted = false");
+			for(int i = 0; i<temp.size();i++)
+			{
+				TravelType t = BuildFromDataRow(temp.get(i));
+				returnList.add(t);
+			}
+		}
+		catch(Exception ex)
+		{
+			System.out.println("Error " + ex);
+			ex.printStackTrace();
+		}
+		return returnList;
+	}
+	/**
 	 * This function returns an ArrayList of TravelTypes loaded from the database based on the given where clause
 	 * @param where This is the clause that determines which TravelTypes to load from the database
 	 * @return Returns an ArrayList of TravelTypes determined by the where clause
