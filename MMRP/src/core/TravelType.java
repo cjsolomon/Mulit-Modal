@@ -14,7 +14,6 @@ public class TravelType extends BaseClass {
 	private String trailer2;
 	private double minCap;
 	private double maxCap;
-	private double actCap;
 	private double maxWeight;
 	private String serviceType;
 	private boolean radiation;
@@ -40,7 +39,6 @@ public class TravelType extends BaseClass {
 	 */
 	public TravelType()
 	{
-		this.actCap = DEFAULT_MINIMUM_CAPACITY;
 		this.explosives = false;
 		this.hazmat = false;
 		this.maxCap = DEFAULT_MAXIMUM_CAPACITY;
@@ -67,7 +65,6 @@ public class TravelType extends BaseClass {
 	public TravelType(int id)
 	{
 		this.vehicleTypeID=id;													//Set the TravelType id
-		this.actCap = DEFAULT_MINIMUM_CAPACITY;
 		this.explosives = false;
 		this.hazmat = false;
 		this.maxCap = DEFAULT_MAXIMUM_CAPACITY;
@@ -214,32 +211,6 @@ public class TravelType extends BaseClass {
 	{
 		return maxCap;														//Returns the TravelType's maximum capacity
 	}//End of getMaxCap()
-	
-	/**
-	 * This function sets the TravelType's actual capacity
-	 * @param actCapacity This is the actual capacity for the TravelType
-	 */
-	public void setActCap(double actCapacity)
-	{
-		if(FormatChecker.inRange(actCapacity, DEFAULT_MINIMUM_CAPACITY, DEFAULT_MAXIMUM_CAPACITY))
-		{
-			actCap = actCapacity;
-		}
-		else
-		{
-			Log.writeLogWarning("Invalid entry for actual capacity in Travel Type. Actual capacity set to " + DEFAULT_MAXIMUM_CAPACITY);
-			actCap = DEFAULT_MAXIMUM_CAPACITY;
-		}
-	}//End of setActCap(double actCapacity)
-			
-	/**
-	 * This function returns the TravelType actual capacity
-	 * @return Returns the actual capacity of the TravelType
-	 */
-	public double getActCap()
-	{
-		return actCap;														//Returns the TravelType's actual capacity
-	}//End of getActCap()
 	
 	/**
 	 * This function sets the travel type's maximum weight
@@ -422,13 +393,13 @@ public class TravelType extends BaseClass {
 			if(isNew())
 			{
 				//If the Truck is new insert it into the database by executing the following
-				executeCommand("Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,ActualCapacity,MaxWeight,ServiceType,Radiation, Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
+				executeCommand("Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,MaxWeight,ServiceType,Radiation, Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
 					    this.getTravelTypeName() + "','" +this.getTravelTypeMode() + "','"+ this.getTrailer1()+"','"+this.getTrailer2() + "','" + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
-						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");
+						this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");
 				//Grab this Truck from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select VehicleTypeID from TravelTypes where VehicleTypeName = '" + this.getTravelTypeName() + "' AND VehicleMode = '"+this.getTravelTypeMode()+
 						"' AND Trailer1 = '" + this.getTrailer1() + "' AND Trailer2 = '" + this.getTrailer2() + "' AND MinimumCapacity = '" + this.getMinCap() + 
-						"' AND MaximumCapacity = '" + this.getMaxCap() + "' AND ActualCapacity = '" +this.getActCap() + "' AND MaxWeight = '" + this.getMaxWeight()+ "' AND ServiceType = '" + this.getServiceType()+
+						"' AND MaximumCapacity = '" + this.getMaxCap() + "' AND MaxWeight = '" + this.getMaxWeight()+ "' AND ServiceType = '" + this.getServiceType()+
 						 "' AND Radiation = '" + this.getRadiation()+ "' AND Refridgeration = '" + this.getRefridgeration()+ "' AND HazardousMaterial = '" + this.getHazmat()+ "' AND ExplosiveMaterial = '" + this.getExplosives()+
 						 "' AND Tracking = '" + this.getTracking()+"'");
 				//If this TravelType exists on the database mark it as old and clean
@@ -446,7 +417,7 @@ public class TravelType extends BaseClass {
 					//If the TravelType is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update TravelTypes Set VehicleTypeName = '" + this.getTravelTypeName() + "' , VehicleMode = '"+this.getTravelTypeMode()+
 						"' , Trailer1 = '" + this.getTrailer1() + "' , Trailer2 = '" + this.getTrailer2() + "' , MinimumCapacity = '" + this.getMinCap() + 
-						"' , MaximumCapacity = '" + this.getMaxCap() + "' , ActualCapacity = '" +this.getActCap() + "' , MaxWeight = '" + this.getMaxWeight() +
+						"' , MaximumCapacity = '" + this.getMaxCap() + "' , MaxWeight = '" + this.getMaxWeight() +
 						"' , ServiceType = '" + this.getServiceType() + "' , Radiation = " + this.getRadiation() + " , Refridgeration = " + this.getRefridgeration() +
 						" , HazardousMaterial = " + this.getHazmat() + " , ExplosiveMaterial = " + this.getExplosives() + " , Tracking = " + this.getTracking() +
 						", Deleted = " +this.isDeleted() + " Where VehicleTypeID = " +this.vehicleTypeID);
@@ -707,7 +678,6 @@ public class TravelType extends BaseClass {
 		{
 			//This code grabs each element that will be found in the database on the TravelType table and set the appropriate values for a new TravelType
 			TravelType t = new TravelType((Integer)data.get("VehicleTypeID"));
-			t.setActCap(Double.parseDouble(data.get("ActualCapacity").toString()));
 			t.setMaxCap((Double.parseDouble(data.get("MaximumCapacity").toString())));//rs.getInt("Capacity"));
 			t.setMinCap((Double.parseDouble(data.get("MinimumCapacity").toString())));//rs.getString("Contractor"));
 			t.setMaxWeight((Double.parseDouble(data.get("MaxWeight").toString())));//,rs.getString("LocationName"));

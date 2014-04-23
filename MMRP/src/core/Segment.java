@@ -37,6 +37,7 @@ public class Segment extends BaseClass {
 	private ArrayList<Shipment> onBoard;
 	private Location start;
 	private Location end;
+	private double actualCapacity;
 
 	// Default Variables
 	private static final double MIN_DISTANCE = 0;
@@ -71,6 +72,7 @@ public class Segment extends BaseClass {
 		this.travelType = new TravelType();
 		this.vehicle = new Truck();
 		this.onBoard = new ArrayList<Shipment>();
+		this.actualCapacity = 0;
 		MarkNew(); // Mark this Segment as new
 		MarkClean();
 		MarkUndeleted();
@@ -97,6 +99,7 @@ public class Segment extends BaseClass {
 		this.travelType = new TravelType();
 		this.vehicle = new Truck();
 		this.onBoard = new ArrayList<Shipment>();
+		this.actualCapacity = 0;
 		MarkClean();
 	}// End of the arguemented Segment constructor
 
@@ -130,6 +133,15 @@ public class Segment extends BaseClass {
 		
 	}// End of setDistance(double d)
 
+	public void setActualCapacity(double newActualCapacity){
+		//NEED SOME ERROR CHECKING
+		this.actualCapacity = newActualCapacity;
+	}
+	
+	public double getActualCapacity(){
+		return this.actualCapacity;
+	}
+	
 	public ArrayList<Shipment> getOnBoard() {
 		return this.onBoard;
 	}
