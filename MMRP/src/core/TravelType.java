@@ -568,7 +568,7 @@ public class TravelType extends BaseClass {
 		{
 			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM `multi-modal`.traveltypes where VehicleTypeID Not In("+
 					"Select TravelTypeID from vehicletraveltypeindex where vehicleID = '" + v.getId() + "' AND TravelMode = '" + v.getTravelMode() + "'" + 
-					")" + " AND VehicleMode = '" + v.getTravelMode() + "' AND Deleted = false");
+					" and Deleted=false)" + " AND VehicleMode = '" + v.getTravelMode() + "' AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));
@@ -609,6 +609,33 @@ public class TravelType extends BaseClass {
 			}
 		}
 	}
+	public void addToVehilce(int id, String mode)
+	{
+		if(mode.equals(this.getTravelTypeMode()))
+		{
+			try
+			{
+				if(executeQuery("Select * from vehicletraveltypeindex where VehicleID = '" + id +"' AND TravelMode = '"+ mode + "' AND TravelTypeID = '" + this.getVehicleTypeID()+"'").size()==0)
+				{
+					/*Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,ActualCapacity,MaxWeight,ServiceType,Radiation
+					 * , Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
+					    this.getTravelTypeName() + "','" +this.getTravelTypeMode() + "','"+ this.getTrailer1()+"','"+this.getTrailer2() + "','"
+					     + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
+						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","
+						+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");*/
+					executeCommand("Insert into vehicletraveltypeindex (VehicleID,TravelTypeID,TravelMode,inUse,Deleted) Values('"+id+"','"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
+				}
+				else
+				{
+					executeCommand("Update vehicletraveltypeindex set Deleted = false where VehicleID ='" + id + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+				}
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+	}
 	public void removeFromVehilce(Vehicle v)
 	{
 		if(v.getTravelMode().equals(this.getTravelTypeMode()))
@@ -617,6 +644,22 @@ public class TravelType extends BaseClass {
 			{
 				
 				executeCommand("Update vehicletraveltypeindex set Deleted = true where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+				
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+	}
+	public void removeFromVehilce(int id, String mode)
+	{
+		if(mode.equals(this.getTravelTypeMode()))
+		{
+			try
+			{
+				
+				executeCommand("Update vehicletraveltypeindex set Deleted = true where VehicleID ='" + id + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
 				
 			}
 			catch(Exception ex)

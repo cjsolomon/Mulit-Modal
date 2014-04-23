@@ -109,7 +109,7 @@ public class TravelTypeSelector extends JPanel {
 				if(lstInUse.getSelectedIndex()!=-1)
 				{
 					TravelType t = (TravelType)lstInUse.getSelectedValue();
-					t.removeFromVehilce(sourceVehicle);
+					sourceVehicle.removeFromTypes(t);
 					dlmAvail.addElement(t);
 					dlmInUse.removeElement(t);
 				}
@@ -123,6 +123,7 @@ public class TravelTypeSelector extends JPanel {
 				if(lstAvail.getSelectedIndex()!=-1)
 				{
 					TravelType t = (TravelType)lstAvail.getSelectedValue();
+					sourceVehicle.addToTypes(t);
 					t.addToVehilce(sourceVehicle);
 					dlmAvail.removeElement(t);
 					dlmInUse.addElement(t);
