@@ -95,21 +95,25 @@ public class FormatChecker {
 	 */
 	static public boolean isValidDate(String date)
 	{
-		/*SimpleDateFormat format = (date.charAt(2) == '/' || date.charAt(1) == '/') 
-															? new SimpleDateFormat("MM/D/YYYY")
-														   	:new SimpleDateFormat("MMM D YYYY");
 		boolean ret = true;
-		try {
-			format.parse(date);
+		if(date.length() > 7) //Shortest possible date is 8 characters (M/D/YYYY) - reject if shorter
+		{
+			SimpleDateFormat format = (date.charAt(2) == '/' || date.charAt(1) == '/') 
+																? new SimpleDateFormat("MM/D/YYYY")
+															   	:new SimpleDateFormat("MMM D YYYY");
+			try {
+				format.parse(date);
+			}
+			catch(ParseException e){
+				//Log.writeLogWarning("Invalid format on date entry.");
+				ret = false;
+			}
+		
 		}
-		catch(ParseException e){
-			//Log.writeLogWarning("Invalid format on date entry.");
+		else
 			ret = false;
-		}
-		return ret;*/
-		return true;
+		return ret;
 	}
-	
 	/**
 	 * 
 	 * @param String to be tested if numeric

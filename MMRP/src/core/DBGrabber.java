@@ -255,6 +255,7 @@ public class DBGrabber {
 					rates.add(temp);
 				}
 			int startID;
+			int citiesDone = 0;
 			int endID;
 			int carrierID;
 			String travelType[] = {"TRUCK","PLANE","CARGOSHIP","RAIL"};
@@ -304,12 +305,14 @@ public class DBGrabber {
 							writer.println(command);
 							//e.execute(command);
 							System.out.println("Calculating rates..");
+							System.out.println("Cities completed = "+ citiesDone);
 							writer.println(insertCount++);
 						}
 						cities.add(rates.get(j).getStartLocation().getName());
 					}
 				}
 				System.out.println("Completed a start city");
+				citiesDone++;
 			}
 			con.close();
 			excal.close();
