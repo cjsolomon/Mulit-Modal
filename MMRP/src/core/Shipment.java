@@ -790,10 +790,9 @@ public class Shipment extends BaseClass {
 		ArrayList<Shipment> returnList = new ArrayList<Shipment>();
 		try 
 		{
-			String sql = " where Deleted = false";
 			ArrayList<Map<String,Object>> temp;
 			if(where.isEmpty())
-				temp =executeQuery("Select * from Shipment " +  sql);
+				temp =executeQuery("Select * from Shipment where Deleted = false");
 			else
 				temp =executeQuery("Select * from Shipment " +  where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)

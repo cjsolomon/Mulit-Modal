@@ -513,7 +513,11 @@ public class TravelType extends BaseClass {
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from TravelType " +where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp =executeQuery("Select * from TravelType where Deleted = false");
+			else
+				temp =executeQuery("Select * from TravelType " +where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));

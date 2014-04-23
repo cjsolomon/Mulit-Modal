@@ -423,7 +423,11 @@ public class ShippingRate extends BaseClass{
 			ArrayList<ShippingRate> returnList = new ArrayList<ShippingRate>();
 			try 
 			{
-				ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShippingRates " +  where  + " AND Deleted = false");
+				ArrayList<Map<String,Object>> temp;
+				if(where.isEmpty())
+					temp = executeQuery("Select * from ShippingRates where Deleted = false");
+				else
+					temp = executeQuery("Select * from ShippingRates " +  where  + " AND Deleted = false");
 				for(int i = 0; i<temp.size();i++)
 				{
 					ShippingRate sr = BuildFromDataRow(temp.get(i));

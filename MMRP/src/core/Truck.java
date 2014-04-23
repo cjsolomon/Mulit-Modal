@@ -151,7 +151,11 @@ public class Truck extends Vehicle {
 		ArrayList<Truck> returnList = new ArrayList<Truck>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("Select * from Truck " +where   + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp =executeQuery("Select * from Truck where AND Deleted = false");
+			else
+				temp =executeQuery("Select * from Truck " +where   + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				Truck t = BuildFromDataRow(temp.get(i));

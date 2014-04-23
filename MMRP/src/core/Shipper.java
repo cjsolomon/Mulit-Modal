@@ -245,7 +245,11 @@ public class Shipper extends BaseClass {
 	{
 		try
 		{
-			ArrayList<Map<String,Object>> temp = executeQuery("Select * from Shipper "+where  + " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp;
+			if(where.isEmpty())
+				temp = executeQuery("Select * from Shipper where Deleted = false");
+			else
+				temp = executeQuery("Select * from Shipper "+where  + " AND Deleted = false");
 			ArrayList<Shipper> returnList=new ArrayList<Shipper>();
 			for(int i = 0;i<temp.size();i++ )
 			{
