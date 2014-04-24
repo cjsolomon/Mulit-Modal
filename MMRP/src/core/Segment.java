@@ -50,7 +50,7 @@ public class Segment extends BaseClass {
 	private static final int DEFAULT_START_LOCATION_ID = 1;
 	private static final String DEFAULT_LANES = "defaultLanes";
 	private static final int DEFAULT_LATEST_ARRIVAL_TIME = 50;
-	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 0;
+	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 1000;
 	private static final String DEFAULT_MODE = "TRUCK";
 	private static final int DEFAULT_END_LOCATION_ID = 2;
 
@@ -606,7 +606,7 @@ public class Segment extends BaseClass {
 			Log.writeLogWarning("Invalid travel mode in Vehicle. Not a valid mode. Setting mode to "
 					+ " NONE.");
 		}
-		
+
 	}
 
 	public String getMode() {
@@ -775,10 +775,10 @@ public class Segment extends BaseClass {
 		try {
 			// Populate the list with Segments starting at the given Location
 			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,s.Deleted,l.LocationID as StartID,"
-						+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
-						+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
-						+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where FromLocationID = '"
-					+ start.getID() + "'"  + " AND Deleted = false");
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where FromLocationID = '"
+					+ start.getID() + "'"  + " AND l.Deleted = false AND e.Deleted=false");
 			// For each returned Segment create a new Segment object
 			for (int i = 0; i < temp.size(); i++) {
 				Segment s = BuildFromDataRow(temp.get(i));
@@ -809,10 +809,10 @@ public class Segment extends BaseClass {
 		try {
 			// Populate a list with all the Segments that match the criteria
 			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,s.Deleted,l.LocationID as StartID,"
-						+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
-						+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
-						+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where FromLocationID = '"
-					+ start.getID() + "' and TimeOfDeparture > " + startTime  + " AND Deleted = false");
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where FromLocationID = '"
+					+ start.getID() + "' and TimeOfDeparture > " + startTime  + " AND l.Deleted = false AND e.Deleted=false");
 			// For each returned Segment create a new Segment object on our list
 			for (int i = 0; i < temp.size(); i++) {
 				Segment s = BuildFromDataRow(temp.get(i));
@@ -838,10 +838,10 @@ public class Segment extends BaseClass {
 		ArrayList<Segment> returnList = new ArrayList<Segment>();
 		try {
 			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,s.Deleted,l.LocationID as StartID,"
-						+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
-						+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
-						+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where FromLocationID = '"
-					+ startLocationID + "'"  + " AND Deleted = false");
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where FromLocationID = '"
+					+ startLocationID + "'"  + " AND l.Deleted = false AND e.Deleted=false");
 			for (int i = 0; i < temp.size(); i++) {
 				Segment s = BuildFromDataRow(temp.get(i));
 				// s.onBoard= Shipment.LoadAllForSegment(s.getID());
@@ -871,7 +871,7 @@ public class Segment extends BaseClass {
 					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
 					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
 					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where FromLocationID = '"
-					+ locationID + "' and TimeOfDeparture > " + startTime  + " AND Deleted = false");
+					+ locationID + "' and TimeOfDeparture > " + startTime  + " AND l.Deleted = false AND e.Deleted=false");
 			for (int i = 0; i < temp.size(); i++) {
 				Segment s = BuildFromDataRow(temp.get(i));
 				// s.onBoard= Shipment.LoadAllForSegment(s.getID());
@@ -893,10 +893,10 @@ public class Segment extends BaseClass {
 		try {
 			// Search the database for Segments with the given id
 			ArrayList<Map<String, Object>> temp = executeQuery("SELECT SegmentID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime,s.Deleted,l.LocationID as StartID,"
-						+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
-						+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
-						+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where SegmentID = "
-					+ id  + " AND Deleted = false");
+					+ "l.Latitude as StartLat, l.Longitude as StartLon,l.Name as StartName, l.State as StartState, l.Country as StartCountry, l.TravelType1 as StartType1, l.TravelType2 as StartType2, l.TravelType3 as StartType3, l.TravelType4 as StartType4, l.TravelType5 as StartType5, l.TravelType6 as StartType6,e.LocationID as EndID,"
+					+ "e.Latitude as EndLat, e.Longitude as EndLon,e.Name as EndName, e.State as EndState, e.Country as EndCountry, e.TravelType1 as EndType1, e.TravelType2 as EndType2, e.TravelType3 as EndType3, e.TravelType4 as EndType4, e.TravelType5 as EndType5, e.TravelType6 as EndType6 "
+					+ "FROM segment s left outer join location l on s.FromLocationID=l.LocationID left outer join location e on s.ToLocationID = e.LocationID where SegmentID = "
+					+ id  + " AND l.Deleted = false AND e.Deleted=false");
 			// If something was returned build the Segment from it
 			if (temp.size() > 0) {
 				Segment s = BuildFromDataRow(temp.get(0));
@@ -1001,9 +1001,10 @@ public class Segment extends BaseClass {
 					// from
 					// the
 					// database
-					MarkClean(); // Mark the Segment as clean
-					MarkOld(); // Mark the Segment as old
+
 				}// End of found something if
+				MarkClean(); // Mark the Segment as clean
+				MarkOld(); // Mark the Segment as old
 			}// End of isNew if
 			else {
 				if (isDirty()) {

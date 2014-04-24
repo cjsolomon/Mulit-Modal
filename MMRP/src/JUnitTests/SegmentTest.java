@@ -382,11 +382,11 @@ public class SegmentTest {
 		test_segment.setLane(test_string);
 		Assert.assertTrue(test_segment.isNew());
 		test_segment.Update();
+		Assert.assertFalse(test_segment.isDirty());
 		ArrayList<Segment> sList = Segment.LoadAll(new String("where Lane = '" + test_string + "'")); 
 		if (!sList.isEmpty()) {
 			Assert.assertEquals(new Integer(test_segment.getEndLocationID()), new Integer(sList.get(0).getEndLocationID()));
 			Assert.assertEquals(new Integer(test_segment.getStartLocationID()), new Integer(sList.get(0).getStartLocationID()));
-			//Assert.assertEquals(test_segment.getVehicle().getTravelMode(), sList.get(0).getVehicle().getTravelMode());
 			Assert.assertEquals(new Double(test_segment.getDistance()), new Double(sList.get(0).getDistance()));
 			Assert.assertEquals(new Integer(test_segment.getEstimatedDepartureTime()), new Integer(sList.get(0).getEstimatedDepartureTime()));
 			Assert.assertEquals(new Integer(test_segment.getEstimatedArrivalTime()), new Integer(sList.get(0).getEstimatedArrivalTime()));
@@ -405,7 +405,7 @@ public class SegmentTest {
 			Assert.assertEquals(false, true);
 		}
 
-		Assert.assertFalse(test_segment.isDirty());
+		
 		test_segment.setLane(test_string2);
 		Assert.assertTrue(test_segment.isDirty());
 		Assert.assertFalse(test_segment.isNew());
@@ -414,7 +414,6 @@ public class SegmentTest {
 		if (!sList2.isEmpty()) {
 			Assert.assertEquals(new Integer(test_segment.getEndLocationID()), new Integer(sList2.get(0).getEndLocationID()));
 			Assert.assertEquals(new Integer(test_segment.getStartLocationID()), new Integer(sList2.get(0).getStartLocationID()));
-			//Assert.assertEquals(test_segment.getVehicle().getTravelMode(), sList.get(0).getVehicle().getTravelMode());
 			Assert.assertEquals(new Double(test_segment.getDistance()), new Double(sList2.get(0).getDistance()));
 			Assert.assertEquals(new Integer(test_segment.getEstimatedDepartureTime()), new Integer(sList2.get(0).getEstimatedDepartureTime()));
 			Assert.assertEquals(new Integer(test_segment.getEstimatedArrivalTime()), new Integer(sList2.get(0).getEstimatedArrivalTime()));
@@ -464,8 +463,173 @@ public class SegmentTest {
 	
 	@Test
 	public void testLoadAllAtLocation1() {
+		Segment test_segment = new Segment();
+		Location test_location_start = new Location();
+		Location test_location_end = new Location();
+		Location test_location_never = new Location();
 		
+		test_location_start.setName("Segment Load All Test 1 - Start");
+		test_location_end.setName("Segment Load All Test 1 - End");
+		test_location_never.setName("Segment Load All Test 1 - Never");
+		test_segment.setLane("JUnit test Load All Test 1");
+		
+		test_location_start.Update();
+		test_location_end.Update();
+		test_location_never.Update();
+		
+		test_segment.setStartLocation(test_location_start);
+		test_segment.setEndLocation(test_location_end);
+		test_segment.Update();
+		
+		ArrayList<Segment> sList1 = Segment.LoadAllAtLocation(test_location_start);
+		ArrayList<Segment> sList2 = Segment.LoadAllAtLocation(test_location_never);
+		
+		Assert.assertFalse(sList1.isEmpty());
+		Assert.assertTrue(sList2.isEmpty());
+		
+		test_location_end.Delete();
+		test_location_start.Delete();
+		test_location_never.Delete();
+		test_segment.Delete();
+				
 	}
+	
+	@Test
+	public void testLoadAllAtLocation2() {
+		Segment test_segment = new Segment();
+		Segment test_segment2 = new Segment();
+		Location test_location_start = new Location();
+		Location test_location_end = new Location();
+		Integer parameter_time = new Integer(700);
+		Integer start_time = new Integer(750);
+		
+		test_location_start.setName("Segment Load All Test 1 - Start");
+		test_location_end.setName("Segment Load All Test 1 - End");
+		test_segment.setLane("JUnit test Load All Test 2");
+		test_segment2.setLane("JUnit test Load All Test 2");
+		
+		test_location_start.Update();
+		test_location_end.Update();
+		
+		test_segment.setStartLocation(test_location_start);
+		test_segment.setEndLocation(test_location_end);
+		test_segment.setEstimatedDepartureTime(start_time);
+		
+		test_segment2.setStartLocation(test_location_start);
+		test_segment2.setEndLocation(test_location_end);
+		test_segment2.setEstimatedDepartureTime(parameter_time);
+		
+		test_segment.Update();
+		test_segment2.Update();
+		
+		ArrayList<Segment> sList1 = Segment.LoadAllAtLocation(test_location_start,parameter_time);
+		ArrayList<Segment> sList2 = Segment.LoadAllAtLocation(test_location_start,start_time);
+		
+		Assert.assertFalse(sList1.isEmpty());
+		Assert.assertTrue(sList2.isEmpty());
+		
+		test_location_end.Delete();
+		test_location_start.Delete();
+		test_segment.Delete();
+		test_segment2.Delete();
+				
+	}
+	
+	@Test
+	public void testLoadAllAtLocation3() {
+		Segment test_segment = new Segment();
+		Location test_location_start = new Location();
+		Location test_location_end = new Location();
+		Location test_location_never = new Location();
+		
+		test_location_start.setName("Segment Load All Test 3 - Start");
+		test_location_end.setName("Segment Load All Test 3 - End");
+		test_location_never.setName("Segment Load All Test 3 - Never");
+		test_segment.setLane("JUnit test Load All Test 3");
+		
+		test_location_start.Update();
+		test_location_end.Update();
+		test_location_never.Update();
+		
+		test_segment.setStartLocation(test_location_start);
+		test_segment.setEndLocation(test_location_end);
+		test_segment.Update();
+		
+		ArrayList<Segment> sList1 = Segment.LoadAllAtLocation(test_location_start.getID());
+		ArrayList<Segment> sList2 = Segment.LoadAllAtLocation(test_location_never.getID());
+		
+		Assert.assertFalse(sList1.isEmpty());
+		Assert.assertTrue(sList2.isEmpty());
+		
+		test_location_end.Delete();
+		test_location_start.Delete();
+		test_location_never.Delete();
+		test_segment.Delete();
+				
+	}
+	
+	@Test
+	public void testLoadAllAtLocation4() {
+		Segment test_segment = new Segment();
+		Segment test_segment2 = new Segment();
+		Location test_location_start = new Location();
+		Location test_location_end = new Location();
+		Integer parameter_time = new Integer(700);
+		Integer start_time = new Integer(750);
+		
+		test_location_start.setName("Segment Load All Test 1 - Start");
+		test_location_end.setName("Segment Load All Test 1 - End");
+		test_segment.setLane("JUnit test Load All Test 4");
+		test_segment2.setLane("JUnit test Load All Test 4");
+		
+		test_location_start.Update();
+		test_location_end.Update();
+		
+		test_segment.setStartLocation(test_location_start);
+		test_segment.setEndLocation(test_location_end);
+		test_segment.setEstimatedDepartureTime(start_time);
+		
+		test_segment2.setStartLocation(test_location_start);
+		test_segment2.setEndLocation(test_location_end);
+		test_segment2.setEstimatedDepartureTime(parameter_time);
+		
+		test_segment.Update();
+		test_segment2.Update();
+		
+		ArrayList<Segment> sList1 = Segment.LoadAllAtLocation(test_location_start.getID(),parameter_time);
+		ArrayList<Segment> sList2 = Segment.LoadAllAtLocation(test_location_start.getID(),start_time);
+		
+		Assert.assertFalse(sList1.isEmpty());
+		Assert.assertTrue(sList2.isEmpty());
+		
+		test_location_end.Delete();
+		test_location_start.Delete();
+		test_segment.Delete();
+		test_segment2.Delete();
+				
+	}
+	
+	@Test
+	public void testLoad() {
+		Segment test_segment = new Segment();
+		String test_string = new String("Load Test String For Segment");
+		test_segment.setLane(test_string);
+		
 
+		test_segment.Update();
+		Segment test_segment2 = Segment.Load(test_segment.getID());
+		/*Assert.assertEquals(new Double(test_segment.getDistance()), new Double(test_segment2.getDistance()));
+		Assert.assertEquals(new Integer(test_segment.getEstimatedDepartureTime()), new Integer(test_segment2.getEstimatedDepartureTime()));
+		Assert.assertEquals(new Integer(test_segment.getEstimatedArrivalTime()), new Integer(test_segment2.getEstimatedArrivalTime()));
+		Assert.assertEquals(new Integer(test_segment.getEarliestDepartureTime()), new Integer(test_segment2.getEarliestDepartureTime()));
+		Assert.assertEquals(new Integer(test_segment.getEarliestArrivalTime()), new Integer(test_segment2.getEarliestArrivalTime()));
+		Assert.assertEquals(new Integer(test_segment.getLatestDepartureTime()), new Integer(test_segment2.getLatestDepartureTime()));
+		Assert.assertEquals(new Integer(test_segment.getLatestArrivalTime()), new Integer(test_segment2.getLatestArrivalTime()));
+		Assert.assertEquals(test_segment.getShippingRate().getType().toString(), test_segment2.getShippingRate().getType().toString());
+		Assert.assertEquals(test_segment.getMode(), test_segment2.getMode());
+		Assert.assertEquals(test_segment.getTravelType().getTravelTypeName(),test_segment2.getTravelType().getTravelTypeName());
+		Assert.assertEquals(new Integer(test_segment.getOnBoard().size()),new Integer(test_segment2.getOnBoard().size()));*/
+		test_segment.Delete();
+	}
 
 }
