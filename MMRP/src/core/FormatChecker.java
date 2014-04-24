@@ -179,4 +179,20 @@ public class FormatChecker {
 		}
 		return ret;
 	}
+	
+	static public boolean isEnumerated(Class <?> enumClass, Object value)
+	{
+		boolean ret = false; 
+		Object [] all = enumClass.getEnumConstants();
+		for(Object i : all)
+		{
+			if(i.toString().equals(value.toString()))
+				ret = true;
+		}
+		if(!ret) 
+		{
+			//Log.writeLogWarning("Enumerated value is not of Enumerated type.");
+		}
+		return ret;
+	}
 }

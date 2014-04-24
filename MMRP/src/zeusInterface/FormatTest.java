@@ -6,7 +6,8 @@ public class FormatTest {
 	
 	public static void main(String[] args)
 	{
-		boolean accepted = FormatChecker.isEnumerated(Vehicle.TravelModes.class, "TRUCK");
+		Vehicle.TravelModes mine = Vehicle.TravelModes.BIKE;
+		boolean accepted = FormatChecker.isEnumerated(Vehicle.TravelModes.class, mine);
 		System.out.println(accepted);
 	}
 
