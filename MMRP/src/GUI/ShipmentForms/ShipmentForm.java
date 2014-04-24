@@ -14,6 +14,7 @@ import com.jgoodies.forms.factories.FormFactory;
 
 import core.Bike;
 import core.Shipment;
+import core.Shipper;
 
 import javax.swing.border.LineBorder;
 import java.awt.Color;
@@ -224,11 +225,12 @@ public class ShipmentForm extends JPanel {
 	
 	private void setReadOnly()
 	{
-		txtCompanyName.setText("");
-		txtContactName.setText("");
-		txtPhone.setText("");
-		txtEmail.setText("");
-		txtPrefCarriers.setText("");
+		Shipper s = source.getShipper();
+		txtCompanyName.setText(s.getCompanyName());
+		txtContactName.setText(s.getContactName());
+		txtPhone.setText(s.getPhoneNumber());
+		txtEmail.setText(s.getEmailAddress());
+		txtPrefCarriers.setText(s.getPrefferedCarriers());
 		
 		
 		//txtCompanyName.setText(source.get)

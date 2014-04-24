@@ -10,8 +10,8 @@ public class Shipment extends BaseClass {
 
 	private int fromLocationID,toLocationID;
 	private int priority;
-	private int size;
-	private int weight;
+	private double size;
+	private double weight;
 	private int earliestArrival, latestArrival;
 	private int id;
 	private int earliestDeparture,latestDeparture;
@@ -228,7 +228,7 @@ public class Shipment extends BaseClass {
 	 * This function returns the size of the Shipment
 	 * @return Returns the size of the Shipment
 	 */
-	public int getSize() {
+	public double getSize() {
 		return size;
 	}//End of getSize()
 	
@@ -236,7 +236,7 @@ public class Shipment extends BaseClass {
 	 * This function sets the size of the Shipment
 	 * @param size This is the new size of the Shipment
 	 */
-	public void setSize(int size) {
+	public void setSize(double size) {
 		if(this.size!=size)
 		{
 			if(FormatChecker.inRange(MIN_SIZE, MAX_SIZE, size))
@@ -385,7 +385,12 @@ public class Shipment extends BaseClass {
 	{
 		return this.timeToUnload;
 	}//End of getTimeToUnload()
-	
+	public Shipper getShipper()
+	{
+		if(this.shipperID!=0)
+			return Shipper.Load(shipperID);
+		return null;
+	}
 	/**
 	 * This function sets the time to unload the Shipment
 	 * @param t This is the new time to unload the Shipment
@@ -682,7 +687,7 @@ public class Shipment extends BaseClass {
 	 * This function sets the weight of the Shipment
 	 * @param newWeight This is the newWeight for the Shipment
 	 */
-	public void setWeight(int newWeight)
+	public void setWeight(double newWeight)
 	{
 		if(this.weight!=newWeight)
 		{
@@ -703,7 +708,7 @@ public class Shipment extends BaseClass {
 	 * This function returns the weight of the Shipment
 	 * @return Returns the weight of the Shipment
 	 */
-	public int getWeight()
+	public double getWeight()
 	{
 		return this.weight;
 	}//End of getWeight()
@@ -852,9 +857,9 @@ public class Shipment extends BaseClass {
 		s.setLatestDepartureTime((Integer)data.get("LatestDepartureFromStart"));
 		s.setEarliestArrivalTime((Integer)data.get("EarliestArrival"));
 		s.setLatestArrivalTime((Integer)data.get("LatestArrival"));
-		s.setSize((Integer)data.get("Size"));
-		if((Integer)data.get("weight")!=null)
-			s.setWeight((Integer)data.get("weight"));
+		s.setSize((Double)data.get("Size"));
+		if((Double)data.get("weight")!=null)
+			s.setWeight((Double)data.get("weight"));
 		if((Integer)data.get("CurrentLocation")!=null)
 			s.setCurrentLocation((Integer)data.get("CurrentLocation"));
 		if((Integer)data.get("loadingTime")!=null)
