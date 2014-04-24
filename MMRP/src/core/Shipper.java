@@ -273,7 +273,7 @@ public class Shipper extends BaseClass {
 	public static Shipper BuildFromDataRow(Map<String,Object> data)
 	{
 		Shipper s = new Shipper((Integer)data.get("ShipperID"));
-		s.setLocationID((Integer)data.get("locationID"));
+		s.setLocationID((Integer)data.get("LocationID"));
 		s.setPrefferedCarriers((String)data.get("prefCarriers"));
 		s.setCompanyName((String)data.get("CompanyName"));
 		s.setContactName((String)data.get("ContactName"));
