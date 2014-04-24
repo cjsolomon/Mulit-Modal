@@ -382,7 +382,27 @@ public class SegmentTest {
 		Assert.assertTrue(test_segment.isNew());
 		test_segment.Update();
 		ArrayList<Segment> sList = Segment.LoadAll(new String("where Lane = '" + test_string + "'")); 
-		System.out.println(sList.size());
+		if (!sList.isEmpty()) {
+			Assert.assertEquals(new Integer(test_segment.getEndLocationID()), new Integer(sList.get(0).getEndLocationID()));
+			Assert.assertEquals(new Integer(test_segment.getStartLocationID()), new Integer(sList.get(0).getStartLocationID()));
+			Assert.assertEquals(test_segment.getVehicle().getTravelMode(), sList.get(0).getVehicle().getTravelMode());
+			Assert.assertEquals(new Double(test_segment.getDistance()), new Double(sList.get(0).getDistance()));
+			Assert.assertEquals(new Integer(Segment.getDefaultDepartureTime()), new Integer(sList.get(0).getEstimatedDepartureTime()));
+			Assert.assertEquals(new Integer(Segment.getDefaultArrivalTime()), new Integer(sList.get(0).getEstimatedArrivalTime()));
+			Assert.assertEquals(new Integer(Segment.getDefaultEarliestDepartureTime()), new Integer(sList.get(0).getEarliestDepartureTime()));
+			Assert.assertEquals(new Integer(Segment.getDefaultEarliestArrivalTime()), new Integer(sList.get(0).getEarliestArrivalTime()));
+			Assert.assertEquals(new Integer(Segment.getDefaultLatestDepartureTime()), new Integer(sList.get(0).getLatestDepartureTime()));
+			Assert.assertEquals(new Integer(Segment.getDefaultLatestArrivalTime()), new Integer(sList.get(0).getLatestArrivalTime()));
+			Assert.assertEquals(new ShippingRate().getType().toString(), sList.get(0).getShippingRate().getType().toString());
+			Assert.assertEquals(Segment.getDefaultMode(), sList.get(0).getMode());
+			Assert.assertEquals(new TravelType().getTravelTypeName(),sList.get(0).getTravelType().getTravelTypeName());
+			Assert.assertTrue(test_segment.getOnBoard().isEmpty());
+			for (Segment delete : sList)
+				delete.Delete();
+		}
+		else {
+			Assert.assertEquals(false, true);
+		}
 		test_segment.Delete();
 	}
 	
