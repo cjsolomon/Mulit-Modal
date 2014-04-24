@@ -11,16 +11,25 @@ public class FormatChecker {
 	 */
 	static public boolean isValidPhone(String tel)
 	{
-		Pattern pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
-	    Matcher matcher = pattern.matcher(tel);
-	    if (matcher.matches()) {
-	    	return true;
-	    }
-	    else
-	    { 
-	    	//Log.writeLogWarning("Invalid format on phone/fax number.");
-	    	return false;
-	    }
+		if(tel != null)
+		{
+			Pattern pattern = Pattern.compile("\\d{3}-\\d{3}-\\d{4}");
+			Matcher matcher = pattern.matcher(tel);
+			if (matcher.matches()) {
+				return true;
+			}
+			else
+			{ 
+				//Log.writeLogWarning("Invalid format on phone/fax number.");
+				return false;
+			}
+		}
+		else
+		{
+			//Log.writeLogWarning("Invalid format on phone/fax number.");
+			return false;
+		}
+
 	}
 	/**
 	 * 
@@ -29,18 +38,27 @@ public class FormatChecker {
 	 */
 	static public boolean isValidEmail(String address)
 	{
-		Pattern pattern = Pattern.compile("\\S+@\\S+\\.\\S{2,4}");
-	    Matcher matcher = pattern.matcher(address);
-	    if (matcher.matches()) {
-	    	return true;
-	    }
-	    else
-	    {
-	    	//Log.writeLogWarning("Invalid format on email address.");
-	    	return false;
-	    }
+		if(address != null)
+		{
+			Pattern pattern = Pattern.compile("\\S+@\\S+\\.\\S{2,4}");
+			Matcher matcher = pattern.matcher(address);
+			if (matcher.matches()) {
+				return true;
+			}
+			else
+			{
+				//Log.writeLogWarning("Invalid format on email address.");
+				return false;
+			}
+		}
+		else
+		{
+			//Log.writeLogWarning("Invalid format on email address.");
+			return false;
+		}
+
 	}
-	
+
 	/**
 	 * 
 	 * @param areacode to be format tested
@@ -48,18 +66,27 @@ public class FormatChecker {
 	 */
 	static public boolean isValidAreaCode(String area)
 	{
-		Pattern pattern = Pattern.compile("\\d{3}");
-	    Matcher matcher = pattern.matcher(area);
-	    if (matcher.matches()) {
-	    	return true;
-	    }
-	    else
-	    {
-	    	//Log.writeLogWarning("Invalid format on area code.");
-	    	return false;
-	    }
+		if(area != null) 
+		{
+			Pattern pattern = Pattern.compile("\\d{3}");
+			Matcher matcher = pattern.matcher(area);
+			if (matcher.matches()) {
+				return true;
+			}
+			else
+			{
+				//Log.writeLogWarning("Invalid format on area code.");
+				return false;
+			}
+		}
+		else 
+		{
+			//Log.writeLogWarning("Invalid format on area code.");
+			return false;
+		}
+
 	}
-	
+
 	/**
 	 * 
 	 * @param check, the value to check if in range given
@@ -79,7 +106,7 @@ public class FormatChecker {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param check, the value to check if in range given
@@ -98,7 +125,7 @@ public class FormatChecker {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * @param check, the value to check if in range given
@@ -132,23 +159,23 @@ public class FormatChecker {
 		if(date.length() > 7) //Shortest possible date is 8 characters (M/D/YYYY) - reject if shorter
 		{
 			SimpleDateFormat format = (date.charAt(2) == '/' || date.charAt(1) == '/') 
-																? new SimpleDateFormat("MM/D/YYYY")
-															   	:new SimpleDateFormat("MMM D YYYY");
-			try {
-				format.parse(date);
-			}
-			catch(ParseException e){
-				//Log.writeLogWarning("Invalid format on date entry - improper format.");
-				ret = false;
-			}
-		
+					? new SimpleDateFormat("MM/D/YYYY")
+			:new SimpleDateFormat("MMM D YYYY");
+					try {
+						format.parse(date);
+					}
+					catch(ParseException e){
+						//Log.writeLogWarning("Invalid format on date entry - improper format.");
+						ret = false;
+					}
+
 		}
 		else
 		{
 			//Log.writeLogWarning("Invalid format on date entry - too short.");
 			ret = false;
 		}
-			
+
 		return ret;
 	}
 	/**
@@ -159,17 +186,17 @@ public class FormatChecker {
 	static public boolean isNumeric(String number)
 	{
 		boolean ret = true;
-	    try {
+		try {
 
-	        Double.parseDouble(number);
+			Double.parseDouble(number);
 
-	    }catch (NumberFormatException e) {
-	    	//Log.writeLogWarning("String failed numeric test, NAN");
-	        ret = false;
-	    }
-	    return ret;
+		}catch (NumberFormatException e) {
+			//Log.writeLogWarning("String failed numeric test, NAN");
+			ret = false;
+		}
+		return ret;
 	}
-	
+
 	/**
 	 * 
 	 * @param enumClass the entirety of an Enumerated Type class. Passed by calling enumClass.class 
@@ -191,7 +218,7 @@ public class FormatChecker {
 		}
 		return ret;
 	}
-	
+
 	/**
 	 * 
 	 * @param enumClass the entirety of an Enumerated Type class. Passed by calling enumClass.class 
