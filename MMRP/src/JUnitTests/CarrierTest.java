@@ -82,7 +82,7 @@ public class CarrierTest {
 	@Test
 	public void testSetContractDate() {
 		Carrier test_carrier = new Carrier();
-		String test_string = ("8-14-21");
+		String test_string = ("8/14/2001");
 		test_carrier.setContractDate(test_string);
 		Assert.assertEquals(test_string, test_carrier.getContractDate());
 	}
