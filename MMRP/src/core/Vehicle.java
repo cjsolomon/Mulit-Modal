@@ -5,6 +5,8 @@
 package core;
 import java.util.ArrayList;
 
+import GUI.Log;
+
 
 public abstract class Vehicle extends BaseClass {
 	
@@ -86,11 +88,20 @@ public abstract class Vehicle extends BaseClass {
 	 */
 	protected void setTravelMode(String newTravelMode)
 	{
-		//NEED SOME ERROR CHECKING
 		if(mode==null || !mode.toString().equals(newTravelMode))	//Make sure we have a valid type
 		{
-			mode = loadMode(newTravelMode);							//Set the type of the vehicle
-			MarkDirty();								//Mark the vehicle as dirty
+			if(FormatChecker.isEnumerated(Vehicle.TravelModes.class, newTravelMode))
+			{
+				mode = loadMode(newTravelMode);							//Set the type of the vehicle
+				MarkDirty();								//Mark the vehicle as dirty
+			}
+			else
+			{
+				mode = loadMode("NONE");
+				Log.writeLogWarning("Invalid travel mode in Vehicle. Not a valid mode. Setting mode to "
+						+ " NONE.");
+			}
+			
 		}//End of if statement
 	}//End of setTravelMode(String t)
 		

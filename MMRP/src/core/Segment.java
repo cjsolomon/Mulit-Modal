@@ -595,8 +595,18 @@ public class Segment extends BaseClass {
 	}// End of setTravelType(TravelType travelType)
 
 	public void setMode(String mode) {
-		this.mode = mode;
-		this.MarkDirty();
+		if(FormatChecker.isEnumerated(Vehicle.TravelModes.class, mode))
+		{
+			this.mode = mode;
+			this.MarkDirty();
+		}
+		else
+		{
+			this.setMode("NONE");
+			Log.writeLogWarning("Invalid travel mode in Vehicle. Not a valid mode. Setting mode to "
+					+ " NONE.");
+		}
+		
 	}
 
 	public String getMode() {
