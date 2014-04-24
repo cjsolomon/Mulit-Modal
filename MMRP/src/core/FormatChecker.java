@@ -22,7 +22,6 @@ public class FormatChecker {
 	    	return false;
 	    }
 	}
-	
 	/**
 	 * 
 	 * @param address, email address to be format tested

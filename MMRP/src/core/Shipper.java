@@ -277,8 +277,8 @@ public class Shipper extends BaseClass {
 		s.setPrefferedCarriers((String)data.get("prefCarriers"));
 		s.setCompanyName((String)data.get("CompanyName"));
 		s.setContactName((String)data.get("ContactName"));
-		s.setPhoneNumber((String)data.get("phone"));
-		s.setEmailAddress((String)data.get("email"));
+		s.setPhoneNumber((String)data.get("Phone"));
+		s.setEmailAddress((String)data.get("Email"));
 		if(Boolean.getBoolean(data.get("Deleted").toString()))
 			s.MarkDeleted();
 		else
