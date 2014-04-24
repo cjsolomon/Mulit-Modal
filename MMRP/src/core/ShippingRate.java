@@ -374,7 +374,7 @@ public class ShippingRate extends BaseClass{
 			{
 				executeCommand("Update ShippingRates Set Deleted = true Where ShippingRateID = " + this.id);			//Delete the ShippingRate
 				//Now we need mark all the segments that use this bike as deleted
-				executeQuery("Update Segment set Deleted = true Where ShippingRateID = " + this.id);
+				executeCommand("Update Segment set Deleted = true Where ShippingRateID = " + this.id);
 		
 				this.MarkDeleted();
 				return true;

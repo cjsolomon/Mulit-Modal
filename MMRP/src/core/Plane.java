@@ -104,7 +104,7 @@ public class Plane extends Vehicle {
 		{
 			executeCommand("Update Plane Set Deleted = true Where PlaneID = " + this.id);					//Delete the plane
 			//Now we need mark all the segments that use this plane as deleted
-			executeQuery("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
+			executeCommand("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
 			this.MarkDeleted();
 			return true;
 		}//End of the try block

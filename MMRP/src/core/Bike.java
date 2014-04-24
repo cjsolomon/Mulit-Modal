@@ -109,7 +109,7 @@ public class Bike extends Vehicle {
 		{
 			executeCommand("Update Bike Set Deleted = true Where BikeID = " + this.id);		//Delete this Bike from the database
 			//Now we need mark all the segments that use this bike as deleted
-			executeQuery("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
+			executeCommand("Update Segment set Deleted = true Where VehicleID = " + this.id + " AND ModeType = '" +this.mode.toString() + "'");
 	
 			this.MarkDeleted();
 			return true;
