@@ -138,9 +138,9 @@ public class BestFirstFind extends RoutingAlgorithm{
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
-			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
-			   segmentsToCheck.get(i).getTravelType().getActCap() < shipment.getSize() || 
-			   segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING"){
+			if(	segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
+				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
+				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING"){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 			}//End of time, size and status restraint if
