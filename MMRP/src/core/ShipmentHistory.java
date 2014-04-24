@@ -12,9 +12,9 @@ public class ShipmentHistory extends BaseClass {
 	
 	
 	//Default Variables
-	private static int DEFAULT_NODE_NUMBER = 0;
-	private static int DEFAULT_SEGMENT_ID = 1;
-	private static int DEFAULT_SHIPMENT_ID = 1;
+	private static final int DEFAULT_NODE_NUMBER = 0;
+	private static final int DEFAULT_SEGMENT_ID = 1;
+	private static final int DEFAULT_SHIPMENT_ID = 1;
 	
 	/**
 	 * This is the default constructor for the ShipmentHistory
@@ -40,6 +40,7 @@ public class ShipmentHistory extends BaseClass {
 		this.segmentID = DEFAULT_SEGMENT_ID;
 		this.shipmentID = DEFAULT_SHIPMENT_ID;
 		MarkClean();
+		MarkUndeleted();
 	}//End of ShipmentHistory(int id)
 	
 	/**
@@ -244,5 +245,20 @@ public class ShipmentHistory extends BaseClass {
 		}
 
 	}//End of Delete()
+
+	public static int getDEFAULT_NODE_NUMBER() {
+		return DEFAULT_NODE_NUMBER;
+	}
+
+
+	public static int getDEFAULT_SEGMENT_ID() {
+		return DEFAULT_SEGMENT_ID;
+	}
+
+
+	public static int getDEFAULT_SHIPMENT_ID() {
+		return DEFAULT_SHIPMENT_ID;
+	}
+
 
 }//End of ShipmentHistory Class
