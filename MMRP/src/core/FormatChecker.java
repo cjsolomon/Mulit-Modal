@@ -6,10 +6,8 @@ import GUI.Log;
 
 public class FormatChecker {
 	/**
-	 * 
-	 * @param String telephone number
-	 * @return True/False
-	 * Returns true if telephone string fits the required telephone/fax format: xxx-xxx-xxxx
+	 * @param String telephone number to be tested
+	 * @return Returns true if telephone string fits the required telephone/fax format: xxx-xxx-xxxx
 	 */
 	static public boolean isValidPhone(String tel)
 	{
@@ -27,9 +25,8 @@ public class FormatChecker {
 	
 	/**
 	 * 
-	 * @param address
-	 * @return True/False
-	 * Returns true if address fits the email address format: emailAddress@domain.com
+	 * @param address, email address to be format tested
+	 * @return Returns true if the email address fits the required email address format: emailAddress@domain.com
 	 */
 	static public boolean isValidEmail(String address)
 	{
@@ -47,9 +44,8 @@ public class FormatChecker {
 	
 	/**
 	 * 
-	 * @param area
-	 * @return True/False
-	 * Returns true if the area code fits the proper format: xxx
+	 * @param areacode to be format tested
+	 * @return Returns true if the area code fits the proper format: xxx
 	 */
 	static public boolean isValidAreaCode(String area)
 	{
@@ -70,8 +66,7 @@ public class FormatChecker {
 	 * @param check, the value to check if in range given
 	 * @param min, the minimum value
 	 * @param max, the maximum value
-	 * @return True/False
-	 * Returns true if check is inside of minimum and maximum values 
+	 * @return Returns true if min <= check <= max
 	 */
 	static public boolean inRange(double check, double min, double max)
 	{
@@ -86,6 +81,12 @@ public class FormatChecker {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param check, the value to check if in range given
+	 * @param min, the minimum value
+	 * @return Returns true if min <= check
+	 */
 	static public boolean checkLowerBound(double check, double lowerBound)
 	{
 		if(check > lowerBound || Double.compare(check, lowerBound) == 0)
@@ -99,6 +100,12 @@ public class FormatChecker {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param check, the value to check if in range given
+	 * @param max, the maximum value
+	 * @return Returns true if check <= max
+	 */
 	static public boolean checkUpperBound(double check, double upperBound)
 	{
 		if(check < upperBound || Double.compare(check, upperBound) == 0)
@@ -115,10 +122,10 @@ public class FormatChecker {
 	/**
 	 * 
 	 * @param String to be tested as a date
-	 * @return True/False
-	 * Returns true if day is of the proper format: MonthName DayNumber Year or month#/day/Year(4 digit)
+	 * @return Returns true if day is of the proper format: MonthName DayNumber Year or month#/day/Year(4 digit)
 	 * ex) January 7th 2014
 	 * ex) 01/7/2014 
+	 * (The leading 0 in the above example is optional)
 	 */
 	static public boolean isValidDate(String date)
 	{
@@ -147,7 +154,7 @@ public class FormatChecker {
 	}
 	/**
 	 * 
-	 * @param String to be tested if numeric
+	 * @param number. String to be tested to see if it is numeric. 
 	 * @return True if the string passed is a numeric, false if it can not be converted to a number
 	 */
 	static public boolean isNumeric(String number)
@@ -164,6 +171,12 @@ public class FormatChecker {
 	    return ret;
 	}
 	
+	/**
+	 * 
+	 * @param enumClass the entirety of an Enumerated Type class. Passed by calling enumClass.class 
+	 * @param enumValue A string that will be tested against the enum constants of the enumerated class
+	 * @return True if the enumValue belongs to the enumClass. 
+	 */
 	static public boolean isEnumerated(Class <?> enumClass, String enumValue)
 	{
 		boolean ret = false; 
@@ -180,6 +193,14 @@ public class FormatChecker {
 		return ret;
 	}
 	
+	/**
+	 * 
+	 * @param enumClass the entirety of an Enumerated Type class. Passed by calling enumClass.class 
+	 * @param enumValue An object that will be tested against the enum constants of the enumerated class
+	 * @return True if the enumValue belongs to the enumClass. 
+	 * This is an overloaded method from isEnumerated (Class, String). This version will take any 
+	 * object as the second parameter and test if it is a member of the enumerated type class passed.
+	 */
 	static public boolean isEnumerated(Class <?> enumClass, Object value)
 	{
 		boolean ret = false; 

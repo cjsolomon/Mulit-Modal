@@ -438,9 +438,31 @@ public class DBGrabber {
 			Connection excal = DriverManager.getConnection(URL, USER, PSWD);
 			Statement e = excal.createStatement();
 			Statement x = excal.createStatement();
-			x.execute("Select * from shipper");
+			x.execute("Select * from shipment");
 			ResultSet rs = x.getResultSet();
 			String command;
+			/*
+			if(rs != null)
+				while(rs.next())
+				{
+					command = "UPDATE shipper SET LocationID = '" + rs.getInt("FromLocationID") + "'" + 
+						" WHERE shipperID = '" + rs.getInt("shipper") + "'";
+					System.out.println(command);
+					//e.execute(command);
+				}*/
+			
+			x.execute("Select * from shipper");
+			rs = x.getResultSet();
+			if(rs != null) 
+				while(rs.next())
+				{
+					command = "UPDATE shipper SET CompanyName = '" + "defaultCompanyName" + "'" + 
+						" WHERE CompanyName = '" + null + "'";
+					System.out.println(command);
+					e.execute(command);
+				}
+			
+			/*
 			ArrayList <Integer> shipperIds = new ArrayList <Integer>();
 			if (rs != null) 
 				while ( rs.next() )
@@ -461,7 +483,7 @@ public class DBGrabber {
 							 " WHERE ShipmentID = '" + rs.getInt("ShipmentID") + "'";
 					e.execute(command);
 					System.out.println(command);
-				}
+				}*/
 			excal.close();
 		}
 		catch (Exception e) {
@@ -479,7 +501,6 @@ public class DBGrabber {
 		//populateShips();
 		//updatePhone();  
 		//updateShipment();
-		
 		//populateShipRate();
 	}
 }

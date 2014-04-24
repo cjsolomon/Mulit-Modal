@@ -132,4 +132,61 @@ public class FormatCheckerTest {
 		}
 	}
 	
+	@Test
+	public void testLowerBound()
+	{
+		Integer min = new Integer(7);
+		
+		boolean flag = FormatChecker.checkLowerBound(min-1, min);
+		Assert.assertFalse(flag);
+		
+		for (int i = min; i <=100; i++) {
+			flag = FormatChecker.checkLowerBound(i, min);
+			Assert.assertTrue("This should report a number in range", flag);
+		}
+	}
+	
+	@Test
+	public void testUpperBound()
+	{
+		Integer max = new Integer(50);
+		
+		boolean flag = FormatChecker.checkUpperBound(max+1, max);
+		Assert.assertFalse(flag);
+		
+		for (int i = 0; i <= max; i++) {
+			flag = FormatChecker.checkUpperBound(i, max);
+			Assert.assertTrue("This should report a number in range", flag);
+		}
+	}
+	public enum Day {
+	    SUNDAY, MONDAY, TUESDAY, WEDNESDAY,
+	    THURSDAY, FRIDAY, SATURDAY 
+	}
+	public enum Month {
+	    JANUARY, FEBURARY, MARCH, APRIL, 
+	    MAY, JUNE, JULY, AUGUST, SEPTEMBER, 
+	    OCTOBER, NOVEMBER, DECEMBER
+	}
+	@Test 
+	public void testIsEnumerated() 
+	{	
+		boolean flag; 
+		for(Day test : Day.values())
+		{
+			flag = FormatChecker.isEnumerated(Day.class, test);
+			Assert.assertTrue(flag);
+			flag = FormatChecker.isEnumerated(Day.class, test.toString());
+			Assert.assertTrue(flag);
+		}
+		
+		for(Month test : Month.values())
+		{
+			flag = FormatChecker.isEnumerated(Day.class, test);
+			Assert.assertFalse(flag);
+			flag = FormatChecker.isEnumerated(Day.class, test.toString()); 
+			Assert.assertFalse(flag);
+		}
+	}
+	
 }
