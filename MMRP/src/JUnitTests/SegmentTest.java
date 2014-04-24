@@ -1,5 +1,7 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
 import core.Bike;
 import core.Cargo;
 import core.Location;
@@ -368,6 +370,20 @@ public class SegmentTest {
 		test_segment.setActualCapacity(test_capacity2);
 		Assert.assertEquals(new Double(0), new Double(test_segment.getActualCapacity()));
 		Assert.assertTrue(test_segment.isDirty());
+	}
+	
+	@Test
+	public void testUpdateLoad() {
+		Segment test_segment = new Segment();
+		test_segment.setTravelType(new TravelType());
+
+		String test_string = new String("JUnit test");
+		test_segment.setLane(test_string);
+		Assert.assertTrue(test_segment.isNew());
+		test_segment.Update();
+		ArrayList<Segment> sList = Segment.LoadAll(new String("where Lane = '" + test_string + "'")); 
+		System.out.println(sList.size());
+		test_segment.Delete();
 	}
 	
 }
