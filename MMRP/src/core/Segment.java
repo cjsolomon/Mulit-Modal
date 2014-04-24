@@ -980,7 +980,7 @@ public class Segment extends BaseClass {
 						+ this.getLatestArrivalTime()
 						+ "' "
 						+ "And EarliestDepartureTime ='"
-						+ this.getLatestDepartureTime()
+						+ this.getEarliestDepartureTime()
 						+ "' "
 						+ "And LatestDepartureTime ='"
 						+ this.getLatestDepartureTime()
