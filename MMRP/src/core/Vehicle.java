@@ -73,9 +73,9 @@ public abstract class Vehicle extends BaseClass {
 	protected void setTravelMode(TravelModes newTravelMode)
 	{
 		//NEED ERROR CHECKING
-		if(mode==null || !mode.equals(newTravelMode))				//Make sure we have a valid type
+		if(mode==null || !mode.equals(newTravelMode))	//Make sure we have a valid type
 		{
-			mode=newTravelMode;										//Set the type to t
+			mode=newTravelMode;							//Set the type to t
 			MarkDirty();								//Mark the vehicle as dirty
 		}//End of if statement
 	}//End of setTravelMode(TravelType newTravelMode)

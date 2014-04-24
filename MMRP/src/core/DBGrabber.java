@@ -27,10 +27,10 @@ public class DBGrabber {
 			if (rs != null) 
 				while ( rs.next() )
 				{
-					System.out.println("Data from Customer: " + rs.getString(1) );
-					e.execute("Insert INTO Customer (CompanyName, CustCode, CustomerAddress, CustCodeDiv)" +
-							"VALUES ('"+rs.getString(4)+"','"+rs.getString(2)+"','"+rs.getString(5)+"','"+
-							rs.getInt(3)+"')");
+					//System.out.println("Data from Customer: " + rs.getString(1) );
+					e.execute("Insert INTO shipper (CompanyName, prefCarriers, ContactName, Phone, Email)" +
+						"VALUES ('"+rs.getString(4)+"','"+"defaultPreferredCarriers"+"','"+
+						"defaultContactName"+"','"+"123-456-7890"+"','"+ "defaultEmailAddress"+"')");
 				}
 			con.close();
 			excal.close();
@@ -432,7 +432,42 @@ public class DBGrabber {
 	
 	public static void updateShipment() 
 	{
-		
+		try {
+			Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+			Class.forName(DRIVER);
+			Connection excal = DriverManager.getConnection(URL, USER, PSWD);
+			Statement e = excal.createStatement();
+			Statement x = excal.createStatement();
+			x.execute("Select * from shipper");
+			ResultSet rs = x.getResultSet();
+			String command;
+			ArrayList <Integer> shipperIds = new ArrayList <Integer>();
+			if (rs != null) 
+				while ( rs.next() )
+				{
+					shipperIds.add(rs.getInt("shipperID"));
+				}
+			x.execute("Select * from shipment");
+			rs = x.getResultSet();
+			int randomId;
+			int idSelected;
+			if(rs != null) 
+				while(rs.next())
+				{
+					randomId = (int)Math.floor(Math.random()*shipperIds.size());
+					//System.out.println(randomId);
+					//System.out.println(shipperIds.get(randomId));
+					command = "UPDATE shipment SET shipper = '" + shipperIds.get(randomId) + "'" +
+							 " WHERE ShipmentID = '" + rs.getInt("ShipmentID") + "'";
+					e.execute(command);
+					System.out.println(command);
+				}
+			excal.close();
+		}
+		catch (Exception e) {
+			System.out.println("Error: " + e);
+			e.printStackTrace();
+		}		
 	}
 	
 	public static void main(String[] args)
@@ -443,7 +478,7 @@ public class DBGrabber {
 		//populateLocations();
 		//populateShips();
 		//updatePhone();  
-		updateShipment();
+		//updateShipment();
 		
 		//populateShipRate();
 	}

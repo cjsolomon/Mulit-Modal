@@ -1,6 +1,7 @@
 package core;
 import java.text.*;
 import java.util.regex.*;
+
 import GUI.Log;
 
 public class FormatChecker {
@@ -162,5 +163,20 @@ public class FormatChecker {
 	    }
 	    return ret;
 	}
-
+	
+	static public boolean isEnumerated(Class <?> enumClass, String enumValue)
+	{
+		boolean ret = false; 
+		Object [] all = enumClass.getEnumConstants();
+		for(Object i : all)
+		{
+			if(i.toString().equals(enumValue))
+				ret = true;
+		}
+		if(!ret) 
+		{
+			//Log.writeLogWarning("Enumerated value is not of Enumerated type.");
+		}
+		return ret;
+	}
 }
