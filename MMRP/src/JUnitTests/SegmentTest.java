@@ -618,6 +618,9 @@ public class SegmentTest {
 
 		test_segment.Update();
 		Segment test_segment2 = Segment.Load(test_segment.getID());
+		System.out.println("test_segment distance: " + test_segment.getDistance());
+		System.out.println("test_segment id: " + test_segment.getID());
+		System.out.println("test_segment2 distance: " + test_segment2.getDistance());
 		/*Assert.assertEquals(new Double(test_segment.getDistance()), new Double(test_segment2.getDistance()));
 		Assert.assertEquals(new Integer(test_segment.getEstimatedDepartureTime()), new Integer(test_segment2.getEstimatedDepartureTime()));
 		Assert.assertEquals(new Integer(test_segment.getEstimatedArrivalTime()), new Integer(test_segment2.getEstimatedArrivalTime()));
@@ -629,7 +632,7 @@ public class SegmentTest {
 		Assert.assertEquals(test_segment.getMode(), test_segment2.getMode());
 		Assert.assertEquals(test_segment.getTravelType().getTravelTypeName(),test_segment2.getTravelType().getTravelTypeName());
 		Assert.assertEquals(new Integer(test_segment.getOnBoard().size()),new Integer(test_segment2.getOnBoard().size()));*/
-		test_segment.Delete();
+		//test_segment.Delete();
 	}
 
 }
