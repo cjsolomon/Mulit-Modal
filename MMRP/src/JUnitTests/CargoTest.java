@@ -59,11 +59,8 @@ public class CargoTest {
 	public void testUpdateLoad() {
 		Cargo test_cargo = new Cargo();
 		test_cargo.setVehicleName("InsertLoadTest");
-		
 		test_cargo.setCarrier(Carrier.Load(3));
-		System.out.println(test_cargo.getId());
 		test_cargo.Update();
-		System.out.println(test_cargo.getId());
 		ArrayList<Cargo> cList = Cargo.LoadAll(new String("where ShipName = 'InsertLoadTest'"));
 		if (!cList.isEmpty()) {
 			Assert.assertEquals(test_cargo.getVehicleName().toString().trim(), cList.get(0).getVehicleName().toString().trim());

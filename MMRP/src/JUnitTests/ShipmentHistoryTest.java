@@ -1,6 +1,10 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
+import core.Cargo;
 import core.Segment;
+import core.Shipment;
 import core.ShipmentHistory;
 
 import org.junit.*;
@@ -71,7 +75,74 @@ public class ShipmentHistoryTest {
 	@Test
 	public void testGetShipment() {
 		ShipmentHistory test_history = new ShipmentHistory();
+		Integer test_num = new Integer(8000);
+		test_history.setShipmentID(test_num);
+				
+		Shipment result = test_history.getShipment();
+		Assert.assertEquals(test_num, new Integer(result.getId()));
+	}
+	
+	@Test
+	public void testSetNodeNumber() {
+		ShipmentHistory test_history = new ShipmentHistory();
+		Integer test_numbers[] = {23,17,5,36,3,27};
 		
+		for (Integer test : test_numbers) {
+			test_history.setNodeNumber(test);
+			Assert.assertEquals(test, new Integer(test_history.getNodeNumber()));
+			Assert.assertTrue(test_history.isDirty());
+		}
+	}
+	
+	@Test
+	public void testLoadAllForShipment() {
+		//This test assumes that shipment 1 is in the database and has history
+		ArrayList<ShipmentHistory> shipList = ShipmentHistory.LoadAllForShipment(1);
+		Assert.assertFalse(shipList.isEmpty());
+		
+	}
+	
+	@Test
+	public void testUpdateLoad() {
+		//Test assumes that segment 8000 is in the database.
+		ShipmentHistory test_history = new ShipmentHistory();
+		Integer idNumber = new Integer(8000);
+		Integer node = new Integer(1);
+		
+		test_history.setSegmentID(idNumber);
+		test_history.setShipmentID(idNumber);
+		test_history.setNodeNumber(node);
+		
+		test_history.Update();
+		
+		ArrayList<ShipmentHistory> shipList = ShipmentHistory.LoadAllForShipment(idNumber);
+		Assert.assertFalse(shipList.isEmpty());
+		test_history.Delete();
+	}
+	
+	@Test
+	public void testDelete()
+	{
+		//Test assumes that segment 8000 is in the database.
+				ShipmentHistory test_history = new ShipmentHistory();
+				Integer idNumber = new Integer(8000);
+				Integer node = new Integer(1);
+				Integer size1;
+				Integer size2;
+				
+				test_history.setSegmentID(idNumber);
+				test_history.setShipmentID(idNumber);
+				test_history.setNodeNumber(node);
+				
+				test_history.Update();
+				
+				ArrayList<ShipmentHistory> shipList = ShipmentHistory.LoadAllForShipment(idNumber);
+				size1 = new Integer(shipList.size());
+				test_history.Delete();
+				shipList = ShipmentHistory.LoadAllForShipment(idNumber);
+				size2 = new Integer(shipList.size());
+				Assert.assertNotEquals(size1, size2);
+				
 	}
 	
 }

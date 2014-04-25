@@ -186,7 +186,7 @@ public class ShipmentHistory extends BaseClass {
 	 * This function will update the ShipmentHistory in the database
 	 */
 	@Override
-	boolean Update() {
+	public boolean Update() {
 		try
 		{
 			//toDo: set id on insert set update statement
@@ -230,7 +230,7 @@ public class ShipmentHistory extends BaseClass {
 	 * This function will mark the ShipmentHistory as deleted
 	 */
 	@Override
-	boolean Delete() {
+	public boolean Delete() {
 		try
 		{
 			executeCommand("Update ShipmentHistory Set Deleted = true where ShipmentHistoryID = '"+this.id+"'");

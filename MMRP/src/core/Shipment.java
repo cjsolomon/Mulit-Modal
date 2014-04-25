@@ -32,26 +32,7 @@ public class Shipment extends BaseClass {
 	//TODO: prefCarriers should probably be a property of a shipper not a shipment
 	private String prefCarriers;
 	
-	//Default Variables
-	private static final int DEFAULT_START_LOCATION_ID = 1;
-	private static final int DEFAULT_END_LOCATION_ID = 2;
-	private static final int DEFAULT_PRIORITY = 1;
-	private static final int DEFAULT_SIZE = 50;
-	private static final int DEFAULT_WEIGHT = 100;
-	private static final int DEFAULT_EARLIEST_ARRIVAL = 50;
-	private static final int DEFAULT_LATEST_ARRIVAL = 50;
-	private static final int DEFAULT_EARLIEST_DEPARTURE = 0;
-	private static final int DEFAULT_LATEST_DEPARTURE = 0;
-	private static final int DEFAULT_TIME_TO_LOAD = 0;
-	private static final int DEFAULT_TIME_TO_UNLOAD = 0;
-	private static final int DEFAULT_SHIPPER_ID = 1;
-	private static final int DEFAULT_MAX_STOPS = 100;
-	private static final String DEFAULT_HAZMAT_CONSTRAINTS = "defaultHazmatConstraints";
-	private static final int DEFAULT_LOADING_RATE = 1;
-	private static final String DEFAULT_TRAILER_TYPE = "defaultTrailerType";
-	private static final String DEFAULT_LOADING_TYPE = "defaultLoadingType";
-	private static final String DEFAULT_UNLOADING_TYPE = "defaultUnloadingType";
-	private static final String DEFAULT_PREFERRED_CARRIERS = "defaultPreferredCarriers";
+
  
 	private static final int MIN_SIZE = 0;
 	private static final int MAX_SIZE = 100;
@@ -1022,5 +1003,146 @@ public class Shipment extends BaseClass {
 			history.get(i).Delete();
 		}
 	}//End of DeleteAllHistory()
+	
+	//Default Variables
+	private static final int DEFAULT_START_LOCATION_ID = 1;
+	private static final int DEFAULT_END_LOCATION_ID = 2;
+	private static final int DEFAULT_PRIORITY = 1;
+	private static final int DEFAULT_SIZE = 50;
+	private static final int DEFAULT_WEIGHT = 100;
+	private static final int DEFAULT_EARLIEST_ARRIVAL = 50;
+	private static final int DEFAULT_LATEST_ARRIVAL = 50;
+	private static final int DEFAULT_EARLIEST_DEPARTURE = 0;
+	private static final int DEFAULT_LATEST_DEPARTURE = 0;
+	private static final int DEFAULT_TIME_TO_LOAD = 0;
+	private static final int DEFAULT_TIME_TO_UNLOAD = 0;
+	private static final int DEFAULT_SHIPPER_ID = 1;
+	private static final int DEFAULT_MAX_STOPS = 100;
+	private static final String DEFAULT_HAZMAT_CONSTRAINTS = "defaultHazmatConstraints";
+	private static final int DEFAULT_LOADING_RATE = 1;
+	private static final String DEFAULT_TRAILER_TYPE = "defaultTrailerType";
+	private static final String DEFAULT_LOADING_TYPE = "defaultLoadingType";
+	private static final String DEFAULT_UNLOADING_TYPE = "defaultUnloadingType";
+	private static final String DEFAULT_PREFERRED_CARRIERS = "defaultPreferredCarriers";
+
+	public static int getMinSize() {
+		return MIN_SIZE;
+	}
+
+	public static int getMaxSize() {
+		return MAX_SIZE;
+	}
+
+	public static int getMinPriority() {
+		return MIN_PRIORITY;
+	}
+
+	public static int getMaxPriority() {
+		return MAX_PRIORITY;
+	}
+
+	public static int getMinWeight() {
+		return MIN_WEIGHT;
+	}
+
+	public static int getMaxWeight() {
+		return MAX_WEIGHT;
+	}
+
+	public static int getMinLoadTime() {
+		return MIN_LOAD_TIME;
+	}
+
+	public static int getMaxLoadTime() {
+		return MAX_LOAD_TIME;
+	}
+
+	public static int getMinLoadRate() {
+		return MIN_LOAD_RATE;
+	}
+
+	public static int getMaxLoadRate() {
+		return MAX_LOAD_RATE;
+	}
+
+	public static int getMinStops() {
+		return MIN_STOPS;
+	}
+
+	public static int getDefaultStartLocationId() {
+		return DEFAULT_START_LOCATION_ID;
+	}
+
+	public static int getDefaultEndLocationId() {
+		return DEFAULT_END_LOCATION_ID;
+	}
+
+	public static int getDefaultPriority() {
+		return DEFAULT_PRIORITY;
+	}
+
+	public static int getDefaultSize() {
+		return DEFAULT_SIZE;
+	}
+
+	public static int getDefaultWeight() {
+		return DEFAULT_WEIGHT;
+	}
+
+	public static int getDefaultEarliestArrival() {
+		return DEFAULT_EARLIEST_ARRIVAL;
+	}
+
+	public static int getDefaultLatestArrival() {
+		return DEFAULT_LATEST_ARRIVAL;
+	}
+
+	public static int getDefaultEarliestDeparture() {
+		return DEFAULT_EARLIEST_DEPARTURE;
+	}
+
+	public static int getDefaultLatestDeparture() {
+		return DEFAULT_LATEST_DEPARTURE;
+	}
+
+	public static int getDefaultTimeToLoad() {
+		return DEFAULT_TIME_TO_LOAD;
+	}
+
+	public static int getDefaultTimeToUnload() {
+		return DEFAULT_TIME_TO_UNLOAD;
+	}
+
+	public static int getDefaultShipperId() {
+		return DEFAULT_SHIPPER_ID;
+	}
+
+	public static int getDefaultMaxStops() {
+		return DEFAULT_MAX_STOPS;
+	}
+
+	public static String getDefaultHazmatConstraints() {
+		return DEFAULT_HAZMAT_CONSTRAINTS;
+	}
+
+	public static int getDefaultLoadingRate() {
+		return DEFAULT_LOADING_RATE;
+	}
+
+	public static String getDefaultTrailerType() {
+		return DEFAULT_TRAILER_TYPE;
+	}
+
+	public static String getDefaultLoadingType() {
+		return DEFAULT_LOADING_TYPE;
+	}
+
+	public static String getDefaultUnloadingType() {
+		return DEFAULT_UNLOADING_TYPE;
+	}
+
+	public static String getDefaultPreferredCarriers() {
+		return DEFAULT_PREFERRED_CARRIERS;
+	}
 
 }//End of Shipment Class
