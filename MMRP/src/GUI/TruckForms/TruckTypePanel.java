@@ -31,16 +31,18 @@ public class TruckTypePanel extends JPanel {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(74dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(85dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,},
+				ColumnSpec.decode("max(147dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(15dlu;default)"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(15dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -50,21 +52,23 @@ public class TruckTypePanel extends JPanel {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,}));
-		
-		JButton btnNewButton = new JButton("New button");
-		add(btnNewButton, "22, 12");
+				RowSpec.decode("max(15dlu;default)"),}));
 		ttt = new TruckTypeTable();
 		ttt.setVisible(false);
 		sp.setViewportView(ttt);
 		sp.setVisible(false);
-		add(sp,"2, 2, 21, 9");
+		add(sp,"2, 2, 21, 12");
+		
+		JButton btnNewButton = new JButton("New button");
+		add(btnNewButton, "22, 14");
 		
 	}
 	public void showPanel()
 	{
-		ttt.showPanel();
 		sp.setVisible(true);
+		ttt.showPanel();
+		sp.setViewportView(ttt);
+		this.setVisible(true);
 	}
 
 }
