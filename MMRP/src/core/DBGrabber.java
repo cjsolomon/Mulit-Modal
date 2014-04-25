@@ -241,8 +241,7 @@ public class DBGrabber {
 					start.setCountry("USA");
 					carrier = new Carrier();
 					carrier.setCarrierName(rs.getString("CarrierCode"));
-					temp.setCarrier(carrier);
-					temp.setStartLocation(start);
+					temp.setCarrier(carrier);;
 					temp.setWeight1(rs.getDouble("Weight1"));
 					temp.setWeight2(rs.getDouble("Weight2"));
 					temp.setWeight3(rs.getDouble("Weight3"));
@@ -276,7 +275,7 @@ public class DBGrabber {
 				 */
 				for(int j = 0; j<rates.size(); j++)
 				{
-					if(!rates.get(j).getStartLocation().getName().equals(rates.get(i).getStartLocation().getName()) &&
+					/*if(!rates.get(j).getStartLocation().getName().equals(rates.get(i).getStartLocation().getName()) &&
 							!cities.contains(rates.get(j).getStartLocation().getName()))
 					{
 						//Find ids for Carrier and Locations 
@@ -284,14 +283,6 @@ public class DBGrabber {
 						es = e.getResultSet();
 						es.next();
 						carrierID = es.getInt("CarrierID");
-						e.execute("Select * From Location where Name = '"+rates.get(i).getStartLocation().getName()+"'");
-						es = e.getResultSet();
-						es.next();
-						startID = es.getInt("LocationID");
-						e.execute("Select * From Location where Name = '"+rates.get(j).getStartLocation().getName()+"'");
-						es = e.getResultSet();
-						es.next();
-						endID = es.getInt("LocationID");
 						//Use each travel type for this city+contractor -> city relationship
 						for(int k=0; k < travelType.length; k++)
 						{
@@ -309,7 +300,7 @@ public class DBGrabber {
 							writer.println(insertCount++);
 						}
 						cities.add(rates.get(j).getStartLocation().getName());
-					}
+					}*/
 				}
 				System.out.println("Completed a start city");
 				citiesDone++;

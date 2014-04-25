@@ -8,8 +8,6 @@ public class ShippingRate extends BaseClass{
 
 	private int id;
 	private Carrier carrier;
-	private Location startLocation;
-	private Location endLocation;
 	private TravelType type;
 	private double weight1;
 	private double weight2;
@@ -38,14 +36,12 @@ public class ShippingRate extends BaseClass{
 		public ShippingRate()
 		{
 			this.carrier = new Carrier();
-			this.endLocation = new Location();
 			this.flatRate = DEFAULT_FLAT_RATE;
 			this.mileRate = DEFAULT_MILE_RATE;
 			this.rank = DEFAULT_RANK;
 			this.rate1 = DEFAULT_RATE1;
 			this.rate2 = DEFAULT_RATE2;
 			this.rate3 = DEFAULT_RATE3;
-			this.startLocation = new Location();
 			this.type = new TravelType();
 			this.weight1 = DEFAULT_WEIGHT1;
 			this.weight2 = DEFAULT_WEIGHT2;
@@ -63,14 +59,12 @@ public class ShippingRate extends BaseClass{
 		{
 			this.id=id;													//Set the id
 			this.carrier = new Carrier();
-			this.endLocation = new Location();
 			this.flatRate = DEFAULT_FLAT_RATE;
 			this.mileRate = DEFAULT_MILE_RATE;
 			this.rank = DEFAULT_RANK;
 			this.rate1 = DEFAULT_RATE1;
 			this.rate2 = DEFAULT_RATE2;
 			this.rate3 = DEFAULT_RATE3;
-			this.startLocation = new Location();
 			this.type = new TravelType();
 			this.weight1 = DEFAULT_WEIGHT1;
 			this.weight2 = DEFAULT_WEIGHT2;
@@ -84,38 +78,6 @@ public class ShippingRate extends BaseClass{
 		 */
 		public int getId(){
 			return id;
-		}
-		
-		/**
-		 * This function returns the start location of the ShippingRate
-		 * @return Returns the start location of the ShippingRate
-		 */
-		public Location getStartLocation() {
-			return startLocation;
-		}
-
-		/**
-		 * This function sets the start location of the ShippingRate
-		 * @param startLocation This is the new start location
-		 */
-		public void setStartLocation(Location startLocation) {
-			this.startLocation = startLocation;
-		}
-
-		/**
-		 * This function returns the end location of the ShippingRate
-		 * @return Returns the end location of the ShippingRate
-		 */
-		public Location getEndLocation() {
-			return endLocation;
-		}
-
-		/**
-		 * This function sets the end location of the ShippingRate
-		 * @param endLocation This is the new end location
-		 */
-		public void setEndLocation(Location endLocation) {
-			this.endLocation = endLocation;
 		}
 
 		/**
@@ -307,16 +269,14 @@ public class ShippingRate extends BaseClass{
 				if(isNew())
 				{
 					//If the ShippingRate is new insert it into the database by executing the following
-					executeCommand("Insert into shippingrates (ShippingRateID, CarrierID, StartLocation, EndLocation, TravelType, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
-							this.getId() + "','" + this.getCarrier().getId() +"','"+this.getStartLocation().getID() + "','"
-							+ this.getEndLocation().getID() +"','"+ this.getType().getVehicleTypeID() +"','"+ this.getWeight1() +"','"
+					executeCommand("Insert into shippingrates (ShippingRateID, CarrierID, TravelType, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
+							this.getId() + "','" + this.getCarrier().getId() +"','"
+							+ this.getType().getVehicleTypeID() +"','"+ this.getWeight1() +"','"
 							+ this.getRate1() +"','"+ this.getWeight2() +"','"+ this.getRate2() +"','"
 							+ this.getWeight3() +"','"+ this.getRate3() +"','"+ this.getMileRate() +"','"
 							+ this.getFlatRate() +"','"+ this.getRank() +"')");
 					//Grab this ShippingRate from the database
 					ArrayList<Map<String,Object>> temp =executeQuery("Select * from shippingrates where CarrierID = '" + this.getCarrier().getId() + 
-					"' AND StartLocation = '"+this.getStartLocation().getID() +
-					"' AND EndLocation = '"+this.getEndLocation().getID() + 
 					"' AND TravelType = '"+this.getType().getVehicleTypeID() +
 					"' AND Weight1 = '"+this.getWeight1() + 
 					"' AND Rate1 = '"+this.getRate1() +
@@ -341,7 +301,6 @@ public class ShippingRate extends BaseClass{
 					{
 						//If the ShippingRate is not new, but is dirty then it needs to be updated by the following SQL command
 						executeCommand("Update shippingrates Set CarrierID = '" + this.getCarrier().getId() + 
-								"' , StartLocation = '"+this.getStartLocation() + "' , EndLocation = '" + this.getEndLocation() +
 								"' , TravelType = '"+this.getType() + "' , Weight1 = '" + this.getWeight1() +
 								"' , Rate1 = '"+this.getRate1() + "' , Weight2 = '" + this.getWeight2() +
 								"' , Rate2 = '"+this.getRate2() + "' , Weight3 = '" + this.getWeight3() +
@@ -453,8 +412,6 @@ public class ShippingRate extends BaseClass{
 				//This code grabs each element that will be found in the database on the ShippingRate table and set the appropriate values for a new ShippingRate
 				ShippingRate sr = new ShippingRate((Integer)data.get("ShippingRateID"));
 				sr.setCarrier(Carrier.Load((Integer)data.get("CarrierID")));
-				sr.setStartLocation(Location.Load((Integer)data.get("StartLocation")));
-				sr.setEndLocation(Location.Load((Integer)data.get("EndLocation")));
 				sr.setType(TravelType.Load((Integer)data.get("TravelType")));
 				sr.setWeight1((Double)data.get("Weight1"));
 				sr.setRate1((Double)data.get("Rate1"));
