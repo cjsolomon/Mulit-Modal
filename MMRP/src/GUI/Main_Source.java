@@ -39,6 +39,8 @@ import GUI.PlaneForms.*;
 import GUI.RailForms.*;
 import GUI.TruckForms.*;
 import com.jgoodies.forms.layout.Sizes;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 
 public class Main_Source {
@@ -50,7 +52,7 @@ public class Main_Source {
 	private PlanePanel planeForm;
 	private RailPanel railForm;
 	private CargoPanel cargoForm;
-	
+	private JButton btnShipments,btnCargo,btnTruck,btnRail,btnPlane,btnLocations,btnCarriers;
 	/**
 	 * Launch the application.
 	 */
@@ -85,7 +87,7 @@ public class Main_Source {
 		frmMmrp = new JFrame();
 		frmMmrp.setTitle("MMRP");
 		frmMmrp.setBackground(new Color(255, 255, 255));
-		frmMmrp.setBounds(100, 100, 841, 837);
+		frmMmrp.setBounds(100, 100, 1163, 837);
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		shpFrm=new ShipmentPanel();
 		shpFrm.setVisible(false);
@@ -107,6 +109,8 @@ public class Main_Source {
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("117px"),
 				ColumnSpec.decode("17px"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
 				ColumnSpec.decode("100px"),
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px"),
@@ -117,32 +121,40 @@ public class Main_Source {
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px"),
 				FormFactory.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("100px"),},
+				ColumnSpec.decode("362px"),},
 			new RowSpec[] {
 				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("23px"),
 				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("58px"),
-				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("58px"),
-				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("58px"),
-				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("58px"),
-				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("58px"),
-				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("58px"),
-				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("58px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("58px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("58px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("43dlu", false), Sizes.constant("40dlu", false)), 0),}));
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("31dlu", false), Sizes.constant("40dlu", false)), 0),}));
 		
-		final JButton btnShipments = new JButton("Shipments");
+		btnShipments = new JButton("Shipments");
 		btnShipments.setToolTipText("Click here to view shipment information");
 		btnShipments.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnShipments.setMnemonic(KeyEvent.VK_S);
@@ -151,83 +163,99 @@ public class Main_Source {
 			{
 				hidePanels();
 				shpFrm.showPanel();
+				enableButtons();
+				btnShipments.setEnabled(false);
 				
 			}
 		});
 		frmMmrp.getContentPane().add(btnShipments, "2, 4, fill, fill");
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		frmMmrp.getContentPane().add(separator, "5, 1, 1, 30");
 
 		
-		frmMmrp.getContentPane().add(shpFrm, "4, 4, 11, 19");//, row, colSpan, rowSpan)"4,4,fill,fill");
-		frmMmrp.getContentPane().add(locationForm,new CellConstraints().xywh(4,4,11,11));
-		frmMmrp.getContentPane().add(truckForm,new CellConstraints().xywh(4,4,11,11));
-		frmMmrp.getContentPane().add(railForm,new CellConstraints().xywh(4,4,11,11));
-		frmMmrp.getContentPane().add(planeForm,new CellConstraints().xywh(4,4,11,11));
-		frmMmrp.getContentPane().add(cargoForm,new CellConstraints().xywh(4,4,11,11));
-		final JButton btnLocations = new JButton("Locations");
+		frmMmrp.getContentPane().add(shpFrm, "6, 4, 11, 27");//, row, colSpan, rowSpan)"4,4,fill,fill");
+		frmMmrp.getContentPane().add(locationForm,"6, 4, 11, 27");
+		frmMmrp.getContentPane().add(truckForm,"6, 4, 11, 17");
+		frmMmrp.getContentPane().add(railForm,"6, 4, 11, 17");
+		frmMmrp.getContentPane().add(planeForm,"6, 4, 11, 17");
+		frmMmrp.getContentPane().add(cargoForm,"6, 4, 11, 17");
+		btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
 				locationForm.setVisible(true);
+				enableButtons();
+				btnLocations.setEnabled(false);
 			}
 		});
 		frmMmrp.getContentPane().add(btnLocations, "2, 6,fill,fill");
 		
 						
-		final JButton trucks = new JButton("Trucks");
-		trucks.addActionListener(new ActionListener() {
+		btnTruck = new JButton("Trucks");
+		btnTruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Button Clicked");
 				hidePanels();
 				System.out.println("Hide Panels");
 				truckForm.showPanel();
+				enableButtons();
+				btnTruck.setEnabled(false);
 			}
 		});
-		frmMmrp.getContentPane().add(trucks, "2, 8,fill,fill");
+		frmMmrp.getContentPane().add(btnTruck, "2, 8,fill,fill");
 		final JButton truckType = new JButton("Truck Types");
-		frmMmrp.getContentPane().add(truckType,"2,9,right,center");
+		frmMmrp.getContentPane().add(truckType,"2, 10, right, center");
 
-		final JButton plane = new JButton("Planes");
-		plane.addActionListener(new ActionListener() {
+		btnPlane = new JButton("Planes");
+		btnPlane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
 				planeForm.showPanel();
+				enableButtons();
+				btnPlane.setEnabled(false);
 			}
 		});
-		frmMmrp.getContentPane().add(plane, "2, 10,fill,fill");
+		frmMmrp.getContentPane().add(btnPlane, "2, 12, fill, fill");
 		final JButton planeType = new JButton("Plane Types");
-		frmMmrp.getContentPane().add(planeType,"2,11,right,center");
+		frmMmrp.getContentPane().add(planeType,"2, 14, right, center");
 
-		final JButton rails = new JButton("Rails");
-		rails.addActionListener(new ActionListener() {
+		btnRail = new JButton("Rails");
+		btnRail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
 				railForm.showPanel();
+				enableButtons();
+				btnRail.setEnabled(false);
 			}
 		});
-		frmMmrp.getContentPane().add(rails, "2, 12,fill,fill");
+		frmMmrp.getContentPane().add(btnRail, "2, 16, fill, fill");
 		final JButton railType = new JButton("Rail Types");
-		frmMmrp.getContentPane().add(railType,"2,13,right,center");
+		frmMmrp.getContentPane().add(railType,"2, 18, right, center");
 		
-		final JButton cargo = new JButton("Cargo Ships");
-		cargo.addActionListener(new ActionListener() {
+		btnCargo = new JButton("Cargo Ships");
+		btnCargo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
 				cargoForm.showPanel();
+				enableButtons();
+				btnCargo.setEnabled(false);
 			}
 		});
 		final JButton cargoType = new JButton("CargoType");
-		frmMmrp.getContentPane().add(cargo,"2,14,fill,fill");
-		frmMmrp.getContentPane().add(cargoType,"2,15,right,center");
+		frmMmrp.getContentPane().add(btnCargo,"2, 20, fill, fill");
+		frmMmrp.getContentPane().add(cargoType,"2, 22, right, center");
 		
-		final JButton btnCarriers = new JButton("Carriers");
-		frmMmrp.getContentPane().add(btnCarriers, "2, 16, fill, fill");
+		btnCarriers = new JButton("Carriers");
+		frmMmrp.getContentPane().add(btnCarriers, "2, 24, fill, fill");
 		
 		
 				final JButton btnExit = new JButton("Exit");
 				btnExit.setToolTipText("Exit MMRP");
-				frmMmrp.getContentPane().add(btnExit, "2, 18, fill, fill");
+				frmMmrp.getContentPane().add(btnExit, "2, 26, fill, fill");
 				btnExit.setMnemonic(KeyEvent.VK_E);
 				btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				
@@ -261,7 +289,17 @@ public class Main_Source {
 		cargoForm.setVisible(false);
 		planeForm.setVisible(false);
 	}
-	
+	public void enableButtons()
+	{
+		this.btnCargo.setEnabled(true);
+		this.btnCarriers.setEnabled(true);
+		this.btnLocations.setEnabled(true);
+		this.btnPlane.setEnabled(true);
+		this.btnRail.setEnabled(true);
+		this.btnShipments.setEnabled(true);
+		this.btnTruck.setEnabled(true);
+		
+	}
 	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {
 		Log.writeLogInfo("Unhiding Top Menu Buttons");
 		if (!b1.isEnabled())
