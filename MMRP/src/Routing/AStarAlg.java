@@ -151,7 +151,7 @@ public class AStarAlg {
 				System.out.println("TroubleArea");
 				
 				}
-			if(possible.get(i).getTravelType().getActCap()<test.estimateCapacity()+shpmnt.getSize())
+			if(possible.get(i).getActualCapacity()<test.estimateCapacity()+shpmnt.getSize())
 				toRemove.add(test);
 		}
 		
