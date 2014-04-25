@@ -95,7 +95,8 @@ public class TruckType extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,}));
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
 		lblTrailer2 = new JLabel("Trailer 2");
 		lblTrailer1 = new JLabel("Trailer 1");
 		lblName = new JLabel("Type Name");
