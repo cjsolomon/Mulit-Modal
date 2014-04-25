@@ -88,7 +88,7 @@ public abstract class Vehicle extends BaseClass {
 	 */
 	protected void setTravelMode(String newTravelMode)
 	{
-		if(mode==null || !mode.toString().equals(newTravelMode))	//Make sure we have a valid type
+		if(!mode.toString().equals(newTravelMode))	//Make sure we have a valid type
 		{
 			if(FormatChecker.isEnumerated(Vehicle.TravelModes.class, newTravelMode))
 			{
@@ -102,7 +102,13 @@ public abstract class Vehicle extends BaseClass {
 						+ " NONE.");
 			}
 			
-		}//End of if statement
+		}
+		else 
+		{
+			mode = loadMode("NONE");
+			Log.writeLogWarning("Invalid travel mode in Vehicle. Not a valid mode. Setting mode to "
+					+ " NONE.");
+		}
 	}//End of setTravelMode(String t)
 		
 	/**
