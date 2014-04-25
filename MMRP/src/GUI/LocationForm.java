@@ -21,6 +21,7 @@ import core.Vehicle;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import com.jgoodies.forms.layout.Sizes;
 
 public class LocationForm extends JPanel {
 	
@@ -84,7 +85,7 @@ public class LocationForm extends JPanel {
 				ColumnSpec.decode("max(49dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),
-				ColumnSpec.decode("max(44dlu;default)"),
+				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("50dlu", true), Sizes.constant("60dlu", true)), 0),
 				FormFactory.RELATED_GAP_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,

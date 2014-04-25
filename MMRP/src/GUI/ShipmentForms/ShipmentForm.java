@@ -42,6 +42,8 @@ public class ShipmentForm extends JPanel
 	JLabel lblTrailerType,lblLoadingType,lblUnloadingType,lblHazmatConstraints;
 	JTextField txtTrailerType,txtLoadingType,txtUnloadingType,txtHazmatConstraints;
 	Shipment source;
+	
+	JPanel shipmentPanel,shipperPanel;
 	private JButton btnEdit,btnSave,btnCancel;
 
 	public ShipmentForm()
@@ -74,7 +76,7 @@ public class ShipmentForm extends JPanel
 				RowSpec.decode("max(20dlu;default)"),}));
 		//RowSpec.decode("default:grow"),}));
 
-		JPanel shipperPanel = new JPanel();
+		shipperPanel = new JPanel();
 		shipperPanel.setBorder(null);
 
 		shipperPanel.setLayout(new FormLayout(new ColumnSpec[] {
@@ -169,7 +171,7 @@ public class ShipmentForm extends JPanel
 
 		add(shipperPanel, "2, 2, 14, 2");
 
-		JPanel shipmentPanel = new JPanel();
+		 shipmentPanel = new JPanel();
 		shipmentPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
@@ -320,7 +322,7 @@ public class ShipmentForm extends JPanel
 				}
 				else
 				{
-					getParent().setVisible(false);
+					setVisible(false);
 				}
 			}
 		});
