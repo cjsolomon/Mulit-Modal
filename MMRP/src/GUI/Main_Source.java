@@ -38,6 +38,7 @@ import GUI.CargoForms.*;
 import GUI.PlaneForms.*;
 import GUI.RailForms.*;
 import GUI.TruckForms.*;
+import com.jgoodies.forms.layout.Sizes;
 
 
 public class Main_Source {
@@ -84,7 +85,7 @@ public class Main_Source {
 		frmMmrp = new JFrame();
 		frmMmrp.setTitle("MMRP");
 		frmMmrp.setBackground(new Color(255, 255, 255));
-		frmMmrp.setBounds(100, 100, 941, 772);
+		frmMmrp.setBounds(100, 100, 841, 837);
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		shpFrm=new ShipmentPanel();
 		shpFrm.setVisible(false);
@@ -139,7 +140,7 @@ public class Main_Source {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("58px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,}));
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("43dlu", false), Sizes.constant("40dlu", false)), 0),}));
 		
 		final JButton btnShipments = new JButton("Shipments");
 		btnShipments.setToolTipText("Click here to view shipment information");
@@ -156,7 +157,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnShipments, "2, 4, fill, fill");
 
 		
-		frmMmrp.getContentPane().add(shpFrm, "4, 4, 11, 17");//, row, colSpan, rowSpan)"4,4,fill,fill");
+		frmMmrp.getContentPane().add(shpFrm, "4, 4, 11, 19");//, row, colSpan, rowSpan)"4,4,fill,fill");
 		frmMmrp.getContentPane().add(locationForm,new CellConstraints().xywh(4,4,11,11));
 		frmMmrp.getContentPane().add(truckForm,new CellConstraints().xywh(4,4,11,11));
 		frmMmrp.getContentPane().add(railForm,new CellConstraints().xywh(4,4,11,11));

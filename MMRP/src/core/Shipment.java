@@ -609,6 +609,10 @@ public class Shipment extends BaseClass {
 		}
 	}//End of setUnloadType(String newUnloadingType)
 	
+	public String getLoadingType()
+	{
+		return this.loadingType;
+	}
 	/**
 	 * This function will set the loading type for the Shipment
 	 * @param newLoadingType This is the new loading type for the Shipment

@@ -31,9 +31,7 @@ public class ShipmentPanel extends JPanel {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(63dlu;default)"),
-				ColumnSpec.decode("max(12dlu;default)"),
-				FormFactory.UNRELATED_GAP_COLSPEC,},
+				ColumnSpec.decode("max(63dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
