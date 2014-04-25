@@ -22,32 +22,25 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class LocationForm extends JPanel {
+public class SegmentCreateEdit extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	JLabel lblStartLat, lblStartLon, lblStartCity,lblStartState,lblStartCountry, lblStartLocation, lblStartID, lblTravelModes;
+	JLabel lblStartLat, lblStartLon, lblStartCity,lblStartState,lblStartCountry, lblStartLocation, lblStartID;
 	JLabel lblEndLat, lblEndLon, lblEndCity,lblEndState,lblEndCountry, lblEndLocation, lblEndID;
-	JLabel lblSegments;
 	JTextField txtEndLat,txtEndLon,txtEndCity,txtEndState,txtEndCountry, txtEndID;
 	JTextField txtStartLat,txtStartLon,txtStartCity,txtStartState,txtStartCountry, txtStartID;
 	JComboBox<String> cbEndCountry, cbEndState, cbEndCity;
 	JComboBox<String> cbStartCountry, cbStartState, cbStartCity, cbTravelModes;
 	
-	SegmentTable sgmtTable;
-	
 	final ArrayList<Location> allLocations;
 	final ArrayList<String> countries;
 	final ArrayList<String> states;
 	final ArrayList<String> cities;
-	private JButton btnEditStartLocation;
-	private JButton btnEditEndLocation;
-	private JButton btnCreateLocation;
 	private JLabel lblSegmentID;
 	private JTextField txtSegmentID;
 	private JLabel lblVehicleID;
 	private JTextField txtVehicleID;
 	private JLabel lblMode;
-	private JTextField txtMode;
 	private JLabel lblDistance;
 	private JTextField txtDistance;
 	private JLabel lblLane;
@@ -68,10 +61,10 @@ public class LocationForm extends JPanel {
 	private JTextField txtEstArrival;
 	private JTextField txtEarlArrival;
 	private JTextField txtLatArrival;
-	private JButton btnEdit;
 	private JButton btnCreateNewShipment;
+	private JButton btnCancel;
 	
-	public LocationForm() {
+	public SegmentCreateEdit() {
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(44dlu;default)"),
@@ -130,11 +123,9 @@ public class LocationForm extends JPanel {
 		lblStartCountry = new JLabel("Country:");
 		lblStartLocation = new JLabel("Start Location");
 		lblStartID = new JLabel("LocationID");
-		lblTravelModes = new JLabel("Travel Modes");
 		cbStartCountry = new JComboBox<String>();
 		cbStartState = new JComboBox<String>();
 		cbStartCity = new JComboBox<String>();
-		cbTravelModes = new JComboBox<String>();
 		
 		txtStartLat=new JTextField(20);
 		txtStartLat.setEditable(false);
@@ -173,12 +164,6 @@ public class LocationForm extends JPanel {
 		txtEndID = new JTextField(10);
 		txtEndID.setEditable(false);
 		
-		
-		sgmtTable = new SegmentTable();
-		
-		JScrollPane sp = new JScrollPane();
-		sp.setViewportView(sgmtTable);
-		
 		lblSegmentID = new JLabel("SegmentID");
 		add(lblSegmentID, "2, 2, right, center");
 		
@@ -186,10 +171,6 @@ public class LocationForm extends JPanel {
 		txtSegmentID.setEditable(false);
 		add(txtSegmentID, "4, 2, left, default");
 		txtSegmentID.setColumns(10);
-		
-		btnEdit = new JButton("Edit");
-		btnEdit.setEnabled(false);
-		add(btnEdit, "5, 2");
 		
 		lblEstDeparture = new JLabel("Est. Departure");
 		add(lblEstDeparture, "9, 2, right, default");
@@ -217,11 +198,20 @@ public class LocationForm extends JPanel {
 		
 		lblMode = new JLabel("Mode");
 		add(lblMode, "2, 6, right, default");
+		cbTravelModes = new JComboBox<String>();
+		add(cbTravelModes, "4, 6, right, top");
 		
-		txtMode = new JTextField();
-		txtMode.setEditable(false);
-		add(txtMode, "4, 6, fill, default");
-		txtMode.setColumns(10);
+		
+		cbTravelModes.addItemListener(new ItemListener()
+		{            
+		    @Override
+		    public void itemStateChanged(ItemEvent e)
+		    {
+		        if (e.getStateChange() == ItemEvent.SELECTED){
+		        	loadSegments();
+		        }
+		    }
+		});
 		
 		lblLatestDeparture = new JLabel("Latest Departure");
 		add(lblLatestDeparture, "9, 6, right, default");
@@ -287,8 +277,7 @@ public class LocationForm extends JPanel {
 		add(txtActualCapacity, "4, 14, fill, default");
 		txtActualCapacity.setColumns(10);
 		
-		btnCreateNewShipment = new JButton("Create New Shipment");
-		btnCreateNewShipment.setEnabled(false);
+		btnCreateNewShipment = new JButton("Save");
 		add(btnCreateNewShipment, "11, 14");
 		
 		//Start Location
@@ -296,39 +285,6 @@ public class LocationForm extends JPanel {
 		add(lblStartLocation, "4, 16, center, center");
 		add(txtStartID, "4, 18, left, center");
 		add(lblStartID, "2, 18, right, center");
-		
-		btnEditStartLocation = new JButton("Edit");
-		btnEditStartLocation.setEnabled(false);
-		btnEditStartLocation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				/*Location editLocation = new Location();
-				editLocation.setCountry(txtStartCountry.getText());
-				editLocation.setState(txtStartState.getText());
-				editLocation.setName(txtStartCity.getText());
-				editLocation.setID(Integer.valueOf(txtStartID.getText()));
-				editLocation.setLatitude(Double.valueOf(txtStartLat.getText()));
-				editLocation.setLongitude(Double.valueOf(txtStartLon.getText()));*/
-				Location editLocation = Location.Load(Integer.valueOf(txtStartID.getText()));
-				LocationCreateEdit lce = new LocationCreateEdit(editLocation);
-				add(lce,"2, 2, center, center");
-				setVisible(false);
-				lce.setVisible(true);
-			}
-		});
-		add(btnEditStartLocation, "5, 18");
-		
-		btnEditEndLocation = new JButton("Edit");
-		btnEditEndLocation.setEnabled(false);
-		btnEditEndLocation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Location editLocation = Location.Load(Integer.valueOf(txtEndID.getText()));
-				LocationCreateEdit lce = new LocationCreateEdit(editLocation);
-				add(lce,"2, 2, center, center");
-				lce.setVisible(true);
-				setVisible(false);
-			}
-		});
-		add(btnEditEndLocation, "12, 18");
 		add(lblStartCity,"2, 24, right, center");
 		add(txtStartCity, "4, 24, right, center");
 		add(lblStartState,"2, 22, right, center");
@@ -342,8 +298,6 @@ public class LocationForm extends JPanel {
 		add(cbStartCountry, "5, 20, left, top");
 		add(cbStartState, "5, 22, left, top");
 		add(cbStartCity, "5, 24, left, top");
-		add(lblTravelModes,"5, 26, right, top");
-		add(cbTravelModes, "5, 28, right, top");
 		
 		//Get the countries
 		allLocations = core.Location.LoadAll("");
@@ -388,25 +342,14 @@ public class LocationForm extends JPanel {
 		add(cbEndCountry, "12, 20, left, top");
 		add(cbEndState, "12, 22, left, top");
 		add(cbEndCity, "12, 24, left, top");
+		
+		btnCancel = new JButton("Cancel");
+		add(btnCancel, "11, 31");
     	
     	
     	//Initialize the Segment table
     	
     	loadSegments();
-		
-		btnCreateLocation = new JButton("Create New Location");
-		btnCreateLocation.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				LocationCreateEdit lce = new LocationCreateEdit(null);
-				add(lce,"2, 2, center, center");
-				lce.setVisible(true);
-				setVisible(false);
-			}
-		});
-		add(btnCreateLocation, "4, 31");
-		lblSegments = new JLabel("Possible Segments");
-		add(lblSegments,"4, 33, center, center");
-		add(sp,"2, 34, 11, 1");
     	
 		
 		cbStartCountry.addItemListener(new ItemListener()
@@ -519,18 +462,6 @@ public class LocationForm extends JPanel {
 		        }
 		    }
 		});
-		
-		
-		cbTravelModes.addItemListener(new ItemListener()
-		{            
-		    @Override
-		    public void itemStateChanged(ItemEvent e)
-		    {
-		        if (e.getStateChange() == ItemEvent.SELECTED){
-		        	loadSegments();
-		        }
-		    }
-		});
     	
 		
 	}//End of LocationForm Constructor
@@ -568,8 +499,6 @@ public class LocationForm extends JPanel {
 	}//End of loadEndLocation(Location end)
 	
 	public void loadSegments(){
-		
-		sgmtTable.removeAll();
 		String sqlWhere;
 		if(!txtEndID.getText().equals("") && !(cbTravelModes.getSelectedItem() == null) && !txtStartID.getText().equals("")){
 			sqlWhere ="where FromLocationID = '" + txtStartID.getText() +"' AND ToLocationID = '"+ txtEndID.getText() +"' AND ModeType = '" + cbTravelModes.getSelectedItem().toString() + "'";
@@ -583,7 +512,6 @@ public class LocationForm extends JPanel {
 		else{
 			sqlWhere = "";
 		}
-		sgmtTable.showPanel(sqlWhere);
 		
 	}//End of loadSegments()
 	

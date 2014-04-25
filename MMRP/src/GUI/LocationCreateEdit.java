@@ -33,7 +33,7 @@ public class LocationCreateEdit extends JPanel {
 	private JComboBox<Vehicle.TravelModes> cbTravelMode4;
 	private JComboBox<Vehicle.TravelModes> cbTravelMode5;
 	private JComboBox<Vehicle.TravelModes> cbTravelMode6;
-	private JButton btnCommitToDatabase;
+	private JButton btnSave;
 	
 	private boolean edit = false;
 	private JButton btnCancel;
@@ -131,8 +131,8 @@ public class LocationCreateEdit extends JPanel {
 		cbTravelMode6 = new JComboBox();
 		add(cbTravelMode6, "7, 14, fill, default");
 		
-		btnCommitToDatabase = new JButton("Commit To Database");
-		btnCommitToDatabase.addActionListener(new ActionListener() {
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//This button will attempt to save the Location to the database
 				Location newLocation = new Location();
@@ -185,7 +185,7 @@ public class LocationCreateEdit extends JPanel {
 				
 			}
 		});
-		add(btnCommitToDatabase, "4, 17");
+		add(btnSave, "4, 17");
 		
 		txtID.setEditable(false);
 		
