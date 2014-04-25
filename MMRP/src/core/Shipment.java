@@ -663,11 +663,7 @@ public class Shipment extends BaseClass {
 	public void setHistory(ArrayList<ShipmentHistory> hist)
 	{
 		//Need some error checking and fleshing out
-		history=hist;
-		for(int i = 0; i<hist.size();i++)
-		{
-			
-		}
+		this.history = hist;
 	}//End of setHistory(ArrayList<ShipmentHistory> hist)
 	
 	/**
