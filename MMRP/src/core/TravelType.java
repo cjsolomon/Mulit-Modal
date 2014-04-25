@@ -651,9 +651,9 @@ public class TravelType extends BaseClass {
 		{
 			ArrayList<Map<String,Object>> temp;
 			if(where.isEmpty())
-				temp =executeQuery("Select * from TravelType where Deleted = false");
+				temp =executeQuery("Select * from TravelTypes where Deleted = false");
 			else
-				temp =executeQuery("Select * from TravelType " +where  + " AND Deleted = false");
+				temp =executeQuery("Select * from TravelTypes " +where  + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));
