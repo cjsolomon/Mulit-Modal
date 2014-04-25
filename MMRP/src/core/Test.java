@@ -23,7 +23,16 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws IOException
 	{
 		
-		ArrayList<Shipment> shipments = Shipment.LoadAll("");
+		Segment s = new Segment();
+		s.setVehicle(Truck.Load(1));
+		s.setTravelType(TravelType.Load(1));
+
+		s.Update();
+		s.setVehicle(Cargo.Load(3));
+		s.setTravelType(TravelType.Load(3));
+		s.Update();
+		
+		/*ArrayList<Shipment> shipments = Shipment.LoadAll("");
 		for(int i = 0; i< shipments.size(); i++)	
 		{
 			System.out.println("Starting " + (i+1));
@@ -39,7 +48,7 @@ public class Test extends BaseClass
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route2);*/
 			
-			Routing.BestFirstFind bestFind = new Routing.BestFirstFind(new WeightedMetric(1,1,1), shipments.get(i));
+			/*Routing.BestFirstFind bestFind = new Routing.BestFirstFind(new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route3 =  bestFind.getPath();
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route3);
@@ -59,9 +68,9 @@ public class Test extends BaseClass
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route5);*/
 			
-			System.out.println("Done with " + (i+1));
-		}
-		printSolution();
+			//System.out.println("Done with " + (i+1));
+		//}
+		//printSolution();
 		//printShipmentInfoToFile();
 		//printVehicleInfo();
 		//printVehicleRoute();

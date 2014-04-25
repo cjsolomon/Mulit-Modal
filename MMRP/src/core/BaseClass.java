@@ -310,5 +310,45 @@ public abstract class BaseClass {
 		}
 		
 	}//End of purgeDeleted()
+	
+	/**
+	 * This function will generate the appropriate index or indexes on the index table in the
+	 * database for appropriate data connections
+	 * @return Returns a boolean indicating if indexes were added correctly
+	 * @throws Exception
+	 */
+	public static boolean AddIndex(int vehicleID, int segmentID, int travelTypeID, Vehicle.TravelModes mode ) throws Exception{
+		
+		try{
+			
+			executeCommand("Insert into IndexTable (VehicleID, SegmentID, TravelTypeID, TravelMode, InUse) Values " +
+					"(" + vehicleID + ", " + segmentID + ", " + travelTypeID + ", '" + mode.toString() + "', true)");
+			
+			return true;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+
+	}//End of AddIndex()
+	
+	/**
+	 * This function will update the index table for the given segment
+	 * @return Returns a boolean indicating if indexes were updated correctly
+	 * @throws Exception
+	 */
+	public static boolean UpdateIndex(int vehicleID, int segmentID, int travelTypeID, Vehicle.TravelModes mode ) throws Exception{
+		
+		try{
+			
+			executeCommand("Update IndexTable Set VehicleID = " + vehicleID +", TravelTypeID = " + travelTypeID +", TravelMode = '" + mode.toString() + "', InUse = true where SegmentID = "+ segmentID);
+			
+			return true;
+		}catch(Exception ex){
+			ex.printStackTrace();
+			return false;
+		}
+
+	}//End of AddIndex()
 
 }//End of BaseClass

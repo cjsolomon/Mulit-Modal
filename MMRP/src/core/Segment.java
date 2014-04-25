@@ -1005,6 +1005,12 @@ public class Segment extends BaseClass {
 				}// End of found something if
 				MarkClean(); // Mark the Segment as clean
 				MarkOld(); // Mark the Segment as old
+				
+				//Now that the Segment has been pushed to the database we need to add a 
+				//new index entry
+				AddIndex(this.vehicle.getId(), this.id, this.travelType.getVehicleTypeID(), this.vehicle.mode);
+				
+				
 			}// End of isNew if
 			else {
 				if (isDirty()) {
@@ -1034,6 +1040,11 @@ public class Segment extends BaseClass {
 							+ "Deleted = " + this.isDeleted() 
 							+ " Where SegmentID=" + this.id);
 					MarkClean(); // Mark the Segment as clean
+					
+					//Now that the Segment has been pushed to the database we need to add a 
+					//new index entry
+					UpdateIndex(this.vehicle.getId(), this.id, this.travelType.getVehicleTypeID(), this.vehicle.mode);
+					
 				}// End of isDirty if
 			}// End of isOld else
 			return true;
