@@ -16,11 +16,13 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 
+import javax.swing.BorderFactory;
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.JScrollBar;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.JLayeredPane;
 import javax.swing.JLabel;
@@ -41,6 +43,7 @@ import GUI.TruckForms.*;
 import com.jgoodies.forms.layout.Sizes;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 
 
 public class Main_Source {
@@ -53,6 +56,8 @@ public class Main_Source {
 	private RailPanel railForm;
 	private CargoPanel cargoForm;
 	private JButton btnShipments,btnCargo,btnTruck,btnRail,btnPlane,btnLocations,btnCarriers;
+	private JLabel lblFormLabel;
+	private TruckTypePanel ttp;
 	/**
 	 * Launch the application.
 	 */
@@ -102,6 +107,8 @@ public class Main_Source {
 		planeForm.setVisible(false);
 		cargoForm = new CargoPanel();
 		cargoForm.setVisible(false);
+		ttp = new TruckTypePanel();
+		ttp.setVisible(false);
 		/*
 		 * Code defined here is for the shipments button
 		 */
@@ -165,12 +172,22 @@ public class Main_Source {
 				shpFrm.showPanel();
 				enableButtons();
 				btnShipments.setEnabled(false);
+				lblFormLabel.setText("Shipments");
 				
 			}
 		});
+		
+		lblFormLabel = new JLabel("");
+	
+	
+		
+		lblFormLabel.setForeground(Color.BLACK);
+		lblFormLabel.setFont(new Font("Calibri", Font.BOLD, 23));
+		frmMmrp.getContentPane().add(lblFormLabel, "6, 2, 3, 2");
 		frmMmrp.getContentPane().add(btnShipments, "2, 4, fill, fill");
 		
 		JSeparator separator = new JSeparator();
+		separator.setForeground(UIManager.getColor("Button.foreground"));
 		separator.setOrientation(SwingConstants.VERTICAL);
 		frmMmrp.getContentPane().add(separator, "5, 1, 1, 30");
 
@@ -181,6 +198,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(railForm,"6, 4, 11, 17");
 		frmMmrp.getContentPane().add(planeForm,"6, 4, 11, 17");
 		frmMmrp.getContentPane().add(cargoForm,"6, 4, 11, 17");
+		frmMmrp.getContentPane().add(ttp,"6,4,11,17");
 		btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
@@ -190,6 +208,7 @@ public class Main_Source {
 				locationForm.setVisible(true);
 				enableButtons();
 				btnLocations.setEnabled(false);
+				lblFormLabel.setText("Locations");
 			}
 		});
 		frmMmrp.getContentPane().add(btnLocations, "2, 6,fill,fill");
@@ -204,10 +223,20 @@ public class Main_Source {
 				truckForm.showPanel();
 				enableButtons();
 				btnTruck.setEnabled(false);
+				lblFormLabel.setText("Trucks");
 			}
 		});
 		frmMmrp.getContentPane().add(btnTruck, "2, 8,fill,fill");
 		final JButton truckType = new JButton("Truck Types");
+		truckType.addActionListener(new ActionListener(){
+			 public void actionPerformed(ActionEvent e)
+			 {
+				 hidePanels();
+				 ttp.showPanel();
+				 enableButtons();
+				 lblFormLabel.setText("Truck Types");
+			 }
+		});
 		frmMmrp.getContentPane().add(truckType,"2, 10, right, center");
 
 		btnPlane = new JButton("Planes");
@@ -217,6 +246,7 @@ public class Main_Source {
 				planeForm.showPanel();
 				enableButtons();
 				btnPlane.setEnabled(false);
+				lblFormLabel.setText("Planes");
 			}
 		});
 		frmMmrp.getContentPane().add(btnPlane, "2, 12, fill, fill");
@@ -230,6 +260,7 @@ public class Main_Source {
 				railForm.showPanel();
 				enableButtons();
 				btnRail.setEnabled(false);
+				lblFormLabel.setText("Rails");
 			}
 		});
 		frmMmrp.getContentPane().add(btnRail, "2, 16, fill, fill");
@@ -243,6 +274,7 @@ public class Main_Source {
 				cargoForm.showPanel();
 				enableButtons();
 				btnCargo.setEnabled(false);
+				lblFormLabel.setText("Cargo");
 			}
 		});
 		final JButton cargoType = new JButton("CargoType");
@@ -288,6 +320,7 @@ public class Main_Source {
 		railForm.setVisible(false);
 		cargoForm.setVisible(false);
 		planeForm.setVisible(false);
+		ttp.setVisible(false);
 	}
 	public void enableButtons()
 	{
