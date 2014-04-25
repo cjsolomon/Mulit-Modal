@@ -368,5 +368,27 @@ public class ShipmentTest {
 		
 		Assert.assertTrue(test_shipment.isDirty());
 	}
+	
+	// TODO : @Test 
+	// TODO : public void testSetHistory
+	
+	@Test
+	public void testSetWeight() {
+		Shipment test_shipment = new Shipment();
+		Double good_weight[] = {1.0,100.0,23.0,35.6,499.99999999,500.0};
+		Double bad_weight[] = {0.999999999,500.00000001, 3000.0, 9999999.0};
+		
+		for (Double weight : good_weight) {
+			test_shipment.setWeight(weight);
+			Assert.assertEquals(weight, new Double(test_shipment.getWeight()));
+		}
+		
+		for (Double weight : bad_weight) {
+			test_shipment.setWeight(weight);
+			Assert.assertEquals(new Double(Shipment.getDefaultWeight()), new Double(test_shipment.getWeight()));
+		}
+		
+		Assert.assertTrue(test_shipment.isDirty());
+	}
 
 }

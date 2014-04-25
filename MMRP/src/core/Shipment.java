@@ -38,8 +38,8 @@ public class Shipment extends BaseClass {
 	private static final double MAX_SIZE = 100.0;
 	private static final int MIN_PRIORITY = 1;
 	private static final int MAX_PRIORITY = 10;
-	private static final int MIN_WEIGHT = 1;
-	private static final int MAX_WEIGHT = 500;
+	private static final double MIN_WEIGHT = 1.0;
+	private static final double MAX_WEIGHT = 500.0;
 	private static final int MIN_LOAD_TIME = 0;
 	private static final int MAX_LOAD_TIME = 100;
 	private static final int MIN_LOAD_RATE = 1;
@@ -656,19 +656,7 @@ public class Shipment extends BaseClass {
 		return this.prefCarriers;
 	}//End of getPrefCarriers()
 	
-	/**
-	 * This function sets the history of the Shipment
-	 * @param hist This is the new history for the Shipment
-	 */
-	public void setHistory(ArrayList<ShipmentHistory> hist)
-	{
-		//Need some error checking and fleshing out
-		history=hist;
-		for(int i = 0; i<hist.size();i++)
-		{
-			
-		}
-	}//End of setHistory(ArrayList<ShipmentHistory> hist)
+
 	
 	/**
 	 * This function sets the weight of the Shipment
@@ -719,6 +707,20 @@ public class Shipment extends BaseClass {
 		}
 	}//End of setHistoryFromSegments(ArrayList<Segment> hist)
 	
+	/**
+	 * This function sets the history of the Shipment
+	 * @param hist This is the new history for the Shipment
+	 */
+	public void setHistory(ArrayList<ShipmentHistory> hist)
+	{
+		//Need some error checking and fleshing out
+		history=hist;
+		for(int i = 0; i<hist.size();i++)
+		{
+			
+		}
+	}//End of setHistory(ArrayList<ShipmentHistory> hist)
+		
 	/**
 	 * This function will return the ShipmentHistory of the Shipment
 	 * @return Returns an ArrayList of ShipmentHistory Objects for the Shipment
@@ -1043,11 +1045,11 @@ public class Shipment extends BaseClass {
 		return MAX_PRIORITY;
 	}
 
-	public static int getMinWeight() {
+	public static double getMinWeight() {
 		return MIN_WEIGHT;
 	}
 
-	public static int getMaxWeight() {
+	public static double getMaxWeight() {
 		return MAX_WEIGHT;
 	}
 
