@@ -291,7 +291,7 @@ public class Shipper extends BaseClass {
 	 * This function will update the Shipper in the database
 	 */
 	@Override
-	boolean Update() {
+	public boolean Update() {
 		if(isNew())
 		{
 			//If the Segment is new insert it into the database by executing the following
@@ -359,7 +359,7 @@ public class Shipper extends BaseClass {
 	 * This function will mark the Shipper as deleted in the database
 	 */
 	@Override
-	boolean Delete() {
+	public boolean Delete() {
 		try
 		{
 			executeCommand("Update Shipper Set Deleted = true where ShipperID = '" + this.id+"'");

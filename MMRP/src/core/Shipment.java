@@ -34,8 +34,8 @@ public class Shipment extends BaseClass {
 	
 
  
-	private static final int MIN_SIZE = 0;
-	private static final int MAX_SIZE = 100;
+	private static final double MIN_SIZE = 0.0;
+	private static final double MAX_SIZE = 100.0;
 	private static final int MIN_PRIORITY = 1;
 	private static final int MAX_PRIORITY = 10;
 	private static final int MIN_WEIGHT = 1;
@@ -191,7 +191,7 @@ public class Shipment extends BaseClass {
 	public void setPriority(int priority) {
 		if(this.priority!=priority)
 		{
-			if(FormatChecker.inRange(MIN_PRIORITY, MAX_PRIORITY, priority))
+			if(FormatChecker.inRange(priority,MIN_PRIORITY, MAX_PRIORITY))
 			{
 				this.priority = priority;
 			}
@@ -220,7 +220,7 @@ public class Shipment extends BaseClass {
 	public void setSize(double size) {
 		if(this.size!=size)
 		{
-			if(FormatChecker.inRange(MIN_SIZE, MAX_SIZE, size))
+			if(FormatChecker.inRange(size, MIN_SIZE, MAX_SIZE))
 			{
 				this.size = size;
 			}
@@ -344,7 +344,7 @@ public class Shipment extends BaseClass {
 	{
 		if(this.timeToLoad!=t)
 		{
-			if(FormatChecker.inRange(MIN_LOAD_TIME, MAX_LOAD_TIME, t))
+			if(FormatChecker.inRange(t,MIN_LOAD_TIME, MAX_LOAD_TIME))
 			{
 				this.timeToLoad = t;
 			}
@@ -366,12 +366,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.timeToUnload;
 	}//End of getTimeToUnload()
-	public Shipper getShipper()
-	{
-		if(this.shipperID!=0)
-			return Shipper.Load(shipperID);
-		return null;
-	}
+	
 	/**
 	 * This function sets the time to unload the Shipment
 	 * @param t This is the new time to unload the Shipment
@@ -380,7 +375,7 @@ public class Shipment extends BaseClass {
 	{
 		if(this.timeToUnload!=t)
 		{
-			if(FormatChecker.inRange(MIN_LOAD_TIME, MAX_LOAD_TIME, t))
+			if(FormatChecker.inRange(t,MIN_LOAD_TIME, MAX_LOAD_TIME))
 			{
 				this.timeToUnload = t;
 			}
@@ -416,6 +411,13 @@ public class Shipment extends BaseClass {
 	{
 		return this.shipperID;
 	}//End of getShipperID()
+	
+	public Shipper getShipper()
+	{
+		if(this.shipperID!=0)
+			return Shipper.Load(shipperID);
+		return null;
+	}
 	
 	/**
 	 * This function allows the Shipment to take toll roads
@@ -883,7 +885,7 @@ public class Shipment extends BaseClass {
 	 * This function will update the Shipment on the database
 	 */
 	@Override
-	boolean Update() {
+	public boolean Update() {
 		try
 		{
 			//toDo: set id on insert set update statement
@@ -977,7 +979,7 @@ public class Shipment extends BaseClass {
 	 * This function will mark this shipment as deleted in the database
 	 */
 	@Override
-	boolean Delete() {
+	public boolean Delete() {
 		try
 		{
 			executeCommand("Update Shipment Set Deleted = true Where ShipmentID = " + this.id  + " AND Deleted = false");	
@@ -1025,11 +1027,11 @@ public class Shipment extends BaseClass {
 	private static final String DEFAULT_UNLOADING_TYPE = "defaultUnloadingType";
 	private static final String DEFAULT_PREFERRED_CARRIERS = "defaultPreferredCarriers";
 
-	public static int getMinSize() {
+	public static double getMinSize() {
 		return MIN_SIZE;
 	}
 
-	public static int getMaxSize() {
+	public static double getMaxSize() {
 		return MAX_SIZE;
 	}
 
