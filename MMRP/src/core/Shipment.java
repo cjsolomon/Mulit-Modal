@@ -656,7 +656,19 @@ public class Shipment extends BaseClass {
 		return this.prefCarriers;
 	}//End of getPrefCarriers()
 	
+<<<<<<< HEAD
 
+=======
+	/**
+	 * This function sets the history of the Shipment
+	 * @param hist This is the new history for the Shipment
+	 */
+	public void setHistory(ArrayList<ShipmentHistory> hist)
+	{
+		//Need some error checking and fleshing out
+		this.history = hist;
+	}//End of setHistory(ArrayList<ShipmentHistory> hist)
+>>>>>>> e670a0797ba8f266c8436c4426670481d5e41e61
 	
 	/**
 	 * This function sets the weight of the Shipment

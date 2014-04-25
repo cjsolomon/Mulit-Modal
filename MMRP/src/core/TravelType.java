@@ -115,7 +115,27 @@ public class TravelType extends BaseClass {
 	 */
 	public void setTravelTypeMode(String newMode)
 	{
-		vehicleMode = newMode;													//Set the TravelType's mode
+		if(!newMode.toString().equals(newMode))	//Make sure we have a valid type
+		{
+			if(FormatChecker.isEnumerated(Vehicle.TravelModes.class, newMode))
+			{
+				vehicleMode = newMode;						//Set the type of the vehicle
+				MarkDirty();								//Mark the vehicle as dirty
+			}
+			else
+			{
+				vehicleMode = "NONE";
+				Log.writeLogWarning("Invalid travel mode in Travel Type. Not a valid mode. Setting mode to "
+						+ " NONE.");
+			}
+		}//End of if statement
+		else 
+		{
+			vehicleMode = "NONE";
+			Log.writeLogWarning("Invalid travel mode in Travel Type. Not a valid mode. Setting mode to "
+					+ " NONE.");
+		}
+		//Set the TravelType's mode
 	}//End of setTravelTypeMode(String newMode)
 		
 	/**
