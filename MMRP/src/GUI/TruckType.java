@@ -28,7 +28,6 @@ public class TruckType extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel lblMinCapacity, lblMaxWeight, lblTrailer2,lblTrailer1,lblName, lblTruckType, lblID;
 	JTextField txtEmail,txtContractDate,txtFaxNumber,txtCarrierCode,txtCarrierName, txtID;
-	private JButton btnSearch;
 	
 	private boolean edit = false;
 	private JButton btnCancel;
@@ -37,12 +36,12 @@ public class TruckType extends JPanel {
 	private JCheckBox chckbxRadiation;
 	private JCheckBox chckbxRefrigeration;
 	private JButton btnEdit;
-	private JButton btnNew;
 	private JLabel lblMaxCapacity;
 	private JTextField textField;
 	private JCheckBox chckbxHazardousMaterial;
 	private JCheckBox chckbxExplosiveMaterial;
 	private JCheckBox chckbxTracking;
+	private JButton btnSave;
 	
 	public TruckType(Location editLocation) {
 		
@@ -168,43 +167,7 @@ public class TruckType extends JPanel {
 		txtContractDate.setEditable(false);
 		add(txtContractDate, "4, 16, right, center");
 		
-		btnNew = new JButton("New");
-		add(btnNew, "2, 20");
-		
 		txtID.setEditable(false);
-		
-		btnSearch = new JButton("Search");
-		btnSearch.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//This button will attempt to save the Location to the database
-				Location newLocation = new Location();
-				//Grab the travelLocations
-
-				
-				//Add the rest of the travelModes in as NONE
-				for(int i = newLocation.getTravelModes().size(); i < 6; i++){
-					newLocation.addTravelMode(Vehicle.TravelModes.NONE);
-				}
-				
-				newLocation.setCountry(txtCarrierName.getText());
-				newLocation.setState(txtCarrierCode.getText());
-				newLocation.setName(txtFaxNumber.getText());
-				newLocation.setLatitude(Double.valueOf(txtEmail.getText()));
-				newLocation.setLongitude(Double.valueOf(txtContractDate.getText()));
-				
-				if(edit){
-					newLocation.MarkDirty();
-					newLocation.MarkOld();
-					newLocation.setID(Integer.valueOf(txtID.getText()));
-				}else{
-					newLocation.MarkNew();
-				}
-				
-				newLocation.Update();
-				
-			}
-		});
-		add(btnSearch, "4, 20");
 		
 		btnEdit = new JButton("Edit");
 		btnEdit.setEnabled(false);
@@ -217,6 +180,9 @@ public class TruckType extends JPanel {
 			}
 		});
 		add(btnCancel, "9, 20");
+		
+		btnSave = new JButton("Save");
+		add(btnSave, "7, 20");
 		
 		if(editLocation != null){
 			loadLocation(editLocation);

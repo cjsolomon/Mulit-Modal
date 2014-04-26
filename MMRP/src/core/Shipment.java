@@ -36,7 +36,7 @@ public class Shipment extends BaseClass {
  
 	private static final double MIN_SIZE = 0.0;
 	private static final double MAX_SIZE = 100.0;
-	private static final int MIN_PRIORITY = 1;
+	private static final int MIN_PRIORITY = 0;
 	private static final int MAX_PRIORITY = 10;
 	private static final double MIN_WEIGHT = 1.0;
 	private static final double MAX_WEIGHT = 500.0;
@@ -45,7 +45,7 @@ public class Shipment extends BaseClass {
 	private static final int MIN_LOAD_RATE = 1;
 	private static final int MAX_LOAD_RATE = 100;
 	private static final int MIN_STOPS = 1;
-	private static final int MAX_STOPS = 500;
+	private static final int MAX_STOPS = 1000;
 	
 	/**
 	 * This is the default constructor for the Shipment object

@@ -115,9 +115,9 @@ public class TravelType extends BaseClass {
 	 */
 	public void setTravelTypeMode(String newMode)
 	{
-		if(!newMode.toString().equals(newMode))	//Make sure we have a valid type
+		if(vehicleMode==null || !vehicleMode.equals(newMode))	//Make sure we have a valid type
 		{
-			if(FormatChecker.isEnumerated(Vehicle.TravelModes.class, newMode))
+			if(Vehicle.loadMode(newMode)!=null)
 			{
 				vehicleMode = newMode;						//Set the type of the vehicle
 				MarkDirty();								//Mark the vehicle as dirty
@@ -283,7 +283,14 @@ public class TravelType extends BaseClass {
 	{
 		radiation = true;												//Sets the radiation field to true
 	}//End of setRadTrue()
-	
+	public void setRad(boolean value)
+	{
+		if(radiation!=value)
+		{
+			radiation=value;
+			MarkDirty();
+		}
+	}
 	/**
 	 * This function will set the radiation field to false
 	 */
@@ -301,6 +308,14 @@ public class TravelType extends BaseClass {
 		return radiation;												//Returns the radiation field
 	}//End of getRadiation()
 	
+	public void setRef(boolean value)
+	{
+		if(refrigeration!=value)
+		{
+			refrigeration=value;
+			MarkDirty();
+		}
+	}
 	/**
 	 * This function will set the refrigeration field to true
 	 */
@@ -326,6 +341,14 @@ public class TravelType extends BaseClass {
 		return refrigeration;											//Returns the refridgeration field
 	}//End of getRefridgeration()
 	
+	public void setHaz(boolean value)
+	{
+		if(hazmat!=value)
+		{
+			hazmat=value;
+			MarkDirty();
+		}
+	}
 	/**
 	 * This function will set the hazmat field to true
 	 */
@@ -351,6 +374,14 @@ public class TravelType extends BaseClass {
 		return hazmat;													//Returns the hazmat field
 	}//End of getHazmat()
 	
+	public void setExp(boolean value)
+	{
+		if(explosives!=value)
+		{
+			explosives=value;
+			MarkDirty();
+		}
+	}
 	/**
 	 * This function will set the explosives field to true
 	 */
@@ -376,6 +407,14 @@ public class TravelType extends BaseClass {
 		return explosives;												//Returns the explosives field
 	}//End of getExplosives()
 	
+	public void setTracking(boolean value)
+	{
+		if(tracking!=value)
+		{
+			tracking=value;
+			MarkDirty();
+		}
+	}
 	/**
 	 * This function will set the tracking field to true
 	 */
@@ -706,32 +745,32 @@ public class TravelType extends BaseClass {
 			t.setTrailer2((String)data.get("Trailer2"));
 			t.setTravelTypeMode((String)data.get("VehicleMode"));
 			t.setTravelTypeName((String)data.get("VehicleTypeName"));
-			if(Boolean.getBoolean(data.get("Radiation").toString())){
+			if(Boolean.valueOf(data.get("Radiation").toString())){
 				t.setRadTrue();	
 			}
 			else
 				t.setRadFalse();
-			if(Boolean.getBoolean(data.get("HazardousMaterial").toString())){
+			if(Boolean.valueOf(data.get("HazardousMaterial").toString())){
 				t.setHazTrue();	
 			}
 			else
 				t.setHazFalse();
-			if(Boolean.getBoolean(data.get("ExplosiveMaterial").toString())){
+			if(Boolean.valueOf(data.get("ExplosiveMaterial").toString())){
 				t.setExpTrue();	
 			}
 			else
 				t.setExpFalse();
-			if(Boolean.getBoolean(data.get("Refridgeration").toString())){
+			if(Boolean.valueOf(data.get("Refridgeration").toString())){
 				t.setRefTrue();	
 			}
 			else
 				t.setRefFalse();
-			if(Boolean.getBoolean(data.get("Tracking").toString())){
+			if(Boolean.valueOf(data.get("Tracking").toString())){
 				t.setTrackingTrue();	
 			}
 			else
 				t.setTrackingFalse();
-			if(Boolean.getBoolean(data.get("Deleted").toString()))
+			if(Boolean.valueOf(data.get("Deleted").toString()))
 				t.MarkDeleted();
 			else
 				t.MarkUndeleted();
