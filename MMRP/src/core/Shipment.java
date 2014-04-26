@@ -24,16 +24,16 @@ public class Shipment extends BaseClass {
 	private int maxStops;
 	//TODO:Need to added hazmat constraints to vehicles as well
 	private String hazmatConstraints;
-	
+
 	//TODO: Might be better suited as a property of vehicles
 	private int loadingRate;
 	//TODO: I Have no clue where these should go just yet
 	private String trailerType,loadingType,unloadingType;
 	//TODO: prefCarriers should probably be a property of a shipper not a shipment
 	private String prefCarriers;
-	
 
- 
+
+
 	private static final double MIN_SIZE = 0.0;
 	private static final double MAX_SIZE = 100.0;
 	private static final int MIN_PRIORITY = 1;
@@ -46,7 +46,7 @@ public class Shipment extends BaseClass {
 	private static final int MAX_LOAD_RATE = 100;
 	private static final int MIN_STOPS = 1;
 	private static final int MAX_STOPS = 500;
-	
+
 	/**
 	 * This is the default constructor for the Shipment object
 	 */
@@ -74,11 +74,12 @@ public class Shipment extends BaseClass {
 		this.unloadingType = DEFAULT_UNLOADING_TYPE;
 		this.weight = DEFAULT_WEIGHT;
 		this.currentLocation = DEFAULT_START_LOCATION_ID;
+		this.history = new ArrayList<ShipmentHistory>();
 		this.MarkNew();
 		this.MarkClean();
 		this.MarkUndeleted();
 	}//End of the default Shipment constructor
-	
+
 	/**
 	 * This is the argumented Shipment constructor
 	 * @param id This is the id of the new Shipment
@@ -87,6 +88,7 @@ public class Shipment extends BaseClass {
 	{
 		this.id=id;
 		this.congestionByPass = false;
+		this.history = new ArrayList<ShipmentHistory>();
 		this.earliestArrival = DEFAULT_EARLIEST_ARRIVAL;
 		this.earliestDeparture = DEFAULT_EARLIEST_DEPARTURE;
 		this.fromLocationID = DEFAULT_START_LOCATION_ID;
@@ -110,7 +112,7 @@ public class Shipment extends BaseClass {
 		this.currentLocation = DEFAULT_START_LOCATION_ID;
 		this.MarkClean();
 	}//End of the Shipment(int id) constructor
-	
+
 	/**
 	 * This function returns the current location id of the Shipment
 	 * @return Returns the current location id of the shipment
@@ -119,7 +121,7 @@ public class Shipment extends BaseClass {
 	{
 		return currentLocation;
 	}//End of getCurrentLocationID()
-	
+
 	/**
 	 * This function sets the current location id of the Shipment
 	 * @param locationID This is the new current location ID
@@ -133,7 +135,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setCurrentLocation(int loc)
-	
+
 	/**
 	 * This function returns the start location id of the shipment
 	 * @return Returns the start location id of the shipment
@@ -141,7 +143,7 @@ public class Shipment extends BaseClass {
 	public int getFromLocationID() {
 		return fromLocationID;
 	}//End of getFromLocationID()
-	
+
 	/**
 	 * This function will set the start location ID
 	 * @param fromLocationID This is the new start location ID
@@ -154,7 +156,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setFromLocationID(int fromLocationID)
-	
+
 	/**
 	 * This function returns the end location id
 	 * @return Returns the end location id
@@ -162,7 +164,7 @@ public class Shipment extends BaseClass {
 	public int getToLocationID() {
 		return toLocationID;
 	}//End of getToLocationID()
-	
+
 	/**
 	 * This function sets the end location id of the Shipment
 	 * @param toLocationID This is the new end location id
@@ -175,7 +177,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setToLocationID(int toLocationID)
-	
+
 	/**
 	 * This function returns the priority of the Shipment
 	 * @return Returns the priority of the Shipment
@@ -183,7 +185,7 @@ public class Shipment extends BaseClass {
 	public int getPriority() {
 		return priority;
 	}//End of getPriority()
-	
+
 	/**
 	 * This function will set the priority for the Shipment
 	 * @param priority This is the new priority for the Shipment
@@ -199,12 +201,12 @@ public class Shipment extends BaseClass {
 			{
 				this.priority = DEFAULT_PRIORITY;
 				Log.writeLogWarning("Invalid number given for priority of shipment. Set priority to "+
-				DEFAULT_PRIORITY);
+						DEFAULT_PRIORITY);
 			}
 			MarkDirty();
 		}
 	}//End of setPriority(int priority)
-	
+
 	/**
 	 * This function returns the size of the Shipment
 	 * @return Returns the size of the Shipment
@@ -212,7 +214,7 @@ public class Shipment extends BaseClass {
 	public double getSize() {
 		return size;
 	}//End of getSize()
-	
+
 	/**
 	 * This function sets the size of the Shipment
 	 * @param size This is the new size of the Shipment
@@ -232,7 +234,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setSize(int size)
-	
+
 	/**
 	 * This function returns the earliest arrival time of the Shipment
 	 * @return Returns the earliest arrival time of the Shipment
@@ -240,7 +242,7 @@ public class Shipment extends BaseClass {
 	public int getEarliestArrivalTime() {
 		return earliestArrival;
 	}//End of getEarliestArrivalTime()
-	
+
 	/**
 	 * This function sets the earliest arrival time for the Shipment
 	 * @param time This is the new earliest arrival time for the Shipment
@@ -253,7 +255,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setEarliestArrivalTime(int time)
-	
+
 	/**
 	 * This function returns the latest arrival time of the Shipment
 	 * @return Returns the latest arrival time of the Shipment
@@ -261,7 +263,7 @@ public class Shipment extends BaseClass {
 	public int getLatestArrivalTime() {
 		return latestArrival;
 	}//End of getLatestArrivalTime()
-	
+
 	/**
 	 * This function sets the latest arrival time for the Shipment
 	 * @param time
@@ -274,7 +276,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setLatestArrivalTime(int time)
-	
+
 	/**
 	 * This function returns the earliest departure time for the Shipment
 	 * @return Returns the earliest departure time for the Shipment
@@ -282,7 +284,7 @@ public class Shipment extends BaseClass {
 	public int getEarliestDepartureTime() {
 		return earliestDeparture;
 	}//End of getEarliestDepartureTime()
-	
+
 	/**
 	 * This function sets the earliest departure time for the Shipment
 	 * @param departureTime This is the new earliest departure time for the Shipment
@@ -295,7 +297,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setEarliestDepartureTime(int departureTime)
-	
+
 	/**
 	 * This function returns the latest departure time for the Shipment
 	 * @return Returns the latest departure time for the Shipment
@@ -304,7 +306,7 @@ public class Shipment extends BaseClass {
 	{
 		return latestDeparture;
 	}//End of getLatestDepartureTime()
-	
+
 	/**
 	 * This function sets the latest departure time for the Shipment
 	 * @param departureTime This is the new latest departure time for the Shipment
@@ -318,7 +320,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setLatestDepartureTime(int departureTime)
-	
+
 	/**
 	 * This function returns the id of the Shipment
 	 * @return Returns the id of the Shipment
@@ -326,7 +328,7 @@ public class Shipment extends BaseClass {
 	public int getId() {
 		return id;
 	}//End of getId()
-	
+
 	/**
 	 * This function will return the time it takes to load the Shipment
 	 * @return Returns the time it will take to load the Shipment 
@@ -335,7 +337,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.timeToLoad;
 	}//End of getTimeToLoad()
-	
+
 	/**
 	 * This function will set the time to load the Shipment
 	 * @param t This is the new time to load the Shipment
@@ -357,7 +359,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setTimeToLoad(int t)
-	
+
 	/**
 	 * This function returns the time to unload the Shipment
 	 * @return Returns the time to unload the Shipment
@@ -366,7 +368,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.timeToUnload;
 	}//End of getTimeToUnload()
-	
+
 	/**
 	 * This function sets the time to unload the Shipment
 	 * @param t This is the new time to unload the Shipment
@@ -388,7 +390,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setTimeToUnload(int t)
-	
+
 	/**
 	 * This function sets the shipper id for the Shipment
 	 * @param id This is the new Shipper id for the shipment
@@ -402,7 +404,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setShipperID(int id)
-	
+
 	/**
 	 * This function returns the shipper id of the Shipment
 	 * @return Returns the id of the shipper of the Shipment
@@ -411,14 +413,14 @@ public class Shipment extends BaseClass {
 	{
 		return this.shipperID;
 	}//End of getShipperID()
-	
+
 	public Shipper getShipper()
 	{
 		if(this.shipperID!=0)
 			return Shipper.Load(shipperID);
 		return null;
 	}
-	
+
 	/**
 	 * This function allows the Shipment to take toll roads
 	 */
@@ -430,7 +432,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setTollRoadsTrue()
-	
+
 	/**
 	 * This function disallows the Shipment to take toll roads
 	 */
@@ -442,7 +444,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setTollRoadsFalse()
-	
+
 	/**
 	 * This function will return whether or not the Shipment can take toll roads
 	 * @return Returns a boolean indicating if the Shipment can travel on toll roads or not
@@ -451,7 +453,7 @@ public class Shipment extends BaseClass {
 	{
 		return tollRoads;
 	}//End of getTollRoads()
-	
+
 	/**
 	 * This function allow the Shipment to perform a congestion by pass
 	 */
@@ -463,7 +465,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setCongestionByPassTrue()
-	
+
 	/**
 	 * This function disallow the Shipment to perform a congestion by pass
 	 */
@@ -475,7 +477,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setCongestionByPassFalse()
-	
+
 	/**
 	 * This function will return whether or not the Shipment can perform a congestion by pass
 	 * @return Returns a boolean indicating if the Shipment can perform a congestion by pass
@@ -484,7 +486,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.congestionByPass;
 	}//End of getCongestionByPass()
-	
+
 	/**
 	 * This function sets the hazmat status for the Shipment
 	 * @param s This is the new hazmat status
@@ -498,7 +500,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setHazmat(String s)
-	
+
 	/**
 	 * This function returns the Shipment's hazmat status
 	 * @return Returns the Shipment's hazmat status
@@ -507,7 +509,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.hazmatConstraints;
 	}//End of getHazmat()
-	
+
 	/**
 	 * This function sets the maximum number of stop locations for the Shipment
 	 * @param maxStop This is the new maximum number of stops
@@ -523,13 +525,13 @@ public class Shipment extends BaseClass {
 			else
 			{
 				Log.writeLogSevere("Invalid number given for max number of stops. Set max number of stops to "+
-			DEFAULT_MAX_STOPS);
+						DEFAULT_MAX_STOPS);
 				maxStops = DEFAULT_MAX_STOPS;
 			}
 			MarkDirty();
 		}
 	}//End of setMaxStops(int s)
-	
+
 	/**
 	 * This function will return the maximum number of stops the Shipment is allowed
 	 * @return Returns the maximum number of stops the Shipment is allowed
@@ -538,7 +540,7 @@ public class Shipment extends BaseClass {
 	{
 		return maxStops;
 	}//End of getMaxStops()
-	
+
 	/**
 	 * This function will return the loading rate of the Shipment
 	 * @return Returns the loading rate for the Shipment
@@ -547,7 +549,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.loadingRate;
 	}//End of getLoadingRate()
-	
+
 	/**
 	 * This function will set the loading rate for the Shipment
 	 * @param newLoadingRate This is the new loading rate for teh Shipment
@@ -568,7 +570,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setLoadingRate(int newLoadingRate)
-	
+
 	/**
 	 * This function returns the unloading type for the Shipment
 	 * @return Returns the unloading type for the Shipment
@@ -577,7 +579,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.unloadingType;
 	}//End of getUnloadType()
-	
+
 	/**
 	 * This function sets the unloading type for the Shipment
 	 * @param newUnloadingType This is the new unloading type of the Shipment
@@ -591,7 +593,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setUnloadType(String newUnloadingType)
-	
+
 	public String getLoadingType()
 	{
 		return this.loadingType;
@@ -609,7 +611,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setLoadingType(String t)
-	
+
 	/**
 	 * This function sets the trailer type for the Shipment
 	 * @param newTrailerType This is the new trailer type for the Shipment
@@ -623,7 +625,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setTrailerType(String newTrailerType)
-	
+
 	/**
 	 * This function returns the trailer type for the Shipment
 	 * @return Returns the trailer type of the Shipment
@@ -632,7 +634,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.trailerType;
 	}//End of getTrailerType()
-	
+
 	/**
 	 * This function sets the Carrier's preference for the Shipment
 	 * @param newCarrierPref This is the new Carrier's preference for the Shipment
@@ -646,7 +648,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setPrefCarrier(String newCarrierPref)
-	
+
 	/**
 	 * This function will return the Carrier's preference for the Shipment
 	 * @return Returns the Carrier's preference for the Shipment
@@ -655,9 +657,9 @@ public class Shipment extends BaseClass {
 	{
 		return this.prefCarriers;
 	}//End of getPrefCarriers()
-	
 
-	
+
+
 
 	/**
 	 * This function sets the weight of the Shipment
@@ -679,7 +681,7 @@ public class Shipment extends BaseClass {
 			MarkDirty();
 		}
 	}//End of setWeight(int newWeight)
-	
+
 	/**
 	 * This function returns the weight of the Shipment
 	 * @return Returns the weight of the Shipment
@@ -688,7 +690,7 @@ public class Shipment extends BaseClass {
 	{
 		return this.weight;
 	}//End of getWeight()
-	
+
 	/**
 	 * This function sets the history of the Shipment based on segments its visited
 	 * @param hist This is an ArrayList of Segments that the shipment has/will visit and will build a history from
@@ -707,21 +709,22 @@ public class Shipment extends BaseClass {
 			history.add(temp);
 		}
 	}//End of setHistoryFromSegments(ArrayList<Segment> hist)
-	
+
+
 	/**
 	 * This function sets the history of the Shipment
 	 * @param hist This is the new history for the Shipment
 	 */
+
+
+
 	public void setHistory(ArrayList<ShipmentHistory> hist)
 	{
 		//Need some error checking and fleshing out
 		history=hist;
-		for(int i = 0; i<hist.size();i++)
-		{
-			
-		}
 	}//End of setHistory(ArrayList<ShipmentHistory> hist)
-		
+
+
 	/**
 	 * This function will return the ShipmentHistory of the Shipment
 	 * @return Returns an ArrayList of ShipmentHistory Objects for the Shipment
@@ -730,7 +733,7 @@ public class Shipment extends BaseClass {
 	{
 		return history;
 	}//End of ArrayList<ShipmentHistory> getHistory()
-	
+
 	/**
 	 * Thus function returns the start location of the Shipment
 	 * @return Returns the start location object of the Shipment
@@ -739,7 +742,7 @@ public class Shipment extends BaseClass {
 	{
 		return Location.Load(fromLocationID);
 	}//End of loadStartLocation()
-	
+
 	/**
 	 * This function returns the end location of the Shipment
 	 * @return Returns the end location object of the Shipment
@@ -748,7 +751,7 @@ public class Shipment extends BaseClass {
 	{
 		return Location.Load(toLocationID);
 	}//End of loadEndLocation()
-	
+
 	/**
 	 * This function loads a Shipment from the database based on the given id
 	 * @param id This is the id of the Shipment to load from the database
@@ -772,9 +775,9 @@ public class Shipment extends BaseClass {
 			System.out.println("Error " + ex);
 			ex.printStackTrace();
 		}
- 		return null;
+		return null;
 	}//End of Load(int id)
-	
+
 	/**
 	 * This function will return an ArrayList of Shipments from the database based on the given where clause
 	 * @param where This is the clause that will determine which Shipments to load from the database
@@ -804,7 +807,7 @@ public class Shipment extends BaseClass {
 		}
 		return returnList;
 	}//End of LoadAll(String where)
-	
+
 	/**
 	 * This function will load all the Shipments at the given Segment
 	 * @param segID This is the id of the Segment that will return all the Shipments on it
@@ -830,7 +833,7 @@ public class Shipment extends BaseClass {
 		}
 		return returnList;
 	}//End of LoadAllForSegment(int segID)
-	
+
 	/**
 	 * This function will build a new Shipment object based on the passed in data
 	 * @param data This is the data that will be used to build a new Shipment
@@ -881,9 +884,9 @@ public class Shipment extends BaseClass {
 			s.MarkUndeleted();
 		s.MarkClean();
 		return s;
-		
+
 	}//End of BuildFromDataRow(Map<String,Object> data)
-	
+
 	/**
 	 * This function will update the Shipment on the database
 	 */
@@ -896,7 +899,7 @@ public class Shipment extends BaseClass {
 			{
 				//If the plane is new insert it into the database by executing the following
 				executeCommand("Insert into Shipment (FromLocationID,ToLocationID,Priority,EarliestDepartureFromStart,LatestDepartureFromStart,EarliestArrival,LatestArrival,Size,weight,CurrentLocation,loadingTime"+
-				",unloadingTime,loadingRate,shipper,takeTollRoads,localCongestionByPass,trailerType,loadingType,unloadingType,hazmatConstraints,prefCarriers,maxStops) Values ('"+
+						",unloadingTime,loadingRate,shipper,takeTollRoads,localCongestionByPass,trailerType,loadingType,unloadingType,hazmatConstraints,prefCarriers,maxStops) Values ('"+
 						this.fromLocationID+ "','" + this.toLocationID + "','"+ this.priority+"','"+this.earliestDeparture+"','"+this.latestDeparture+"','" + this.earliestArrival + "','" + this.latestArrival+ "','"+
 						this.size+"','"+this.weight+"','"+this.currentLocation+ "','" + this.timeToLoad+"','"+this.timeToUnload+"','"+this.loadingRate+"','"+this.shipperID+"',"+this.tollRoads+","+this.congestionByPass+
 						",'"+this.trailerType+"','"+this.loadingType+"','"+this.unloadingType+"','"+this.hazmatConstraints+"','"+this.prefCarriers+"','"+this.maxStops+"')");
@@ -924,7 +927,7 @@ public class Shipment extends BaseClass {
 						"AND hazmatConstraints = '" + this.hazmatConstraints + "' "+
 						"AND prefCarriers = '" + this.prefCarriers +"' "+
 						"AND maxStops = '"+this.maxStops+"'");
-						
+
 				//If this plane exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
@@ -963,7 +966,7 @@ public class Shipment extends BaseClass {
 							", maxStops = '"+this.maxStops+"'"+
 							", deleted = " + this.isDeleted() +
 							" where ShipmentID = '" + this.id +"'");
-							
+
 					MarkClean();
 				}//End of isDirty if
 			}//End of isOld else
@@ -986,7 +989,8 @@ public class Shipment extends BaseClass {
 		try
 		{
 			executeCommand("Update Shipment Set Deleted = true Where ShipmentID = " + this.id  + " AND Deleted = false");	
-			DeleteAllHistory();
+			if (this.history.size() > 0)
+				this.DeleteAllHistory();
 			this.MarkDeleted();
 			return true;
 		}//End of the try block
@@ -997,7 +1001,7 @@ public class Shipment extends BaseClass {
 		}
 
 	}//End of Delete()
-	
+
 	/**
 	 * This function will delete the entire history of the Shipment
 	 */
@@ -1008,7 +1012,7 @@ public class Shipment extends BaseClass {
 			history.get(i).Delete();
 		}
 	}//End of DeleteAllHistory()
-	
+
 	//Default Variables
 	private static final int DEFAULT_START_LOCATION_ID = 1;
 	private static final int DEFAULT_END_LOCATION_ID = 2;

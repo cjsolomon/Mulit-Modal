@@ -1,7 +1,13 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
+import core.Location;
+import core.Segment;
 import core.Shipment;
+import core.ShipmentHistory;
 import core.Shipper;
+import core.Vehicle;
 
 import org.junit.*;
 
@@ -371,6 +377,26 @@ public class ShipmentTest {
 	
 	// TODO : @Test 
 	// TODO : public void testSetHistory
+
+	@Test
+	public void testSetHistoryFromSegments() {
+		//Setup the test segments
+		Segment test_segment = new Segment();
+		test_segment.setLane("JUnit testSetHistoryFromSegments");
+		Segment test_segment2 = new Segment();
+		test_segment2.setLane("JUnit testSetHistoryFromSegments");
+		ArrayList<Segment> segList = new ArrayList<Segment>();
+		segList.add(test_segment2);
+		segList.add(test_segment);
+		
+		Shipment test_shipment = new Shipment();
+		test_shipment.setHistoryFromSegments(segList);
+		
+		//test to ensure both test items are in the database
+		Assert.assertEquals(2, test_shipment.getHistory().size());
+		
+		test_shipment.DeleteAllHistory();		
+	}
 	
 	@Test
 	public void testSetWeight() {
@@ -389,6 +415,89 @@ public class ShipmentTest {
 		}
 		
 		Assert.assertTrue(test_shipment.isDirty());
+	}
+	
+	@Test
+	public void testLoadStartLocation() {
+		//Setup the location in the database
+		Location test_location = new Location();
+		String test_string = new String("JUnit Shipment.testLoadStartLocation");
+		test_location.addTravelMode(Vehicle.TravelModes.RAIL);
+		
+		
+		test_location.setName(test_string);
+		test_location.Update();
+		
+		Shipment test_shipment = new Shipment();
+		test_shipment.setFromLocationID(test_location.getID());
+		Location test_location2 = test_shipment.loadStartLocation();
+		Assert.assertEquals(new Integer(test_location.getID()), new Integer(test_location2.getID()));
+		Assert.assertEquals(test_location.getCountry(), test_location2.getCountry());
+		Assert.assertEquals(test_location.getName(), test_location2.getName());
+		Assert.assertEquals(new Double(test_location.getLatitude()), new Double(test_location2.getLatitude()));
+		Assert.assertEquals(new Double(test_location.getLongitude()), new Double(test_location2.getLongitude()));
+		Assert.assertEquals(test_location.getTravelModes(), test_location2.getTravelModes());
+		Assert.assertEquals(test_location.getVehiclesAtLocation(), test_location2.getVehiclesAtLocation());
+		Assert.assertEquals(test_location.getState(), test_location2.getState());
+		test_location.Delete();
+	}
+	
+	@Test
+	public void testLoadEndLocation() {
+		//Setup the location in the database
+		Location test_location = new Location();
+		String test_string = new String("JUnit Shipment.testLoadStartLocation");
+		test_location.addTravelMode(Vehicle.TravelModes.RAIL);
+		
+		
+		test_location.setName(test_string);
+		test_location.Update();
+		
+		Shipment test_shipment = new Shipment();
+		test_shipment.setToLocationID(test_location.getID());
+		Location test_location2 = test_shipment.loadEndLocation();
+		Assert.assertEquals(new Integer(test_location.getID()), new Integer(test_location2.getID()));
+		Assert.assertEquals(test_location.getCountry(), test_location2.getCountry());
+		Assert.assertEquals(test_location.getName(), test_location2.getName());
+		Assert.assertEquals(new Double(test_location.getLatitude()), new Double(test_location2.getLatitude()));
+		Assert.assertEquals(new Double(test_location.getLongitude()), new Double(test_location2.getLongitude()));
+		Assert.assertEquals(test_location.getTravelModes(), test_location2.getTravelModes());
+		Assert.assertEquals(test_location.getVehiclesAtLocation(), test_location2.getVehiclesAtLocation());
+		Assert.assertEquals(test_location.getState(), test_location2.getState());
+		test_location.Delete();
+	}
+	
+	@Test 
+	public void testLoad() {
+		Shipment test_shipment = new Shipment();
+		String test_string = new String("JUnit ShipmetTest.testLoad()");
+		
+		test_shipment.setHazmat(test_string);
+		test_shipment.Update();
+		
+		Shipment test_shipment2 = Shipment.Load(test_shipment.getId());
+		
+		Assert.assertEquals(test_shipment.getEarliestArrivalTime(),test_shipment2.getEarliestArrivalTime());
+		Assert.assertEquals(test_shipment.getEarliestDepartureTime(),test_shipment2.getEarliestDepartureTime());
+		Assert.assertEquals(test_shipment.getFromLocationID(),test_shipment2.getFromLocationID());
+		Assert.assertEquals(test_shipment.getHazmat(),test_shipment2.getHazmat());
+		Assert.assertEquals(test_shipment.getLatestArrivalTime(),test_shipment2.getLatestArrivalTime());
+		Assert.assertEquals(test_shipment.getLatestDepartureTime(),test_shipment2.getLatestDepartureTime());
+		Assert.assertEquals(test_shipment.getLoadingType(),test_shipment2.getLoadingType());
+		Assert.assertEquals(test_shipment.getLoadingRate(),test_shipment2.getLoadingRate());
+		Assert.assertEquals(test_shipment.getMaxStops(),test_shipment2.getMaxStops());
+		Assert.assertEquals(test_shipment.getPrefCarriers(),test_shipment2.getPrefCarriers());
+		Assert.assertEquals(test_shipment.getPriority(),test_shipment2.getPriority());
+		Assert.assertEquals(test_shipment.getShipperID(), test_shipment2.getShipperID());
+		Assert.assertEquals(new Double(test_shipment.getSize()), new Double(test_shipment2.getSize()));
+		Assert.assertEquals(test_shipment.getTimeToLoad(), test_shipment2.getTimeToLoad());
+		Assert.assertEquals(test_shipment.getTimeToUnload(), test_shipment2.getTimeToUnload());
+		Assert.assertEquals(test_shipment.getToLocationID(), test_shipment2.getToLocationID());
+		Assert.assertEquals(test_shipment.getTrailerType(), test_shipment2.getTrailerType());
+		Assert.assertEquals(test_shipment.getUnloadType(), test_shipment2.getUnloadType());
+		Assert.assertEquals(new Double( test_shipment.getWeight()),new Double(test_shipment2.getWeight()));
+		
+		test_shipment.Delete();
 	}
 
 }
