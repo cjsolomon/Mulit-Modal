@@ -45,13 +45,9 @@ public class Shipment extends BaseClass {
 	private static final int MIN_LOAD_RATE = 1;
 	private static final int MAX_LOAD_RATE = 100;
 	private static final int MIN_STOPS = 1;
-<<<<<<< HEAD
-	private static final int MAX_STOPS = 500;
-
-=======
 	private static final int MAX_STOPS = 1000;
 	
->>>>>>> e419b505251bcf9f6781044dd5ecca8bca518875
+
 	/**
 	 * This is the default constructor for the Shipment object
 	 */
