@@ -31,7 +31,7 @@ public class TruckTypeTable extends JTable {
 		source=TravelType.LoadAll("where VehicleMode='Truck'");
 		this.setModel(new TruckTypeModel(source));
 	}
-	public TravelType getSelectedTruck()
+	public TravelType getSelectedTravelType()
 	{
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
 		for(TravelType t : source)

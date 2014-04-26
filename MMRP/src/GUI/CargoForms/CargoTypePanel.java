@@ -19,6 +19,7 @@ public class CargoTypePanel extends JPanel {
 	CargoType ct;
 	private JButton btnNew;
 	private JButton btnView;
+	private JButton btnDelete;
 	public CargoTypePanel()
 	{
 		sp = new JScrollPane();
@@ -92,7 +93,7 @@ public class CargoTypePanel extends JPanel {
 		});
 		add(btnNew, "20, 14");
 		
-		JButton btnDelete = new JButton("Delete");
+		btnDelete = new JButton("Delete");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctt.getSelectedRow()!=-1)
