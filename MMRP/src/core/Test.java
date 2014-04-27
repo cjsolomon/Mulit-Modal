@@ -23,21 +23,16 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws IOException
 	{
 		
-		Segment s = new Segment();
-		s.setVehicle(Truck.Load(1));
-		s.setTravelType(TravelType.Load(1));
-
-		s.Update();
-		s.setVehicle(Cargo.Load(3));
-		s.setTravelType(TravelType.Load(3));
-		s.Update();
+		ArrayList<Shipment> shipments = Shipment.LoadAll("where ShipmentID > 7999 AND ShipmentID < 9015");
+		System.out.println("The number of Shipments loaded are : " + shipments.size());
+	
 		
-		/*ArrayList<Shipment> shipments = Shipment.LoadAll("");
+		
 		for(int i = 0; i< shipments.size(); i++)	
 		{
 			System.out.println("Starting " + (i+1));
 			/*System.out.println("Doing A Star Search");
-			Routing.AStarAlg alg = new Routing.AStarAlg(shipments.get(i));
+			Routing.AStarAlg alg = new Routing.AStarAlg(shipments.get(i), new WeightedMetric(1,0,0));
 			ArrayList<Segment> route = alg.getPath();
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route);*/
@@ -51,26 +46,21 @@ public class Test extends BaseClass
 			/*Routing.BestFirstFind bestFind = new Routing.BestFirstFind(new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route3 =  bestFind.getPath();
 			shipments.get(i).DeleteAllHistory();
-			shipments.get(i).setHistoryFromSegments(route3);
+			shipments.get(i).setHistoryFromSegments(route3);*/
 			
 			/*Routing.TravelByType travelBT =  new Routing.TravelByType(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route4 =  travelBT.getPath();
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route4);*/
-			//Carrier nc = new Carrier();
-			//nc.Update();
-			//Location newL = new Location();
-			//newL.Update();
-			
 			
 			/*Routing.NextAvailableVehicle NAV =  new Routing.NextAvailableVehicle(Vehicle.TravelModes.TRUCK, new WeightedMetric(1,1,1), shipments.get(i));
 			ArrayList<Segment> route5 =  NAV.getPath();
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route5);*/
 			
-			//System.out.println("Done with " + (i+1));
-		//}
-		//printSolution();
+			System.out.println("Done with " + (i+1));
+		}
+		printSolution(shipments);
 		//printShipmentInfoToFile();
 		//printVehicleInfo();
 		//printVehicleRoute();
@@ -100,110 +90,7 @@ public class Test extends BaseClass
 		
 
 	}
-		public void getDistance()
-	{
-		//double[][] arr = new double[10][10];
-		//calculates the great circle distance between two points using the haversine formula.  Originally published by Roger Sinnott - Sky & Telescope magazine
-		//int earthRadius = 6371;			//radius of the earth in kilometers
-		/*
-		for(int i =1; i<=10;i++)
-		{
-			Location one = Location.Load(i);
-			for(int j =1; j<=10;j++)
-			{
-				Location two=Location.Load(j);
-				double lat2=one.getLatitude();
-				double long2=one.getLongitude();
-				double lat1=two.getLatitude();
-				double long1=two.getLongitude();
-				double d2r = Math.PI/180.0;
-		
-			    double dlong = (long2 - long1) * d2r;
-			    double dlat = (lat2 - lat1) * d2r;
-			    double a = Math.pow(Math.sin(dlat/2.0), 2) + Math.cos(lat1*d2r) * Math.cos(lat2*d2r) * Math.pow(Math.sin(dlong/2.0), 2);
-			    double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
-			    double d = 6367 * c;
-				arr[i-1][j-1]= d;
-				System.out.print(arr[i-1][j-1]+"\t");
-				
-			}
-			System.out.println();
-		}*/
-	}
-		
-		public void generateSegments()
-		{
-			/*
-			ArrayList<Cargo> planes = Cargo.LoadAll("");
-			for(int i = 0; i<planes.size();i++)
-			{
-				try
-				{
-					int lastArrival;
-					int lastLocation;
-					int startLocation;
-					int currentLocation;
-					ArrayList<Map<String,Object>> paths = executeQuery("Select * from temptable where Type = 'SHIP'");
-					int rand = (int) Math.floor(Math.random()* paths.size());
-					Segment s = new Segment();
-					s.setDepartureTime(0);
-					double baseDistance=arr[(Integer)paths.get(rand).get("Location1")-1][(Integer)paths.get(rand).get("Location2")-1];
-					//plane =.9, truck=1.1, rail=1.2, cargo=1.3
-					double offSetDistance = baseDistance * 1.3;
-					//plane=750,truck 112,rail=29,cargo=39
-					int time = (int)Math.floor(baseDistance/39);
-					s.setArrivalTime(s.getDepartureTime()+time);
-					lastArrival=s.getArrivalTime();
-					currentLocation=(Integer)paths.get(rand).get("Location2");
-					lastLocation=(Integer)paths.get(rand).get("Location1");
-					startLocation=(Integer)paths.get(rand).get("Location1");
-					//plane=.75,truck=.55, rail=.35, cargo=.25
-					int cost = (int)Math.floor(baseDistance*.25);
-					s.setCost(cost);
-					s.setDistance(offSetDistance);
-					s.setEndLocation(currentLocation);
-					s.setStartLocation(startLocation);
-					s.setVehicle(planes.get(i));
-					planes.get(i).addToSchedule(s);
-					int jumps=1;
-					while(jumps<2)
-					{
-						paths=executeQuery("Select * from temptable where Type = 'SHIP' and Location1 = '" +currentLocation+"'");
-						rand=(int) Math.floor(Math.random()* paths.size());
-						while((Integer)paths.get(rand).get("Location2")==lastLocation)
-						{
-							rand=(int) Math.floor(Math.random()* paths.size());
-						}
-						s = new Segment();
-						s.setDepartureTime(lastArrival+10);
-						baseDistance=arr[(Integer)paths.get(rand).get("Location1")-1][(Integer)paths.get(rand).get("Location2")-1];
-						offSetDistance = baseDistance * 1.3;
-						time = (int)Math.floor(baseDistance/39);
-						s.setArrivalTime(s.getDepartureTime()+time);
-						lastArrival=s.getArrivalTime();
-						currentLocation=(Integer)paths.get(rand).get("Location2");
-						lastLocation=(Integer)paths.get(rand).get("Location1");
-						cost = (int)Math.floor(baseDistance*.25);
-						s.setCost(cost);
-						s.setDistance(offSetDistance);
-						s.setEndLocation(currentLocation);
-						s.setStartLocation(lastLocation);
-						s.setVehicle(planes.get(i));
-						planes.get(i).addToSchedule(s);
-						jumps++;
-						if(currentLocation==startLocation)
-							break;
-					}
-					
-					
-				
-				}
-				catch(Exception ex)
-				{
-					System.out.println("Error " +ex);
-				}
-			}*/
-		}
+
 		/*public static void printVehicleRoute() throws IOException
 		{
 			File f = new File("Vehicles.txt");
@@ -471,9 +358,9 @@ public class Test extends BaseClass
 			}
 			w.flush();
 		}*/
-		public static void printSolution()throws IOException
+		public static void printSolution(ArrayList<Shipment> shipments)throws IOException
 		{
-			File f = new File("ShipmentsBestFind.txt");
+			File f = new File("ShipmentsNAVWDist.txt");
 			Writer w2=null;
 			try
 			{
@@ -485,7 +372,16 @@ public class Test extends BaseClass
 			{
 				System.out.println("Error " +ex);
 			}
-			ArrayList<Shipment> shipments = Shipment.LoadAll("");
+			
+			double lowestTotalTime = 100000;
+			double lowestTotalCost = 100000;
+			double lowestTotalDistance = 100000;
+			double highestTotalTime = 0;
+			double highestTotalCost = 0;
+			double highestTotalDistance = 0;
+			double sumTime = 0;
+			double sumCost = 0;
+			double sumDistance = 0;
 			for(int i = 0; i< shipments.size();i++)
 			{
 				String execute = "Shipment " + (i+1)+ "    From: " +Location.Load(shipments.get(i).getFromLocationID()).getName() + "    To: "+Location.Load(shipments.get(i).getToLocationID()).getName()+"\n";
@@ -497,17 +393,45 @@ public class Test extends BaseClass
 				//w2.write("Shipment " + shipments.get(i).getId()+"\t Earliest: " + shipments.get(i).getEarliestTime()+"\t Latest: "+ shipments.get(i).getLatestTime()+"\n");
 				//w2.write("\t Start:" + Location.Load(shipments.get(i).getFromLocationID()).getName()+" End: "+Location.Load(shipments.get(i).getToLocationID()).getName()+"\n");
 				ArrayList<ShipmentHistory>hist=shipments.get(i).getHistory();
+				double totalTime = 0;
+				double totalCost = 0;
+				double totalDistance = 0;
 				for(int j = 0; j<hist.size();j++)
 				{
 					Segment s = hist.get(j).getSegment();
+					totalTime += (s.getEstimatedArrivalTime() - s.getEstimatedDepartureTime());
+					totalCost += s.getShippingRate().getFlatRate();
+					totalDistance += s.getDistance();
 					Vehicle v =s.getVehicle();
 					w2.write("\n\t" + s.getStartLocation().getName() + " to " + s.getEndLocation().getName() + " via " + v.getVehicleName());
 					
 				}
-				if(hist.size() != 0)
-					w2.write("\n\n\tArrival: " + hist.get(hist.size()-1).getSegment().getEstimatedArrivalTime()+"\n\n\n\n");
+				
+				sumTime += totalTime;
+				sumCost += totalCost;
+				sumDistance += totalDistance;
+				if(hist.size() != 0){
+					w2.write("\n\n\tArrival: " + hist.get(hist.size()-1).getSegment().getEstimatedArrivalTime());
+					w2.write("\n\t Total Time : " + totalTime );
+					w2.write("\n\t Total Cost : " + totalCost );
+					w2.write("\n\t Total Distance : " + totalDistance );
+					w2.write("\n\n\n\n");
+				}
 				else
 					w2.write("No Route found.\n\n");
+				
+				if(totalTime < lowestTotalTime)
+					lowestTotalTime =totalTime;
+				if(totalCost < lowestTotalCost)
+					lowestTotalCost = totalCost;
+				if(totalDistance < lowestTotalDistance)
+					lowestTotalDistance =totalDistance;
+				if(totalTime > highestTotalTime)
+					highestTotalTime =totalTime;
+				if(totalCost > highestTotalCost)
+					highestTotalCost = totalCost;
+				if(totalDistance > highestTotalDistance)
+					highestTotalDistance =totalDistance;
 				//if(segs.size()!=0)
 				//{
 				//for(int j = 0; j<segs.size();j++)
@@ -516,6 +440,19 @@ public class Test extends BaseClass
 				//}
 				System.out.println("Done with " + i);
 			}
+			
+			
+			w2.write("\n\n\n Average Time : " + (sumTime / shipments.size()));
+			w2.write("\n Average Cost : " + (sumCost / shipments.size()));
+			w2.write("\n Average Distance : " + (sumDistance / shipments.size()));
+			
+			w2.write("\n\n\n Best Time : " + lowestTotalTime);
+			w2.write("\n Best Cost : " + lowestTotalCost);
+			w2.write("\n Best Distance : " + lowestTotalDistance);
+			w2.write("\n\n Worst Time : " + highestTotalTime);
+			w2.write("\n Worst Cost : " + highestTotalCost);
+			w2.write("\n Worst Distance : " + highestTotalDistance + "\n\n\n");
+			
 			w2.flush();
 			
 		}
