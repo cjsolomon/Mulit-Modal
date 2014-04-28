@@ -22,18 +22,6 @@ public class TravelType extends BaseClass {
 	private boolean explosives;
 	private boolean tracking;
 	
-	
-	//Default Variables
-	private static final int DEFAULT_VEHICLE_TYPE_ID = 0;
-	private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeName";
-	private static final String DEFAULT_VEHICLE_MODE = "defaultVehicleMode";
-	private static final String DEFAULT_TRAILER1 = "defaultTrailer1";
-	private static final String DEFAULT_TRAILER2 = "defaultTrailer2";
-	private static final double DEFAULT_MINIMUM_CAPACITY = 0;
-	private static final double DEFAULT_MAXIMUM_CAPACITY = 100;
-	private static final double DEFAULT_MAXIMUM_WEIGHT = 500;
-	private static final String DEFAULT_SERVICE_TYPE = "defaultServiceType";
-	
 	/**
 	 * The default TravelType constructor
 	 */
@@ -788,5 +776,52 @@ public class TravelType extends BaseClass {
 		{
 			return this.getTravelTypeName();														//Return the name of the Truck
 		}//End of overridden toString()
+		
+		//Default Variables
+		private static final int DEFAULT_VEHICLE_TYPE_ID = 0;
+		private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeName";
+		private static final String DEFAULT_VEHICLE_MODE = "defaultVehicleMode";
+		private static final String DEFAULT_TRAILER1 = "defaultTrailer1";
+		private static final String DEFAULT_TRAILER2 = "defaultTrailer2";
+		private static final double DEFAULT_MINIMUM_CAPACITY = 0;
+		private static final double DEFAULT_MAXIMUM_CAPACITY = 100;
+		private static final double DEFAULT_MAXIMUM_WEIGHT = 500;
+		private static final String DEFAULT_SERVICE_TYPE = "defaultServiceType";
+
+		public static int getDefaultVehicleTypeId() {
+			return DEFAULT_VEHICLE_TYPE_ID;
+		}
+
+		public static String getDefaultVehicleTypeName() {
+			return DEFAULT_VEHICLE_TYPE_NAME;
+		}
+
+		public static String getDefaultVehicleMode() {
+			return DEFAULT_VEHICLE_MODE;
+		}
+
+		public static String getDefaultTrailer1() {
+			return DEFAULT_TRAILER1;
+		}
+
+		public static String getDefaultTrailer2() {
+			return DEFAULT_TRAILER2;
+		}
+
+		public static double getDefaultMinimumCapacity() {
+			return DEFAULT_MINIMUM_CAPACITY;
+		}
+
+		public static double getDefaultMaximumCapacity() {
+			return DEFAULT_MAXIMUM_CAPACITY;
+		}
+
+		public static double getDefaultMaximumWeight() {
+			return DEFAULT_MAXIMUM_WEIGHT;
+		}
+
+		public static String getDefaultServiceType() {
+			return DEFAULT_SERVICE_TYPE;
+		}
 
 }//End of TravelType Class

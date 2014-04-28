@@ -282,4 +282,22 @@ public class ShippingRateTest {
 		
 		test_rate.Delete();
 	}
+	
+	@Test
+	public void testDelete() {
+		test_rate.setRate3(57.57);
+		test_rate.Update();
+		
+		Assert.assertFalse(test_rate.isDeleted());
+		test_rate.Delete();
+		Assert.assertTrue(test_rate.isDeleted());
+		
+		ArrayList<ShippingRate> rate_list = new ArrayList<ShippingRate>();
+		rate_list = ShippingRate.LoadAll("where Rate3 = 57.57");
+		
+		Assert.assertTrue(rate_list.isEmpty());
+		
+		
+		
+	}
 }
