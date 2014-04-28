@@ -21,7 +21,7 @@ public class TravelType extends BaseClass {
 	private boolean hazmat;
 	private boolean explosives;
 	private boolean tracking;
-	
+
 	/**
 	 * The default TravelType constructor
 	 */
@@ -45,7 +45,7 @@ public class TravelType extends BaseClass {
 		MarkNew();																//Mark the Truck as new
 		MarkUndeleted();
 	}//End of the default TravelType constructor
-	
+
 	/**
 	 * This is the argumented TravelType constructor
 	 * @param id This is the id of the new TravelType
@@ -69,7 +69,7 @@ public class TravelType extends BaseClass {
 		//this.vehicleTypeID = DEFAULT_VEHICLE_TYPE_ID;
 		MarkClean();									
 	}//End of the argumented TravelType constructor
-	
+
 	/**
 	 * This function will return the vehicle type's id
 	 * @return Returns the vehicle's type id
@@ -78,16 +78,18 @@ public class TravelType extends BaseClass {
 	{
 		return vehicleTypeID;													//Returns the vehicle type id
 	}//End of getVehicleTypeID()
-	
+
 	/**
 	 * This function sets the travel type's name
 	 * @param newName This is the new Travel Type's name
 	 */
 	public void setTravelTypeName(String newName)
 	{
-		vehicleTypeName = newName;													//Set the TravelType's name 
+		vehicleTypeName = newName;	
+		this.MarkDirty();
+		//Set the TravelType's name 
 	}//End of setTravelTypeName(String newName)
-	
+
 	/**
 	 * This function returns the TravelType name
 	 * @return Returns the TravelType's name
@@ -96,7 +98,7 @@ public class TravelType extends BaseClass {
 	{
 		return vehicleTypeName;													//Returns the TravelType's name 
 	}//End of getTravelTypeName()
-	
+
 	/**
 	 * This function sets the travel type's mode
 	 * @param newMode This sets the vehicle's travel mode
@@ -125,7 +127,7 @@ public class TravelType extends BaseClass {
 		}
 		//Set the TravelType's mode
 	}//End of setTravelTypeMode(String newMode)
-		
+
 	/**
 	 * This function returns the TravelType mode
 	 * @return Returns the TravelTypes mode
@@ -134,16 +136,18 @@ public class TravelType extends BaseClass {
 	{
 		return vehicleMode;													//Returns the TravelType's mode
 	}//End of getTravelTypeMode()
-	
+
 	/**
 	 * This function sets the trailer1
 	 * @param newTrailer1 This is the new trailer1
 	 */
 	public void setTrailer1(String newTrailer1)
 	{
-		trailer1 = newTrailer1;														//Set the TravelType's trailer1
+		trailer1 = newTrailer1;		
+		this.MarkDirty();
+		//Set the TravelType's trailer1
 	}//End of setTrailer1(String newTrailer1)
-			
+
 	/**
 	 * This function returns the TravelType trailer1
 	 * @return Returns the trailer1 for this TravelType
@@ -152,7 +156,7 @@ public class TravelType extends BaseClass {
 	{
 		return trailer1;													//Returns the TravelType's trailer1
 	}//End of getTrailer1()
-	
+
 	/**
 	 * This function sets the trailer1
 	 * @param newTrailer2 This is the new trailer2
@@ -160,8 +164,9 @@ public class TravelType extends BaseClass {
 	public void setTrailer2(String newTrailer2)
 	{
 		trailer2 = newTrailer2;														//Set the TravelType's trailer2
+		this.MarkDirty();
 	}//End of setTrailer2(String newTrailer2)
-				
+
 	/**
 	 * This function returns the TravelType trailer2
 	 * @return Returns the trailer2 for this TravelType
@@ -170,7 +175,7 @@ public class TravelType extends BaseClass {
 	{
 		return trailer2;													//Returns the TravelType's trailer2
 	}//End of getTrailer2()
-	
+
 	/**
 	 * This function sets the travel type's minimum capacity
 	 * @param minCapacity This is the new minumum capacity for the TravelType
@@ -183,8 +188,9 @@ public class TravelType extends BaseClass {
 			minCapacity = 0;
 		}
 		minCap = minCapacity;												//Set the TravelType's minimum capacity
+		this.MarkDirty();
 	}//End of setMinCap(double minCapacity)
-	
+
 	/**
 	 * This function returns the TravelType's minimum capacity
 	 * @return Returns the minimum capacity
@@ -193,7 +199,7 @@ public class TravelType extends BaseClass {
 	{
 		return minCap;														//Returns the TravelType's minimum capacity
 	}//End of getMinCap()
-	
+
 	/**
 	 * This function sets the travel type's maximum capacity
 	 * @param maxCapacity This is the maximum capacity of the TravelType
@@ -209,8 +215,9 @@ public class TravelType extends BaseClass {
 			Log.writeLogWarning("Invalid entry for max capacity in Travel Type. Setting max capacity to "+ DEFAULT_MAXIMUM_CAPACITY);
 			maxCap = DEFAULT_MAXIMUM_CAPACITY;
 		}
+		this.MarkDirty();
 	}//End of setMaxCap(double maxCapacity)
-		
+
 	/**
 	 * This function returns the TravelType maximum capacity
 	 * @return Returns the maximum capacity for the TravelType
@@ -219,7 +226,7 @@ public class TravelType extends BaseClass {
 	{
 		return maxCap;														//Returns the TravelType's maximum capacity
 	}//End of getMaxCap()
-	
+
 	/**
 	 * This function sets the travel type's maximum weight
 	 * @param weight This is the new maximum weight of the TravelType
@@ -235,8 +242,9 @@ public class TravelType extends BaseClass {
 			Log.writeLogWarning("Invalid entry for weight in Truck Type. Setting weight to " + DEFAULT_MAXIMUM_WEIGHT);
 			maxWeight = DEFAULT_MAXIMUM_WEIGHT;
 		}
+		this.MarkDirty();
 	}//End of setMaxWeight(double weight)
-				
+
 	/**
 	 * This function returns the TravelType maximum weight
 	 * @return Returns the maximum weight for the TravelType
@@ -245,16 +253,17 @@ public class TravelType extends BaseClass {
 	{
 		return maxWeight;												//Returns the TravelType's maximum weight
 	}//End of getMaxWeight()
-	
+
 	/**
 	 * This function sets the TravelType's Service Type
 	 * @param service This is the new service type for the TravelType
 	 */
 	public void setServiceType(String service)
 	{
-		serviceType = service;											//Set the TravelType's service type
+		serviceType = service;	//Set the TravelType's service type
+		this.MarkDirty();
 	}//End of setServiceType(String service)
-	
+
 	/**
 	 * This function will return the TravelType's Service Type
 	 * @return Returns the service type for the TravelType
@@ -263,13 +272,16 @@ public class TravelType extends BaseClass {
 	{
 		return serviceType;												//Returns the TravelType's Service Type
 	}//End of getServiceType()
-	
+
 	/**
 	 * This function will set the radiation field to true
 	 */
 	public void setRadTrue()
 	{
-		radiation = true;												//Sets the radiation field to true
+		if (!radiation) {
+			radiation = true;												//Sets the radiation field to true
+			this.MarkDirty();
+		}
 	}//End of setRadTrue()
 	public void setRad(boolean value)
 	{
@@ -284,9 +296,12 @@ public class TravelType extends BaseClass {
 	 */
 	public void setRadFalse()
 	{
-		radiation = false;												//Sets the radiation field to false
+		if (radiation) {
+			radiation = false;												//Sets the radiation field to false
+			this.MarkDirty();
+		}
 	}//End of setRadFalse()
-	
+
 	/**
 	 * This function will return the state of the radiation field
 	 * @return
@@ -295,7 +310,7 @@ public class TravelType extends BaseClass {
 	{
 		return radiation;												//Returns the radiation field
 	}//End of getRadiation()
-	
+
 	public void setRef(boolean value)
 	{
 		if(refrigeration!=value)
@@ -309,17 +324,23 @@ public class TravelType extends BaseClass {
 	 */
 	public void setRefTrue()
 	{
-		this.refrigeration = true;										//Sets the refridgeration field to true
+		if (!refrigeration) {
+			this.refrigeration = true;										//Sets the refridgeration field to true
+			this.MarkDirty();
+		}
 	}//End of setRefTrue()
-		
+
 	/**
 	 * This function will set the refrigeration field to false
 	 */
 	public void setRefFalse()
 	{
-		refrigeration = false;											//Sets the refridgeration field to false
+		if (refrigeration) {
+			refrigeration = false;											//Sets the refridgeration field to false
+			this.MarkDirty();
+		}
 	}//End of setRadFalse()
-		
+
 	/**
 	 * This function will return the state of the radiation field
 	 * @return Returns a boolean indicating if the TravelType can handle refrigeration
@@ -328,7 +349,7 @@ public class TravelType extends BaseClass {
 	{
 		return refrigeration;											//Returns the refridgeration field
 	}//End of getRefridgeration()
-	
+
 	public void setHaz(boolean value)
 	{
 		if(hazmat!=value)
@@ -342,17 +363,23 @@ public class TravelType extends BaseClass {
 	 */
 	public void setHazTrue()
 	{
-		this.hazmat = true;												//Sets the hazmat field to true
+		if (!hazmat) {
+			this.hazmat = true;												//Sets the hazmat field to true
+			this.MarkDirty();
+		}
 	}//End of setHazTrue()
-			
+
 	/**
 	 * This function will set the hazmat field to false
 	 */
 	public void setHazFalse()
 	{
-		hazmat = false;													//Sets the hazmat field to false
+		if (hazmat) {
+			hazmat = false;													//Sets the hazmat field to false
+			this.MarkDirty();
+		}
 	}//End of setHazFalse()
-			
+
 	/**
 	 * This function will return the state of the hazmat field
 	 * @return Returns a boolean indicating if the TravelType can handle hazardous material
@@ -361,7 +388,7 @@ public class TravelType extends BaseClass {
 	{
 		return hazmat;													//Returns the hazmat field
 	}//End of getHazmat()
-	
+
 	public void setExp(boolean value)
 	{
 		if(explosives!=value)
@@ -375,17 +402,23 @@ public class TravelType extends BaseClass {
 	 */
 	public void setExpTrue()
 	{
-		this.explosives= true;											//Sets the explosives field to true
+		if(!explosives) {
+			this.explosives= true;											//Sets the explosives field to true
+			this.MarkDirty();
+		}
 	}//End of setExpTrue()
-				
+
 	/**
 	 * This function will set the explosives field to false
 	 */
 	public void setExpFalse()
 	{
-		explosives = false;												//Sets the explosives field to false
+		if(explosives) {
+			explosives = false;												//Sets the explosives field to false
+			this.MarkDirty();
+		}
 	}//End of setExpFalse()
-				
+
 	/**
 	 * This function will return the state of the explosives field
 	 * @return Returns a boolean indicating if the TravelType can handle explosive material
@@ -394,7 +427,7 @@ public class TravelType extends BaseClass {
 	{
 		return explosives;												//Returns the explosives field
 	}//End of getExplosives()
-	
+
 	public void setTracking(boolean value)
 	{
 		if(tracking!=value)
@@ -408,17 +441,23 @@ public class TravelType extends BaseClass {
 	 */
 	public void setTrackingTrue()
 	{
-		this.tracking= true;											//Sets the tracking field to true
+		if (!tracking) {
+			this.tracking= true;											//Sets the tracking field to true
+			this.MarkDirty();
+		}
 	}//End of setTrackingTrue()
-					
+
 	/**
 	 * This function will set the tracking field to false
 	 */
 	public void setTrackingFalse()
 	{
-		tracking = false;												//Sets the tracking field to false
+		if(tracking) {
+			tracking = false;												//Sets the tracking field to false
+			this.MarkDirty();
+		}
 	}//End of setTrackingFalse()
-					
+
 	/**
 	 * This function will return the state of the tracking field
 	 * @return Returns a boolean indicating if the TravelType offers tracking
@@ -427,7 +466,7 @@ public class TravelType extends BaseClass {
 	{
 		return tracking;												//Returns the tracking field
 	}//End of getTracking()
-	
+
 	/**
 	 * This function overrides the parent's Update function and will handle changes made to the Truck object in the database
 	 */
@@ -441,14 +480,14 @@ public class TravelType extends BaseClass {
 			{
 				//If the Truck is new insert it into the database by executing the following
 				executeCommand("Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,MaxWeight,ServiceType,Radiation, Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
-					    this.getTravelTypeName() + "','" +this.getTravelTypeMode() + "','"+ this.getTrailer1()+"','"+this.getTrailer2() + "','" + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
+						this.getTravelTypeName() + "','" +this.getTravelTypeMode() + "','"+ this.getTrailer1()+"','"+this.getTrailer2() + "','" + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
 						this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");
 				//Grab this Truck from the database
 				ArrayList<Map<String,Object>> temp =executeQuery("Select VehicleTypeID from TravelTypes where VehicleTypeName = '" + this.getTravelTypeName() + "' AND VehicleMode = '"+this.getTravelTypeMode()+
 						"' AND Trailer1 = '" + this.getTrailer1() + "' AND Trailer2 = '" + this.getTrailer2() + "' AND MinimumCapacity = '" + this.getMinCap() + 
 						"' AND MaximumCapacity = '" + this.getMaxCap() + "' AND MaxWeight = '" + this.getMaxWeight()+ "' AND ServiceType = '" + this.getServiceType()+
-						 "' AND Radiation = '" + this.getRadiation()+ "' AND Refridgeration = '" + this.getRefridgeration()+ "' AND HazardousMaterial = '" + this.getHazmat()+ "' AND ExplosiveMaterial = '" + this.getExplosives()+
-						 "' AND Tracking = '" + this.getTracking()+"'");
+						"' AND Radiation = '" + this.getRadiation()+ "' AND Refridgeration = '" + this.getRefridgeration()+ "' AND HazardousMaterial = '" + this.getHazmat()+ "' AND ExplosiveMaterial = '" + this.getExplosives()+
+						"' AND Tracking = '" + this.getTracking()+"'");
 				//If this TravelType exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
@@ -463,11 +502,11 @@ public class TravelType extends BaseClass {
 				{
 					//If the TravelType is not new, but is dirty then it needs to be updated by the following SQL command
 					executeCommand("Update TravelTypes Set VehicleTypeName = '" + this.getTravelTypeName() + "' , VehicleMode = '"+this.getTravelTypeMode()+
-						"' , Trailer1 = '" + this.getTrailer1() + "' , Trailer2 = '" + this.getTrailer2() + "' , MinimumCapacity = '" + this.getMinCap() + 
-						"' , MaximumCapacity = '" + this.getMaxCap() + "' , MaxWeight = '" + this.getMaxWeight() +
-						"' , ServiceType = '" + this.getServiceType() + "' , Radiation = " + this.getRadiation() + " , Refridgeration = " + this.getRefridgeration() +
-						" , HazardousMaterial = " + this.getHazmat() + " , ExplosiveMaterial = " + this.getExplosives() + " , Tracking = " + this.getTracking() +
-						", Deleted = " +this.isDeleted() + " Where VehicleTypeID = " +this.vehicleTypeID);
+							"' , Trailer1 = '" + this.getTrailer1() + "' , Trailer2 = '" + this.getTrailer2() + "' , MinimumCapacity = '" + this.getMinCap() + 
+							"' , MaximumCapacity = '" + this.getMaxCap() + "' , MaxWeight = '" + this.getMaxWeight() +
+							"' , ServiceType = '" + this.getServiceType() + "' , Radiation = " + this.getRadiation() + " , Refridgeration = " + this.getRefridgeration() +
+							" , HazardousMaterial = " + this.getHazmat() + " , ExplosiveMaterial = " + this.getExplosives() + " , Tracking = " + this.getTracking() +
+							", Deleted = " +this.isDeleted() + " Where VehicleTypeID = " +this.vehicleTypeID);
 					MarkClean();																	//Mark the TravelType as clean
 				}//End of isDirty if
 			}//End of isOld else
@@ -479,7 +518,7 @@ public class TravelType extends BaseClass {
 			ex.printStackTrace();
 			return false;
 		}//End of catch block
-		
+
 	}//End of overridden Update()
 
 	/**
@@ -525,15 +564,15 @@ public class TravelType extends BaseClass {
 			System.out.println("Error " + ex);
 			ex.printStackTrace();
 		}
- 		return null;
+		return null;
 	}//End of Load(int id)
-	
+
 	/**
 	 * This function will load all TravelTypes for a given Vehicle
 	 * @param Vehicle v, the vehicle to retrieve data for
 	 * @return ArrayList<TravelTypes>
 	 */
-	
+
 	public static ArrayList<TravelType> LoadForVehicle(Vehicle v)
 	{
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
@@ -559,7 +598,7 @@ public class TravelType extends BaseClass {
 	 * @param mode, string for which travel mode the vehicle is
 	 * @return ArrayList<TravelTypes>
 	 */
-	
+
 	public static ArrayList<TravelType> LoadForVehicle(int id, String mode)
 	{
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
@@ -660,9 +699,9 @@ public class TravelType extends BaseClass {
 		{
 			try
 			{
-				
+
 				executeCommand("Update vehicletraveltypeindex set Deleted = true where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
-				
+
 			}
 			catch(Exception ex)
 			{
@@ -676,9 +715,9 @@ public class TravelType extends BaseClass {
 		{
 			try
 			{
-				
+
 				executeCommand("Update vehicletraveltypeindex set Deleted = true where VehicleID ='" + id + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
-				
+
 			}
 			catch(Exception ex)
 			{
@@ -714,114 +753,114 @@ public class TravelType extends BaseClass {
 		}
 		return returnList;
 	}//End of LoadAll(String where)
-	
+
 	/**
 	 * This function builds objects from returned data from SQL queries against our database
 	 * @param data This is the data that will be used to build the TravelType
 	 * @return Returns a new TravelType built from the passed in data
 	 * @throws SQLException
 	 */
-		public static TravelType BuildFromDataRow(Map<String,Object> data) throws SQLException
-		{
-			//This code grabs each element that will be found in the database on the TravelType table and set the appropriate values for a new TravelType
-			TravelType t = new TravelType((Integer)data.get("VehicleTypeID"));
-			t.setMaxCap((Double.parseDouble(data.get("MaximumCapacity").toString())));//rs.getInt("Capacity"));
-			t.setMinCap((Double.parseDouble(data.get("MinimumCapacity").toString())));//rs.getString("Contractor"));
-			t.setMaxWeight((Double.parseDouble(data.get("MaxWeight").toString())));//,rs.getString("LocationName"));
-			t.setServiceType((String)data.get("ServiceType"));//rs.getString("TruckType"));
-			t.setTrailer1((String)data.get("Trailer1"));//rs.getString("Status"));		
-			t.setTrailer2((String)data.get("Trailer2"));
-			t.setTravelTypeMode((String)data.get("VehicleMode"));
-			t.setTravelTypeName((String)data.get("VehicleTypeName"));
-			if(Boolean.valueOf(data.get("Radiation").toString())){
-				t.setRadTrue();	
-			}
-			else
-				t.setRadFalse();
-			if(Boolean.valueOf(data.get("HazardousMaterial").toString())){
-				t.setHazTrue();	
-			}
-			else
-				t.setHazFalse();
-			if(Boolean.valueOf(data.get("ExplosiveMaterial").toString())){
-				t.setExpTrue();	
-			}
-			else
-				t.setExpFalse();
-			if(Boolean.valueOf(data.get("Refridgeration").toString())){
-				t.setRefTrue();	
-			}
-			else
-				t.setRefFalse();
-			if(Boolean.valueOf(data.get("Tracking").toString())){
-				t.setTrackingTrue();	
-			}
-			else
-				t.setTrackingFalse();
-			if(Boolean.valueOf(data.get("Deleted").toString()))
-				t.MarkDeleted();
-			else
-				t.MarkUndeleted();
-			
-			t.MarkClean();																//Mark the Truck as clean
-			return t;
-			
-		}//End of BuildFromDataRow(Map<String,Object> data)
-		
-		/**
-		 * This function overrides the toString function and returns the name of the Truck
-		 */
-		@Override
-		public String toString()
-		{
-			return this.getTravelTypeName();														//Return the name of the Truck
-		}//End of overridden toString()
-		
-		//Default Variables
-		private static final int DEFAULT_VEHICLE_TYPE_ID = 0;
-		private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeName";
-		private static final String DEFAULT_VEHICLE_MODE = "defaultVehicleMode";
-		private static final String DEFAULT_TRAILER1 = "defaultTrailer1";
-		private static final String DEFAULT_TRAILER2 = "defaultTrailer2";
-		private static final double DEFAULT_MINIMUM_CAPACITY = 0;
-		private static final double DEFAULT_MAXIMUM_CAPACITY = 100;
-		private static final double DEFAULT_MAXIMUM_WEIGHT = 500;
-		private static final String DEFAULT_SERVICE_TYPE = "defaultServiceType";
-
-		public static int getDefaultVehicleTypeId() {
-			return DEFAULT_VEHICLE_TYPE_ID;
+	public static TravelType BuildFromDataRow(Map<String,Object> data) throws SQLException
+	{
+		//This code grabs each element that will be found in the database on the TravelType table and set the appropriate values for a new TravelType
+		TravelType t = new TravelType((Integer)data.get("VehicleTypeID"));
+		t.setMaxCap((Double.parseDouble(data.get("MaximumCapacity").toString())));//rs.getInt("Capacity"));
+		t.setMinCap((Double.parseDouble(data.get("MinimumCapacity").toString())));//rs.getString("Contractor"));
+		t.setMaxWeight((Double.parseDouble(data.get("MaxWeight").toString())));//,rs.getString("LocationName"));
+		t.setServiceType((String)data.get("ServiceType"));//rs.getString("TruckType"));
+		t.setTrailer1((String)data.get("Trailer1"));//rs.getString("Status"));		
+		t.setTrailer2((String)data.get("Trailer2"));
+		t.setTravelTypeMode((String)data.get("VehicleMode"));
+		t.setTravelTypeName((String)data.get("VehicleTypeName"));
+		if(Boolean.valueOf(data.get("Radiation").toString())){
+			t.setRadTrue();	
 		}
-
-		public static String getDefaultVehicleTypeName() {
-			return DEFAULT_VEHICLE_TYPE_NAME;
+		else
+			t.setRadFalse();
+		if(Boolean.valueOf(data.get("HazardousMaterial").toString())){
+			t.setHazTrue();	
 		}
-
-		public static String getDefaultVehicleMode() {
-			return DEFAULT_VEHICLE_MODE;
+		else
+			t.setHazFalse();
+		if(Boolean.valueOf(data.get("ExplosiveMaterial").toString())){
+			t.setExpTrue();	
 		}
-
-		public static String getDefaultTrailer1() {
-			return DEFAULT_TRAILER1;
+		else
+			t.setExpFalse();
+		if(Boolean.valueOf(data.get("Refridgeration").toString())){
+			t.setRefTrue();	
 		}
-
-		public static String getDefaultTrailer2() {
-			return DEFAULT_TRAILER2;
+		else
+			t.setRefFalse();
+		if(Boolean.valueOf(data.get("Tracking").toString())){
+			t.setTrackingTrue();	
 		}
+		else
+			t.setTrackingFalse();
+		if(Boolean.valueOf(data.get("Deleted").toString()))
+			t.MarkDeleted();
+		else
+			t.MarkUndeleted();
 
-		public static double getDefaultMinimumCapacity() {
-			return DEFAULT_MINIMUM_CAPACITY;
-		}
+		t.MarkClean();																//Mark the Truck as clean
+		return t;
 
-		public static double getDefaultMaximumCapacity() {
-			return DEFAULT_MAXIMUM_CAPACITY;
-		}
+	}//End of BuildFromDataRow(Map<String,Object> data)
 
-		public static double getDefaultMaximumWeight() {
-			return DEFAULT_MAXIMUM_WEIGHT;
-		}
+	/**
+	 * This function overrides the toString function and returns the name of the Truck
+	 */
+	@Override
+	public String toString()
+	{
+		return this.getTravelTypeName();														//Return the name of the Truck
+	}//End of overridden toString()
 
-		public static String getDefaultServiceType() {
-			return DEFAULT_SERVICE_TYPE;
-		}
+	//Default Variables
+	private static final int DEFAULT_VEHICLE_TYPE_ID = 0;
+	private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeName";
+	private static final String DEFAULT_VEHICLE_MODE = "defaultVehicleMode";
+	private static final String DEFAULT_TRAILER1 = "defaultTrailer1";
+	private static final String DEFAULT_TRAILER2 = "defaultTrailer2";
+	private static final double DEFAULT_MINIMUM_CAPACITY = 0;
+	private static final double DEFAULT_MAXIMUM_CAPACITY = 1000000.0;
+	private static final double DEFAULT_MAXIMUM_WEIGHT = 1000000.0;
+	private static final String DEFAULT_SERVICE_TYPE = "defaultServiceType";
+
+	public static int getDefaultVehicleTypeId() {
+		return DEFAULT_VEHICLE_TYPE_ID;
+	}
+
+	public static String getDefaultVehicleTypeName() {
+		return DEFAULT_VEHICLE_TYPE_NAME;
+	}
+
+	public static String getDefaultVehicleMode() {
+		return DEFAULT_VEHICLE_MODE;
+	}
+
+	public static String getDefaultTrailer1() {
+		return DEFAULT_TRAILER1;
+	}
+
+	public static String getDefaultTrailer2() {
+		return DEFAULT_TRAILER2;
+	}
+
+	public static double getDefaultMinimumCapacity() {
+		return DEFAULT_MINIMUM_CAPACITY;
+	}
+
+	public static double getDefaultMaximumCapacity() {
+		return DEFAULT_MAXIMUM_CAPACITY;
+	}
+
+	public static double getDefaultMaximumWeight() {
+		return DEFAULT_MAXIMUM_WEIGHT;
+	}
+
+	public static String getDefaultServiceType() {
+		return DEFAULT_SERVICE_TYPE;
+	}
 
 }//End of TravelType Class

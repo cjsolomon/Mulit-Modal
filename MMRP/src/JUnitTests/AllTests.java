@@ -10,7 +10,8 @@ import core.Carrier;
 @SuiteClasses({
 	LogTest.class,BikeTest.class,CargoTest.class,PlaneTest.class, RailTest.class, 
 	TruckTest.class, BaseUnitTest.class, CarrierTest.class, FormatCheckerTest.class,
-	LocationTest.class, SegmentTest.class, ShipmentHistoryTest.class, ShipmentTest.class
+	LocationTest.class, SegmentTest.class, ShipmentHistoryTest.class, ShipmentTest.class,
+	ShippingRateTest.class
 	})
 public class AllTests {
 
