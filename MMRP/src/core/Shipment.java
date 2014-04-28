@@ -1012,6 +1012,7 @@ public class Shipment extends BaseClass {
 		{
 			history.get(i).Delete();
 		}
+		history.clear();
 	}//End of DeleteAllHistory()
 
 	//Default Variables
