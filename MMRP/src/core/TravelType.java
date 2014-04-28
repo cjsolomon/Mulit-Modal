@@ -575,7 +575,10 @@ public class TravelType extends BaseClass {
 
 	public static ArrayList<TravelType> LoadForVehicle(Vehicle v)
 	{
-		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		
+		return v.getAvailableTypes();
+		//This is the proper way to do this, but will disabled until we sort out the indextable
+		/*ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
 			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM indextable vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + v.getId() +"' AND vti.TravelMode = '" + v.getTravelMode()+"'"+ " AND vti.Deleted = false");
@@ -590,7 +593,8 @@ public class TravelType extends BaseClass {
 			System.out.println("Error " + ex);
 			ex.printStackTrace();
 		}
-		return returnList;
+		return returnList;*/
+		
 	}
 	/**
 	 * Overload: This function will load all TravelTypes for a given Vehicle based on vehicle id and mode
@@ -604,7 +608,7 @@ public class TravelType extends BaseClass {
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND tt.Deleted = false");
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM indextable vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND tt.Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));
