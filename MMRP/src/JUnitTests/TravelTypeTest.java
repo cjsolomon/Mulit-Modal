@@ -356,6 +356,8 @@ public class TravelTypeTest {
 		test_type2.setExpTrue();
 		test_type2.setRefTrue();
 		
+		test_type.Update();
+		test_type2.Update();
 		test_truck.addToTypes(test_type);
 		test_truck.addToTypes(test_type2);
 		
@@ -365,7 +367,6 @@ public class TravelTypeTest {
 		ArrayList<TravelType> travel_list = new ArrayList<TravelType>();
 		
 		travel_list = TravelType.LoadForVehicle(test_truck);
-		
 		Assert.assertEquals(2,travel_list.size());
 		
 		travel_list = TravelType.LoadForVehicle(test_truck2);
@@ -373,6 +374,8 @@ public class TravelTypeTest {
 			
 		test_truck.Delete();
 		test_truck2.Delete();
+		test_type.Delete();
+		test_type2.Delete();
 	}
 	
 	
