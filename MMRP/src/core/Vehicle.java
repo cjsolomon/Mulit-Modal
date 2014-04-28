@@ -348,12 +348,15 @@ public abstract class Vehicle extends BaseClass {
 	public void removeFromTypes(TravelType t)
 	{
 		this.typesAvail.remove(t);
-		t.removeFromVehilce(this.id,this.mode.toString());
+		t.removeFromVehicle(this.id,this.mode.toString());
 	}
 	public void addToTypes(TravelType t)
 	{
+		if(typesAvail == null){
+			typesAvail = new ArrayList<TravelType>();
+		}
 		this.typesAvail.add(t);
-		t.addToVehilce(this.id,this.mode.toString());
+		t.addToVehicle(this.id,this.mode.toString());
 	}
 	
 	/**

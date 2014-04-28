@@ -666,13 +666,13 @@ public class TravelType extends BaseClass {
 			}
 		}
 	}
-	public void addToVehilce(int id, String mode)
+	public void addToVehicle(int id, String mode)
 	{
 		if(mode.equals(this.getTravelTypeMode()))
 		{
 			try
 			{
-				if(executeQuery("Select * from vehicletraveltypeindex where VehicleID = '" + id +"' AND TravelMode = '"+ mode + "' AND TravelTypeID = '" + this.getVehicleTypeID()+"'").size()==0)
+				if(executeQuery("Select * from indextable where VehicleID = '" + id +"' AND TravelMode = '"+ mode + "' AND TravelTypeID = '" + this.getVehicleTypeID()+"'").size()==0)
 				{
 					/*Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,ActualCapacity,MaxWeight,ServiceType,Radiation
 					 * , Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
@@ -680,11 +680,11 @@ public class TravelType extends BaseClass {
 					     + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
 						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","
 						+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");*/
-					executeCommand("Insert into vehicletraveltypeindex (VehicleID,TravelTypeID,TravelMode,inUse,Deleted) Values('"+id+"','"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
+					executeCommand("Insert into indextable (VehicleID,SegmentID, TravelTypeID,TravelMode,inUse,Deleted) Values('"+id+"','0', '"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
 				}
 				else
 				{
-					executeCommand("Update vehicletraveltypeindex set Deleted = false where VehicleID ='" + id + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+					executeCommand("Update indextable set Deleted = false where VehicleID ='" + id + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
 				}
 			}
 			catch(Exception ex)
@@ -709,7 +709,7 @@ public class TravelType extends BaseClass {
 			}
 		}
 	}
-	public void removeFromVehilce(int id, String mode)
+	public void removeFromVehicle(int id, String mode)
 	{
 		if(mode.equals(this.getTravelTypeMode()))
 		{
@@ -817,9 +817,9 @@ public class TravelType extends BaseClass {
 	}//End of overridden toString()
 
 	//Default Variables
-	private static final int DEFAULT_VEHICLE_TYPE_ID = 0;
+	private static final int DEFAULT_VEHICLE_TYPE_ID = 1;
 	private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeName";
-	private static final String DEFAULT_VEHICLE_MODE = "defaultVehicleMode";
+	private static final String DEFAULT_VEHICLE_MODE = "TRUCK";
 	private static final String DEFAULT_TRAILER1 = "defaultTrailer1";
 	private static final String DEFAULT_TRAILER2 = "defaultTrailer2";
 	private static final double DEFAULT_MINIMUM_CAPACITY = 0;
