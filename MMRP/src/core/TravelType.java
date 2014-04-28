@@ -605,10 +605,7 @@ public class TravelType extends BaseClass {
 
 	public static ArrayList<TravelType> LoadForVehicle(int id, String mode)
 	{
-		
-		return v.getAvailableTypes();
-		//This is the proper way to do this, but will disabled until we sort out the indextable
-		/*ArrayList<TravelType> returnList = new ArrayList<TravelType>();
+		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
 			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM indextable vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND tt.Deleted = false");
@@ -623,7 +620,7 @@ public class TravelType extends BaseClass {
 			System.out.println("Error " + ex);
 			ex.printStackTrace();
 		}
-		return returnList;*/
+		return returnList;
 	}
 	public static ArrayList<TravelType> LoadNotInVehilce(Vehicle v)
 	{
