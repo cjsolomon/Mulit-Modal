@@ -19,17 +19,6 @@ public class ShippingRate extends BaseClass{
 	private double flatRate;
 	private int rank;
 	
-	//Default Variables
-	private static final double DEFAULT_WEIGHT1 = 10;
-	private static final double DEFAULT_WEIGHT2 = 20;
-	private static final double DEFAULT_WEIGHT3 = 30;
-	private static final double DEFAULT_RATE1 = 10;
-	private static final double DEFAULT_RATE2 = 20;
-	private static final double DEFAULT_RATE3 = 30;
-	private static final double DEFAULT_MILE_RATE = 10;
-	private static final double DEFAULT_FLAT_RATE = 1;
-	private static final int DEFAULT_RANK = 1;
-	
 	/**
 	 * This is the default ShippingRate constructor
 	 */
@@ -94,6 +83,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setType(TravelType type) {
 			this.type = type;
+			this.MarkDirty();
 		}
 
 		/**
@@ -110,6 +100,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setWeight1(double weight1) {
 			this.weight1 = weight1;
+			this.MarkDirty();
 		}
 
 		/**
@@ -126,6 +117,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setWeight2(double weight2) {
 			this.weight2 = weight2;
+			this.MarkDirty();
 		}
 		
 		/**
@@ -142,6 +134,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setWeight3(double weight3) {
 			this.weight3 = weight3;
+			this.MarkDirty();
 		}
 
 		/**
@@ -158,6 +151,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setRate1(double rate1) {
 			this.rate1 = rate1;
+			this.MarkDirty();
 		}
 
 		/**
@@ -174,6 +168,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setRate2(double rate2) {
 			this.rate2 = rate2;
+			this.MarkDirty();
 		}
 
 		/**
@@ -190,6 +185,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setRate3(double rate3) {
 			this.rate3 = rate3;
+			this.MarkDirty();
 		}
 
 		/**
@@ -206,6 +202,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setMileRate(double mileRate) {
 			this.mileRate = mileRate;
+			this.MarkDirty();
 		}
 
 		/**
@@ -222,6 +219,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setFlatRate(double flatRate) {
 			this.flatRate = flatRate;
+			this.MarkDirty();
 		}
 
 		/**
@@ -238,6 +236,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setRank(int rank) {
 			this.rank = rank;
+			this.MarkDirty();
 		}
 
 		/**
@@ -246,6 +245,7 @@ public class ShippingRate extends BaseClass{
 		 */
 		public void setCarrier(Carrier carrier) {
 			this.carrier = carrier;
+			this.MarkDirty();
 		}
 		
 		/**
@@ -430,6 +430,53 @@ public class ShippingRate extends BaseClass{
 				return sr;
 				
 			}//End of BuildFromDataRow(Map<String,Object> data)
+			
+			//Default Variables
+			private static final double DEFAULT_WEIGHT1 = 10;
+			public static double getDefaultWeight1() {
+				return DEFAULT_WEIGHT1;
+			}
+
+			public static double getDefaultWeight2() {
+				return DEFAULT_WEIGHT2;
+			}
+
+			public static double getDefaultWeight3() {
+				return DEFAULT_WEIGHT3;
+			}
+
+			public static double getDefaultRate1() {
+				return DEFAULT_RATE1;
+			}
+
+			public static double getDefaultRate2() {
+				return DEFAULT_RATE2;
+			}
+
+			public static double getDefaultRate3() {
+				return DEFAULT_RATE3;
+			}
+
+			public static double getDefaultMileRate() {
+				return DEFAULT_MILE_RATE;
+			}
+
+			public static double getDefaultFlatRate() {
+				return DEFAULT_FLAT_RATE;
+			}
+
+			public static int getDefaultRank() {
+				return DEFAULT_RANK;
+			}
+
+			private static final double DEFAULT_WEIGHT2 = 20;
+			private static final double DEFAULT_WEIGHT3 = 30;
+			private static final double DEFAULT_RATE1 = 10;
+			private static final double DEFAULT_RATE2 = 20;
+			private static final double DEFAULT_RATE3 = 30;
+			private static final double DEFAULT_MILE_RATE = 10;
+			private static final double DEFAULT_FLAT_RATE = 1;
+			private static final int DEFAULT_RANK = 1;
 
 	
 }//End of ShippingRate class
