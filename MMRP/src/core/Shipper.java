@@ -15,14 +15,6 @@ public class Shipper extends BaseClass {
 	private String phone;
 	private String email;
 	
-	//Default Variables
-	private static final String DEFAULT_COMPANY_NAME = "defaultCompanyName";
-	private static final String DEFAULT_CONTACT_NAME = "defaultContactName";
-	private static final String DEFAULT_EMAIL_ADDRESS = "defaultEmailAddress";
-	private static final int DEFAULT_LOCATION_ID = 1;
-	private static final String DEFAULT_PHONE_NUMBER = "123-456-7890";
-	private static final String DEFAULT_PREFERRED_CARRIERS = "defaultPreferredCarriers";
-	
 	/**
 	 * This is the default Shipper constructor
 	 */
@@ -374,5 +366,37 @@ public class Shipper extends BaseClass {
 		}
 
 	}//End of Delete()
+	
+	//Default Variables
+		private static final String DEFAULT_COMPANY_NAME = "Don't Change your number";
+		private static final String DEFAULT_CONTACT_NAME = "Jenny";
+		private static final String DEFAULT_EMAIL_ADDRESS = "defaultEmailAddress@IwannaMakeYouMine.com";
+		private static final int DEFAULT_LOCATION_ID = 1;
+		private static final String DEFAULT_PHONE_NUMBER = "123-867-5309";
+		private static final String DEFAULT_PREFERRED_CARRIERS = "For a good time call";
+
+		public static String getDefaultCompanyName() {
+			return DEFAULT_COMPANY_NAME;
+		}
+
+		public static String getDefaultContactName() {
+			return DEFAULT_CONTACT_NAME;
+		}
+
+		public static String getDefaultEmailAddress() {
+			return DEFAULT_EMAIL_ADDRESS;
+		}
+
+		public static int getDefaultLocationId() {
+			return DEFAULT_LOCATION_ID;
+		}
+
+		public static String getDefaultPhoneNumber() {
+			return DEFAULT_PHONE_NUMBER;
+		}
+
+		public static String getDefaultPreferredCarriers() {
+			return DEFAULT_PREFERRED_CARRIERS;
+		}
 
 }//End of Shipper Class
