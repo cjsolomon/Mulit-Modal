@@ -722,7 +722,8 @@ public class Shipment extends BaseClass {
 	public void setHistory(ArrayList<ShipmentHistory> hist)
 	{
 		//Need some error checking and fleshing out
-		history=hist;
+		this.history=hist;
+		this.MarkDirty();
 	}//End of setHistory(ArrayList<ShipmentHistory> hist)
 
 
@@ -1012,6 +1013,8 @@ public class Shipment extends BaseClass {
 		{
 			history.get(i).Delete();
 		}
+		
+		this.history = new ArrayList<ShipmentHistory>();
 	}//End of DeleteAllHistory()
 
 	//Default Variables
