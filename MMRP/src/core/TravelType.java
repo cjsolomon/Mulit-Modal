@@ -578,7 +578,7 @@ public class TravelType extends BaseClass {
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM vehicletraveltypeIndex vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + v.getId() +"' AND vti.TravelMode = '" + v.getTravelMode()+"'"+ " AND Deleted = false");
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM indextable vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + v.getId() +"' AND vti.TravelMode = '" + v.getTravelMode()+"'"+ " AND vti.Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));

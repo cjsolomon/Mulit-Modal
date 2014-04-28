@@ -1,5 +1,8 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
+import core.Cargo;
 import core.TravelType;
 import core.Truck;
 
@@ -344,12 +347,32 @@ public class TravelTypeTest {
 	@Test
 	public void testLoadAllForVehicle() {
 		Truck test_truck = new Truck();
+		Truck test_truck2 = new Truck();
 		test_truck.setVehicleName("JUnit TravelTypeTest.testLoadAllForVehicle()");
+		test_truck2.setVehicleName("JUnit TravelTypeTest.testLoadAllForVehicle()");
+		
+		
+		TravelType test_type2 = new TravelType();
+		test_type2.setExpTrue();
+		test_type2.setRefTrue();
 		
 		test_truck.addToTypes(test_type);
+		test_truck.addToTypes(test_type2);
 		
+		test_truck.Update();
+		test_truck2.Update();
 		
+		ArrayList<TravelType> travel_list = new ArrayList<TravelType>();
 		
+		travel_list = TravelType.LoadForVehicle(test_truck);
+		
+		Assert.assertEquals(2,travel_list.size());
+		
+		travel_list = TravelType.LoadForVehicle(test_truck2);
+		Assert.assertEquals(0, travel_list.size());
+			
+		test_truck.Delete();
+		test_truck2.Delete();
 	}
 	
 	
