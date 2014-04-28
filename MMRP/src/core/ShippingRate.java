@@ -301,7 +301,7 @@ public class ShippingRate extends BaseClass{
 					{
 						//If the ShippingRate is not new, but is dirty then it needs to be updated by the following SQL command
 						executeCommand("Update shippingrates Set CarrierID = '" + this.getCarrier().getId() + 
-								"' , TravelType = '"+this.getType() + "' , Weight1 = '" + this.getWeight1() +
+								"' , TravelType = '"+this.getType().getVehicleTypeID() + "' , Weight1 = '" + this.getWeight1() +
 								"' , Rate1 = '"+this.getRate1() + "' , Weight2 = '" + this.getWeight2() +
 								"' , Rate2 = '"+this.getRate2() + "' , Weight3 = '" + this.getWeight3() +
 								"' , Rate3 = '"+this.getRate3() + "' , MileRate = '" + this.getMileRate() +
