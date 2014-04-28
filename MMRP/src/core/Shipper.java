@@ -368,7 +368,7 @@ public class Shipper extends BaseClass {
 	}//End of Delete()
 	
 	//Default Variables
-		private static final String DEFAULT_COMPANY_NAME = "Don't Change your number";
+		private static final String DEFAULT_COMPANY_NAME = "Dont Change your number";
 		private static final String DEFAULT_CONTACT_NAME = "Jenny";
 		private static final String DEFAULT_EMAIL_ADDRESS = "defaultEmailAddress@IwannaMakeYouMine.com";
 		private static final int DEFAULT_LOCATION_ID = 1;

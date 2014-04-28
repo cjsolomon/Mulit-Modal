@@ -1,6 +1,10 @@
 package JUnitTests;
 
+import java.util.ArrayList;
+
+import core.Shipment;
 import core.Shipper;
+
 import org.junit.*;
 
 public class ShipperTest {
@@ -137,21 +141,83 @@ public class ShipperTest {
 		test_shipper.setContactName(test_string);
 		
 		test_shipper.Update();
-		Shipper test_shipper2 = new Shipper(test_shipper.getID());
+		Shipper test_shipper2 = Shipper.Load(test_shipper.getID());
 		
 		Assert.assertEquals(test_shipper.getID(),test_shipper2.getID());
 		Assert.assertEquals(test_shipper.getCompanyName(),test_shipper2.getCompanyName());
-		//Assert.assertEquals(test_shipper.getContactName(),test_shipper2.getContactName());
+		Assert.assertEquals(test_shipper.getContactName(),test_shipper2.getContactName());
 		Assert.assertEquals(test_shipper.getEmailAddress(),test_shipper2.getEmailAddress());
 		Assert.assertEquals(test_shipper.getPhoneNumber(),test_shipper2.getPhoneNumber());
 		Assert.assertEquals(test_shipper.getPrefferedCarriers(), test_shipper2.getPrefferedCarriers());
 		Assert.assertEquals(test_shipper.getLocationID(), test_shipper2.getLocationID());
-		//Assert.assertEquals(test_shipper.isNew(), test_shipper2.isNew());
-		//Assert.assertEquals(test_shipper.isDirty(), test_shipper2.isDirty());
+		Assert.assertEquals(test_shipper.isNew(), test_shipper2.isNew());
+		Assert.assertEquals(test_shipper.isDirty(), test_shipper2.isDirty());
 		
 		test_shipper.Delete();
 	}
 	
+	@Test
+	public void testUpdateLoad() {
+		String test_string = new String("JUnit Shipper.testUpdateLoad()");
+		test_shipper.setCompanyName(test_string);
+		
+		test_shipper.Update();
+		ArrayList<Shipper> shipper_list = Shipper.LoadAll("where CompanyName = '" + test_string + "'");
+		if (!shipper_list.isEmpty()) {
+			Shipper test_shipper2 = shipper_list.get(0);
+			Assert.assertEquals(test_shipper.getID(),test_shipper2.getID());
+			Assert.assertEquals(test_shipper.getCompanyName(),test_shipper2.getCompanyName());
+			Assert.assertEquals(test_shipper.getContactName(),test_shipper2.getContactName());
+			Assert.assertEquals(test_shipper.getEmailAddress(),test_shipper2.getEmailAddress());
+			Assert.assertEquals(test_shipper.getPhoneNumber(),test_shipper2.getPhoneNumber());
+			Assert.assertEquals(test_shipper.getPrefferedCarriers(), test_shipper2.getPrefferedCarriers());
+			Assert.assertEquals(test_shipper.getLocationID(), test_shipper2.getLocationID());
+			Assert.assertEquals(test_shipper.isNew(), test_shipper2.isNew());
+			Assert.assertEquals(test_shipper.isDirty(), test_shipper2.isDirty());
+			
+			for (Shipper delete : shipper_list)
+				delete.Delete();
+		}
+		else {
+			Assert.assertTrue(false);
+		}
+		
+		test_shipper.setPrefferedCarriers(test_string);
+		test_shipper.Update();
+		
+		shipper_list = Shipper.LoadAll("where prefCarriers = '" + test_string + "'");
+		if (!shipper_list.isEmpty()) {
+			Shipper test_shipper2 = shipper_list.get(0);
+			Assert.assertEquals(test_shipper.getID(),test_shipper2.getID());
+			Assert.assertEquals(test_shipper.getCompanyName(),test_shipper2.getCompanyName());
+			Assert.assertEquals(test_shipper.getContactName(),test_shipper2.getContactName());
+			Assert.assertEquals(test_shipper.getEmailAddress(),test_shipper2.getEmailAddress());
+			Assert.assertEquals(test_shipper.getPhoneNumber(),test_shipper2.getPhoneNumber());
+			Assert.assertEquals(test_shipper.getPrefferedCarriers(), test_shipper2.getPrefferedCarriers());
+			Assert.assertEquals(test_shipper.getLocationID(), test_shipper2.getLocationID());
+			Assert.assertEquals(test_shipper.isNew(), test_shipper2.isNew());
+			Assert.assertEquals(test_shipper.isDirty(), test_shipper2.isDirty());
+			
+			for (Shipper delete : shipper_list)
+				delete.Delete();
+		}
+		else {
+			Assert.assertTrue(false);
+		}
+		
+	}
 	
+	@Test
+	public void testDelete() {
+		test_shipper = new Shipper();
+		test_shipper.setCompanyName("JUnit ShipperTest.testDelete()");
+		test_shipper.Update();
+		test_shipper.Delete();
+		ArrayList<Shipper> lList = Shipper.LoadAll(new String("where CompanyName = 'JUnit ShipperTest.testDelete()'"));
+		Assert.assertTrue(lList.isEmpty());
+		for (Shipper delete : lList)
+			delete.Delete();
+		Assert.assertTrue(test_shipper.isDeleted());
+	}
 
 }

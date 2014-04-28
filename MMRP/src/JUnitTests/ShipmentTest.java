@@ -546,6 +546,40 @@ public class ShipmentTest {
 		else {
 			Assert.assertEquals(false, true);
 		}
+		
+		test_shipment.setHazmat("JUnit Shipment.testUpdateLoad(Dirty)");
+		Assert.assertTrue(test_shipment.isDirty());
+		Assert.assertFalse(test_shipment.isNew());
+		test_shipment.Update();
+		lList = Shipment.LoadAll(new String("where hazmatConstraints = 'JUnit Shipment.testUpdateLoad(Dirty)'"));
+		if (!lList.isEmpty()) {
+			Shipment test_shipment2 = lList.get(0);
+			Assert.assertEquals(test_shipment.getId(),test_shipment2.getId());
+			Assert.assertEquals(test_shipment.getEarliestArrivalTime(),test_shipment2.getEarliestArrivalTime());
+			Assert.assertEquals(test_shipment.getEarliestDepartureTime(),test_shipment2.getEarliestDepartureTime());
+			Assert.assertEquals(test_shipment.getFromLocationID(),test_shipment2.getFromLocationID());
+			Assert.assertEquals(test_shipment.getHazmat(),test_shipment2.getHazmat());
+			Assert.assertEquals(test_shipment.getLatestArrivalTime(),test_shipment2.getLatestArrivalTime());
+			Assert.assertEquals(test_shipment.getLatestDepartureTime(),test_shipment2.getLatestDepartureTime());
+			Assert.assertEquals(test_shipment.getLoadingType(),test_shipment2.getLoadingType());
+			Assert.assertEquals(test_shipment.getLoadingRate(),test_shipment2.getLoadingRate());
+			Assert.assertEquals(test_shipment.getMaxStops(),test_shipment2.getMaxStops());
+			Assert.assertEquals(test_shipment.getPrefCarriers(),test_shipment2.getPrefCarriers());
+			Assert.assertEquals(test_shipment.getPriority(),test_shipment2.getPriority());
+			Assert.assertEquals(test_shipment.getShipperID(), test_shipment2.getShipperID());
+			Assert.assertEquals(new Double(test_shipment.getSize()), new Double(test_shipment2.getSize()));
+			Assert.assertEquals(test_shipment.getTimeToLoad(), test_shipment2.getTimeToLoad());
+			Assert.assertEquals(test_shipment.getTimeToUnload(), test_shipment2.getTimeToUnload());
+			Assert.assertEquals(test_shipment.getToLocationID(), test_shipment2.getToLocationID());
+			Assert.assertEquals(test_shipment.getTrailerType(), test_shipment2.getTrailerType());
+			Assert.assertEquals(test_shipment.getUnloadType(), test_shipment2.getUnloadType());
+			Assert.assertEquals(new Double( test_shipment.getWeight()),new Double(test_shipment2.getWeight()));
+			for (Shipment delete : lList)
+				delete.Delete();
+		}
+		else {
+			Assert.assertEquals(false, true);
+		}
 
 	}
 
