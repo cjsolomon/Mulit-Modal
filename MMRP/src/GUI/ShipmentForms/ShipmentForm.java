@@ -110,7 +110,7 @@ public class ShipmentForm extends JPanel
 		lblCompanyName = new JLabel("Company:");
 		lblContactName = new JLabel("Contact:");
 		lblPhone = new JLabel("Phone:");
-		lblPrefCarriers = new JLabel("Preffered Carriers:");
+		lblPrefCarriers = new JLabel("Preferred Carriers:");
 		lblEmail = new JLabel("Email:");
 
 		txtCompanyName = new JTextField(25);

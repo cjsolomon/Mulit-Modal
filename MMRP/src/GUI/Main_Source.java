@@ -314,7 +314,7 @@ public class Main_Source {
 				lblFormLabel.setText("Cargo");
 			}
 		});
-		btnCargoType = new JButton("CargoType");
+		btnCargoType = new JButton("Cargo Types");
 		frmMmrp.getContentPane().add(btnCargo,"2, 20, fill, fill");
 		btnCargoType.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e)

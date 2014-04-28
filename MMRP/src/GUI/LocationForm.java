@@ -288,7 +288,7 @@ public class LocationForm extends JPanel {
 		add(txtActualCapacity, "4, 14, fill, default");
 		txtActualCapacity.setColumns(10);
 		
-		btnCreateNewShipment = new JButton("Create New Shipment");
+		btnCreateNewShipment = new JButton("Create New Segment");
 		btnCreateNewShipment.setEnabled(false);
 		add(btnCreateNewShipment, "11, 14");
 		

@@ -38,8 +38,8 @@ public class Shipment extends BaseClass {
 	private static final double MAX_SIZE = 100.0;
 	private static final int MIN_PRIORITY = 0;
 	private static final int MAX_PRIORITY = 10;
-	private static final double MIN_WEIGHT = 1.0;
-	private static final double MAX_WEIGHT = 500.0;
+	private static final double MIN_WEIGHT = 0.01;
+	private static final double MAX_WEIGHT = 5000.0;
 	private static final int MIN_LOAD_TIME = 0;
 	private static final int MAX_LOAD_TIME = 100;
 	private static final int MIN_LOAD_RATE = 1;
