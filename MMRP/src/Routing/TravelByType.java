@@ -78,6 +78,7 @@ public class TravelByType extends RoutingAlgorithm{
 	 * <p>2) If a random number is greater than the percent chance of the best route then choose the best path otherwise pick a random path
 	 * <p>3) If we have reached the end we are done, otherwise repeat from 1
      */
+	@Override
 	public ArrayList<Segment> getPath(){
 		//First check to see if we have a direct path between the start and end point
 		ArrayList<Segment> route =  new ArrayList<Segment>();
@@ -95,7 +96,7 @@ public class TravelByType extends RoutingAlgorithm{
 			int tries = 0;
 			while(tries < maxTries && !pathFound){
 				//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
-				if(Math.floor(Math.random() * 100) > percentChanceOfDirectPath){
+				if(Math.floor(Math.random() * 100) < percentChanceOfDirectPath){
 					//We will attempt to find a directPath between this location and the end location
 					paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 					if(paths.size() > 0){
@@ -127,6 +128,7 @@ public class TravelByType extends RoutingAlgorithm{
 						if(!rewindPath(route)){
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
+							continue;
 						}//End of unsuccessful path rewinding if
 						else{
 							//Set the currentLocationID to the end of the path
@@ -157,6 +159,7 @@ public class TravelByType extends RoutingAlgorithm{
 	/**
 	 * This function will remove Segments that are not valid for this algorithm
 	 */
+	@Override
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
@@ -164,9 +167,10 @@ public class TravelByType extends RoutingAlgorithm{
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" || 
-				segmentsToCheck.get(i).getMode() != mode.toString()){
+				!segmentsToCheck.get(i).getMode().equalsIgnoreCase(mode.toString())){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(segmentsToCheck.get(i));
+				i--;
 			}//End of time, size and status restraint if
 		}//End of time and capacity checking for loop
 			

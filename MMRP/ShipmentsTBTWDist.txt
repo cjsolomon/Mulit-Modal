@@ -1,0 +1,347 @@
+Shipment 1    From: TestNode1    To: TestNode2
+
+	TestNode1 to TestNode2 via TestTruck0
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 30.0
+
+
+
+Shipment 2    From: TestNode2    To: TestNode3
+
+	TestNode2 to TestNode3 via TestTruck1
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+Shipment 3    From: TestNode3    To: TestNode4
+
+	TestNode3 to TestNode4 via TestTruck2
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 50.0
+
+
+
+Shipment 4    From: TestNode1    To: TestNode6
+
+	TestNode1 to TestNode6 via TestTruck3
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 50.0
+
+
+
+Shipment 5    From: TestNode6    To: TestNode5
+
+	TestNode6 to TestNode5 via TestTruck4
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+Shipment 6    From: TestNode5    To: TestNode4
+
+	TestNode5 to TestNode4 via TestTruck5
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 30.0
+
+
+
+Shipment 7    From: TestNode1    To: TestNode3
+
+	TestNode1 to TestNode3 via TestTruck6
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 70.0
+
+
+
+Shipment 8    From: TestNode1    To: TestNode4
+
+	TestNode1 to TestNode4 via TestTruck7
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 120.0
+
+
+
+Shipment 9    From: TestNode1    To: TestNode5
+
+	TestNode1 to TestNode5 via TestTruck8
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 90.0
+
+
+
+Shipment 10    From: TestNode2    To: TestNode4
+
+	TestNode2 to TestNode4 via TestTruck9
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 80.0
+
+
+
+Shipment 11    From: TestNode6    To: TestNode4
+
+	TestNode6 to TestNode4 via TestTruck10
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 70.0
+
+
+
+Shipment 12    From: TestNode2    To: TestNode5
+
+	TestNode2 to TestNode5 via TestTruck11
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 60.0
+
+
+
+Shipment 13    From: TestNode6    To: TestNode3
+
+	TestNode6 to TestNode3 via TestTruck12
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 30.0
+
+
+
+Shipment 14    From: TestNode2    To: TestNode6
+
+	TestNode2 to TestNode6 via TestTruck13
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+Shipment 15    From: TestNode3    To: TestNode5
+
+	TestNode3 to TestNode5 via TestTruck14
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+Shipment 16    From: TestNode2    To: TestNode1
+
+	TestNode2 to TestNode1 via TestTruck15
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 30.0
+
+
+
+Shipment 17    From: TestNode3    To: TestNode2
+
+	TestNode3 to TestNode2 via TestTruck16
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+Shipment 18    From: TestNode4    To: TestNode3
+
+	TestNode4 to TestNode3 via TestTruck17
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 50.0
+
+
+
+Shipment 19    From: TestNode6    To: TestNode1
+
+	TestNode6 to TestNode1 via TestTruck18
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 50.0
+
+
+
+Shipment 20    From: TestNode5    To: TestNode6
+
+	TestNode5 to TestNode6 via TestTruck19
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+Shipment 21    From: TestNode4    To: TestNode5
+
+	TestNode4 to TestNode5 via TestTruck20
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 30.0
+
+
+
+Shipment 22    From: TestNode3    To: TestNode1
+
+	TestNode3 to TestNode1 via TestTruck21
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 70.0
+
+
+
+Shipment 23    From: TestNode4    To: TestNode1
+
+	TestNode4 to TestNode1 via TestTruck22
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 120.0
+
+
+
+Shipment 24    From: TestNode5    To: TestNode1
+
+	TestNode5 to TestNode1 via TestTruck23
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 90.0
+
+
+
+Shipment 25    From: TestNode4    To: TestNode2
+
+	TestNode4 to TestNode2 via TestTruck24
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 80.0
+
+
+
+Shipment 26    From: TestNode4    To: TestNode6
+
+	TestNode4 to TestNode6 via TestTruck25
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 70.0
+
+
+
+Shipment 27    From: TestNode5    To: TestNode2
+
+	TestNode5 to TestNode2 via TestTruck26
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 60.0
+
+
+
+Shipment 28    From: TestNode3    To: TestNode6
+
+	TestNode3 to TestNode6 via TestTruck27
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 30.0
+
+
+
+Shipment 29    From: TestNode6    To: TestNode2
+
+	TestNode6 to TestNode2 via TestTruck28
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+Shipment 30    From: TestNode5    To: TestNode3
+
+	TestNode5 to TestNode3 via TestTruck29
+
+	Arrival: 50
+	 Total Time : 50.0
+	 Total Cost : 1.0
+	 Total Distance : 40.0
+
+
+
+
+
+
+ Average Time : 50.0
+ Average Cost : 1.0
+ Average Distance : 56.0
+
+
+ Best Time : 50.0
+ Best Cost : 1.0
+ Best Distance : 30.0
+
+ Worst Time : 50.0
+ Worst Cost : 1.0
+ Worst Distance : 120.0
+
+

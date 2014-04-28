@@ -2,39 +2,22 @@ package Routing;
 import java.util.ArrayList;
 
 import core.*;
-public class AStarAlg {
+public class AStarAlg extends RoutingAlgorithm {
 	
 	private ArrayList<AStarNode> leafs;
-	Shipment shpmnt;
 	
 	final double DISTTOGO=.2;
 	final double DISTTRAVLED=.2;
-	double costRatio;
-	double timeRatio;
 	
 	AStarNode best=null;
-	public AStarAlg(Shipment s)
+	public AStarAlg(Shipment s, WeightedMetric newMetric)
 	{
-		shpmnt=s;
+		shipment=s;
+		metric = newMetric;
 		leafs=new ArrayList<AStarNode>();
-		leafs.add(new AStarNode(shpmnt.getFromLocationID(),null,-1,0));
-		if(shpmnt.getPriority()==0)
-		{
-			costRatio=0.0;
-			timeRatio=.6;
-		}
-		else if(shpmnt.getPriority()==1)
-		{
-			costRatio=.3;
-			timeRatio=.3;
-		}
-		else
-		{
-			costRatio=.6;
-			timeRatio=.0;
-		}
+		leafs.add(new AStarNode(shipment.getFromLocationID(),null,-1,0.0));
 	}
-	
+	@Override
 	public ArrayList<Segment> getPath()
 	{
 		ArrayList<Segment> returnPath = new ArrayList<Segment>();
@@ -46,25 +29,25 @@ public class AStarAlg {
 				currentLeaf = (currentLeaf.getCost()>leafs.get(i).getCost())?leafs.get(i):currentLeaf;
 				
 			leafs.remove(currentLeaf);
-			if(currentLeaf.getLocationID()==shpmnt.getToLocationID())
+			if(currentLeaf.getLocationID()==shipment.getToLocationID())
 			{
-				if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shpmnt.getLatestArrivalTime() || Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() < shpmnt.getEarliestArrivalTime() )
+				if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shipment.getLatestArrivalTime() || Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() < shipment.getEarliestArrivalTime() )
 				{
 					int currentDif;
 					if(best!=null)
 					{
-						if(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() > shpmnt.getLatestArrivalTime())
-							currentDif=Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getLatestArrivalTime());
+						if(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() > shipment.getLatestArrivalTime())
+							currentDif=Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shipment.getLatestArrivalTime());
 						else
-							currentDif = Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getEarliestArrivalTime());
+							currentDif = Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shipment.getEarliestArrivalTime());
 					}
 					else
 						currentDif=0;
 					int thisDif;
-					if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shpmnt.getLatestArrivalTime())// Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() < shpmnt.getEarliestTime() )
-						thisDif=Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getLatestArrivalTime());
+					if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shipment.getLatestArrivalTime())// Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() < shipment.getEarliestTime() )
+						thisDif=Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shipment.getLatestArrivalTime());
 					else
-						thisDif = Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shpmnt.getEarliestArrivalTime());
+						thisDif = Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shipment.getEarliestArrivalTime());
 					
 					if(best==null || thisDif<currentDif)
 					{
@@ -90,7 +73,7 @@ public class AStarAlg {
 			}
 			
 			
-				int startTime = (currentLeaf.getSegmentID()==-1)?shpmnt.getEarliestDepartureTime():Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime();
+				int startTime = (currentLeaf.getSegmentID()==-1)?shipment.getEarliestDepartureTime():Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime();
 				ArrayList<Segment> possibleDestinations = Segment.LoadAllAtLocation(currentLeaf.getLocationID(), startTime);
 				
 				//Check for previously visitedLocations
@@ -111,9 +94,6 @@ public class AStarAlg {
 		return returnPath;
 		
 	}
-	
-	
-	
 	
 	private void removePreviousVisited(ArrayList<Segment> possible, AStarNode current)
 	{
@@ -146,12 +126,12 @@ public class AStarAlg {
 		for(int i = 0; i<possible.size();i++)
 		{
 			Segment test = possible.get(i);
-			if(this.shpmnt.getId()==21)
+			if(this.shipment.getId()==21)
 				{
 				System.out.println("TroubleArea");
 				
 				}
-			if(possible.get(i).getActualCapacity()<test.estimateCapacity()+shpmnt.getSize())
+			if(Math.abs(possible.get(i).getActualCapacity()- possible.get(i).getTravelType().getMaxCap())<(test.estimateCapacity()+shipment.getSize()))
 				toRemove.add(test);
 		}
 		
@@ -168,12 +148,12 @@ public class AStarAlg {
 			Segment test = possible.get(i);
 			
 			double cost=currentLeaf.getCost();
-			double distanceToDestination = getDistance(test.getEndLocationID(),shpmnt.getToLocationID());
+			double distanceToDestination = getDistance(test.getEndLocationID(),shipment.getToLocationID());
 			double distanceTravel = test.getDistance();
 			double time = test.getEstimatedDepartureTime()-test.getEstimatedArrivalTime();
 			double segmentCost = possible.get(i).getShippingRate().getFlatRate();
 			
-			cost+= (distanceToDestination*this.DISTTOGO)+(distanceTravel*this.DISTTRAVLED)+(time*this.timeRatio)+(segmentCost * this.costRatio);
+			cost+= (distanceToDestination*this.DISTTOGO)+(distanceTravel*this.DISTTRAVLED)+(time*this.metric.getWeightedTime())+(segmentCost * this.metric.getWeightedCost());
 			
 			AStarNode temp = new AStarNode(test.getEndLocationID(),currentLeaf,test.getID(),cost);
 			AStarNode replace=null;
@@ -210,4 +190,11 @@ public class AStarAlg {
 		distance = Math.sqrt(Math.pow(s.getLatitude()-e.getLatitude(),2) + Math.pow(s.getLongitude() - e.getLongitude(), 2));
 		return distance;
 	}
+
+	@Override
+	public ArrayList<Segment> validPaths(ArrayList<Segment> path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
