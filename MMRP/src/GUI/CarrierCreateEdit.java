@@ -113,7 +113,7 @@ public class CarrierCreateEdit extends JPanel {
 		lblNumber = new JLabel("Fax Number");
 		lblCode = new JLabel("Carrier Code");
 		lblName = new JLabel("Carrier Name");
-		lblLocation = new JLabel("Location");
+		lblLocation = new JLabel("Carrier");
 		lblID = new JLabel("CarrierID");
 		
 		txtLat=new JTextField(20);
