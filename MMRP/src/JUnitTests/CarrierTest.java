@@ -88,7 +88,7 @@ public class CarrierTest {
 	}
 	
 	@Test
-	public void testSetCostModifyCarrier() {
+	public void testSetCostModifyBike() {
 		Carrier test_carrier = new Carrier();
 		Integer test_int = new Integer(100);
 		test_carrier.setCostModifierBike(test_int);
