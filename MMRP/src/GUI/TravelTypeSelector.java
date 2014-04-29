@@ -47,16 +47,10 @@ public class TravelTypeSelector extends JPanel {
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(23dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(18dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(19dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -65,23 +59,16 @@ public class TravelTypeSelector extends JPanel {
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
+				ColumnSpec.decode("max(23dlu;default)"),
+				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(19dlu;default):grow"),
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
+				RowSpec.decode("max(20dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -90,32 +77,18 @@ public class TravelTypeSelector extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		 lblUsed = new JLabel("Used");
-		add(lblUsed, "8, 4");
+		add(lblUsed, "5, 4");
 		
 		lblAvailable = new JLabel("Available");
-		add(lblAvailable, "22, 4");
+		add(lblAvailable, "17, 4");
 		
 		lstInUse = new JList(dlmInUse);
 		sp1.setViewportView(lstInUse);
-		add(sp1, "4, 6, 9, 11, fill, fill");
+		add(sp1, "4, 6, 3, 7, fill, fill");
 		
 		lstAvail = new JList(dlmAvail);
 		sp2.setViewportView(lstAvail);
-		add(sp2, "18, 6, 9, 11, fill, fill");
-		
-		JButton btnToAvailable = new JButton("->");
-		btnToAvailable.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(lstInUse.getSelectedIndex()!=-1)
-				{
-					TravelType t = (TravelType)lstInUse.getSelectedValue();
-					sourceVehicle.removeFromTypes(t);
-					dlmAvail.addElement(t);
-					dlmInUse.removeElement(t);
-				}
-			}
-		});
-		add(btnToAvailable, "14, 10, 3, 1");
+		add(sp2, "16, 6, 3, 7, fill, fill");
 		
 		JButton btnToUsed = new JButton("<-");
 		btnToUsed.addActionListener(new ActionListener() {
@@ -130,7 +103,21 @@ public class TravelTypeSelector extends JPanel {
 				}
 			}
 		});
-		add(btnToUsed, "14, 14, 3, 1");
+		
+		JButton btnToAvailable = new JButton("->");
+		btnToAvailable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(lstInUse.getSelectedIndex()!=-1)
+				{
+					TravelType t = (TravelType)lstInUse.getSelectedValue();
+					sourceVehicle.removeFromTypes(t);
+					dlmAvail.addElement(t);
+					dlmInUse.removeElement(t);
+				}
+			}
+		});
+		add(btnToAvailable, "10, 8, 3, 1");
+		add(btnToUsed, "10, 10, 3, 1");
 		
 	}
 	
