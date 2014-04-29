@@ -629,7 +629,7 @@ public class TravelType extends BaseClass {
 		try 
 		{
 			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM `multi-modal`.traveltypes where VehicleTypeID Not In("+
-					"Select TravelTypeID from vehicletraveltypeindex where vehicleID = '" + v.getId() + "' AND TravelMode = '" + v.getTravelMode() + "'" + 
+					"Select TravelTypeID from indextable where vehicleID = '" + v.getId() + "' AND TravelMode = '" + v.getTravelMode() + "'" + 
 					" and Deleted=false)" + " AND VehicleMode = '" + v.getTravelMode() + "' AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
@@ -650,7 +650,7 @@ public class TravelType extends BaseClass {
 		{
 			try
 			{
-				if(executeQuery("Select * from vehicletraveltypeindex where VehicleID = '" + v.getId() +"' AND TravelMode = '"+ v.getTravelMode() + "' AND TravelTypeID = '" + this.getVehicleTypeID()+"'").size()==0)
+				if(executeQuery("Select * from indextable where VehicleID = '" + v.getId() +"' AND TravelMode = '"+ v.getTravelMode() + "' AND TravelTypeID = '" + this.getVehicleTypeID()+"'").size()==0)
 				{
 					/*Insert into TravelTypes (VehicleTypeName, VehicleMode,Trailer1,Trailer2,MinimumCapacity,MaximumCapacity,ActualCapacity,MaxWeight,ServiceType,Radiation
 					 * , Refridgeration, HazardousMaterial, ExplosiveMaterial, Tracking) Values ('"+
@@ -658,11 +658,11 @@ public class TravelType extends BaseClass {
 					     + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
 						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","
 						+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");*/
-					executeCommand("Insert into vehicletraveltypeindex (VehicleID,TravelTypeID,TravelMode,inUse,Deleted) Values('"+v.getId()+"','"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
+					executeCommand("Insert into indextable (VehicleID,TravelTypeID,TravelMode,inUse,Deleted) Values('"+v.getId()+"','"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
 				}
 				else
 				{
-					executeCommand("Update vehicletraveltypeindex set Deleted = false where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+					executeCommand("Update indextable set Deleted = false where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
 				}
 			}
 			catch(Exception ex)
@@ -705,7 +705,7 @@ public class TravelType extends BaseClass {
 			try
 			{
 
-				executeCommand("Update vehicletraveltypeindex set Deleted = true where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+				executeCommand("Update indextable set Deleted = true where VehicleID ='" + v.getId() + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
 
 			}
 			catch(Exception ex)
@@ -721,7 +721,7 @@ public class TravelType extends BaseClass {
 			try
 			{
 
-				executeCommand("Update vehicletraveltypeindex set Deleted = true where VehicleID ='" + id + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
+				executeCommand("Update indextable set Deleted = true where VehicleID ='" + id + "' and TravelTypeID ='" + this.getVehicleTypeID()+"'");
 
 			}
 			catch(Exception ex)
@@ -824,7 +824,7 @@ public class TravelType extends BaseClass {
 	//Default Variables
 	private static final int DEFAULT_VEHICLE_TYPE_ID = 1;
 	private static final String DEFAULT_VEHICLE_TYPE_NAME = "defaultVehicleTypeName";
-	private static final String DEFAULT_VEHICLE_MODE = "TRUCK";
+	private static final String DEFAULT_VEHICLE_MODE = "NONE";
 	private static final String DEFAULT_TRAILER1 = "defaultTrailer1";
 	private static final String DEFAULT_TRAILER2 = "defaultTrailer2";
 	private static final double DEFAULT_MINIMUM_CAPACITY = 0;
