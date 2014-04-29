@@ -67,13 +67,13 @@ public class FormatCheckerTest {
 	
 	@Test
 	public void testInRange() {
-		Integer min = new Integer(7);
-		Integer max = new Integer(15);
+		Double min = new Double(7);
+		Double max = new Double(15);
 		
 		boolean flag = FormatChecker.inRange(min-1, min, max);
 		Assert.assertFalse(flag);
 		
-		for (int i = min; i <=max; i++) {
+		for (double i = min; i <=max; i+=.5) {
 			flag = FormatChecker.inRange(i, min, max);
 			Assert.assertTrue("This should report a number in range", flag);
 		}
@@ -135,12 +135,12 @@ public class FormatCheckerTest {
 	@Test
 	public void testLowerBound()
 	{
-		Integer min = new Integer(7);
+		Double min = new Double(7);
 		
 		boolean flag = FormatChecker.checkLowerBound(min-1, min);
 		Assert.assertFalse(flag);
 		
-		for (int i = min; i <=100; i++) {
+		for (double i = min; i <= min+100; i+=.5) {
 			flag = FormatChecker.checkLowerBound(i, min);
 			Assert.assertTrue("This should report a number in range", flag);
 		}
@@ -149,12 +149,12 @@ public class FormatCheckerTest {
 	@Test
 	public void testUpperBound()
 	{
-		Integer max = new Integer(50);
+		Double max = new Double(50);
 		
 		boolean flag = FormatChecker.checkUpperBound(max+1, max);
 		Assert.assertFalse(flag);
 		
-		for (int i = 0; i <= max; i++) {
+		for (double i = 0; i <= max; i+=.5) {
 			flag = FormatChecker.checkUpperBound(i, max);
 			Assert.assertTrue("This should report a number in range", flag);
 		}
