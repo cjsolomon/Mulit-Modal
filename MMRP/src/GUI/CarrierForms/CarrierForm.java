@@ -28,12 +28,12 @@ import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
 public class CarrierForm extends JPanel {
-	
+
 	private static final long serialVersionUID = 1L;
 	JLabel lblID,lblCarrierCode, lblCarrierName,lblFax,lblEmail, lblContract,lblAuthorize;
 
 	JTextField txtEmail,txtContractDate,txtFaxNumber,txtCarrierCode,txtCarrierName, txtID;
-	
+
 	private boolean edit = false;
 	private JTextField txtAuthorize;
 	private JLabel lblSatefyRating;
@@ -51,12 +51,13 @@ public class CarrierForm extends JPanel {
 	private JTextField txtCargoMod;
 	private JTextField txtPlaneMod;
 	private JTextField txtRailMod;
-	
+
 	private Carrier source;
 	private JButton btnSave,btnEdit,btnCancel;
 	private ArrayList<TableRefreshListener> refresh;
-	public CarrierForm() {
-		
+	public CarrierForm()
+	{
+
 
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -64,7 +65,7 @@ public class CarrierForm extends JPanel {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(105dlu;default)"),
 				FormFactory.DEFAULT_COLSPEC,},
-			new RowSpec[] {
+				new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -105,7 +106,7 @@ public class CarrierForm extends JPanel {
 		btnSave.setVisible(false);
 		btnEdit = new JButton("Edit");
 		btnCancel = new JButton("Cancel");
-		
+
 		lblEmail=new JLabel("Email");
 		lblContract = new JLabel("Contract Date");
 		lblFax = new JLabel("Fax Number");
@@ -113,7 +114,7 @@ public class CarrierForm extends JPanel {
 		lblCarrierName = new JLabel("Carrier Name");
 
 		lblID = new JLabel("CarrierID");
-		
+
 		txtEmail=new JTextField(20);
 		txtEmail.setEditable(false);
 		txtContractDate = new JTextField(20);
@@ -136,102 +137,104 @@ public class CarrierForm extends JPanel {
 		add(txtEmail, "4, 12, left, center");
 		add(lblContract,"2,14,right,center");
 		add(txtContractDate, "4, 14, left, center");
-		
+
 		lblAuthorize = new JLabel("Authorize");
 		add(lblAuthorize, "2, 16, right, top");
-		
+
 		txtAuthorize = new JTextField(10);
 		add(txtAuthorize, "4, 16, fill, default");
 
-		
+
 		lblSatefyRating = new JLabel("Safety Rating");
 		add(lblSatefyRating, "2, 18, right, default");
-		
+
 		txtSafetyRating = new JTextField(10);
 		add(txtSafetyRating, "4, 18, fill, default");
 
-		
+
 		lblSafetyRatingDate = new JLabel("Rating Date");
 		add(lblSafetyRatingDate, "2, 20, right, default");
-		
+
 		txtRatingDate = new JTextField(10);
 		add(txtRatingDate, "4, 20, fill, default");
 
-		
+
 		lblInsEndDate = new JLabel("Ins End Date");
 		add(lblInsEndDate, "2, 22, right, default");
-		
+
 		txtInsEndDate = new JTextField(10);
 		add(txtInsEndDate, "4, 22, fill, default");
-		
+
 		txtID.setEditable(false);
-		
-		
+
+
 		lblCostModifiers = new JLabel("Cost Modifiers");
 		add(lblCostModifiers, "2, 26, left, default");
-		
+
 		lblTruck = new JLabel("Truck");
 		add(lblTruck, "2, 28, right, default");
-		
+
 		txtTruckMod = new JTextField(10);
 		add(txtTruckMod, "4, 28, fill, top");
-		
+
 		lblCargo = new JLabel("Cargo");
 		add(lblCargo, "2, 30, right, default");
-		
+
 		txtCargoMod = new JTextField(10);
 		add(txtCargoMod, "4, 30, fill, default");
-		
-				
-				lblPlane = new JLabel("Plane");
-				add(lblPlane, "2, 32, right, default");
-				
-				txtPlaneMod = new JTextField(10);
-				add(txtPlaneMod, "4, 32, fill, top");
-				
-				lblRail = new JLabel("Rail");
-				add(lblRail, "2, 34, right, default");
-				
-				txtRailMod = new JTextField(10);
-				add(txtRailMod, "4, 34, fill, default");
-		
-				add(btnEdit ,"2,36");
-				add(btnSave, "2,36");
-				add(btnCancel,"4,36,left,default");
-				btnCancel.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if(btnEdit.isVisible()||source==null)
-						{
-							setVisible(false);
-						}
-						else
-						{
-							
-							btnEdit.setVisible(true);
-							btnSave.setVisible(false);
-							setReadOnly();
-						}
-						
-					}});
-				btnEdit.addActionListener(new ActionListener(){
-					public void actionPerformed(ActionEvent e)
-					{
-						btnEdit.setVisible(false);
-						btnSave.setVisible(true);
-						setEditable();
-					}
-				});
-				btnSave.addActionListener(new ActionListener(){
-					public void actionPerformed(ActionEvent e)
-					{
-						update();
-					}
-				});
-				
+
+
+		lblPlane = new JLabel("Plane");
+		add(lblPlane, "2, 32, right, default");
+
+		txtPlaneMod = new JTextField(10);
+		add(txtPlaneMod, "4, 32, fill, top");
+
+		lblRail = new JLabel("Rail");
+		add(lblRail, "2, 34, right, default");
+
+		txtRailMod = new JTextField(10);
+		add(txtRailMod, "4, 34, fill, default");
+
+		add(btnEdit ,"2,36");
+		add(btnSave, "2,36");
+		add(btnCancel,"4,36,left,default");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(btnEdit.isVisible()||source==null)
+				{
+					setVisible(false);
+				}
+				else
+				{
+
+					btnEdit.setVisible(true);
+					btnSave.setVisible(false);
+					setReadOnly();
+				}
+
+			}});
+		btnEdit.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				btnEdit.setVisible(false);
+				btnSave.setVisible(true);
+				setEditable();
+			}
+		});
+		btnSave.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				update();
+			}
+		});
+
 
 	}//End of LocationCreateEdit Constructor
-	
-	
+
+
 	public void showPanel()
 	{
 		source = null;
@@ -266,7 +269,7 @@ public class CarrierForm extends JPanel {
 		this.txtRailMod.setText("");
 		this.txtSafetyRating.setText("");
 		this.txtTruckMod.setText("");
-		
+
 	}
 	private void loadCarrier(){
 		this.txtAuthorize.setText(Integer.toString(source.getAuthorize()));
@@ -282,7 +285,7 @@ public class CarrierForm extends JPanel {
 		this.txtRailMod.setText(Double.toString(source.getCostModifierRail()));
 		this.txtSafetyRating.setText(Integer.toString(source.getSafetyRating()));
 		this.txtTruckMod.setText(Double.toString(source.getCostModifierTruck()));
-		
+
 	}
 	private void setReadOnly()
 	{
@@ -299,8 +302,8 @@ public class CarrierForm extends JPanel {
 		this.txtRailMod.setEnabled(false);
 		this.txtSafetyRating.setEnabled(false);
 		this.txtTruckMod.setEnabled(false);
-		
-		
+
+
 	}
 	private void setEditable()
 	{
@@ -320,9 +323,9 @@ public class CarrierForm extends JPanel {
 	}
 	private void update()
 	{
-		
+
 	}
-	public void addTableRefreshListener(TableRefreshListener add)
+	public void addRefreshListener(TableRefreshListener add)
 	{
 		if(refresh==null)
 			refresh = new ArrayList<TableRefreshListener>();
