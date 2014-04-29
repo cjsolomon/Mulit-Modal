@@ -1,4 +1,4 @@
-package GUI;
+package GUI.CarrierForms;
 
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -23,40 +23,38 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
 
-public class CarrierForm extends JPanel {
+public class CarrierCreateEdit extends JPanel {
 	
 	private static final long serialVersionUID = 1L;
-	JLabel lblEmail, lblContractDate, lblNumber,lblCode,lblName, lblCarrier, lblID;
-	JTextField txtEmail,txtContractDate,txtFaxNumber,txtCarrierCode,txtCarrierName, txtID;
-	private JButton btnSearch;
+	JLabel lblEmail, lblContractDate, lblNumber,lblCode,lblName, lblLocation, lblID;
+	JTextField txtLat,txtLon,txtCity,txtState,txtCountry, txtID;
+	private JButton btnSave;
 	
 	private boolean edit = false;
 	private JButton btnCancel;
 	private JLabel lblAreaCode;
-	private JTextField txtAreaCode;
+	private JTextField textField;
 	private JLabel lblAuthorize;
-	private JTextField txtAuthorize;
+	private JTextField textField_1;
 	private JLabel lblSatefyRating;
 	private JLabel lblSafetyRatingDate;
-	private JTextField txtSafetyRating;
-	private JTextField txtRatingDate;
+	private JTextField textField_2;
+	private JTextField textField_3;
 	private JLabel lblInsEndDate;
-	private JTextField txtInsEndDate;
+	private JTextField textField_4;
 	private JLabel lblCostModifiers;
 	private JLabel lblTruck;
 	private JLabel lblCargo;
 	private JLabel lblPlane;
 	private JLabel lblRail;
-	private JTextField txtTruckMod;
-	private JTextField txtCargoMod;
-	private JTextField txtPlaneMod;
-	private JTextField txtRailMod;
+	private JTextField textField_6;
+	private JTextField textField_5;
+	private JTextField textField_7;
+	private JTextField textField_8;
 	private JCheckBox chckbxFaxNumber;
 	private JCheckBox chckbxEmail;
-	private JButton btnEdit;
-	private JButton btnNew;
 	
-	public CarrierForm(Location editLocation) {
+	public CarrierCreateEdit(Location editLocation) {
 		
 		if(editLocation != null){
 			edit = true;
@@ -115,51 +113,48 @@ public class CarrierForm extends JPanel {
 		lblNumber = new JLabel("Fax Number");
 		lblCode = new JLabel("Carrier Code");
 		lblName = new JLabel("Carrier Name");
-		lblCarrier = new JLabel("Carrier");
+		lblLocation = new JLabel("Carrier");
 		lblID = new JLabel("CarrierID");
 		
-		txtEmail=new JTextField(20);
-		txtEmail.setEditable(false);
-		txtContractDate = new JTextField(20);
-		txtContractDate.setEditable(false);
-		txtCarrierCode = new JTextField(20);
-		txtCarrierName = new JTextField(20);
+		txtLat=new JTextField(20);
+		txtLat.setEditable(false);
+		txtLon = new JTextField(20);
+		txtState = new JTextField(20);
+		txtCountry = new JTextField(20);
 		txtID = new JTextField(10);
 		
-		add(lblCarrier, "4, 2, center, center");
+		add(lblLocation, "4, 2, center, center");
 		add(txtID, "4,4,left,center");
 		add(lblID, "2, 4, right, center");
 		
 		chckbxFaxNumber = new JCheckBox("Fax Number");
-		chckbxFaxNumber.setEnabled(false);
 		add(chckbxFaxNumber, "7, 4");
 		
 		chckbxEmail = new JCheckBox("Email");
-		chckbxEmail.setEnabled(false);
 		add(chckbxEmail, "7, 6");
 		add(lblNumber,"2,10,right,center");
 		add(lblCode,"2,8,right,center");
-		add(txtCarrierCode, "4,8,right,center");
+		add(txtState, "4,8,right,center");
 		add(lblName,"2,6,right,center");
-		add(txtCarrierName, "4,6,right,center");
-		txtFaxNumber= new JTextField(20);
-		txtFaxNumber.setEditable(false);
-		add(txtFaxNumber, "4, 10, right, center");
+		add(txtCountry, "4,6,right,center");
+		txtCity= new JTextField(20);
+		txtCity.setEditable(false);
+		add(txtCity, "4, 10, right, center");
 		
 		lblAreaCode = new JLabel("Area Code");
 		add(lblAreaCode, "7, 10, right, default");
 		
-		txtAreaCode = new JTextField();
-		txtAreaCode.setEditable(false);
-		add(txtAreaCode, "9, 10, fill, default");
-		txtAreaCode.setColumns(10);
+		textField = new JTextField();
+		textField.setEditable(false);
+		add(textField, "9, 10, fill, default");
+		textField.setColumns(10);
 		add(lblEmail,"2,12,right,center");
-		add(txtEmail, "4,12,right,center");
+		add(txtLat, "4,12,right,center");
 		add(lblContractDate,"2,14,right,center");
-		add(txtContractDate, "4,14,right,center");
+		add(txtLon, "4,14,right,center");
 		
-		btnSearch = new JButton("Search");
-		btnSearch.addActionListener(new ActionListener() {
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				//This button will attempt to save the Location to the database
 				Location newLocation = new Location();
@@ -171,11 +166,11 @@ public class CarrierForm extends JPanel {
 					newLocation.addTravelMode(Vehicle.TravelModes.NONE);
 				}
 				
-				newLocation.setCountry(txtCarrierName.getText());
-				newLocation.setState(txtCarrierCode.getText());
-				newLocation.setName(txtFaxNumber.getText());
-				newLocation.setLatitude(Double.valueOf(txtEmail.getText()));
-				newLocation.setLongitude(Double.valueOf(txtContractDate.getText()));
+				newLocation.setCountry(txtCountry.getText());
+				newLocation.setState(txtState.getText());
+				newLocation.setName(txtCity.getText());
+				newLocation.setLatitude(Double.valueOf(txtLat.getText()));
+				newLocation.setLongitude(Double.valueOf(txtLon.getText()));
 				
 				if(edit){
 					newLocation.MarkDirty();
@@ -196,70 +191,59 @@ public class CarrierForm extends JPanel {
 		lblAuthorize = new JLabel("Authorize");
 		add(lblAuthorize, "2, 16, right, top");
 		
-		txtAuthorize = new JTextField();
-		txtAuthorize.setEditable(false);
-		add(txtAuthorize, "4, 16, fill, default");
-		txtAuthorize.setColumns(10);
+		textField_1 = new JTextField();
+		add(textField_1, "4, 16, fill, default");
+		textField_1.setColumns(10);
 		
 		lblTruck = new JLabel("Truck");
 		add(lblTruck, "7, 16, right, default");
 		
-		txtTruckMod = new JTextField();
-		txtTruckMod.setEditable(false);
-		add(txtTruckMod, "9, 16, fill, top");
-		txtTruckMod.setColumns(10);
+		textField_6 = new JTextField();
+		add(textField_6, "9, 16, fill, default");
+		textField_6.setColumns(10);
 		
 		lblSatefyRating = new JLabel("Safety Rating");
 		add(lblSatefyRating, "2, 18, right, default");
 		
-		txtSafetyRating = new JTextField();
-		txtSafetyRating.setEditable(false);
-		add(txtSafetyRating, "4, 18, fill, default");
-		txtSafetyRating.setColumns(10);
+		textField_2 = new JTextField();
+		add(textField_2, "4, 18, fill, default");
+		textField_2.setColumns(10);
 		
 		lblCargo = new JLabel("Cargo");
 		add(lblCargo, "7, 18, right, default");
 		
-		txtCargoMod = new JTextField();
-		txtCargoMod.setEditable(false);
-		add(txtCargoMod, "9, 18, fill, default");
-		txtCargoMod.setColumns(10);
+		textField_5 = new JTextField();
+		add(textField_5, "9, 18, fill, default");
+		textField_5.setColumns(10);
 		
 		lblSafetyRatingDate = new JLabel("Rating Date");
 		add(lblSafetyRatingDate, "2, 20, right, default");
 		
-		txtRatingDate = new JTextField();
-		txtRatingDate.setEditable(false);
-		add(txtRatingDate, "4, 20, fill, default");
-		txtRatingDate.setColumns(10);
+		textField_3 = new JTextField();
+		add(textField_3, "4, 20, fill, default");
+		textField_3.setColumns(10);
 		
 		lblPlane = new JLabel("Plane");
 		add(lblPlane, "7, 20, right, default");
 		
-		txtPlaneMod = new JTextField();
-		txtPlaneMod.setEditable(false);
-		add(txtPlaneMod, "9, 20, fill, top");
-		txtPlaneMod.setColumns(10);
+		textField_7 = new JTextField();
+		add(textField_7, "9, 20, fill, default");
+		textField_7.setColumns(10);
 		
 		lblInsEndDate = new JLabel("Ins End Date");
 		add(lblInsEndDate, "2, 22, right, default");
 		
-		txtInsEndDate = new JTextField();
-		txtInsEndDate.setEditable(false);
-		add(txtInsEndDate, "4, 22, fill, default");
-		txtInsEndDate.setColumns(10);
+		textField_4 = new JTextField();
+		add(textField_4, "4, 22, fill, default");
+		textField_4.setColumns(10);
 		
 		lblRail = new JLabel("Rail");
 		add(lblRail, "7, 22, right, default");
 		
-		txtRailMod = new JTextField();
-		txtRailMod.setEditable(false);
-		add(txtRailMod, "9, 22, fill, default");
-		txtRailMod.setColumns(10);
-		
-		btnNew = new JButton("New");
-		add(btnNew, "2, 25");
-		add(btnSearch, "4, 25");
+		textField_8 = new JTextField();
+		add(textField_8, "9, 22, fill, default");
+		textField_8.setColumns(10);
+		add(btnSave, "4, 25");
 		
 		txtID.setEditable(false);
 		
@@ -269,11 +253,7 @@ public class CarrierForm extends JPanel {
 				
 			}
 		});
-		
-		btnEdit = new JButton("Edit");
-		btnEdit.setEnabled(false);
-		add(btnEdit, "7, 25");
-		add(btnCancel, "9, 25");
+		add(btnCancel, "7, 25");
 		
 		if(editLocation != null){
 			loadLocation(editLocation);
@@ -285,11 +265,11 @@ public class CarrierForm extends JPanel {
 	
 	public void loadLocation(Location edit){
 		
-		txtFaxNumber.setText(edit.getName());
-    	txtCarrierCode.setText(edit.getState());
-    	txtCarrierName.setText(edit.getCountry());
-    	txtEmail.setText(String.valueOf(edit.getLatitude()));
-    	txtContractDate.setText(String.valueOf(edit.getLongitude()));
+		txtCity.setText(edit.getName());
+    	txtState.setText(edit.getState());
+    	txtCountry.setText(edit.getCountry());
+    	txtLat.setText(String.valueOf(edit.getLatitude()));
+    	txtLon.setText(String.valueOf(edit.getLongitude()));
     	txtID.setText(String.valueOf(edit.getID()));
     	
 		
