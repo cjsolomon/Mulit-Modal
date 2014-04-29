@@ -27,7 +27,6 @@ public class Bike extends Vehicle {
 		this.setCarrier(new Carrier());									//Set the default Bike's Carrier
 		this.setStatus(Vehicle.Status.Running);							//Set the Bike's status to RUNNING
 		this.name = DEFAULT_BIKE_NAME;									//Set the Bike's name	
-		ArrayList<TravelType> typesAvail
 		this.MarkNew();													//Mark the Bike as new
 		this.MarkClean();												//Mark the Bike as clean
 		this.MarkUndeleted();											//Mark the bike as not deleted

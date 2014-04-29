@@ -604,8 +604,6 @@ public class TravelType extends BaseClass {
 
 	public static ArrayList<TravelType> LoadForVehicle(int id, String mode)
 	{
-		
-		//This is the proper way to do this, but will disabled until we sort out the indextable
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
@@ -623,6 +621,8 @@ public class TravelType extends BaseClass {
 		}
 		return returnList;
 	}
+	
+	
 	public static ArrayList<TravelType> LoadNotInVehilce(Vehicle v)
 	{
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
