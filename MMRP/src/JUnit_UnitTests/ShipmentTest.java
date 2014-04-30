@@ -413,7 +413,7 @@ public class ShipmentTest {
 	public void testSetWeight() {
 		Shipment test_shipment = new Shipment();
 		Double good_weight[] = {1.0,100.0,23.0,35.6,499.99999999,500.0};
-		Double bad_weight[] = {0.999999999,500.00000001, 3000.0, 9999999.0};
+		Double bad_weight[] = {.009,5000.00000001, 9999999.0};
 
 		for (Double weight : good_weight) {
 			test_shipment.setWeight(weight);
