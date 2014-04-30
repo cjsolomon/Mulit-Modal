@@ -685,7 +685,7 @@ public class TravelType extends BaseClass {
 					     + this.getMinCap() + "','" + this.getMaxCap()+ "','"+
 						this.getActCap()+"','"+this.getMaxWeight()+"','"+this.getServiceType()+"',"+this.getRadiation()+","+this.getRefridgeration()+","
 						+this.getHazmat()+","+this.getExplosives()+","+this.getTracking()+")");*/
-					executeCommand("Insert into indextable (VehicleID,SegmentID, TravelTypeID,TravelMode,inUse,Deleted) Values('"+id+"','0', '"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
+					executeCommand("Insert into indextable (VehicleID, TravelTypeID,TravelMode,inUse,Deleted) Values('"+id+"','"+this.getVehicleTypeID()+"','" + this.getTravelTypeMode()+"',true,false)");
 				}
 				else
 				{
