@@ -36,9 +36,18 @@ public class LocationTest {
 	public void testArgumentedConstructor() {
 		Location test_location;
 		int test_values[] = {17,36,23,82,11,5,99,33,-26};
+		Integer num_travel_modes = new Integer(6);			//By default a new location has 6 null travel modes added
 		for (int check:test_values) {
 			test_location = new Location(check);
 			Assert.assertEquals(new Integer(check), new Integer(test_location.getID()));
+			Assert.assertEquals(Location.getDEFAULT_COUNTRY(), test_location.getCountry());
+			Assert.assertEquals(new Double(Location.getDEFAULT_LATITUDE()), new Double(test_location.getLatitude()));
+			Assert.assertEquals(new Double(Location.getDEFAULT_LONGITUDE()), new Double(test_location.getLongitude()));
+			Assert.assertEquals(Location.getDEFAULT_LOCATION_NAME(), test_location.getName());
+			Assert.assertEquals(Location.getDEFAULT_STATE(), test_location.getState());
+			Assert.assertEquals(new Integer(num_travel_modes), new Integer(test_location.getTravelModes().size()));
+			Assert.assertEquals(new Integer(0), new Integer(test_location.getVehiclesAtLocation().size()));
+			Assert.assertFalse(test_location.isDirty());
 		}
 	}
 	

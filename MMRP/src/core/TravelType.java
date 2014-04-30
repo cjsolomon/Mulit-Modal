@@ -576,7 +576,7 @@ public class TravelType extends BaseClass {
 	public static ArrayList<TravelType> LoadForVehicle(Vehicle v)
 	{
 		
-		//This is the proper way to do this, but will disabled until we sort out the indextable
+
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{

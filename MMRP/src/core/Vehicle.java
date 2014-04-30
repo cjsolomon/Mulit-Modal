@@ -357,6 +357,7 @@ public abstract class Vehicle extends BaseClass {
 		}
 		this.typesAvail.add(t);
 		t.addToVehicle(this.id,this.mode.toString());
+		this.MarkDirty();
 	}
 	
 	/**

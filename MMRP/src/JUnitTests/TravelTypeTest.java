@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import core.Cargo;
 import core.TravelType;
 import core.Truck;
+import core.Vehicle;
 
 import org.junit.*;
 
@@ -356,11 +357,18 @@ public class TravelTypeTest {
 		test_type2.setExpTrue();
 		test_type2.setRefTrue();
 		
+		test_type.setTravelTypeMode(Vehicle.TravelModes.TRUCK.toString());
+		test_type2.setTravelTypeMode(Vehicle.TravelModes.TRUCK.toString());
+		
 		test_type.Update();
 		test_type2.Update();
+		test_truck.Update();
+		test_truck2.Update();
 		test_truck.addToTypes(test_type);
 		test_truck.addToTypes(test_type2);
 		
+		test_type.Update();
+		test_type2.Update();
 		test_truck.Update();
 		test_truck2.Update();
 		
