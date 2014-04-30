@@ -1,4 +1,4 @@
-package JUnitTests;
+package JUnit_UnitTests;
 
 import java.io.File;
 import java.util.Scanner;

@@ -1,4 +1,4 @@
-package JUnitTests;
+package JUnit_UnitTests;
 
 import core.FormatChecker;
 import org.junit.Test;

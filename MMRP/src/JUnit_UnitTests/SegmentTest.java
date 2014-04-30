@@ -1,4 +1,4 @@
-package JUnitTests;
+package JUnit_UnitTests;
 
 import java.util.ArrayList;
 
@@ -35,6 +35,8 @@ public class SegmentTest {
 		Assert.assertEquals(new TravelType().getTravelTypeName(),test_segment.getTravelType().getTravelTypeName());
 		Assert.assertEquals(Segment.getDefaultLanes(), test_segment.getLane());
 		Assert.assertTrue(test_segment.getOnBoard().isEmpty());
+		Assert.assertTrue(test_segment.isNew());
+		Assert.assertFalse(test_segment.isDirty());
 	}
 
 	@Test
