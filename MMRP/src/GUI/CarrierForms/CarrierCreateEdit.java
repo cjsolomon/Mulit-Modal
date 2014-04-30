@@ -154,36 +154,6 @@ public class CarrierCreateEdit extends JPanel {
 		add(txtLon, "4,14,right,center");
 		
 		btnSave = new JButton("Save");
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//This button will attempt to save the Location to the database
-				Location newLocation = new Location();
-				//Grab the travelLocations
-
-				
-				//Add the rest of the travelModes in as NONE
-				for(int i = newLocation.getTravelModes().size(); i < 6; i++){
-					newLocation.addTravelMode(Vehicle.TravelModes.NONE);
-				}
-				
-				newLocation.setCountry(txtCountry.getText());
-				newLocation.setState(txtState.getText());
-				newLocation.setName(txtCity.getText());
-				newLocation.setLatitude(Double.valueOf(txtLat.getText()));
-				newLocation.setLongitude(Double.valueOf(txtLon.getText()));
-				
-				if(edit){
-					newLocation.MarkDirty();
-					newLocation.MarkOld();
-					newLocation.setID(Integer.valueOf(txtID.getText()));
-				}else{
-					newLocation.MarkNew();
-				}
-				
-				newLocation.Update();
-				
-			}
-		});
 		
 		lblCostModifiers = new JLabel("Cost Modifiers");
 		add(lblCostModifiers, "7, 14, 3, 1, center, default");

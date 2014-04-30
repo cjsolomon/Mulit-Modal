@@ -38,6 +38,7 @@ import core.Location;
 import GUI.ShipmentForms.ShipmentPanel;
 import GUI.CargoForms.*;
 import GUI.CarrierForms.CarrierForm;
+import GUI.CarrierForms.CarrierPanel;
 import GUI.PlaneForms.*;
 import GUI.RailForms.*;
 import GUI.TruckForms.*;
@@ -64,6 +65,7 @@ public class Main_Source {
 	private CargoTypePanel ctp;
 	private RailTypePanel rtp;
 	private CarrierForm cf;
+	private CarrierPanel cp;
 	/**
 	 * Launch the application.
 	 */
@@ -105,8 +107,9 @@ public class Main_Source {
 		locationForm = new LocationForm();
 		locationForm.setVisible(false);
 		
+		cp = new CarrierPanel();
+		cp.setVisible(false);
 		cf=new CarrierForm();
-		
 		cf.setVisible(false);
 		truckForm=new TruckPanel();
 		truckForm.setVisible(false);
@@ -217,7 +220,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(rtp,"6,4,11,17");
 		frmMmrp.getContentPane().add(ctp,"6,4,11,17");
 		frmMmrp.getContentPane().add(ptp,"6,4,11,17");
-		frmMmrp.getContentPane().add(cf,"6,4,11,17");
+		frmMmrp.getContentPane().add(cp, "6, 4, 11, 27");
 		btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
@@ -336,10 +339,11 @@ public class Main_Source {
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
-				cf.setVisible(true);
+				cp.showPanel();
 				enableButtons();
 				btnCarriers.setEnabled(false);
 				lblFormLabel.setText("Carriers");
+				
 			}
 		});
 		frmMmrp.getContentPane().add(btnCarriers, "2, 24, fill, fill");
@@ -384,7 +388,7 @@ public class Main_Source {
 		rtp.setVisible(false);
 		ctp.setVisible(false);
 		ptp.setVisible(false);
-		cf.setVisible(false);
+		cp.setVisible(false);
 	}
 	public void enableButtons()
 	{

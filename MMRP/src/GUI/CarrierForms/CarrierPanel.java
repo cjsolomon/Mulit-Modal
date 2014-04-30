@@ -1,47 +1,37 @@
 package GUI.CarrierForms;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
-import GUI.SegmentTable;
-import GUI.TravelTypeSelector;
-import GUI.*;
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.factories.FormFactory;
+import javax.swing.JLabel;
 import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class CarrierPanel extends JPanel {
-	CarrierTable tt;
-	JScrollPane sp,sp2;
-	CarrierForm tbp;
+	
+	CarrierTable ct;
+	CarrierForm cf;
+	JScrollPane sp;
 	private JButton btnDelete;
-	private JButton btnView;
-	private JTabbedPane truckInfo;
 	private JButton btnNew;
-	private TravelTypeSelector tts;
-	private GUI.SegmentTable segments;
+	private JButton btnView;
 	public CarrierPanel()
 	{
-		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(64dlu;default)"),
-				ColumnSpec.decode("max(133dlu;default)"),
+				ColumnSpec.decode("max(117dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(12dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(12dlu;default)"),
-				ColumnSpec.decode("max(12dlu;default)"),
-				FormFactory.UNRELATED_GAP_COLSPEC,},
+				FormFactory.DEFAULT_COLSPEC,
+				ColumnSpec.decode("max(63dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
@@ -52,78 +42,41 @@ public class CarrierPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		
-		tt=new CarrierTable();
-		tt.setVisible(false);
-		sp=new JScrollPane();
-		sp.setViewportView(tt);
+		ct=new CarrierTable();
+		cf = new CarrierForm();
+		cf.setVisible(false);
+		ct.setVisible(false);
+		sp = new JScrollPane();
+		sp.setViewportView(ct);
 		sp.setVisible(false);
-		add(sp,"2, 2, 7, 2");
-		tbp = new CarrierForm();
-		tbp
-		tbp.addRefreshListener(new TableRefreshListener(){
-			public void refreshTable()
-			{
-				tt.refresh();
-			}
-		});
-		tbp.setVisible(false);
-		tts= new TravelTypeSelector();
-		tts.setVisible(false);
-		sp2 = new JScrollPane();
-		segments = new SegmentTable();
-		segments.setVisible(false);
-		sp2.setViewportView(segments);
-		truckInfo = new JTabbedPane();
-		truckInfo.addTab("Basic", tbp);
-		truckInfo.addTab("Segments",sp2);
-		truckInfo.addTab("Types",tts);
-		truckInfo.setVisible(false);
-		
-		btnNew = new JButton("New");
-		btnNew.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				truckInfo.setVisible(true);
-				tbp.showPanel();
-			}
-		});
+		add(sp, "2, 2, 8, 5");
 		
 		btnView = new JButton("View");
-		btnView.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				if(tt.getSelectedRow()!=-1)
+		btnView.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(ct.getSelectedRow()!=-1)
 				{
-					truckInfo.setVisible(true);
-					tbp.showPanel(tt.getSelectedTruck());
-					segments.showPanel(tt.getSelectedTruck());
-					sp2.setVisible(true);
-					tts.showPanel(tt.getSelectedTruck());
-					truckInfo.setSelectedIndex(0);
+					cf.showPanel(ct.getSelectedCarrier());
 				}
 			}
 		});
-		add(btnView, "5, 4");
-		add(btnNew, "7, 4");
+		add(btnView, "7, 7");
+		
+		btnNew = new JButton("New");
+		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
-		add(btnDelete, "8, 4");
-		add(truckInfo,"2, 5, 7, 1");
+		add(btnDelete, "9, 7");
+		add(cf,"2, 8, 8, 1");
 		
 	}
 	public void showPanel()
 	{
 		sp.setVisible(true);
-		tt.showPanel();
-		sp.setViewportView(tt);
-		this.setVisible(true);
+		ct.showPanel();
+		cf.setVisible(false);
+		setVisible(true);
+		
 	}
-	
-	private void hideControls()
-	{
-		tbp.setVisible(false);
-	}
-	
 
 }

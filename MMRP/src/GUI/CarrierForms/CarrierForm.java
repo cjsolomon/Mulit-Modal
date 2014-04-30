@@ -1,40 +1,44 @@
 package GUI.CarrierForms;
 
 import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.util.ArrayList;
-
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-
-import GUI.TableRefreshListener;
-
-import com.jgoodies.forms.factories.FormFactory;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.RowSpec;
-
-import core.Carrier;
-import core.Location;
-import core.TravelType;
-import core.Vehicle;
 
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+import com.jgoodies.forms.layout.FormLayout;
+import com.jgoodies.forms.layout.ColumnSpec;
+import com.jgoodies.forms.layout.RowSpec;
+import com.jgoodies.forms.factories.FormFactory;
+
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Map;
+
+import javax.swing.border.MatteBorder;
+import com.jgoodies.forms.layout.Sizes;
+
+import core.Carrier;
+
+import javax.swing.JButton;
 
 public class CarrierForm extends JPanel {
-
+	
 	private static final long serialVersionUID = 1L;
-	JLabel lblID,lblCarrierCode, lblCarrierName,lblFax,lblEmail, lblContract,lblAuthorize;
-
-	JTextField txtEmail,txtContractDate,txtFaxNumber,txtCarrierCode,txtCarrierName, txtID;
-
+	JLabel lblEmail, lblContractDate, lblNumber,lblCode,lblName, lblLocation, lblID;
+	JTextField txtEmail,txtContractDate,txtFaxNumber,txtCode,txtName, txtID;
+	private JButton btnSave;
+	
 	private boolean edit = false;
+	private JButton btnCancel;
+	private JLabel lblAreaCode;
+	private JTextField txtAreaCode;
+	private JLabel lblAuthorize;
 	private JTextField txtAuthorize;
 	private JLabel lblSatefyRating;
 	private JLabel lblSafetyRatingDate;
@@ -47,25 +51,32 @@ public class CarrierForm extends JPanel {
 	private JLabel lblCargo;
 	private JLabel lblPlane;
 	private JLabel lblRail;
-	private JTextField txtTruckMod;
-	private JTextField txtCargoMod;
-	private JTextField txtPlaneMod;
-	private JTextField txtRailMod;
-
-	private Carrier source;
-	private JButton btnSave,btnEdit,btnCancel;
-	private ArrayList<TableRefreshListener> refresh;
-	public CarrierForm()
-	{
-
-
+	private JTextField txtTruck;
+	private JTextField txtCargo;
+	private JTextField txtPlane;
+	private JTextField txtRail;
+	private JCheckBox chckbxFaxNumber;
+	private JCheckBox chckbxEmail;
+	
+	public CarrierForm() {
+		
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(44dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(105dlu;default)"),
+				ColumnSpec.decode("max(105dlu;default):grow"),
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(63dlu;default):grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("max(49dlu;default):grow"),
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,},
-				new RowSpec[] {
+			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -90,245 +101,248 @@ public class CarrierForm extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,}));
-		btnSave = new JButton("Save");
-		btnSave.setVisible(false);
-		btnEdit = new JButton("Edit");
-		btnCancel = new JButton("Cancel");
-
+				FormFactory.RELATED_GAP_ROWSPEC,}));
+		
+		
 		lblEmail=new JLabel("Email");
-		lblContract = new JLabel("Contract Date");
-		lblFax = new JLabel("Fax Number");
-		lblCarrierCode = new JLabel("Carrier Code");
-		lblCarrierName = new JLabel("Carrier Name");
-
+		lblContractDate = new JLabel("Contract Date");
+		lblNumber = new JLabel("Fax Number");
+		lblCode = new JLabel("Carrier Code");
+		lblName = new JLabel("Carrier Name");
+		lblLocation = new JLabel("Carrier");
 		lblID = new JLabel("CarrierID");
-
+		
 		txtEmail=new JTextField(20);
 		txtEmail.setEditable(false);
 		txtContractDate = new JTextField(20);
-		txtContractDate.setEditable(false);
-		txtCarrierCode = new JTextField(20);
-		txtCarrierName = new JTextField(20);
+		txtCode = new JTextField(20);
+		txtName = new JTextField(20);
 		txtID = new JTextField(10);
-
+		
+		add(lblLocation, "4, 2, center, center");
 		add(txtID, "4,4,left,center");
 		add(lblID, "2, 4, right, center");
-		add(lblFax,"2,10,right,center");
-		add(lblCarrierCode,"2,8,right,center");
-		add(txtCarrierCode, "4, 8, left, center");
-		add(lblCarrierName,"2,6,right,center");
-		add(txtCarrierName, "4, 6, left, center");
+		
+		chckbxFaxNumber = new JCheckBox("Fax Number");
+		add(chckbxFaxNumber, "7, 4");
+		
+		chckbxEmail = new JCheckBox("Email");
+		add(chckbxEmail, "7, 6");
+		add(lblNumber,"2,10,right,center");
+		add(lblCode,"2,8,right,center");
+		add(txtCode, "4,8,right,center");
+		add(lblName,"2,6,right,center");
+		add(txtName, "4,6,right,center");
 		txtFaxNumber= new JTextField(20);
-
-		add(txtFaxNumber, "4, 10, left, center");
+		txtFaxNumber.setEditable(false);
+		add(txtFaxNumber, "4, 10, right, center");
+		
+		lblAreaCode = new JLabel("Area Code");
+		add(lblAreaCode, "7, 10, right, default");
+		
+		txtAreaCode = new JTextField();
+		txtAreaCode.setEditable(false);
+		add(txtAreaCode, "9, 10, fill, default");
+		txtAreaCode.setColumns(10);
 		add(lblEmail,"2,12,right,center");
-		add(txtEmail, "4, 12, left, center");
-		add(lblContract,"2,14,right,center");
-		add(txtContractDate, "4, 14, left, center");
-
+		add(txtEmail, "4,12,right,center");
+		add(lblContractDate,"2,14,right,center");
+		add(txtContractDate, "4,14,right,center");
+		
+		btnSave = new JButton("Save");
+		
+		lblCostModifiers = new JLabel("Cost Modifiers");
+		add(lblCostModifiers, "7, 14, 3, 1, center, default");
+		
 		lblAuthorize = new JLabel("Authorize");
 		add(lblAuthorize, "2, 16, right, top");
-
-		txtAuthorize = new JTextField(10);
-		add(txtAuthorize, "4, 16, fill, default");
-
-
+		
+		txtAuthorize = new JTextField();
+		add(txtAuthorize, "4, 16, fill, top");
+		txtAuthorize.setColumns(10);
+		
+		lblTruck = new JLabel("Truck");
+		add(lblTruck, "7, 16, right, default");
+		
+		txtTruck = new JTextField();
+		add(txtTruck, "9, 16, fill, default");
+		txtTruck.setColumns(10);
+		
 		lblSatefyRating = new JLabel("Safety Rating");
 		add(lblSatefyRating, "2, 18, right, default");
-
-		txtSafetyRating = new JTextField(10);
+		
+		txtSafetyRating = new JTextField();
 		add(txtSafetyRating, "4, 18, fill, default");
-
-
+		txtSafetyRating.setColumns(10);
+		
+		lblCargo = new JLabel("Cargo");
+		add(lblCargo, "7, 18, right, default");
+		
+		txtCargo = new JTextField();
+		add(txtCargo, "9, 18, fill, default");
+		txtCargo.setColumns(10);
+		
 		lblSafetyRatingDate = new JLabel("Rating Date");
 		add(lblSafetyRatingDate, "2, 20, right, default");
-
-		txtRatingDate = new JTextField(10);
+		
+		txtRatingDate = new JTextField();
 		add(txtRatingDate, "4, 20, fill, default");
-
-
+		txtRatingDate.setColumns(10);
+		
+		lblPlane = new JLabel("Plane");
+		add(lblPlane, "7, 20, right, default");
+		
+		txtPlane = new JTextField();
+		add(txtPlane, "9, 20, fill, default");
+		txtPlane.setColumns(10);
+		
 		lblInsEndDate = new JLabel("Ins End Date");
 		add(lblInsEndDate, "2, 22, right, default");
-
-		txtInsEndDate = new JTextField(10);
+		
+		txtInsEndDate = new JTextField();
 		add(txtInsEndDate, "4, 22, fill, default");
-
-		txtID.setEditable(false);
-
-
-		lblCostModifiers = new JLabel("Cost Modifiers");
-		add(lblCostModifiers, "2, 26, left, default");
-
-		lblTruck = new JLabel("Truck");
-		add(lblTruck, "2, 28, right, default");
-
-		txtTruckMod = new JTextField(10);
-		add(txtTruckMod, "4, 28, fill, top");
-
-		lblCargo = new JLabel("Cargo");
-		add(lblCargo, "2, 30, right, default");
-
-		txtCargoMod = new JTextField(10);
-		add(txtCargoMod, "4, 30, fill, default");
-
-
-		lblPlane = new JLabel("Plane");
-		add(lblPlane, "2, 32, right, default");
-
-		txtPlaneMod = new JTextField(10);
-		add(txtPlaneMod, "4, 32, fill, top");
-
+		txtInsEndDate.setColumns(10);
+		
 		lblRail = new JLabel("Rail");
-		add(lblRail, "2, 34, right, default");
-
-		txtRailMod = new JTextField(10);
-		add(txtRailMod, "4, 34, fill, default");
-
-		add(btnEdit ,"2,36");
-		add(btnSave, "2,36");
-		add(btnCancel,"4,36,left,default");
+		add(lblRail, "7, 22, right, default");
+		
+		txtRail = new JTextField();
+		add(txtRail, "9, 22, fill, default");
+		txtRail.setColumns(10);
+		add(btnSave, "4, 25");
+		
+		txtID.setEditable(false);
+		
+		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(btnEdit.isVisible()||source==null)
-				{
-					setVisible(false);
-				}
-				else
-				{
+				
+			}
+		});
+		add(btnCancel, "7, 25");
+		
 
-					btnEdit.setVisible(true);
+	
+		btnSave.setVisible(false);
+		btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(btnSave.isVisible())
+				{
 					btnSave.setVisible(false);
 					setReadOnly();
 				}
-
-			}});
-		btnEdit.addActionListener(new ActionListener()
-		{
-			public void actionPerformed(ActionEvent e)
-			{
-				btnEdit.setVisible(false);
-				btnSave.setVisible(true);
-				setEditable();
+				else
+				{
+					setVisible(false);
+				}
 			}
 		});
-		btnSave.addActionListener(new ActionListener()
+		
+		}
+
+		public void showPanel()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				update();
-			}
-		});
+			this.setVisible(true);
+		}
+
+		public void showPanel(Carrier c)
+		{
+			displayCarrier(c);
+			setReadOnly();
+			setVisible(true);
+		}
+		private void update()
+		{
+			btnSave.setVisible(false);
+		}
+		
+		private void displayCarrier(Carrier displayCarrier){
+			this.txtID.setText(String.valueOf(displayCarrier.getId()));
+			this.txtAreaCode.setText(displayCarrier.getAreaCode());
+			this.txtAuthorize.setText(String.valueOf(displayCarrier.getAuthorize()));
+			this.txtCargo.setText(String.valueOf(displayCarrier.getCostModifierCargoShip()));
+			this.txtCode.setText(displayCarrier.getCarrierCode());
+			this.txtContractDate.setText(displayCarrier.getContractDate());
+			this.txtEmail.setText(displayCarrier.getEmailAddress());
+			this.txtFaxNumber.setText(displayCarrier.getFaxNumber());
+			this.txtInsEndDate.setText(displayCarrier.getInsEndDate());
+			this.txtName.setText(displayCarrier.getCarrierName());
+			this.txtPlane.setText(String.valueOf(displayCarrier.getCostModifierPlane()));
+			this.txtRail.setText(String.valueOf(displayCarrier.getCostModifierRail()));
+			this.txtRatingDate.setText(displayCarrier.getSafetyRateDate());
+			this.txtSafetyRating.setText(String.valueOf(displayCarrier.getSafetyRating()));
+			this.txtTruck.setText(String.valueOf(displayCarrier.getCostModifierTruck()));
+			
+			if(displayCarrier.isSendByEmail())
+				this.chckbxEmail.setSelected(true);
+			else
+				this.chckbxEmail.setSelected(false);
+			if(displayCarrier.isSendByFax())
+				this.chckbxFaxNumber.setSelected(true);
+			else
+				this.chckbxFaxNumber.setSelected(true);
+			
+			this.chckbxEmail.setEnabled(false);
+			this.chckbxFaxNumber.setEnabled(false);
+			btnSave.setVisible(true);
+		}
+		
+		private void setEditable()
+		{
+			this.txtAreaCode.setEditable(true);
+			this.txtAuthorize.setEditable(true);
+			this.txtCargo.setEditable(true);
+			this.txtCode.setEditable(true);
+			this.txtContractDate.setEditable(true);
+			this.txtEmail.setEditable(true);
+			this.txtFaxNumber.setEditable(true);
+			this.txtInsEndDate.setEditable(true);
+			this.txtName.setEditable(true);
+			this.txtPlane.setEditable(true);
+			this.txtRail.setEditable(true);
+			this.txtRatingDate.setEditable(true);
+			this.txtSafetyRating.setEditable(true);
+			this.txtTruck.setEditable(true);
+			
+			this.chckbxEmail.setEnabled(true);
+			this.chckbxFaxNumber.setEnabled(true);
+			btnSave.setVisible(true);
+		}
+		
+		private void setReadOnly()
+		{
+			this.txtAreaCode.setEditable(false);
+			this.txtAuthorize.setEditable(false);
+			this.txtCargo.setEditable(false);
+			this.txtCode.setEditable(false);
+			this.txtContractDate.setEditable(false);
+			this.txtEmail.setEditable(false);
+			this.txtFaxNumber.setEditable(false);
+			this.txtInsEndDate.setEditable(false);
+			this.txtName.setEditable(false);
+			this.txtPlane.setEditable(false);
+			this.txtRail.setEditable(false);
+			this.txtRatingDate.setEditable(false);
+			this.txtSafetyRating.setEditable(false);
+			this.txtTruck.setEditable(false);
+			
+			this.chckbxEmail.setEnabled(false);
+			this.chckbxFaxNumber.setEnabled(false);
+			btnSave.setVisible(false);
+			
+
+		}
 
 
-	}//End of LocationCreateEdit Constructor
 
-
-	public void showPanel()
-	{
-		source = null;
-		btnEdit.setVisible(false);
-		btnSave.setVisible(true);
-		loadNew();
-		setEditable();
-		setVisible(true);
-	}
-	public void showPanel(Carrier c)
-	{
-		if(c!=null)
-			source = c;
-		loadCarrier();
-		setReadOnly();
-		btnSave.setVisible(false);
-		btnEdit.setVisible(true);
-		setVisible(true);
-	}
-	private void loadNew()
-	{
-		this.txtAuthorize.setText("");
-		this.txtCargoMod.setText("");
-		this.txtCarrierCode.setText("");
-		this.txtCarrierName.setText("");
-		this.txtContractDate.setText("");
-		this.txtEmail.setText("");
-		this.txtFaxNumber.setText("");
-		this.txtID.setText("");
-		this.txtInsEndDate.setText("");
-		this.txtPlaneMod.setText("");
-		this.txtRailMod.setText("");
-		this.txtSafetyRating.setText("");
-		this.txtTruckMod.setText("");
-
-	}
-	private void loadCarrier(){
-		this.txtAuthorize.setText(Integer.toString(source.getAuthorize()));
-		this.txtCargoMod.setText(Double.toString(source.getCostModifierCargoShip()));
-		this.txtCarrierCode.setText(source.getCarrierCode());
-		this.txtCarrierName.setText(source.getCarrierName());
-		this.txtContractDate.setText(source.getContractDate());
-		this.txtEmail.setText(source.getEmailAddress());
-		this.txtFaxNumber.setText(source.getFaxNumber());
-		this.txtID.setText(Integer.toString(source.getId()));
-		this.txtInsEndDate.setText(source.getInsEndDate());
-		this.txtPlaneMod.setText(Double.toString(source.getCostModifierPlane()));
-		this.txtRailMod.setText(Double.toString(source.getCostModifierRail()));
-		this.txtSafetyRating.setText(Integer.toString(source.getSafetyRating()));
-		this.txtTruckMod.setText(Double.toString(source.getCostModifierTruck()));
-
-	}
-	private void setReadOnly()
-	{
-		this.txtAuthorize.setEnabled(false);
-		this.txtCargoMod.setEnabled(false);
-		this.txtCarrierCode.setEnabled(false);
-		this.txtCarrierName.setEnabled(false);
-		this.txtContractDate.setEnabled(false);
-		this.txtEmail.setEnabled(false);
-		this.txtFaxNumber.setEnabled(false);
-		this.txtID.setEnabled(false);
-		this.txtInsEndDate.setEnabled(false);
-		this.txtPlaneMod.setEnabled(false);
-		this.txtRailMod.setEnabled(false);
-		this.txtSafetyRating.setEnabled(false);
-		this.txtTruckMod.setEnabled(false);
-
-
-	}
-	private void setEditable()
-	{
-		this.txtAuthorize.setEnabled(true);
-		this.txtCargoMod.setEnabled(true);
-		this.txtCarrierCode.setEnabled(true);
-		this.txtCarrierName.setEnabled(true);
-		this.txtContractDate.setEnabled(true);
-		this.txtEmail.setEnabled(true);
-		this.txtFaxNumber.setEnabled(true);
-		this.txtID.setEnabled(false);
-		this.txtInsEndDate.setEnabled(true);
-		this.txtPlaneMod.setEnabled(true);
-		this.txtRailMod.setEnabled(true);
-		this.txtSafetyRating.setEnabled(true);
-		this.txtTruckMod.setEnabled(true);
-	}
-	private void update()
-	{
 
 	}
-	public void addRefreshListener(TableRefreshListener add)
-	{
-		if(refresh==null)
-			refresh = new ArrayList<TableRefreshListener>();
-		refresh.add(add);
-	}
-}
+
+
