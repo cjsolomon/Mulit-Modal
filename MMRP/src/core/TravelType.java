@@ -486,8 +486,8 @@ public class TravelType extends BaseClass {
 				ArrayList<Map<String,Object>> temp =executeQuery("Select VehicleTypeID from TravelTypes where VehicleTypeName = '" + this.getTravelTypeName() + "' AND VehicleMode = '"+this.getTravelTypeMode()+
 						"' AND Trailer1 = '" + this.getTrailer1() + "' AND Trailer2 = '" + this.getTrailer2() + "' AND MinimumCapacity = '" + this.getMinCap() + 
 						"' AND MaximumCapacity = '" + this.getMaxCap() + "' AND MaxWeight = '" + this.getMaxWeight()+ "' AND ServiceType = '" + this.getServiceType()+
-						"' AND Radiation = '" + this.getRadiation()+ "' AND Refridgeration = '" + this.getRefridgeration()+ "' AND HazardousMaterial = '" + this.getHazmat()+ "' AND ExplosiveMaterial = '" + this.getExplosives()+
-						"' AND Tracking = '" + this.getTracking()+"'");
+						"' AND Radiation = " + this.getRadiation()+ " AND Refridgeration = " + this.getRefridgeration()+ " AND HazardousMaterial = " + this.getHazmat()+ " AND ExplosiveMaterial = " + this.getExplosives()+
+						" AND Tracking = " + this.getTracking()+"");
 				//If this TravelType exists on the database mark it as old and clean
 				if(temp.size()>0)
 				{
