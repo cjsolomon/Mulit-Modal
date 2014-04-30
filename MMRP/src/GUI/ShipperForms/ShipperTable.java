@@ -1,4 +1,4 @@
-package GUI.CarrierForms;
+package GUI.ShipperForms;
 
 import java.util.ArrayList;
 
@@ -9,36 +9,36 @@ import javax.swing.table.AbstractTableModel;
 
 import core.*;
 
-public class CarrierTable extends JTable {
+public class ShipperTable extends JTable {
 
-	ArrayList<Carrier> source = new ArrayList<Carrier>();
+	ArrayList<Shipper> source = new ArrayList<Shipper>();
 
 
-	public CarrierTable()
+	public ShipperTable()
 	{
 		super();
-		this.setModel(new CarrierModel(new ArrayList<Carrier>()));
+		this.setModel(new ShipperModel(new ArrayList<Shipper>()));
 		this.getColumnModel().getColumn(0).setWidth(10);
 		this.getColumnModel().getColumn(1).setWidth(10);
 		this.getColumnModel().getColumn(2).setWidth(10);
 	}
 	public void showPanel()
 	{
-		source=Carrier.LoadAll("where CarrierID < 10");
-		this.setModel(new CarrierModel(source));
+		source=Shipper.LoadAll("where ShipperID < 10");
+		this.setModel(new ShipperModel(source));
 		this.setVisible(true);
 	}
 	public void refresh()
 	{
-		source=Carrier.LoadAll("where CarrierID < 10");
-		this.setModel(new CarrierModel(source));
+		source=Shipper.LoadAll("where ShipperID < 10");
+		this.setModel(new ShipperModel(source));
 	}
-	public Carrier getSelectedCarrier()
+	public Shipper getSelectedShipper()
 	{
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
-		for(Carrier t : source)
+		for(Shipper t : source)
 		{
-			if(t.getId()==searchID)
+			if(t.getID()==searchID)
 				return t;
 		}
 		return null;
@@ -46,11 +46,11 @@ public class CarrierTable extends JTable {
 }
 
 
-class CarrierModel extends AbstractTableModel
+class ShipperModel extends AbstractTableModel
 {
-	ArrayList<Carrier> data;
-	String[] columns = {"ID", "Name","Code","Safety Rating"};
-	public CarrierModel(ArrayList<Carrier> source)
+	ArrayList<Shipper> data;
+	String[] columns = {"ID", "Company Name","Contact Name","Phone Number"};
+	public ShipperModel(ArrayList<Shipper> source)
 	{
 		data=source;
 	}
@@ -70,16 +70,16 @@ class CarrierModel extends AbstractTableModel
 		switch(col)
 		{
 			case 0:
-			return data.get(row).getId();
+			return data.get(row).getID();
 			case 1:
-			return data.get(row).getCarrierName();
+			return data.get(row).getCompanyName();
 			case 2:
-			return data.get(row).getCarrierCode();
+			return data.get(row).getContactName();
 			case 3:
-			return data.get(row).getSafetyRating();
+			return data.get(row).getPhoneNumber();
 			
 			default:
-				return data.get(row).getId();
+				return data.get(row).getID();
 		}
 	}
 	@Override

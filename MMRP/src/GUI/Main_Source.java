@@ -36,6 +36,8 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import core.Location;
 import GUI.ShipmentForms.ShipmentPanel;
+import GUI.ShipperForms.ShipperPanel;
+import GUI.ShippingRatesForms.ShippingRatePanel;
 import GUI.CargoForms.*;
 import GUI.CarrierForms.CarrierForm;
 import GUI.CarrierForms.CarrierPanel;
@@ -66,6 +68,10 @@ public class Main_Source {
 	private RailTypePanel rtp;
 	private CarrierForm cf;
 	private CarrierPanel cp;
+	private ShippingRatePanel srp;
+	private ShipperPanel sp;
+	private JButton btnShippingRates;
+	private JButton btnShipper;
 	/**
 	 * Launch the application.
 	 */
@@ -109,8 +115,10 @@ public class Main_Source {
 		
 		cp = new CarrierPanel();
 		cp.setVisible(false);
-		cf=new CarrierForm();
-		cf.setVisible(false);
+		sp = new ShipperPanel();
+		sp.setVisible(false);
+		srp = new ShippingRatePanel();
+		srp.setVisible(false);
 		truckForm=new TruckPanel();
 		truckForm.setVisible(false);
 		railForm = new RailPanel();
@@ -132,7 +140,7 @@ public class Main_Source {
 		 */
 		frmMmrp.getContentPane().setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("117px"),
+				ColumnSpec.decode("126px"),
 				ColumnSpec.decode("17px"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
@@ -221,6 +229,8 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(ctp,"6,4,11,17");
 		frmMmrp.getContentPane().add(ptp,"6,4,11,17");
 		frmMmrp.getContentPane().add(cp, "6, 4, 11, 27");
+		frmMmrp.getContentPane().add(srp, "6, 4, 11, 27");
+		frmMmrp.getContentPane().add(sp, "6, 4, 11, 27");
 		btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
@@ -347,23 +357,51 @@ public class Main_Source {
 			}
 		});
 		frmMmrp.getContentPane().add(btnCarriers, "2, 24, fill, fill");
-		
-		
-				final JButton btnExit = new JButton("Exit");
-				btnExit.setToolTipText("Exit MMRP");
-				frmMmrp.getContentPane().add(btnExit, "2, 26, fill, fill");
-				btnExit.setMnemonic(KeyEvent.VK_E);
-				btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				
-				btnExit.addActionListener( new ActionListener()
-				{
-					public void actionPerformed(ActionEvent e)
-					{
-						Log.writeLogSevere("User selected to Exit Program");
-						System.exit(0);
 						
-					}
-				});
+		btnShippingRates = new JButton("Shipping Rates");
+		btnShippingRates.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				hidePanels();
+				srp.showPanel();
+				enableButtons();
+				btnShippingRates.setEnabled(false);
+				lblFormLabel.setText("Shipping Rates");
+				
+			}
+		});
+		frmMmrp.getContentPane().add(btnShippingRates, "2, 26, fill, fill");
+						
+		btnShipper = new JButton("Shippers");
+		btnShipper.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				hidePanels();
+				sp.showPanel();
+				enableButtons();
+				btnShipper.setEnabled(false);
+				lblFormLabel.setText("Shippers");
+				
+			}
+		});
+		frmMmrp.getContentPane().add(btnShipper, "2, 28, fill, fill");
+				
+				
+		final JButton btnExit = new JButton("Exit");
+		btnExit.setToolTipText("Exit MMRP");
+		frmMmrp.getContentPane().add(btnExit, "2, 30, fill, fill");
+		btnExit.setMnemonic(KeyEvent.VK_E);
+		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+				
+		btnExit.addActionListener( new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				Log.writeLogSevere("User selected to Exit Program");
+				System.exit(0);
+					
+			}
+		});
 		
 	}
 	
@@ -389,6 +427,7 @@ public class Main_Source {
 		ctp.setVisible(false);
 		ptp.setVisible(false);
 		cp.setVisible(false);
+		sp.setVisible(false);
 	}
 	public void enableButtons()
 	{
@@ -403,7 +442,8 @@ public class Main_Source {
 		this.btnRailType.setEnabled(true);
 		this.btnCargoType.setEnabled(true);
 		this.btnTruckType.setEnabled(true);
-		
+		this.btnShippingRates.setEnabled(true);
+		this.btnShipper.setEnabled(true);
 		
 	}
 	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {

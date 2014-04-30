@@ -839,6 +839,7 @@ public class Carrier extends BaseClass
 				temp = executeQuery("Select * from Carriers where Deleted = false");
 			else
 				temp = executeQuery("Select * from Carriers " +  where  + " AND Deleted = false");
+			if(temp != null)
 			for(int i = 0 ; i<temp.size();i++)
 			{
 				Carrier c = BuildFromDataRow(temp.get(i));

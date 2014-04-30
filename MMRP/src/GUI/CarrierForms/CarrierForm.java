@@ -32,7 +32,7 @@ public class CarrierForm extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel lblEmail, lblContractDate, lblNumber,lblCode,lblName, lblLocation, lblID;
 	JTextField txtEmail,txtContractDate,txtFaxNumber,txtCode,txtName, txtID;
-	private JButton btnSave;
+	private JButton btnSaveEdit;
 	
 	private boolean edit = false;
 	private JButton btnCancel;
@@ -154,7 +154,7 @@ public class CarrierForm extends JPanel {
 		add(lblContractDate,"2,14,right,center");
 		add(txtContractDate, "4,14,right,center");
 		
-		btnSave = new JButton("Save");
+		btnSaveEdit = new JButton("Edit");
 		
 		lblCostModifiers = new JLabel("Cost Modifiers");
 		add(lblCostModifiers, "7, 14, 3, 1, center, default");
@@ -214,7 +214,7 @@ public class CarrierForm extends JPanel {
 		txtRail = new JTextField();
 		add(txtRail, "9, 22, fill, default");
 		txtRail.setColumns(10);
-		add(btnSave, "4, 25");
+		add(btnSaveEdit, "4, 25");
 		
 		txtID.setEditable(false);
 		
@@ -228,14 +228,14 @@ public class CarrierForm extends JPanel {
 		
 
 	
-		btnSave.setVisible(false);
+		btnSaveEdit.setVisible(true);
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(btnSave.isVisible())
+				if(btnSaveEdit.isVisible())
 				{
-					btnSave.setVisible(false);
+					btnSaveEdit.setVisible(false);
 					setReadOnly();
 				}
 				else
@@ -260,7 +260,7 @@ public class CarrierForm extends JPanel {
 		}
 		private void update()
 		{
-			btnSave.setVisible(false);
+			btnSaveEdit.setVisible(false);
 		}
 		
 		private void displayCarrier(Carrier displayCarrier){
@@ -291,7 +291,7 @@ public class CarrierForm extends JPanel {
 			
 			this.chckbxEmail.setEnabled(false);
 			this.chckbxFaxNumber.setEnabled(false);
-			btnSave.setVisible(true);
+			btnSaveEdit.setVisible(true);
 		}
 		
 		private void setEditable()
@@ -313,7 +313,7 @@ public class CarrierForm extends JPanel {
 			
 			this.chckbxEmail.setEnabled(true);
 			this.chckbxFaxNumber.setEnabled(true);
-			btnSave.setVisible(true);
+			btnSaveEdit.setVisible(true);
 		}
 		
 		private void setReadOnly()
@@ -335,7 +335,7 @@ public class CarrierForm extends JPanel {
 			
 			this.chckbxEmail.setEnabled(false);
 			this.chckbxFaxNumber.setEnabled(false);
-			btnSave.setVisible(false);
+			btnSaveEdit.setVisible(true);
 			
 
 		}
