@@ -926,12 +926,14 @@ public class Segment extends BaseClass {
 			if (isNew()) {
 				// If the Segment is new insert it into the database by
 				// executing the following
-				executeCommand("Insert into Segment (FromLocationID,ToLocationID,VehicleID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime) Values ('"
+				executeCommand("Insert into Segment (FromLocationID,ToLocationID,VehicleID,TravelTypeID,ModeType,Distance,TimeOfDeparture,TimeOfArrival,Lane,ShippingRateID,EarliestArrivalTime,LatestArrivalTime,EarliestDepartureTime,LatestDepartureTime) Values ('"
 						+ this.getStartLocationID()
 						+ "','"
 						+ this.getEndLocationID()
 						+ "','"
 						+ this.vehicle.getId()
+						+ "','"
+						+ this.travelType.getVehicleTypeID()
 						+ "','"
 						+ this.getMode()
 						+ "','"
@@ -961,6 +963,9 @@ public class Segment extends BaseClass {
 						+ "' "
 						+ "AND VehicleID='"
 						+ this.vehicle.getId()
+						+ "' "
+						+ "AND TravelTypeID='"
+						+ this.travelType.getVehicleTypeID()
 						+ "' "
 						+ "And ModeType='"
 						+ this.getMode()
@@ -1016,6 +1021,7 @@ public class Segment extends BaseClass {
 							+ this.getStartLocationID() + "', "
 							+ "ToLocationID ='" + this.getEndLocationID() + "', "
 							+ "VehicleID='" + this.vehicle.getId() + "', "
+							+ "TravelTypeID='" + this.travelType.getVehicleTypeID() + "', "
 							+ "ModeType='" + this.getMode() + "', "
 							+ "Distance='" + this.getDistance() + "', "
 							+ "TimeOfDeparture ='"
