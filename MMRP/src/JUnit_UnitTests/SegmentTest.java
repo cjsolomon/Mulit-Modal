@@ -613,9 +613,13 @@ public class SegmentTest {
 	
 	@Test
 	public void testLoad() {
+		TravelType test_type = new TravelType();
+		test_type.Update();
+		
 		Segment test_segment = new Segment();
 		String test_string = new String("Load Test String For Segment");
 		test_segment.setLane(test_string);
+		test_segment.setTravelType(test_type);
 		
 
 		test_segment.Update();
@@ -632,6 +636,7 @@ public class SegmentTest {
 		Assert.assertEquals(test_segment.getTravelType().getTravelTypeName(),test_segment2.getTravelType().getTravelTypeName());
 		Assert.assertEquals(new Integer(test_segment.getOnBoard().size()),new Integer(test_segment2.getOnBoard().size()));
 		test_segment.Delete();
+		test_type.Delete();
 	}
 	
 	@Test public void testEstimateCapacity() {
