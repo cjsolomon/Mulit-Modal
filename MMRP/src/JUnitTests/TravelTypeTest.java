@@ -386,5 +386,46 @@ public class TravelTypeTest {
 		test_type2.Delete();
 	}
 	
+	@Test
+	public void testLoadAllForVehicle2() {
+		Truck test_truck = new Truck();
+		Truck test_truck2 = new Truck();
+		test_truck.setVehicleName("JUnit TravelTypeTest.testLoadAllForVehicle()");
+		test_truck2.setVehicleName("JUnit TravelTypeTest.testLoadAllForVehicle()");
+		
+		
+		TravelType test_type2 = new TravelType();
+		test_type2.setExpTrue();
+		test_type2.setRefTrue();
+		
+		test_type.setTravelTypeMode(Vehicle.TravelModes.TRUCK.toString());
+		test_type2.setTravelTypeMode(Vehicle.TravelModes.TRUCK.toString());
+		
+		test_type.Update();
+		test_type2.Update();
+		test_truck.Update();
+		test_truck2.Update();
+		test_truck.addToTypes(test_type);
+		test_truck.addToTypes(test_type2);
+		
+		test_type.Update();
+		test_type2.Update();
+		test_truck.Update();
+		test_truck2.Update();
+		
+		ArrayList<TravelType> travel_list = new ArrayList<TravelType>();
+		
+		travel_list = TravelType.LoadForVehicle(test_truck.getId(),Vehicle.TravelModes.TRUCK.toString());
+		Assert.assertEquals(2,travel_list.size());
+		
+		travel_list = TravelType.LoadForVehicle(test_truck2.getId(),Vehicle.TravelModes.TRUCK.toString());
+		Assert.assertEquals(0, travel_list.size());
+			
+		test_truck.Delete();
+		test_truck2.Delete();
+		test_type.Delete();
+		test_type2.Delete();
+	}
+	
 	
 }

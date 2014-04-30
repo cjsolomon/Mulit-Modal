@@ -26,7 +26,7 @@ public class LogTest {
 	}
 
 	@Test
-	public void severeWrite() {
+	public void testSevereWrite() {
 		Log.createLogg();
 		try {
 			File log_file2 = new File("MMRP.log");
@@ -48,7 +48,7 @@ public class LogTest {
 	}
 	
 	@Test
-	public void warningWrite() {
+	public void testWarningWrite() {
 		Log.createLogg();
 		try {
 			File log_file3 = new File("MMRP.log");
@@ -73,7 +73,7 @@ public class LogTest {
 
 	
 	@Test
-	public void infoWrite() {
+	public void testInfoWrite() {
 		Log.createLogg();
 		try {
 			File log_file = new File("MMRP.log");
