@@ -3,6 +3,7 @@ package GUI;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -15,6 +16,7 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.BaseClass;
 import core.Location;
 import core.Vehicle;
 
@@ -47,8 +49,7 @@ public class LocationForm extends JPanel {
 	private JTextField txtSegmentID;
 	private JLabel lblVehicleID;
 	private JTextField txtVehicleID;
-	private JLabel lblMode;
-	private JTextField txtMode;
+	private JLabel lblTravelTypeID;
 	private JLabel lblDistance;
 	private JTextField txtDistance;
 	private JLabel lblLane;
@@ -69,8 +70,10 @@ public class LocationForm extends JPanel {
 	private JTextField txtEstArrival;
 	private JTextField txtEarlArrival;
 	private JTextField txtLatArrival;
-	private JButton btnEdit;
+	private JButton btnEditSegment;
 	private JButton btnCreateNewShipment;
+	private JButton btnCancelSegment;
+	private JTextField txtTravelTypeID;
 	
 	public LocationForm() {
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -188,9 +191,9 @@ public class LocationForm extends JPanel {
 		add(txtSegmentID, "4, 2, left, default");
 		txtSegmentID.setColumns(10);
 		
-		btnEdit = new JButton("Edit");
-		btnEdit.setEnabled(false);
-		add(btnEdit, "5, 2");
+		btnEditSegment = new JButton("Edit");
+		btnEditSegment.setEnabled(false);
+		add(btnEditSegment, "5, 2");
 		
 		lblEstDeparture = new JLabel("Est. Departure");
 		add(lblEstDeparture, "9, 2, right, default");
@@ -216,13 +219,13 @@ public class LocationForm extends JPanel {
 		add(txtEarlDeparture, "11, 4, fill, default");
 		txtEarlDeparture.setColumns(10);
 		
-		lblMode = new JLabel("Mode");
-		add(lblMode, "2, 6, right, default");
+		lblTravelTypeID = new JLabel("Travel Type ID");
+		add(lblTravelTypeID, "2, 6, right, default");
 		
-		txtMode = new JTextField();
-		txtMode.setEditable(false);
-		add(txtMode, "4, 6, fill, default");
-		txtMode.setColumns(10);
+		txtTravelTypeID = new JTextField();
+		txtTravelTypeID.setEditable(false);
+		add(txtTravelTypeID, "4, 6, fill, default");
+		txtTravelTypeID.setColumns(10);
 		
 		lblLatestDeparture = new JLabel("Latest Departure");
 		add(lblLatestDeparture, "9, 6, right, default");
@@ -289,8 +292,16 @@ public class LocationForm extends JPanel {
 		txtActualCapacity.setColumns(10);
 		
 		btnCreateNewShipment = new JButton("Create New Segment");
-		btnCreateNewShipment.setEnabled(false);
+		btnCreateNewShipment.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				enableSegmentFields();
+			}
+		});
 		add(btnCreateNewShipment, "11, 14");
+		
+		btnCancelSegment = new JButton("Cancel");
+		add(btnCancelSegment, "12, 14");
+		btnCancelSegment.setVisible(false);
 		
 		//Start Location
 		
@@ -354,8 +365,7 @@ public class LocationForm extends JPanel {
 		
 		
 		//Set up the countries
-		loadCountries(cbStartCountry);
-		loadCountries(cbEndCountry);
+		this.loadCountries(cbStartCountry, cbEndCountry);
 		//Set up the states
 		loadStates(cbStartState, cbStartCountry);
 		loadStates(cbEndState, cbEndCountry);
@@ -402,6 +412,7 @@ public class LocationForm extends JPanel {
 				add(lce,"2, 2, center, center");
 				lce.setVisible(true);
 				setVisible(false);
+				btnCancelSegment.setVisible(false);
 			}
 		});
 		add(btnCreateLocation, "4, 31");
@@ -588,67 +599,63 @@ public class LocationForm extends JPanel {
 		
 	}//End of loadSegments()
 	
-	public void loadCountries(JComboBox<String> countryComboBox){
-		
-		
-		boolean addLocation = true;
-		countries.clear();
-		for(int i = 0; i < allLocations.size(); i++){
-			for(int j = 0; j < countries.size(); j++){
-				if(countries.get(j) == allLocations.get(i).getCountry()){
-					addLocation = false;
-					break;
+	protected void loadStates(JComboBox sourceCountry,JComboBox sourceStates)
+	{
+		if(sourceStates!=null && sourceCountry.getSelectedIndex()!=-1)
+		{
+			sourceStates.removeAllItems();
+			try
+			{
+				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct State from location where Country = '" + sourceCountry.getSelectedItem().toString()+"'");
+				for(Map m :tmp)
+				{
+					sourceStates.addItem(m.get("State").toString());
 				}
 			}
-			if(addLocation){
-				countries.add(allLocations.get(i).getCountry());
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
 			}
-			addLocation = true;
 		}
-		
-		for(int i = 0; i < countries.size(); i++){
-			countryComboBox.addItem(countries.get(i));
+	}
+	protected void loadCountries(JComboBox source1,JComboBox source2)
+	{
+		try
+		{
+			ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct Country from location");
+			for(Map m :tmp)
+			{
+				source1.addItem(m.get("Country").toString());
+				source2.addItem(m.get("Country").toString());
+			}
 		}
-		
-	}//End of loadCountries()
-	
-	public void loadStates(JComboBox<String> stateComboBox, JComboBox<String> countryComboBox){
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		source1.setSelectedIndex(-1);
+		source2.setSelectedIndex(-1);
+	}
+	protected void loadCities(JComboBox sourceCountry,JComboBox sourceStates,JComboBox sourceCities)
+	{
+		if(sourceCities!=null && sourceStates.getSelectedIndex()!=-1)
+		{
+			sourceCities.removeAllItems();
+			try
+			{
+				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct Name from location where Country = '" + sourceCountry.getSelectedItem().toString()+"' and State = '" + sourceStates.getSelectedItem().toString()+"'");
+				for(Map m :tmp)
+				{
+					sourceCities.addItem(m.get("Name").toString());
+				}
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
 
-		stateComboBox.removeAllItems();
-		states.clear();
-		
-		String sql = " where Country = '" + countryComboBox.getSelectedItem().toString() +"'";
-		ArrayList<Location> stateLocations = Location.LoadAll(sql);
-		
-		for(int i=0; i < stateLocations.size(); i++){
-			if(!states.contains(stateLocations.get(i).getState()))
-				states.add(stateLocations.get(i).getState());
-		}
-		
-		for(int i = 0; i < states.size(); i++){
-			stateComboBox.addItem(states.get(i));
-		}
-	
-	}//End of loadStates()
-	
-	public void loadCities(JComboBox<String> cityComboBox,JComboBox<String> stateComboBox, JComboBox<String> countryComboBox){
-
-		cityComboBox.removeAllItems();
-		cities.clear();
-		String sql = " where Country = '" + countryComboBox.getSelectedItem().toString() + "' AND State = '" +stateComboBox.getSelectedItem().toString()+ "'";
-		ArrayList<Location> cityLocations = Location.LoadAll(sql);
-		
-		for(int i=0; i < cityLocations.size(); i++){
-			if(!cities.contains(cityLocations.get(i).getName()))
-				cities.add(cityLocations.get(i).getName());
-		}
-		
-		for(int i = 0; i < cities.size(); i++){
-			cityComboBox.addItem(cities.get(i));
-		}
-		
-		
-	}//End of loadCities()
+	}
 	
 	public Location findLocation(String country, String state, String city){
 		Location foundLocation = new Location();
@@ -670,5 +677,20 @@ public class LocationForm extends JPanel {
     		cbTravelModes.addItem(Vehicle.TravelModes.NONE.toString());
     	
 	}//End of loadTravelModes()
+	
+	public void enableSegmentFields(){
+		
+		this.txtEarlArrival.setEditable(true);
+		this.txtEarlDeparture.setEditable(true);
+		this.txtEstArrival.setEditable(true);
+		this.txtEstDeparture.setEditable(true);
+		this.txtLane.setEditable(true);
+		this.txtLatArrival.setEditable(true);
+		this.txtLatDeparture.setEditable(true);
+		this.txtRateID.setEditable(true);
+		this.txtVehicleID.setEditable(true);
+		this.txtTravelTypeID.setEditable(true);
+
+	}
 
 }//End of LocationForm Class

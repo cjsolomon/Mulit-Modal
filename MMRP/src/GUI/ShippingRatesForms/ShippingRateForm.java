@@ -217,7 +217,9 @@ public class ShippingRateForm extends JPanel {
 
 		public void showPanel()
 		{
+			setEditable();
 			this.setVisible(true);
+			this.btnSaveEdit.setText("Save");
 		}
 
 		public void showPanel(ShippingRate sr)
@@ -225,6 +227,7 @@ public class ShippingRateForm extends JPanel {
 			displayShippingRate(sr);
 			setReadOnly();
 			setVisible(true);
+			this.btnSaveEdit.setText("Edit");
 		}
 		private void update()
 		{

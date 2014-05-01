@@ -63,6 +63,11 @@ public class ShippingRatePanel extends JPanel {
 		add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
+		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				srf.showPanel();
+			}
+		});
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");

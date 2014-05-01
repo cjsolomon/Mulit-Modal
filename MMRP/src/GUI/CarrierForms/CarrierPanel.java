@@ -63,6 +63,11 @@ public class CarrierPanel extends JPanel {
 		add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
+		btnNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				cf.showPanel();
+			}
+		});
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
@@ -78,5 +83,7 @@ public class CarrierPanel extends JPanel {
 		setVisible(true);
 		
 	}
+	
+	
 
 }

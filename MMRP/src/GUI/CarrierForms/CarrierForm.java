@@ -249,7 +249,9 @@ public class CarrierForm extends JPanel {
 
 		public void showPanel()
 		{
+			setEditable();
 			this.setVisible(true);
+			this.btnSaveEdit.setText("Save");
 		}
 
 		public void showPanel(Carrier c)
@@ -258,6 +260,8 @@ public class CarrierForm extends JPanel {
 			setReadOnly();
 			setVisible(true);
 		}
+	
+		
 		private void update()
 		{
 			btnSaveEdit.setVisible(false);

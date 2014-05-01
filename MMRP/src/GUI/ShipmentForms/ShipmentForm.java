@@ -45,9 +45,20 @@ public class ShipmentForm extends JPanel
 	
 	JPanel shipmentPanel,shipperPanel;
 	private JButton btnEdit,btnSave,btnCancel;
+	private JTextField txtEarliestDeparture;
+	private JTextField txtEarliestArrival;
+	private JTextField txtLatestDeparture;
+	/**
+	 * @wbp.nonvisual location=-29,429
+	 */
+	private final JTextField txt = new JTextField();
+	private JTextField txtLatestArrival;
+	private JComboBox cbShipper;
+	private JLabel lblShipperID;
 
 	public ShipmentForm()
 	{
+		txt.setColumns(10);
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(71dlu;default)"),
@@ -91,8 +102,10 @@ public class ShipmentForm extends JPanel
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,},
-				new RowSpec[] {
+				FormFactory.RELATED_GAP_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,
+				ColumnSpec.decode("default:grow"),},
+			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -158,8 +171,14 @@ public class ShipmentForm extends JPanel
 		shipperPanel.add(cmbFromCountries,"4, 2");
 		shipperPanel.add(cmbFromStates,"6,2");
 		shipperPanel.add(cmbFromCities,"8, 2, fill, default");
+		
+		lblShipperID = new JLabel("Shipper ID");
+		shipperPanel.add(lblShipperID, "14, 2");
 		shipperPanel.add(lblCompanyName,"2,4,right,center");
 		shipperPanel.add(txtCompanyName,"4, 4, 5, 1");
+		
+		cbShipper = new JComboBox();
+		shipperPanel.add(cbShipper, "14, 4, fill, default");
 		shipperPanel.add(lblContactName,"2,6,right,center");
 		shipperPanel.add(txtContactName,"4, 6, 5, 1");
 		shipperPanel.add(lblPhone,"2,8,right,center");
@@ -176,13 +195,13 @@ public class ShipmentForm extends JPanel
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("50dlu", true), Sizes.constant("55dlu", true)), 0),
+				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("50dlu", true), Sizes.constant("55dlu", true)), 1),
 				FormFactory.RELATED_GAP_COLSPEC,
 				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("20dlu", true), Sizes.constant("25dlu", true)), 0),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.DEFAULT_COLSPEC,},
+				ColumnSpec.decode("default:grow"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
@@ -277,12 +296,28 @@ public class ShipmentForm extends JPanel
 		shipmentPanel.add(cmbPriority,"4, 8, 3, 1");
 
 		shipmentPanel.add(this.lblEarliestDateTimeDeparture,"2,10,right,center");
+		
+		txtEarliestDeparture = new JTextField();
+		shipmentPanel.add(txtEarliestDeparture, "4, 10, fill, default");
+		txtEarliestDeparture.setColumns(10);
+		
+		txtLatestDeparture = new JTextField();
+		shipmentPanel.add(txtLatestDeparture, "10, 10, fill, default");
+		txtLatestDeparture.setColumns(10);
+		
+		txtEarliestArrival = new JTextField();
+		shipmentPanel.add(txtEarliestArrival, "4, 12, fill, top");
+		txtEarliestArrival.setColumns(10);
 		shipmentPanel.add(this.lblLatestDateTimeArrival,"8, 12, right, center");
 		shipmentPanel.add(this.lblLatestDateTimeDeparture,"8, 10, right, center");
 		shipmentPanel.add(this.lblEarliestDateTimeArrival,"2,12,right,center");
 
 		shipmentPanel.add(this.lblCongestionByPass,"8,6,right,center");
 		shipmentPanel.add(this.chkCongestion,"10,6,right,center");
+		
+		txtLatestArrival = new JTextField();
+		shipmentPanel.add(txtLatestArrival, "10, 12, fill, default");
+		txtLatestArrival.setColumns(10);
 
 		shipmentPanel.add(this.lblTimeToLoad,"2,14,right,center");
 		shipmentPanel.add(this.txtTimeLoad,"4, 14, 3, 1, fill, center");
@@ -335,11 +370,15 @@ public class ShipmentForm extends JPanel
 				
 			}
 		});
+		
+		loadShippers(cbShipper);
+		
 		}
 
 		public void showPanel()
 		{
 			this.setVisible(true);
+			setEditable();
 		}
 
 		public void showPanel(Shipment s)
@@ -368,6 +407,12 @@ public class ShipmentForm extends JPanel
 			this.cmbToCities.setEnabled(true);
 			this.cmbToCountries.setEnabled(true);
 			this.cmbToStates.setEnabled(true);
+			this.txtEarliestArrival.setEditable(true);
+			this.txtLatestArrival.setEditable(true);
+			this.txtEarliestDeparture.setEditable(true);
+			this.txtLatestDeparture.setEditable(true);
+			
+			this.cbShipper.setEnabled(true);
 			
 			this.chkCongestion.setEnabled(true);
 			this.chkTolls.setEnabled(true);
@@ -417,6 +462,10 @@ public class ShipmentForm extends JPanel
 			this.txtUnloadingType.setEditable(false);
 			this.txtWeight.setEditable(false);
 			this.txtHazmatConstraints.setEditable(false);
+			this.txtEarliestArrival.setEditable(false);
+			this.txtLatestArrival.setEditable(false);
+			this.txtEarliestDeparture.setEditable(false);
+			this.txtLatestDeparture.setEditable(false);
 			
 			Location e = Location.Load(source.getToLocationID());
 			this.cmbToCountries.setSelectedItem(e.getCountry());
@@ -434,6 +483,10 @@ public class ShipmentForm extends JPanel
 			
 			this.cmbPriority.setSelectedItem(source.getPriority());
 			this.cmbPriority.setEnabled(false);
+			
+			this.cbShipper.setEnabled(false);
+			
+			
 		}
 
 		protected void loadStates(JComboBox sourceCountry,JComboBox sourceStates)
@@ -484,6 +537,27 @@ public class ShipmentForm extends JPanel
 					for(Map m :tmp)
 					{
 						sourceCities.addItem(m.get("Name").toString());
+					}
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();
+				}
+			}
+
+		}
+		
+		protected void loadShippers(JComboBox sourceShipper)
+		{
+			if(sourceShipper!=null && sourceShipper.getSelectedIndex()!=-1)
+			{
+				sourceShipper.removeAllItems();
+				try
+				{
+					ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct ShipperID from Shippers");
+					for(Map m :tmp)
+					{
+						sourceShipper.addItem(m.get("ShipperID").toString());
 					}
 				}
 				catch(Exception ex)
