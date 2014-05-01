@@ -20,10 +20,14 @@ public class WeightedMetric{
 	static final int MIN_COST = 0;
 	static final int MAX_COST = 100;
 	
+	public static final int DEFAULT_DISTANCE = 1;
+	public static final int DEFAULT_TIME = 1;
+	public static final int DEFAULT_COST = 1;
+	
 	public WeightedMetric(){
-		distance = 0;
-		time = 0;
-		cost = 1;
+		distance = DEFAULT_DISTANCE;
+		time = DEFAULT_TIME;
+		cost = DEFAULT_COST;
 		this.normalize();
 	}//End of WeightedMetric default constructor
 	
@@ -125,7 +129,7 @@ public class WeightedMetric{
 	}//End of setCost(int costValue)
 	
 	private void normalize(){
-		double normalLength = Math.sqrt(Math.pow((distance * distance + time * time + cost * cost),2));
+		double normalLength = Math.sqrt(distance * distance + time * time + cost * cost);
 		distNWeight = distance / normalLength;
 		timeNWeight =  time / normalLength;
 		costNWeight = cost / normalLength;
@@ -154,5 +158,30 @@ public class WeightedMetric{
 		//Now we have the location of the the lowest cost path on the list so return it
 		return segments.get(lowestIndex);
 	}//End of getLowestWeightedCostSegment(ArrayList<Segment> segments)
+
+	public static int getMinDistance() {
+		return MIN_DISTANCE;
+	}
+
+	public static int getMaxDistance() {
+		return MAX_DISTANCE;
+	}
+
+	public static int getMinTime() {
+		return MIN_TIME;
+	}
+
+	public static int getMaxTime() {
+		return MAX_TIME;
+	}
+
+	public static int getMinCost() {
+		return MIN_COST;
+	}
+
+	public static int getMaxCost() {
+		return MAX_COST;
+	}
+
 
 }//End of the WeightedMetric class

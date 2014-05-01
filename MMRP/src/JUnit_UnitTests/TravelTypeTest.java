@@ -427,5 +427,39 @@ public class TravelTypeTest {
 		test_type2.Delete();
 	}
 	
+	@Test
+	public void testAddToVehicle1() {
+		Truck test_truck = new Truck();
+		test_truck.setVehicleName("JUnit TravelType.testAddToVehicle1");
+		test_truck.Update();
+		//Test Relies on TravelType with ID of 8000 to be in the database
+		test_type.setTravelTypeMode("TRUCK");	
+		test_type.addToVehilce(test_truck);
+		Truck test_truck2 = Truck.Load(test_truck.getId());
+		test_truck2.getAvailableTypes();
+		System.out.println("Available Types are numbered: " + test_truck.getAvailableTypes().size());
+		System.out.println("Available Types are numbered: " + test_truck2.getAvailableTypes().size());
+		
+		/*
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getVehicleTypeID(), test_truck2.getAvailableTypes().get(0).getVehicleTypeID());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getExplosives(),test_truck2.getAvailableTypes().get(0).getExplosives());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getHazmat(),test_truck2.getAvailableTypes().get(0).getHazmat());
+		Assert.assertEquals(new Double(test_truck.getAvailableTypes().get(0).getMaxCap()), new Double(test_truck2.getAvailableTypes().get(0).getMaxCap()));
+		Assert.assertEquals(new Double(test_truck.getAvailableTypes().get(0).getMaxWeight()), new Double(test_truck2.getAvailableTypes().get(0).getMaxWeight()));
+		Assert.assertEquals(new Double(test_truck.getAvailableTypes().get(0).getMinCap()), new Double(test_truck2.getAvailableTypes().get(0).getMinCap()));
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getRadiation(),test_truck2.getAvailableTypes().get(0).getRadiation());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getRefridgeration(),test_truck2.getAvailableTypes().get(0).getRefridgeration());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getServiceType(), test_truck2.getAvailableTypes().get(0).getServiceType());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTracking(),test_truck2.getAvailableTypes().get(0).getTracking());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTrailer1(), test_truck2.getAvailableTypes().get(0).getTrailer1());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTrailer2(), test_truck2.getAvailableTypes().get(0).getTrailer2());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTravelTypeMode(), test_truck2.getAvailableTypes().get(0).getTravelTypeMode());
+		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTravelTypeName(),test_truck2.getAvailableTypes().get(0).getTravelTypeName());
+		*/
+		test_truck.Delete();
+		
+		
+	}
+	
 	
 }
