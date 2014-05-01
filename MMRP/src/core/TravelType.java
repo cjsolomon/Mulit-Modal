@@ -607,7 +607,7 @@ public class TravelType extends BaseClass {
 		ArrayList<TravelType> returnList = new ArrayList<TravelType>();
 		try 
 		{
-			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM indextable vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND tt.Deleted = false");
+			ArrayList<Map<String,Object>> temp =executeQuery("SELECT * FROM indextable vti left outer join traveltypes tt on vti.TravelTypeID = tt.VehicleTypeID where vti.VehicleID = '" + id +"' AND vti.TravelMode = '" + mode +"'"+ " AND tt.Deleted = false AND vti.Deleted = false");
 			for(int i = 0; i<temp.size();i++)
 			{
 				TravelType t = BuildFromDataRow(temp.get(i));

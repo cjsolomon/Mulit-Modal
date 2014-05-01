@@ -281,7 +281,7 @@ public abstract class Vehicle extends BaseClass {
 
 	public ArrayList<TravelType> getAvailableTypes()
 	{
-		if(typesAvail == null)
+		//if(typesAvail == null)
 			typesAvail=TravelType.LoadForVehicle(this.getId(), this.getTravelMode());
 		return typesAvail;
 		
