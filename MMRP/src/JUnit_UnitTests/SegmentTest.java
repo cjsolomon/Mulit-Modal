@@ -402,7 +402,7 @@ public class SegmentTest {
 			Assert.assertEquals(new Integer(test_segment.getLatestDepartureTime()), new Integer(sList.get(0).getLatestDepartureTime()));
 			Assert.assertEquals(new Integer(test_segment.getLatestArrivalTime()), new Integer(sList.get(0).getLatestArrivalTime()));
 			Assert.assertEquals(test_segment.getShippingRate().getType().toString(), sList.get(0).getShippingRate().getType().toString());
-			//Assert.assertEquals(test_segment.getMode(), sList.get(0).getMode());
+			Assert.assertEquals(test_segment.getMode(), sList.get(0).getMode());
 			Assert.assertEquals(test_segment.getTravelType().getTravelTypeName(),sList.get(0).getTravelType().getTravelTypeName());
 			Assert.assertEquals(new Integer(test_segment.getOnBoard().size()),new Integer(sList.get(0).getOnBoard().size()));
 			for (Segment delete : sList)
