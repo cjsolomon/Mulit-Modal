@@ -49,7 +49,7 @@ public class ShippingRateTable extends JTable {
 class ShippingRateModel extends AbstractTableModel
 {
 	ArrayList<ShippingRate> data;
-	String[] columns = {"ID", "Carrier","Type","Mile Rate", "Flat Rate"};
+	String[] columns = {"ID", "Carrier","Mile Rate", "Flat Rate"};
 	public ShippingRateModel(ArrayList<ShippingRate> source)
 	{
 		data=source;
@@ -74,10 +74,8 @@ class ShippingRateModel extends AbstractTableModel
 			case 1:
 			return data.get(row).getCarrier().getCarrierName();
 			case 2:
-			return data.get(row).getType().getTravelTypeName();
-			case 3:
 			return data.get(row).getMileRate();
-			case 4:
+			case 3:
 			return data.get(row).getFlatRate();
 			
 			default:

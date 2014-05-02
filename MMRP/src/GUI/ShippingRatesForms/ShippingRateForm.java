@@ -51,7 +51,6 @@ public class ShippingRateForm extends JPanel {
 	private JTextField txtRate2;
 	private JTextField txtRate3;
 	private JComboBox cbCarriers;
-	private JComboBox cbTravelType;
 	private JLabel lblRank;
 	
 	public ShippingRateForm() {
@@ -108,7 +107,6 @@ public class ShippingRateForm extends JPanel {
 		lblMileRate=new JLabel("Mile Rate");
 		lblWeight1 = new JLabel("Weight 1");
 		lblFlatRate = new JLabel("Flat Rate");
-		lblTravelType = new JLabel("Travel Type");
 		lblCarrier = new JLabel("Carrier");
 		lblShippingRate = new JLabel("Shipping Rate");
 		lblID = new JLabel("Shipping Rate ID");
@@ -124,10 +122,7 @@ public class ShippingRateForm extends JPanel {
 		cbCarriers = new JComboBox();
 		add(cbCarriers, "4, 6, fill, default");
 		
-		cbTravelType = new JComboBox();
-		add(cbTravelType, "4, 8, fill, default");
 		add(lblFlatRate,"2,10,right,center");
-		add(lblTravelType,"2,8,right,center");
 		add(lblCarrier,"2,6,right,center");
 		txtFlatRate= new JTextField(20);
 		add(txtFlatRate, "4, 10, right, center");
@@ -184,7 +179,6 @@ public class ShippingRateForm extends JPanel {
 		txtID.setEditable(false);
 		
 		this.populateCarrierComboBox();
-		this.populateTTComboBox();
 		
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener() {
@@ -246,7 +240,6 @@ public class ShippingRateForm extends JPanel {
 			this.txtWeight2.setText(String.valueOf(displaySR.getWeight2()));
 			this.txtWeight3.setText(String.valueOf(displaySR.getWeight3()));
 			this.cbCarriers.setSelectedItem(displaySR.getCarrier().getCarrierName());
-			this.cbTravelType.setSelectedItem(displaySR.getType().getTravelTypeName());
 			
 			btnSaveEdit.setVisible(true);
 		}
@@ -264,7 +257,6 @@ public class ShippingRateForm extends JPanel {
 			this.txtWeight2.setEditable(true);
 			this.txtWeight3.setEditable(true);
 			this.cbCarriers.setEnabled(true);
-			this.cbTravelType.setEnabled(true);
 			btnSaveEdit.setVisible(true);
 		}
 		
@@ -280,7 +272,6 @@ public class ShippingRateForm extends JPanel {
 			this.txtWeight2.setEditable(false);
 			this.txtWeight3.setEditable(false);
 			this.cbCarriers.setEnabled(false);
-			this.cbTravelType.setEnabled(false);
 			btnSaveEdit.setVisible(true);
 			
 		}
@@ -301,24 +292,6 @@ public class ShippingRateForm extends JPanel {
 			}
 			this.cbCarriers.setSelectedIndex(-1);
 		}
-		
-		private void populateTTComboBox(){
-			
-			try
-			{
-				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct VehicleTypeName from TravelTypes");
-				for(Map m :tmp)
-				{
-					this.cbTravelType.addItem(m.get("VehicleTypeName").toString());
-				}
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			this.cbTravelType.setSelectedIndex(-1);
-		}
-
 
 
 

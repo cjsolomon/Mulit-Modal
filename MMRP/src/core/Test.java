@@ -23,8 +23,8 @@ public class Test extends BaseClass
 	public static void main(String[] args) throws Exception
 	{
 		
-		BaseClass.purgeDeleted();
-		
+		//BaseClass.purgeDeleted();
+		//
 		//ArrayList<Shipment> shipments = Shipment.LoadAll("where ShipmentID > 7999 AND ShipmentID < 9015");
 		//System.out.println("The number of Shipments loaded are : " + shipments.size());
 	
