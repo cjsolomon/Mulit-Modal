@@ -90,7 +90,7 @@ public class RoutingPanel extends JPanel
 		
 		
 		sf = new RoutingForm();
-		sf.addTableRefreshListener(new TableRefreshListener()
+		sf.addTableRefreshListener(new SegmentSelectionListener()
 		{
 			private ArrayList<Segment> segs;
 			public void refreshTable()

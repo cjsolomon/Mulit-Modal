@@ -47,7 +47,7 @@ public class RoutingForm extends JPanel{
 	private JSeparator separator_1;
 	private JSeparator separator_2;
 	private JSeparator separator_3;
-	private TableRefreshListener refresh;
+	private SegmentSelectionListener refresh;
 	private Shipment source;
 	public RoutingForm()
 	{
@@ -223,7 +223,7 @@ public class RoutingForm extends JPanel{
 		this.setVisible(true);
 	}
 	
-	public void addTableRefreshListener(TableRefreshListener r)
+	public void addTableRefreshListener(SegmentSelectionListener r)
 	{
 		refresh=r;
 	}
