@@ -414,5 +414,14 @@ public class SegmentForm extends JPanel {
     		cbTravelModes.addItem(Vehicle.TravelModes.NONE.toString());
     	
 	}//End of loadTravelModes()
+	
+	public void showPanel(){
+		this.setVisible(true);
+	}
+	
+	public void showPanel(Segment loadSegment){
+		
+	}
+	
 
 }//End of LocationForm Class

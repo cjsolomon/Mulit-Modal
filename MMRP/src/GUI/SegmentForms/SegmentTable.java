@@ -20,7 +20,7 @@ public class SegmentTable extends JTable {
 		// setData();
 	}
 
-	public Segment getSelectedVehicle() {
+	public Segment getSelectedSegment() {
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(),
 				0).toString());
 		for (int i = 0; i < segments.size(); i++) {

@@ -36,6 +36,7 @@ import com.jgoodies.forms.layout.RowSpec;
 
 import core.Location;
 import GUI.SegmentForms.SegmentForm;
+import GUI.SegmentForms.SegmentPanel;
 import GUI.ShipmentForms.ShipmentPanel;
 import GUI.ShipperForms.ShipperPanel;
 import GUI.ShippingRatesForms.ShippingRatePanel;
@@ -75,7 +76,7 @@ public class Main_Source {
 	private ShipperPanel sp;
 	private JButton btnShippingRates;
 	private JButton btnShipper;
-	private SegmentForm segForm;
+	private SegmentPanel segmentPanel;
 	private RoutingPanel route;
 	/**
 	 * Launch the application.
@@ -117,8 +118,8 @@ public class Main_Source {
 		shpFrm.setVisible(false);
 		locationForm = new LocationPanel();
 		locationForm.setVisible(false);
-		segForm = new SegmentForm();
-		segForm.setVisible(false);
+		segmentPanel = new SegmentPanel();
+		segmentPanel.setVisible(false);
 		cp = new CarrierPanel();
 		cp.setVisible(false);
 		sp = new ShipperPanel();
@@ -189,7 +190,7 @@ public class Main_Source {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -243,7 +244,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(cp, "6, 4, 11, 31");
 		frmMmrp.getContentPane().add(srp, "6, 4, 11, 31");
 		frmMmrp.getContentPane().add(sp, "6, 4, 11, 31");
-		frmMmrp.getContentPane().add(segForm, "6, 4, 11, 31");
+		frmMmrp.getContentPane().add(segmentPanel, "6, 4, 11, 31");
 		frmMmrp.getContentPane().add(route,"6,4,11,31");
 		btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
@@ -406,7 +407,7 @@ public class Main_Source {
 			{
 				hidePanels();
 				enableButtons();
-				segForm.setVisible(true);
+				segmentPanel.showPanel();
 				lblFormLabel.setText("Segments");
 				btnSegments.setEnabled(false);
 			}
@@ -466,7 +467,7 @@ public class Main_Source {
 		cp.setVisible(false);
 		sp.setVisible(false);
 		srp.setVisible(false);
-		segForm.setVisible(false);
+		segmentPanel.setVisible(false);
 		route.setVisible(false);
 	}
 	public void enableButtons()
