@@ -61,7 +61,7 @@ public class Main_Source {
 	private PlanePanel planeForm;
 	private RailPanel railForm;
 	private CargoPanel cargoForm;
-	private JButton btnShipments,btnCargo,btnTruck,btnRail,btnPlane,btnLocations,btnCarriers,btnTruckType, btnRailType, btnCargoType, btnPlaneType;
+	private JButton btnShipments,btnCargo,btnTruck,btnRail,btnPlane,btnLocations,btnCarriers,btnTruckType, btnRailType, btnCargoType, btnPlaneType,btnSegments,btnRouting;
 	private JLabel lblFormLabel;
 	private TruckTypePanel ttp;
 	private PlaneTypePanel ptp;
@@ -107,7 +107,7 @@ public class Main_Source {
 		frmMmrp = new JFrame();
 		frmMmrp.setTitle("MMRP");
 		frmMmrp.setBackground(new Color(255, 255, 255));
-		frmMmrp.setBounds(100, 100, 1163, 837);
+		frmMmrp.setBounds(100, 100, 1163, 978);
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		shpFrm=new ShipmentPanel();
 		shpFrm.setVisible(false);
@@ -186,6 +186,10 @@ public class Main_Source {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("58px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("58px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
 				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("31dlu", false), Sizes.constant("40dlu", false)), 0),}));
 		
 		btnShipments = new JButton("Shipments");
@@ -216,22 +220,22 @@ public class Main_Source {
 		JSeparator separator = new JSeparator();
 		separator.setForeground(UIManager.getColor("Button.foreground"));
 		separator.setOrientation(SwingConstants.VERTICAL);
-		frmMmrp.getContentPane().add(separator, "5, 1, 1, 30");
+		frmMmrp.getContentPane().add(separator, "5, 1, 1, 34");
 
 		
-		frmMmrp.getContentPane().add(shpFrm, "6, 4, 11, 27");//, row, colSpan, rowSpan)"4,4,fill,fill");
-		frmMmrp.getContentPane().add(locationForm,"6, 4, 11, 27");
-		frmMmrp.getContentPane().add(truckForm,"6, 4, 11, 17");
-		frmMmrp.getContentPane().add(railForm,"6, 4, 11, 17");
-		frmMmrp.getContentPane().add(planeForm,"6, 4, 11, 17");
-		frmMmrp.getContentPane().add(cargoForm,"6, 4, 11, 17");
-		frmMmrp.getContentPane().add(ttp,"6,4,11,17");
-		frmMmrp.getContentPane().add(rtp,"6,4,11,17");
-		frmMmrp.getContentPane().add(ctp,"6,4,11,17");
-		frmMmrp.getContentPane().add(ptp,"6,4,11,17");
-		frmMmrp.getContentPane().add(cp, "6, 4, 11, 27");
-		frmMmrp.getContentPane().add(srp, "6, 4, 11, 27");
-		frmMmrp.getContentPane().add(sp, "6, 4, 11, 27");
+		frmMmrp.getContentPane().add(shpFrm, "6, 4, 11, 31");//, row, colSpan, rowSpan)"4,4,fill,fill");
+		frmMmrp.getContentPane().add(locationForm,"6, 4, 11, 31");
+		frmMmrp.getContentPane().add(truckForm,"6, 4, 11, 31");
+		frmMmrp.getContentPane().add(railForm,"6, 4, 11, 31");
+		frmMmrp.getContentPane().add(planeForm,"6, 4, 11, 31");
+		frmMmrp.getContentPane().add(cargoForm,"6, 4, 11, 31");
+		frmMmrp.getContentPane().add(ttp,"6,4,11,31");
+		frmMmrp.getContentPane().add(rtp,"6,4,11,31");
+		frmMmrp.getContentPane().add(ctp,"6,4,11,31");
+		frmMmrp.getContentPane().add(ptp,"6,4,11,31");
+		frmMmrp.getContentPane().add(cp, "6, 4, 11, 31");
+		frmMmrp.getContentPane().add(srp, "6, 4, 11, 31");
+		frmMmrp.getContentPane().add(sp, "6, 4, 11, 31");
 		btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
@@ -387,10 +391,31 @@ public class Main_Source {
 		});
 		frmMmrp.getContentPane().add(btnShipper, "2, 28, fill, fill");
 				
-				
+		btnSegments = new JButton("Segments");
+		btnSegments.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				hidePanels();
+				enableButtons();
+				lblFormLabel.setText("Segments");
+				btnSegments.setEnabled(false);
+			}
+		});
+		frmMmrp.getContentPane().add(btnSegments, "2, 30, fill, fill");
+		btnRouting=new JButton("Routing");
+		btnRouting.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				hidePanels();
+				enableButtons();
+				lblFormLabel.setText("Routing");
+				btnRouting.setEnabled(false);
+			}
+		});
+		frmMmrp.getContentPane().add(btnRouting, "2, 32, fill, fill");
 		final JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Exit MMRP");
-		frmMmrp.getContentPane().add(btnExit, "2, 30, fill, fill");
+		frmMmrp.getContentPane().add(btnExit, "2, 34, fill, fill");
 		btnExit.setMnemonic(KeyEvent.VK_E);
 		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				
@@ -446,6 +471,8 @@ public class Main_Source {
 		this.btnTruckType.setEnabled(true);
 		this.btnShippingRates.setEnabled(true);
 		this.btnShipper.setEnabled(true);
+		this.btnSegments.setEnabled(true);
+		this.btnRouting.setEnabled(true);
 		
 	}
 	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {
