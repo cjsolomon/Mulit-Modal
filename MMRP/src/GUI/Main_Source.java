@@ -35,6 +35,7 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.RowSpec;
 
 import core.Location;
+import GUI.SegmentForms.SegmentForm;
 import GUI.ShipmentForms.ShipmentPanel;
 import GUI.ShipperForms.ShipperPanel;
 import GUI.ShippingRatesForms.ShippingRatePanel;
@@ -44,6 +45,7 @@ import GUI.CarrierForms.CarrierPanel;
 import GUI.LocationForms.LocationPanel;
 import GUI.PlaneForms.*;
 import GUI.RailForms.*;
+import GUI.RoutingForms.RoutingPanel;
 import GUI.TruckForms.*;
 
 import com.jgoodies.forms.layout.Sizes;
@@ -73,6 +75,8 @@ public class Main_Source {
 	private ShipperPanel sp;
 	private JButton btnShippingRates;
 	private JButton btnShipper;
+	private SegmentForm segForm;
+	private RoutingPanel route;
 	/**
 	 * Launch the application.
 	 */
@@ -113,7 +117,8 @@ public class Main_Source {
 		shpFrm.setVisible(false);
 		locationForm = new LocationPanel();
 		locationForm.setVisible(false);
-		
+		segForm = new SegmentForm();
+		segForm.setVisible(false);
 		cp = new CarrierPanel();
 		cp.setVisible(false);
 		sp = new ShipperPanel();
@@ -136,6 +141,8 @@ public class Main_Source {
 		rtp.setVisible(false);
 		ctp = new CargoTypePanel();
 		ctp.setVisible(false);
+		route = new RoutingPanel();
+		route.setVisible(false);
 		/*
 		 * Code defined here is for the shipments button
 		 */
@@ -160,35 +167,35 @@ public class Main_Source {
 				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("23px"),
 				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
-				FormFactory.RELATED_GAP_ROWSPEC,
-				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("58px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("58px"),
+				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
 				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("31dlu", false), Sizes.constant("40dlu", false)), 0),}));
 		
@@ -236,6 +243,8 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(cp, "6, 4, 11, 31");
 		frmMmrp.getContentPane().add(srp, "6, 4, 11, 31");
 		frmMmrp.getContentPane().add(sp, "6, 4, 11, 31");
+		frmMmrp.getContentPane().add(segForm, "6, 4, 11, 31");
+		frmMmrp.getContentPane().add(route,"6,4,11,31");
 		btnLocations = new JButton("Locations");
 		btnLocations.addActionListener(new ActionListener()
 		{
@@ -397,6 +406,7 @@ public class Main_Source {
 			{
 				hidePanels();
 				enableButtons();
+				segForm.setVisible(true);
 				lblFormLabel.setText("Segments");
 				btnSegments.setEnabled(false);
 			}
@@ -410,6 +420,7 @@ public class Main_Source {
 				enableButtons();
 				lblFormLabel.setText("Routing");
 				btnRouting.setEnabled(false);
+				route.setVisible(true);
 			}
 		});
 		frmMmrp.getContentPane().add(btnRouting, "2, 32, fill, fill");
@@ -455,6 +466,8 @@ public class Main_Source {
 		cp.setVisible(false);
 		sp.setVisible(false);
 		srp.setVisible(false);
+		segForm.setVisible(false);
+		route.setVisible(false);
 	}
 	public void enableButtons()
 	{

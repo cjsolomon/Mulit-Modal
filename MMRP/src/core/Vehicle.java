@@ -365,7 +365,7 @@ public abstract class Vehicle extends BaseClass {
 	 */
 	@Override
 	public String toString(){
-		return this.name;
+		return this.id+"-"+this.name;
 	}
 	
 

@@ -153,7 +153,7 @@ public class Truck extends Vehicle {
 		{
 			ArrayList<Map<String,Object>> temp;
 			if(where.isEmpty())
-				temp =executeQuery("Select * from Truck where AND Deleted = false");
+				temp =executeQuery("Select * from Truck where Deleted = false");
 			else
 				temp =executeQuery("Select * from Truck " +where   + " AND Deleted = false");
 			for(int i = 0; i<temp.size();i++)
