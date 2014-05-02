@@ -733,6 +733,7 @@ public class Shipment extends BaseClass {
 	 */
 	public ArrayList<ShipmentHistory> getHistory()
 	{
+		setHistory(ShipmentHistory.LoadAllForShipment(id));
 		return history;
 	}//End of ArrayList<ShipmentHistory> getHistory()
 

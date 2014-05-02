@@ -428,6 +428,7 @@ public class Main_Source {
 		ptp.setVisible(false);
 		cp.setVisible(false);
 		sp.setVisible(false);
+		srp.setVisible(false);
 	}
 	public void enableButtons()
 	{

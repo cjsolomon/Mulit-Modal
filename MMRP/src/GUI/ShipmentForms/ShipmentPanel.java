@@ -2,6 +2,7 @@ package GUI.ShipmentForms;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
 
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -11,12 +12,18 @@ import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.border.LineBorder;
+import java.awt.Color;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 
 public class ShipmentPanel extends JPanel {
 	
 	ShipmentTable st;
 	ShipmentForm sf;
-	JScrollPane sp;
+	JScrollPane sp,sp2;
+	JTabbedPane jp;
+	ShipmentHistoryTable sht;
 	private JButton btnDelete;
 	private JButton btnNew;
 	private JButton btnView;
@@ -31,7 +38,7 @@ public class ShipmentPanel extends JPanel {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(63dlu;default)"),},
+				ColumnSpec.decode("max(71dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
@@ -44,11 +51,22 @@ public class ShipmentPanel extends JPanel {
 		
 		st=new ShipmentTable();
 		sf = new ShipmentForm();
+		jp = new JTabbedPane();
+		sht = new ShipmentHistoryTable();
+		sht.setVisible(false);
+		jp.setVisible(false);
+		
+		//sf.setBorder(new MatteBorder(0, 0, 0, 2, (Color) new Color(0, 0, 0)));
 		sf.setVisible(false);
 		st.setVisible(false);
 		sp = new JScrollPane();
 		sp.setViewportView(st);
 		sp.setVisible(false);
+		sp2 = new JScrollPane();
+		sp2.setViewportView(sht);
+		sp2.setVisible(false);
+		jp.addTab("Info", sf);
+		jp.addTab("History",sp2);
 		add(sp, "2, 2, 8, 5");
 		
 		btnView = new JButton("View");
@@ -56,6 +74,9 @@ public class ShipmentPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(st.getSelectedRow()!=-1)
 				{
+					jp.setVisible(true);
+					sp2.setVisible(true);
+					sht.showPanel(st.getSelectedShipment());
 					sf.showPanel(st.getSelectedShipment());
 				}
 			}
@@ -72,7 +93,7 @@ public class ShipmentPanel extends JPanel {
 		
 		btnDelete = new JButton("Delete");
 		add(btnDelete, "9, 7");
-		add(sf,"2, 8, 8, 1");
+		add(jp,"2, 8, 8, 1");
 		
 	}
 	public void showPanel()
