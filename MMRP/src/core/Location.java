@@ -255,8 +255,8 @@ public class Location extends BaseClass {
 			{
 				String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1,TravelType2,TravelType3,TravelType4,TravelType5,TravelType6,State, Country)";
 
-				sql+=" Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString() + "'";
-				for(int i =1;i<travelModes.size();i++)
+				sql+=" Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "'";
+				for(int i =0;i<travelModes.size();i++)
 				{
 					sql+=",'"+travelModes.get(i)+"'";
 				}
@@ -266,8 +266,8 @@ public class Location extends BaseClass {
 
 				executeCommand(sql);
 
-				sql="Select * from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "' AND TravelType1 ='"+ travelModes.get(0).toString()+"'";
-				for(int i =1;i<travelModes.size();i++)
+				sql="Select * from Location where Name = '"+ this.name +"' AND Latitude ='"+this.latitude+"' AND Longitude = '"+ this.longitude + "'";
+				for(int i =0;i<travelModes.size();i++)
 					sql+=" AND TravelType"+(i+1)+"='"+travelModes.get(i).toString()+"'";
 				sql+= " AND State = '" +this.state + "' AND Country = '" +this.country+ "'";
 				
