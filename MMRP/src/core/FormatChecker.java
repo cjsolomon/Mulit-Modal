@@ -1,7 +1,6 @@
 package core;
 import java.text.*;
 import java.util.regex.*;
-
 import GUI.Log;
 
 public class FormatChecker {
@@ -20,13 +19,13 @@ public class FormatChecker {
 			}
 			else
 			{ 
-				//Log.writeLogWarning("Invalid format on phone/fax number.");
+				Log.writeLogWarning("Invalid format on phone/fax number.");
 				return false;
 			}
 		}
 		else
 		{
-			//Log.writeLogWarning("Invalid format on phone/fax number.");
+			Log.writeLogWarning("Invalid format on phone/fax number.");
 			return false;
 		}
 
@@ -47,13 +46,13 @@ public class FormatChecker {
 			}
 			else
 			{
-				//Log.writeLogWarning("Invalid format on email address.");
+				Log.writeLogWarning("Invalid format on email address.");
 				return false;
 			}
 		}
 		else
 		{
-			//Log.writeLogWarning("Invalid format on email address.");
+			Log.writeLogWarning("Invalid format on email address.");
 			return false;
 		}
 
@@ -75,13 +74,13 @@ public class FormatChecker {
 			}
 			else
 			{
-				//Log.writeLogWarning("Invalid format on area code.");
+				Log.writeLogWarning("Invalid format on area code.");
 				return false;
 			}
 		}
 		else 
 		{
-			//Log.writeLogWarning("Invalid format on area code.");
+			Log.writeLogWarning("Invalid format on area code.");
 			return false;
 		}
 
@@ -102,7 +101,7 @@ public class FormatChecker {
 		}
 		else 
 		{
-			//Log.writeLogWarning("Invalid numerical entry given; not in range.");
+			Log.writeLogWarning("Invalid numerical entry given; not in range.");
 			return false;
 		}
 	}
@@ -121,7 +120,7 @@ public class FormatChecker {
 		}
 		else 
 		{
-			//Log.writeLogWarning("Numerical entry given; below lower bound value.");
+			Log.writeLogWarning("Numerical entry given; below lower bound value.");
 			return false;
 		}
 	}
@@ -140,7 +139,7 @@ public class FormatChecker {
 		}
 		else 
 		{
-			//Log.writeLogWarning("Numerical entry given; above upper bound value.");
+			Log.writeLogWarning("Numerical entry given; above upper bound value.");
 			return false;
 		}
 	}
@@ -172,7 +171,7 @@ public class FormatChecker {
 		}
 		else
 		{
-			//Log.writeLogWarning("Invalid format on date entry - too short.");
+			Log.writeLogWarning("Invalid format on date entry - too short.");
 			ret = false;
 		}
 
@@ -191,7 +190,7 @@ public class FormatChecker {
 			Double.parseDouble(number);
 
 		}catch (NumberFormatException e) {
-			//Log.writeLogWarning("String failed numeric test, NAN");
+			Log.writeLogWarning("String failed numeric test, NAN");
 			ret = false;
 		}
 		return ret;
@@ -214,7 +213,7 @@ public class FormatChecker {
 		}
 		if(!ret) 
 		{
-			//Log.writeLogWarning("Enumerated value is not of Enumerated type.");
+			Log.writeLogWarning("Enumerated value is not of Enumerated type.");
 		}
 		return ret;
 	}
@@ -238,7 +237,7 @@ public class FormatChecker {
 		}
 		if(!ret) 
 		{
-			//Log.writeLogWarning("Enumerated value is not of Enumerated type.");
+			Log.writeLogWarning("Enumerated value is not of Enumerated type.");
 		}
 		return ret;
 	}

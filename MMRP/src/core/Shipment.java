@@ -249,11 +249,20 @@ public class Shipment extends BaseClass {
 	 * @param time This is the new earliest arrival time for the Shipment
 	 */
 	public void setEarliestArrivalTime(int time) {
-		//NEED SOME ERROR CHECKING
 		if(this.earliestArrival!=time)
 		{
-			this.earliestArrival = time;
-			MarkDirty();
+			if(FormatChecker.checkUpperBound(time, this.latestArrival))
+			{
+				this.earliestArrival = time;
+				this.MarkDirty();
+			}
+			else 
+			{
+				/*
+				Log.writeLogWarning("Invalid entry for earliest arrival time in segment. Setting earliest"
+					+ "arrival time to " + this.latestArrival);*/
+				this.earliestArrival = this.latestArrival;
+			}
 		}
 	}//End of setEarliestArrivalTime(int time)
 
@@ -270,11 +279,20 @@ public class Shipment extends BaseClass {
 	 * @param time
 	 */
 	public void setLatestArrivalTime(int time) {
-		//NEED ERROR CHECKING
 		if(this.latestArrival!=time)
 		{
-			this.latestArrival = time;
-			MarkDirty();
+			if(FormatChecker.checkLowerBound(time, this.earliestArrival))
+			{
+				this.latestArrival = time;
+				this.MarkDirty();
+			}
+			else 
+			{
+				/*
+				Log.writeLogWarning("Invalid entry for latest arrival time in segment. Setting latest"
+					+ "arrival time to " + this.earliestArrival); */
+				this.latestArrival = this.earliestArrival;
+			}
 		}
 	}//End of setLatestArrivalTime(int time)
 
@@ -291,11 +309,20 @@ public class Shipment extends BaseClass {
 	 * @param departureTime This is the new earliest departure time for the Shipment
 	 */
 	public void setEarliestDepartureTime(int departureTime) {
-		//NEED ERROR CHECKING
 		if(this.earliestDeparture!=departureTime)
 		{
-			this.earliestDeparture = departureTime;
-			MarkDirty();
+			if(FormatChecker.checkUpperBound(departureTime, this.latestDeparture))
+			{
+				this.earliestDeparture = departureTime;
+				this.MarkDirty();
+			}
+			else 
+			{
+				/*
+				Log.writeLogWarning("Invalid entry for earliest departure time in segment. Setting earliest"
+					+ "departure time to " + this.latestDeparture); */
+				this.earliestDeparture = this.latestDeparture;
+			}
 		}
 	}//End of setEarliestDepartureTime(int departureTime)
 
@@ -314,11 +341,20 @@ public class Shipment extends BaseClass {
 	 */
 	public void setLatestDepartureTime(int departureTime)
 	{
-		//NEEDS ERROR CHECKING
 		if(this.latestDeparture!=departureTime)
 		{
-			this.latestDeparture=departureTime;
-			MarkDirty();
+			if(FormatChecker.checkLowerBound(departureTime, this.earliestDeparture))
+			{
+				this.latestDeparture = departureTime;
+				this.MarkDirty();
+			}
+			else 
+			{
+				/*
+				Log.writeLogWarning("Invalid entry for latest departure time in segment. Setting latest"
+					+ "departure time to " + this.earliestDepartureTime); */
+				this.latestDeparture = this.earliestDeparture;
+			}
 		}
 	}//End of setLatestDepartureTime(int departureTime)
 

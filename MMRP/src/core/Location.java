@@ -1,6 +1,8 @@
 package core;
 import java.sql.SQLException;
 import java.util.*;
+
+import GUI.Log;
 public class Location extends BaseClass {
 
 	private ArrayList<Vehicle.TravelModes> travelModes;
@@ -11,6 +13,13 @@ public class Location extends BaseClass {
 	private String state; 
 	private String country; 
 	private ArrayList<Vehicle> vehiclesAtLocation;
+	
+	
+	//Extreme Values 
+	private static final double MIN_LATITUDE = -90;
+	private static final double MAX_LATITUDE = 90;
+	private static final double MIN_LONGITUDE = -180;
+	private static final double MAX_LONGITUDE = 180;
 	
 	//Default Variables
 	private static final double DEFAULT_LATITUDE = 0;
@@ -76,11 +85,19 @@ public class Location extends BaseClass {
 	 */
 	public void setLatitude(double lat)
 	{
-		//NEED ERROR CHECKING
 		if(this.latitude!=lat)
 		{
-			this.latitude=lat;
-			MarkDirty();
+			if(FormatChecker.inRange(lat, MIN_LATITUDE, MAX_LATITUDE))
+			{
+				this.latitude=lat;
+				MarkDirty();
+			}
+			else 
+			{
+				this.latitude = DEFAULT_LATITUDE;
+				Log.writeLogWarning("Invalid value given for latitude. Setting latitude to " 
+					+ DEFAULT_LATITUDE);
+			}
 		}
 
 	}//End of setLatitude(double lat)
@@ -146,11 +163,19 @@ public class Location extends BaseClass {
 	 */
 	public void setLongitude(double lon)
 	{
-		//NEED SOME ERROR CHECKING
 		if(this.longitude!=lon)
 		{
-			this.longitude=lon;
-			MarkDirty();
+			if(FormatChecker.inRange(lon, MIN_LONGITUDE, MAX_LONGITUDE))
+			{
+				this.longitude=lon;
+				MarkDirty();
+			}
+			else 
+			{
+				this.longitude = DEFAULT_LONGITUDE;
+				Log.writeLogWarning("Invalid value given for longitude. Setting longitude to " 
+					+ DEFAULT_LONGITUDE);
+			}
 		}
 	}//End of setLongitude(double lon)
 	
