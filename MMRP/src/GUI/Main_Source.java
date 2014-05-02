@@ -41,6 +41,7 @@ import GUI.ShippingRatesForms.ShippingRatePanel;
 import GUI.CargoForms.*;
 import GUI.CarrierForms.CarrierForm;
 import GUI.CarrierForms.CarrierPanel;
+import GUI.LocationForms.LocationPanel;
 import GUI.PlaneForms.*;
 import GUI.RailForms.*;
 import GUI.TruckForms.*;
@@ -54,7 +55,7 @@ import javax.swing.UIManager;
 public class Main_Source {
 
 	private JFrame frmMmrp;
-	private LocationForm locationForm;
+	private LocationPanel locationForm;
 	private ShipmentPanel shpFrm;
 	private TruckPanel truckForm;
 	private PlanePanel planeForm;
@@ -110,7 +111,7 @@ public class Main_Source {
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		shpFrm=new ShipmentPanel();
 		shpFrm.setVisible(false);
-		locationForm = new LocationForm();
+		locationForm = new LocationPanel();
 		locationForm.setVisible(false);
 		
 		cp = new CarrierPanel();
@@ -237,7 +238,7 @@ public class Main_Source {
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
-				locationForm.setVisible(true);
+				locationForm.showPanel();
 				enableButtons();
 				btnLocations.setEnabled(false);
 				lblFormLabel.setText("Locations");

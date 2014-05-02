@@ -30,12 +30,6 @@ public class Location extends BaseClass {
 		this.name = DEFAULT_LOCATION_NAME;
 		this.state = DEFAULT_STATE;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkNew();
 		MarkClean();
@@ -55,12 +49,6 @@ public class Location extends BaseClass {
 		this.name = DEFAULT_LOCATION_NAME;
 		this.state = DEFAULT_STATE;
 		travelModes=new ArrayList<Vehicle.TravelModes>();
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
-		travelModes.add(Vehicle.TravelModes.NONE);
 		vehiclesAtLocation=new ArrayList<Vehicle>();
 		MarkClean();
 	}//End of Location(int id)
@@ -182,15 +170,9 @@ public class Location extends BaseClass {
 	public void addTravelMode(Vehicle.TravelModes mode)
 	{
 		//DO WE NEED ANY ERROR CHECKING HERE?
-		if(!travelModes.contains(mode) || mode == Vehicle.TravelModes.NONE)
+		if(!travelModes.contains(mode) || mode != Vehicle.TravelModes.NONE)
 		{
-			for(int i = 0; i < this.travelModes.size(); i++){
-				if(travelModes.get(i) == Vehicle.TravelModes.NONE){
-					travelModes.remove(i);
-					travelModes.add(i, mode);
-					MarkDirty();
-				}
-			}
+			travelModes.add(mode);
 		}
 	}//End of addTravelMode(Vehicle.TravelModes mode)
 	
@@ -273,8 +255,14 @@ public class Location extends BaseClass {
 			{
 				String sql ="Insert into Location (Name,Latitude,Longitude,TravelType1,TravelType2,TravelType3,TravelType4,TravelType5,TravelType6,State, Country)";
 
-				sql+=" Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString() + "','"+travelModes.get(1).toString()
-						+ "','"+travelModes.get(2).toString() + "','"+travelModes.get(3).toString() + "','"+travelModes.get(4).toString() + "','"+travelModes.get(5).toString() + "', '" + this.getState() + "', '" + this.getCountry() +"')";
+				sql+=" Values ('" + this.getName() +"','"+this.latitude+"','"+this.longitude + "','"+travelModes.get(0).toString() + "'";
+				for(int i =1;i<travelModes.size();i++)
+				{
+					sql+=",'"+travelModes.get(i)+"'";
+				}
+				for(int i = travelModes.size();i<6;i++)
+					sql+=",'NONE'";
+						sql+=", '" + this.getState() + "', '" + this.getCountry() +"')";
 
 				executeCommand(sql);
 

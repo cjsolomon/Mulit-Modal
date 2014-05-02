@@ -51,14 +51,14 @@ public class ShipmentForm extends JPanel
 	/**
 	 * @wbp.nonvisual location=-29,429
 	 */
-	private final JTextField txt = new JTextField();
+
 	private JTextField txtLatestArrival;
 	private JComboBox cbShipper;
 	private JLabel lblShipperID;
 
 	public ShipmentForm()
 	{
-		txt.setColumns(10);
+	
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(71dlu;default)"),
