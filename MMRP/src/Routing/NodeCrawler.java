@@ -29,6 +29,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 		pathFound = false;
 		maxTries = 10;
 		precentChanceOfDirectPath = 50;
+		metric = new WeightedMetric(1,1,1);
 	}//End of NodeCrawler() default constructor
 	
 	/**
@@ -43,6 +44,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 		pathFound = false;
 		maxTries = 10;
 		precentChanceOfDirectPath = 50;
+		metric = new WeightedMetric(1,1,1);
 	}//End of NodeCrawler() 3-argument constructor
 	
 	/**
@@ -57,6 +59,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 		pathFound = false;
 		maxTries = maximumTries;
 		precentChanceOfDirectPath = chanceOfDirectPath;
+		metric = new WeightedMetric(1,1,1);
 	}//End of NodeCrawler() 5-argument constructor
 	
 	/**
@@ -74,7 +77,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 		ArrayList<Segment> route =  new ArrayList<Segment>();
 		ArrayList<Segment> paths = new ArrayList<Segment>();
 		
-		int currentLocationID = shipment.getFromLocationID();
+		int currentLocationID = shipment.getCurrentLocationID();
 		
 		//We will enter a while loop until we find a path
 		int tries = 0;
@@ -145,7 +148,8 @@ public class NodeCrawler extends RoutingAlgorithm{
 		for(int i = 0; i < segmentsToCheck.size(); i++){
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
-				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING"){
+				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" ||
+				this.route.contains(segmentsToCheck.get(i))){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 				i--;

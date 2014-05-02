@@ -81,7 +81,7 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 		ArrayList<Segment> route =  new ArrayList<Segment>();
 		ArrayList<Segment> paths = validPaths(grabSegmentsBetween(shipment.loadStartLocation(), shipment.loadEndLocation()));
 		
-		int currentLocationID = shipment.getFromLocationID();
+		int currentLocationID = shipment.getCurrentLocationID();
 		
 		if(paths.size() > 0){
 			//Now we will grab the segment with the closest starting time to the currenttime
@@ -193,7 +193,8 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" || 
-				!segmentsToCheck.get(i).getMode().equalsIgnoreCase(mode.toString())){
+				!segmentsToCheck.get(i).getMode().equalsIgnoreCase(mode.toString()) ||
+				  this.route.contains(segmentsToCheck.get(i))){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 				i--;

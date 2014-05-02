@@ -136,7 +136,7 @@ public class WeightedMetric{
 	}//End of normalize()
 	
 	public double getWeightedCost(Segment segment){
-		return segment.getShippingRate().getFlatRate() * costNWeight + segment.getDistance() * distNWeight + (segment.getEstimatedArrivalTime() - segment.getEstimatedDepartureTime()) * timeNWeight;
+		return ((segment.getShippingRate().getFlatRate() * costNWeight) + (segment.getDistance() * distNWeight) + ((segment.getEstimatedArrivalTime() - segment.getEstimatedDepartureTime()) * timeNWeight));
 	}//End of getWeightedCost(Segment segment)
 	
 	public Segment getLowestWeightedCostSegment(ArrayList<Segment> segments){

@@ -24,6 +24,8 @@ public class AStarAlg extends RoutingAlgorithm {
 		
 		while(leafs.size()>0)
 		{
+			
+			System.out.println("Number of leafs : " + leafs.size());
 			AStarNode currentLeaf = leafs.get(0);
 			for(int i =1; i<leafs.size();i++)
 				currentLeaf = (currentLeaf.getCost()>leafs.get(i).getCost())?leafs.get(i):currentLeaf;
@@ -31,12 +33,12 @@ public class AStarAlg extends RoutingAlgorithm {
 			leafs.remove(currentLeaf);
 			if(currentLeaf.getLocationID()==shipment.getToLocationID())
 			{
-				if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shipment.getLatestArrivalTime() || Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() < shipment.getEarliestArrivalTime() )
+				if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > 9000 || Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() < shipment.getEarliestArrivalTime() )
 				{
 					int currentDif;
 					if(best!=null)
 					{
-						if(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() > shipment.getLatestArrivalTime())
+						if(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() > 9000)
 							currentDif=Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shipment.getLatestArrivalTime());
 						else
 							currentDif = Math.abs(Segment.Load(best.getSegmentID()).getEstimatedArrivalTime() - shipment.getEarliestArrivalTime());
@@ -44,7 +46,7 @@ public class AStarAlg extends RoutingAlgorithm {
 					else
 						currentDif=0;
 					int thisDif;
-					if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > shipment.getLatestArrivalTime())// Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() < shipment.getEarliestTime() )
+					if(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() > 9000)// Segment.Load(currentLeaf.getSegmentID()).getArrivalTime() < shipment.getEarliestTime() )
 						thisDif=Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shipment.getLatestArrivalTime());
 					else
 						thisDif = Math.abs(Segment.Load(currentLeaf.getSegmentID()).getEstimatedArrivalTime() - shipment.getEarliestArrivalTime());
@@ -150,7 +152,7 @@ public class AStarAlg extends RoutingAlgorithm {
 			double cost=currentLeaf.getCost();
 			double distanceToDestination = getDistance(test.getEndLocationID(),shipment.getToLocationID());
 			double distanceTravel = test.getDistance();
-			double time = test.getEstimatedDepartureTime()-test.getEstimatedArrivalTime();
+			double time = Math.abs(test.getEstimatedDepartureTime()-test.getEstimatedArrivalTime());
 			double segmentCost = possible.get(i).getShippingRate().getFlatRate();
 			
 			cost+= (distanceToDestination*this.DISTTOGO)+(distanceTravel*this.DISTTRAVLED)+(time*this.metric.getWeightedTime())+(segmentCost * this.metric.getWeightedCost());

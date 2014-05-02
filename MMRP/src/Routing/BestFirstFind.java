@@ -70,7 +70,7 @@ public class BestFirstFind extends RoutingAlgorithm{
 		ArrayList<Segment> route =  new ArrayList<Segment>();
 		ArrayList<Segment> paths = validPaths(grabSegmentsBetween(shipment.loadStartLocation(), shipment.loadEndLocation()));
 		
-		int currentLocationID = shipment.getFromLocationID();
+		int currentLocationID = shipment.getCurrentLocationID();
 		
 		if(paths.size() > 0){
 			//We have a valid path so choose the best segment to travel along
@@ -143,7 +143,8 @@ public class BestFirstFind extends RoutingAlgorithm{
 		for(int i = 0; i < segmentsToCheck.size(); i++){
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
-			   segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING"){
+			   segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" ||
+			   this.route.contains(segmentsToCheck.get(i))){
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 				i--;
