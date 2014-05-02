@@ -249,7 +249,7 @@ public class ShippingRate extends BaseClass{
 				if(isNew())
 				{
 					//If the ShippingRate is new insert it into the database by executing the following
-					executeCommand("Insert into shippingrates (ShippingRateID, CarrierID, TravelType, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
+					executeCommand("Insert into shippingrates (ShippingRateID, CarrierID, Weight1, Rate1, Weight2, Rate2, Weight3, Rate3, MileRate, FlatRate, Rank) Values ('"+
 							this.getId() + "','" + this.getCarrier().getId() +"','"
 							+ this.getWeight1() +"','"
 							+ this.getRate1() +"','"+ this.getWeight2() +"','"+ this.getRate2() +"','"
