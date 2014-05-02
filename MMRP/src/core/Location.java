@@ -285,8 +285,8 @@ public class Location extends BaseClass {
 				if(isDirty())
 				{
 					String sql ="Update Location Set Name = '" + this.getName() + "' , Latitude = '"+this.getLatitude()+
-							"' , Longitude = '" + this.getLongitude() + "' , TravelType1 = '" + this.travelModes.get(0).toString()+ "'";
-					for(int i = 1; i< this.travelModes.size();i++)
+							"' , Longitude = '" + this.getLongitude() + "'";
+					for(int i = 0; i< this.travelModes.size();i++)
 					{
 						sql+= " , TravelType"+(i+1)+" = '" + travelModes.get(i).toString() + "'";
 					}
