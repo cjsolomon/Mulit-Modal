@@ -1,5 +1,8 @@
 package GUI.RoutingForms;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -13,9 +16,13 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.Shipment;
 import core.Vehicle;
 
+import GUI.TableRefreshListener;
 import GUI.ShipmentForms.ShipmentTable;
+import Routing.NodeCrawler;
+
 import javax.swing.SpinnerNumberModel;
 import javax.swing.JSeparator;
 
@@ -40,7 +47,8 @@ public class RoutingForm extends JPanel{
 	private JSeparator separator_1;
 	private JSeparator separator_2;
 	private JSeparator separator_3;
-	
+	private TableRefreshListener refresh;
+	private Shipment source;
 	public RoutingForm()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -196,8 +204,31 @@ public class RoutingForm extends JPanel{
 		add(this.cmbTTMode ,"10,12");
 		
 		btnRoute = new JButton("Route");
+		btnRoute.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(source!=null)
+				{
+					NodeCrawler nc = new NodeCrawler(source);
+					refresh.setSegs(nc.getPath());
+					refresh.refreshTable();
+				}
+				
+			}
+		});
 		add(btnRoute,"6, 14");
 	}
+	public void showPanel()
+	{
+		this.setVisible(true);
+	}
 	
-
+	public void addTableRefreshListener(TableRefreshListener r)
+	{
+		refresh=r;
+	}
+	public void setShipment(Shipment s)
+	{
+		source=s;
+	}
 }

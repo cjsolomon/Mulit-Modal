@@ -418,10 +418,11 @@ public class Main_Source {
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
+				route.showPanel();
 				enableButtons();
 				lblFormLabel.setText("Routing");
 				btnRouting.setEnabled(false);
-				route.setVisible(true);
+				
 			}
 		});
 		frmMmrp.getContentPane().add(btnRouting, "2, 32, fill, fill");
