@@ -1,0 +1,12 @@
+Quick User Manual
+
+
+-Run GUI.Main_Source.java
+-The buttons on theleft allow to explore, add and delete to the database
+	-not all functionality is implemented
+-The Routing button will allow you to select a shipment from the database and Route
+the shipment.
+	-The routing algorithms and modifiers do nothing currently
+	-Everything will be routed one time with Node Crawler
+-This should give you an overall idea of how things will work by next week
+-Enjoy!!!
