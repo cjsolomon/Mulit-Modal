@@ -56,7 +56,7 @@ public class DansAlgorithm extends RoutingAlgorithm {
 			}
 			currentRoute.addAll(updatingAlgorithm.getPath());
 			
-			if(updatingAlgorithm.getTotalRouteCost(currentRoute) < updatingAlgorithm.getTotalRouteCost(bestRoute)){
+			if(updatingAlgorithm.getTotalRouteWeightedCost(currentRoute) < updatingAlgorithm.getTotalRouteWeightedCost(bestRoute)){
 				//We have found a better route so set the bestRoute to the current route
 				bestRoute = new ArrayList<Segment>(currentRoute);
 			}

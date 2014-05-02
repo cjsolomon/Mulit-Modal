@@ -295,12 +295,13 @@ public abstract class BaseClass {
 			executeCommand("Delete from CargoShip Where Deleted = true");
 			executeCommand("Delete from Truck Where Deleted = true");
 			executeCommand("Delete from Location Where Deleted = true");
-			executeCommand("Delete from Carrier Where Deleted = true");
+			executeCommand("Delete from Carriers Where Deleted = true");
 			executeCommand("Delete from Segment Where Deleted = true");
 			executeCommand("Delete from Shipment Where Deleted = true");
 			executeCommand("Delete from Shipper Where Deleted = true");
-			executeCommand("Delete from ShippingRate Where Deleted = true");
-			executeCommand("Delete from TravelType Where Deleted = true");
+			executeCommand("Delete from ShippingRates Where Deleted = true");
+			executeCommand("Delete from TravelTypes Where Deleted = true");
+			executeCommand("Delete from IndexTable Where Deleted = true");
 			
 			
 			return true;

@@ -20,17 +20,19 @@ public class Test extends BaseClass
 	{
 
 	}
-	public static void main(String[] args) throws IOException
+	public static void main(String[] args) throws Exception
 	{
 		
-		ArrayList<Shipment> shipments = Shipment.LoadAll("where ShipmentID > 7999 AND ShipmentID < 9015");
-		System.out.println("The number of Shipments loaded are : " + shipments.size());
+		BaseClass.purgeDeleted();
+		
+		//ArrayList<Shipment> shipments = Shipment.LoadAll("where ShipmentID > 7999 AND ShipmentID < 9015");
+		//System.out.println("The number of Shipments loaded are : " + shipments.size());
 	
 		
 		
-		for(int i = 0; i< shipments.size(); i++)	
-		{
-			System.out.println("Starting " + (i+1));
+	//	for(int i = 0; i< shipments.size(); i++)	
+	//	{
+		//	System.out.println("Starting " + (i+1));
 			/*System.out.println("Doing A Star Search");
 			Routing.AStarAlg alg = new Routing.AStarAlg(shipments.get(i), new WeightedMetric(1,0,0));
 			ArrayList<Segment> route = alg.getPath();
@@ -58,9 +60,9 @@ public class Test extends BaseClass
 			shipments.get(i).DeleteAllHistory();
 			shipments.get(i).setHistoryFromSegments(route5);*/
 			
-			System.out.println("Done with " + (i+1));
-		}
-		printSolution(shipments);
+		//	System.out.println("Done with " + (i+1));
+	//	}
+	//	printSolution(shipments);
 		//printShipmentInfoToFile();
 		//printVehicleInfo();
 		//printVehicleRoute();
@@ -89,7 +91,7 @@ public class Test extends BaseClass
 		
 		
 
-	}
+	//}
 
 		/*public static void printVehicleRoute() throws IOException
 		{
@@ -358,6 +360,7 @@ public class Test extends BaseClass
 			}
 			w.flush();
 		}*/
+	}
 		public static void printSolution(ArrayList<Shipment> shipments)throws IOException
 		{
 			File f = new File("ShipmentsNAVWDist.txt");

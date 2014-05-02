@@ -141,12 +141,39 @@ public abstract class RoutingAlgorithm {
 		}
 	}//End of rewindPath(ArrayList<Segment> rewindPath)
 	
-	public double getTotalRouteCost(ArrayList<Segment> route){
+	public double getTotalRouteWeightedCost(ArrayList<Segment> route){
 		double total =0;
 		for(int i = 0; i < route.size(); i++){
 			total += this.metric.getWeightedCost(route.get(i));
 		}
 		return total;
 	}
+	public static double getRoutesTotalFinancialCost(ArrayList<Segment> route){
+		double total =0;
+		for(int i = 0; i < route.size(); i++){
+			total += route.get(i).getShippingRate().getFlatRate();
+		}
+		return total;
+		
+	}
+	
+	public static double getRoutesTotalDistance(ArrayList<Segment> route){
+		double total =0;
+		for(int i = 0; i < route.size(); i++){
+			total += route.get(i).getDistance();
+		}
+		return total;
+		
+	}
+	
+	public static double getRoutesTotalTime(ArrayList<Segment> route){
+		double total =0;
+		for(int i = 0; i < route.size(); i++){
+			total += Math.abs(route.get(i).getEstimatedArrivalTime() - route.get(i).getEstimatedDepartureTime());
+		}
+		return total;
+		
+	}
+	
 	
 }
