@@ -454,10 +454,7 @@ public class TravelTypeTest {
 		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTravelTypeMode(), test_truck2.getAvailableTypes().get(0).getTravelTypeMode());
 		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTravelTypeName(),test_truck2.getAvailableTypes().get(0).getTravelTypeName());
 		
-		System.out.println(test_truck.getAvailableTypes().size());
 		test_type.removeFromVehilce(test_truck);
-		//test_truck.removeFromTypes(test_type);
-		System.out.println(test_truck.getAvailableTypes().size());
 		test_truck.Update();
 		
 		test_truck2 = Truck.Load(test_truck.getId());
@@ -493,8 +490,17 @@ public class TravelTypeTest {
 		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTravelTypeMode(), test_truck2.getAvailableTypes().get(0).getTravelTypeMode());
 		Assert.assertEquals(test_truck.getAvailableTypes().get(0).getTravelTypeName(),test_truck2.getAvailableTypes().get(0).getTravelTypeName());
 		
+		test_type.removeFromVehicle(test_truck.getId(), "TRUCK");
+		
 		test_truck.Delete();
 	}
 	
+	@Test
+	public void testToString() {
+		String test_string = new String("We be testing for this");
+		test_type.setTravelTypeName(test_string);
+		
+		Assert.assertEquals(test_string, test_type.getTravelTypeName());
+	}
 	
 }

@@ -26,8 +26,7 @@ public class ShippingRateTest {
 		Assert.assertEquals(new Double(ShippingRate.getDefaultRate1()), new Double(test_rate.getRate1()));
 		Assert.assertEquals(new Double(ShippingRate.getDefaultRate2()), new Double(test_rate.getRate2()));
 		Assert.assertEquals(new Double(ShippingRate.getDefaultRate3()), new Double(test_rate.getRate3()));
-		//quick test to ensure correct travel type -- TravelType tested in TravelTypeTest.class
-		Assert.assertEquals(new TravelType().getHazmat(), test_rate.getType().getHazmat());
+
 		Assert.assertEquals(new Double(ShippingRate.getDefaultWeight1()), new Double(test_rate.getWeight1()));
 		Assert.assertEquals(new Double(ShippingRate.getDefaultWeight2()), new Double(test_rate.getWeight2()));
 		Assert.assertEquals(new Double(ShippingRate.getDefaultWeight3()), new Double(test_rate.getWeight3()));
@@ -54,8 +53,7 @@ public class ShippingRateTest {
 			Assert.assertEquals(new Double(ShippingRate.getDefaultRate1()), new Double(test_rate.getRate1()));
 			Assert.assertEquals(new Double(ShippingRate.getDefaultRate2()), new Double(test_rate.getRate2()));
 			Assert.assertEquals(new Double(ShippingRate.getDefaultRate3()), new Double(test_rate.getRate3()));
-			//quick test to ensure correct travel type -- TravelType tested in TravelTypeTest.class
-			Assert.assertEquals(new TravelType().getHazmat(), test_rate.getType().getHazmat());
+
 			Assert.assertEquals(new Double(ShippingRate.getDefaultWeight1()), new Double(test_rate.getWeight1()));
 			Assert.assertEquals(new Double(ShippingRate.getDefaultWeight2()), new Double(test_rate.getWeight2()));
 			Assert.assertEquals(new Double(ShippingRate.getDefaultWeight3()), new Double(test_rate.getWeight3()));
@@ -64,18 +62,7 @@ public class ShippingRateTest {
 		}
 	}
 
-	@Test
-	public void testSetTravelType() {
-		TravelType test_type = new TravelType();
-		test_type.setExp(true);
-		test_type.setMaxWeight(133.6542);
-
-		test_rate.setType(test_type);
-
-		Assert.assertEquals(test_type.getExplosives(), test_rate.getType().getExplosives());
-		Assert.assertEquals(new Double(test_type.getMaxWeight()), new Double(test_rate.getType().getMaxWeight()));
-		Assert.assertTrue(test_rate.isDirty());
-	}
+	
 
 	@Test
 	public void testSetWeight1() {

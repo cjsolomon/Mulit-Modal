@@ -30,7 +30,6 @@ public class SegmentTest {
 		Assert.assertEquals(new Integer(Segment.getDefaultEarliestArrivalTime()), new Integer(test_segment.getEarliestArrivalTime()));
 		Assert.assertEquals(new Integer(Segment.getDefaultLatestDepartureTime()), new Integer(test_segment.getLatestDepartureTime()));
 		Assert.assertEquals(new Integer(Segment.getDefaultLatestArrivalTime()), new Integer(test_segment.getLatestArrivalTime()));
-		Assert.assertEquals(new ShippingRate().getType().toString(), test_segment.getShippingRate().getType().toString());
 		Assert.assertEquals(Segment.getDefaultMode(), test_segment.getMode());
 		Assert.assertEquals(new TravelType().getTravelTypeName(),test_segment.getTravelType().getTravelTypeName());
 		Assert.assertEquals(Segment.getDefaultLanes(), test_segment.getLane());
@@ -401,7 +400,6 @@ public class SegmentTest {
 			Assert.assertEquals(new Integer(test_segment.getEarliestArrivalTime()), new Integer(sList.get(0).getEarliestArrivalTime()));
 			Assert.assertEquals(new Integer(test_segment.getLatestDepartureTime()), new Integer(sList.get(0).getLatestDepartureTime()));
 			Assert.assertEquals(new Integer(test_segment.getLatestArrivalTime()), new Integer(sList.get(0).getLatestArrivalTime()));
-			Assert.assertEquals(test_segment.getShippingRate().getType().toString(), sList.get(0).getShippingRate().getType().toString());
 			Assert.assertEquals(test_segment.getMode(), sList.get(0).getMode());
 			Assert.assertEquals(test_segment.getTravelType().getTravelTypeName(),sList.get(0).getTravelType().getTravelTypeName());
 			Assert.assertEquals(new Integer(test_segment.getOnBoard().size()),new Integer(sList.get(0).getOnBoard().size()));
@@ -428,7 +426,6 @@ public class SegmentTest {
 			Assert.assertEquals(new Integer(test_segment.getEarliestArrivalTime()), new Integer(sList2.get(0).getEarliestArrivalTime()));
 			Assert.assertEquals(new Integer(test_segment.getLatestDepartureTime()), new Integer(sList2.get(0).getLatestDepartureTime()));
 			Assert.assertEquals(new Integer(test_segment.getLatestArrivalTime()), new Integer(sList2.get(0).getLatestArrivalTime()));
-			Assert.assertEquals(test_segment.getShippingRate().getType().toString(), sList2.get(0).getShippingRate().getType().toString());
 			Assert.assertEquals(test_segment.getMode(), sList2.get(0).getMode());
 			Assert.assertEquals(test_segment.getTravelType().getTravelTypeName(),sList2.get(0).getTravelType().getTravelTypeName());
 			Assert.assertEquals(new Integer(test_segment.getOnBoard().size()),new Integer(sList2.get(0).getOnBoard().size()));
@@ -481,8 +478,11 @@ public class SegmentTest {
 		test_segment.setLane("JUnit test Load All Test 1");
 		
 		test_location_start.Update();
+		System.out.println("test_location_start id is: " + test_location_start.getID());
 		test_location_end.Update();
+		System.out.println("test_location_end id is: " + test_location_end.getID());
 		test_location_never.Update();
+		System.out.println("test_location_never id is: " + test_location_never.getID());
 		
 		test_segment.setStartLocation(test_location_start);
 		test_segment.setEndLocation(test_location_end);
@@ -636,7 +636,6 @@ public class SegmentTest {
 		Assert.assertEquals(new Integer(test_segment.getEarliestArrivalTime()), new Integer(test_segment2.getEarliestArrivalTime()));
 		Assert.assertEquals(new Integer(test_segment.getLatestDepartureTime()), new Integer(test_segment2.getLatestDepartureTime()));
 		Assert.assertEquals(new Integer(test_segment.getLatestArrivalTime()), new Integer(test_segment2.getLatestArrivalTime()));
-		Assert.assertEquals(test_segment.getShippingRate().getType().toString(), test_segment2.getShippingRate().getType().toString());
 		Assert.assertEquals(test_segment.getMode(), test_segment2.getMode());
 		Assert.assertEquals(test_segment.getTravelType().getTravelTypeName(),test_segment2.getTravelType().getTravelTypeName());
 		Assert.assertEquals(new Integer(test_segment.getOnBoard().size()),new Integer(test_segment2.getOnBoard().size()));
