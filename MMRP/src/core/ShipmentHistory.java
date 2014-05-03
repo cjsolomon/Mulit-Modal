@@ -149,11 +149,15 @@ public class ShipmentHistory extends BaseClass {
 		try
 		{
 			ArrayList<Map<String,Object>> temp = executeQuery("Select * from ShipmentHistory where ShipmentID = " + id  + " AND Deleted = false" + " order by NodeNumber");
-			for(int i = 0;i<temp.size();i++)
-			{
-				returnList.add(BuildFromDataRow(temp.get(i)));
+			
+			if(temp != null){
+				for(int i = 0;i<temp.size();i++)
+				{
+					returnList.add(BuildFromDataRow(temp.get(i)));
+				}
 			}
 			return returnList;
+			
 		}
 		catch(Exception ex)
 		{
