@@ -80,7 +80,12 @@ public class ShipmentHistory extends BaseClass {
 	 */
 	public Segment getSegment()
 	{
-		return Segment.LoadAll("where SegmentID = " + this.segmentID).get(0);
+		ArrayList<Segment> segments = new ArrayList<Segment>();
+		segments = Segment.LoadAll("where SegmentID = " + this.segmentID);
+		if(segments.size() > 0)
+			return segments.get(0);
+		else
+			return new Segment();
 	}//End of getSegment()
 	
 	/**

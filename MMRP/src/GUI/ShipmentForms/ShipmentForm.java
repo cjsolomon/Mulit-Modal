@@ -377,8 +377,8 @@ public class ShipmentForm extends JPanel
 
 		public void showPanel()
 		{
-			this.setVisible(true);
 			setEditable();
+			this.setVisible(true);
 		}
 
 		public void showPanel(Shipment s)

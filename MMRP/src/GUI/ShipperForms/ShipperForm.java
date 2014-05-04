@@ -208,6 +208,7 @@ public class ShipperForm extends JPanel {
 
 		public void showPanel()
 		{
+			setEditable();
 			this.setVisible(true);
 		}
 
