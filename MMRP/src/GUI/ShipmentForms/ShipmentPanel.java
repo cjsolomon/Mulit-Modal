@@ -79,6 +79,7 @@ public class ShipmentPanel extends JPanel {
 					sp2.setVisible(true);
 					sht.showPanel(st.getSelectedShipment());
 					sf.showPanel(st.getSelectedShipment());
+					jp.setSelectedIndex(0);
 				}
 			}
 		});
@@ -87,10 +88,12 @@ public class ShipmentPanel extends JPanel {
 		btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				jp.setVisible(true);
 				sp2.setVisible(true);
 				sht.showPanel(null);
 				sf.showPanel();
+				jp.setSelectedIndex(0);
 			}
 		});
 		add(btnNew, "8, 7");
