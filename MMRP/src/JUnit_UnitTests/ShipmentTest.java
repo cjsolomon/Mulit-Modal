@@ -382,13 +382,18 @@ public class ShipmentTest {
 		ArrayList<ShipmentHistory> history_list = new ArrayList<ShipmentHistory>();
 		ShipmentHistory test_history1 = new ShipmentHistory();
 		ShipmentHistory test_history2 = new ShipmentHistory();
+		
+		Shipment test_shipment = new Shipment();
+		test_shipment.Update();
 				
+		test_history1.setShipmentID(test_shipment.getId());
+		test_history2.setShipmentID(test_shipment.getId());
+		
 		test_history1.Update();
 		test_history2.Update();
 		history_list.add(test_history1);
 		history_list.add(test_history1);
 
-		Shipment test_shipment = new Shipment();
 		test_shipment.setHistory(history_list);
 		test_shipment.Update();
 
