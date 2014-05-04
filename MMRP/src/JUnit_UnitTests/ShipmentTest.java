@@ -146,6 +146,7 @@ public class ShipmentTest {
 		Shipment test_shipment = new Shipment();
 		Integer test_number = 17;
 
+		test_shipment.setEarliestArrivalTime(test_number-1);
 		test_shipment.setLatestArrivalTime(test_number);
 		Assert.assertEquals(test_number, new Integer(test_shipment.getLatestArrivalTime()));
 
@@ -157,6 +158,7 @@ public class ShipmentTest {
 		Shipment test_shipment = new Shipment();
 		Integer test_number = 17;
 
+		test_shipment.setLatestDepartureTime(test_number+1);
 		test_shipment.setEarliestDepartureTime(test_number);
 		Assert.assertEquals(test_number, new Integer(test_shipment.getEarliestDepartureTime()));
 
@@ -378,15 +380,25 @@ public class ShipmentTest {
 	@Test
 	public void testSetHistory() {
 		ArrayList<ShipmentHistory> history_list = new ArrayList<ShipmentHistory>();
-		history_list.add(new ShipmentHistory());
-		history_list.add(new ShipmentHistory());
+		ShipmentHistory test_history1 = new ShipmentHistory();
+		ShipmentHistory test_history2 = new ShipmentHistory();
+				
+		test_history1.Update();
+		test_history2.Update();
+		history_list.add(test_history1);
+		history_list.add(test_history1);
 
 		Shipment test_shipment = new Shipment();
 		test_shipment.setHistory(history_list);
+		test_shipment.Update();
 
 		ArrayList<ShipmentHistory> history_list2 = test_shipment.getHistory();
-		Assert.assertEquals(history_list, history_list2);
+		Assert.assertEquals(history_list.size(), history_list2.size());
 		Assert.assertTrue(test_shipment.isDirty());
+		
+		test_history1.Delete();
+		test_history2.Delete();
+		test_shipment.Delete();
 	}
 
 	@Test
@@ -447,7 +459,7 @@ public class ShipmentTest {
 		Assert.assertEquals(test_location.getName(), test_location2.getName());
 		Assert.assertEquals(new Double(test_location.getLatitude()), new Double(test_location2.getLatitude()));
 		Assert.assertEquals(new Double(test_location.getLongitude()), new Double(test_location2.getLongitude()));
-		Assert.assertEquals(test_location.getTravelModes(), test_location2.getTravelModes());
+		Assert.assertEquals(test_location.getTravelModes().get(0).toString(), test_location2.getTravelModes().get(0).toString());
 		Assert.assertEquals(test_location.getVehiclesAtLocation(), test_location2.getVehiclesAtLocation());
 		Assert.assertEquals(test_location.getState(), test_location2.getState());
 		test_location.Delete();
@@ -472,7 +484,7 @@ public class ShipmentTest {
 		Assert.assertEquals(test_location.getName(), test_location2.getName());
 		Assert.assertEquals(new Double(test_location.getLatitude()), new Double(test_location2.getLatitude()));
 		Assert.assertEquals(new Double(test_location.getLongitude()), new Double(test_location2.getLongitude()));
-		Assert.assertEquals(test_location.getTravelModes(), test_location2.getTravelModes());
+		Assert.assertEquals(test_location.getTravelModes().get(0).toString(), test_location2.getTravelModes().get(0).toString());
 		Assert.assertEquals(test_location.getVehiclesAtLocation(), test_location2.getVehiclesAtLocation());
 		Assert.assertEquals(test_location.getState(), test_location2.getState());
 		test_location.Delete();

@@ -458,7 +458,7 @@ public class TravelTypeTest {
 		test_truck.Update();
 		
 		test_truck2 = Truck.Load(test_truck.getId());
-		Assert.assertNull(test_truck2.getAvailableTypes());
+		Assert.assertTrue(test_truck2.getAvailableTypes().isEmpty());
 		
 		test_truck.Delete();
 		

@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import org.junit.Test;
 import org.junit.Assert;
 
-import core.Bike;
-import core.Cargo;
 import core.Cargo;
 import core.Carrier;
 import core.Vehicle;
@@ -59,18 +57,19 @@ public class CargoTest {
 	public void testUpdateLoad() {
 		Cargo test_cargo = new Cargo();
 		test_cargo.setVehicleName("InsertLoadTest");
+		
 		test_cargo.setCarrier(Carrier.Load(3));
 		test_cargo.Update();
-		ArrayList<Cargo> cList = Cargo.LoadAll(new String("where ShipName = 'InsertLoadTest'"));
-		if (!cList.isEmpty()) {
-			Assert.assertEquals(test_cargo.getVehicleName().toString().trim(), cList.get(0).getVehicleName().toString().trim());
-			Assert.assertEquals(test_cargo.getId(),cList.get(0).getId());
-			Assert.assertEquals(test_cargo.getCarrier().getCarrierName().trim(),cList.get(0).getCarrier().getCarrierName().trim());
-			Assert.assertEquals(test_cargo.getStatus().toString().trim(), cList.get(0).getStatus().toString().trim());
-			Assert.assertEquals(test_cargo.isDirty(), cList.get(0).isDirty());
-			Assert.assertEquals(test_cargo.isNew(),cList.get(0).isNew());
-			Assert.assertEquals(test_cargo.getTravelMode().toString().trim(),cList.get(0).getTravelMode().toString().trim());
-			for (Cargo delete : cList)
+		ArrayList<Cargo> bList = Cargo.LoadAll(new String("where ShipName = 'InsertLoadTest'"));
+		if (!bList.isEmpty()) {
+			Assert.assertEquals(test_cargo.getVehicleName().toString().trim(), bList.get(0).getVehicleName().toString().trim());
+			Assert.assertEquals(test_cargo.getId(),bList.get(0).getId());
+			Assert.assertEquals(test_cargo.getCarrier().getCarrierName().trim(),bList.get(0).getCarrier().getCarrierName().trim());
+			Assert.assertEquals(test_cargo.getStatus().toString().trim(), bList.get(0).getStatus().toString().trim());
+			Assert.assertEquals(test_cargo.isDirty(), bList.get(0).isDirty());
+			Assert.assertEquals(test_cargo.isNew(),bList.get(0).isNew());
+			Assert.assertEquals(test_cargo.getTravelMode().toString().trim(),bList.get(0).getTravelMode().toString().trim());
+			for (Cargo delete : bList)
 				delete.Delete();
 		}
 		else {

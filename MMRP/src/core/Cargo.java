@@ -14,10 +14,10 @@ import java.util.Map;
 import GUI.Log;
 
 public class Cargo extends Vehicle {
-	
+
 	//Default Variables
 	private final static String DEFAULT_CARGO_NAME = "defaultCargoName";
-	
+
 	/**
 	 * This is the default Cargo constructor
 	 */
@@ -31,7 +31,7 @@ public class Cargo extends Vehicle {
 		this.MarkClean();												//Mark the Cargo as clean
 		this.MarkUndeleted();											//Mark the Cargo as not deleted
 	}//End of Cargo()
-	
+
 	/**
 	 * This function will create a new Cargo object with the given id
 	 * @param id This is the new ID of the Cargo
@@ -45,7 +45,7 @@ public class Cargo extends Vehicle {
 		this.name = DEFAULT_CARGO_NAME;									//Set the Cargo's name					
 		this.MarkClean();												//Mark the Cargo as clean	
 	}//End of arguemented Cargo constructor
-	
+
 	/**
 	 * This function overrides the parent's Update function and will handle changes made to the Cargo object in the database
 	 */
@@ -54,38 +54,38 @@ public class Cargo extends Vehicle {
 	{
 		try
 		{
-		if(isNew())
-		{
-			if(executeQuery("Select * from CargoShip where ShipName = '" + this.getVehicleName()+"'").size()==0)
+			if(isNew())
 			{
-				generateUniqueName();
-			}
-			//If the cargo is new insert it into the database by executing the following
-			executeCommand("Insert into CargoShip (ShipName,Carrier,Status) Values ('"+
-					getVehicleName() + "','" +this.getCarrier().getId()+"','" +this.getStatus()+"')");
-			//Grab this cargo from the database
-			ArrayList<Map<String,Object>> temp =executeQuery("Select ShipID from CargoShip where ShipName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId()+
-					 "' AND Status = '" + this.getStatus()+"'");
-			//If this cargo exists on the database mark it as old and clean
-			if(temp.size()>0)
+				if(executeQuery("Select * from CargoShip where ShipName = '" + this.getVehicleName()+"'").size()==0)
+				{
+					//generateUniqueName(this);
+				}
+				//If the cargo is new insert it into the database by executing the following
+				executeCommand("Insert into CargoShip (ShipName,Carrier,Status) Values ('"+
+						getVehicleName() + "','" +this.getCarrier().getId()+"','" +this.getStatus()+"')");
+				//Grab this cargo from the database
+				ArrayList<Map<String,Object>> temp =executeQuery("Select ShipID from CargoShip where ShipName = '" + this.getVehicleName() + "' AND Carrier = '"+this.getCarrier().getId()+
+						"' AND Status = '" + this.getStatus()+"'");
+				//If this cargo exists on the database mark it as old and clean
+				if(temp.size()>0)
+				{
+					this.id = (Integer)temp.get(temp.size()-1).get("ShipID");					//Set this Cargo's id
+
+				}
+				MarkClean();														//Mark the Cargo as clean
+				MarkOld();															//Mark the Cargo as old
+			}//End of isNew if
+			else
 			{
-				this.id = (Integer)temp.get(temp.size()-1).get("ShipID");					//Set this Cargo's id
-				
-			}
-			MarkClean();														//Mark the Cargo as clean
-			MarkOld();															//Mark the Cargo as old
-		}//End of isNew if
-		else
-		{
-			if(isDirty())
-			{
-				//If the Cargo is not new, but is dirty then it needs to be updated by the following SQL command
-				executeCommand("Update CargoShip Set ShipName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
-					"' , Status = '" + this.getStatus() +"', Deleted = " + this.isDeleted() + " Where ShipID = " +this.id);
-				MarkClean();													//Mark the cargo as clean
-			}//End of isDirty if
-		}//End of isOld else
-		return true;
+				if(isDirty())
+				{
+					//If the Cargo is not new, but is dirty then it needs to be updated by the following SQL command
+					executeCommand("Update CargoShip Set ShipName = '" + this.getVehicleName() + "' , Carrier = '"+this.getCarrier().getId()+
+							"' , Status = '" + this.getStatus() +"', Deleted = " + this.isDeleted() + " Where ShipID = " +this.id);
+					MarkClean();													//Mark the cargo as clean
+				}//End of isDirty if
+			}//End of isOld else
+			return true;
 		}//End of try block
 		catch(Exception ex)
 		{
@@ -93,7 +93,7 @@ public class Cargo extends Vehicle {
 			ex.printStackTrace();
 			return false;
 		}//End of catch block
-		
+
 	}//End of overridden Update()
 
 	/**
@@ -141,9 +141,9 @@ public class Cargo extends Vehicle {
 			System.out.println("Error " + ex);
 			ex.printStackTrace();
 		}
- 		return null;
+		return null;
 	}//End of Load(int id)
-	
+
 	/**
 	 * This function loads an ArrayList of Cargo objects from the database based on the passed in where clause
 	 * @param where This is the where clause that specifies which Cargo objects to load from the database
@@ -172,7 +172,7 @@ public class Cargo extends Vehicle {
 		}
 		return returnList;
 	}//End of LoadAll(String where)
-	
+
 	/**
 	 * This function builds objects from returned data from SQL queries against our database
 	 * @param data This is the data that will be used to build the Cargo object
@@ -193,22 +193,29 @@ public class Cargo extends Vehicle {
 		c.MarkClean();
 		c.MarkOld();
 		return c;
-		
+
 	}//End of the BuildFromDataRow(Map<String, Object> data)
-	private void generateUniqueName() throws Exception
+	private void generateUniqueName(Cargo cargo) throws Exception 
 	{
 		ArrayList<Map<String,Object>> tmp = executeQuery("SELECT Max(ShipName) FROM CargoShip where ShipName like 'Ship%'");
 		if(tmp.size()>0)
 		{
 			String largestPrevious = (String)tmp.get(0).get("Max(ShipName");
-			int val = Integer.parseInt(largestPrevious.substring(4));
-			val++;
-			this.setVehicleName("Ship"+val);
+			int val = 0;
+			try {
+				val = Integer.parseInt(largestPrevious.substring(4));
+				val++;
+			}
+			catch (Exception e){
+			}
+			finally {
+				cargo.setVehicleName("Ship"+val);
+			}
 		}
 	}
 	public static String getDefaultName() {
 		// TODO Auto-generated method stub
 		return DEFAULT_CARGO_NAME;
 	}
-	
+
 }//End of Cargo class
