@@ -297,6 +297,7 @@ public class SegmentForm extends JPanel {
 		btnCreateNewShipment = new JButton("Save");
 		btnCreateNewShipment.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				setEditable();
 			}
 		});
 		add(btnCreateNewShipment, "9, 28");
@@ -521,6 +522,30 @@ public class SegmentForm extends JPanel {
 		
 	}
 	
+	public void setEditable(){
+		this.cbTravelModes.setEnabled(true);
+		this.cbVehicleID.setEnabled(true);
+		this.cbTravelType.setEnabled(true);
+		this.txtDistance.setEditable(true);
+		this.txtLane.setEditable(true);
+		this.txtRateID.setEditable(true);
+		this.txtActualCapacity.setEditable(true);
+		this.txtEstArrival.setEditable(true);
+		this.txtEarlArrival.setEditable(true);
+		this.txtLatArrival.setEditable(true);
+		this.txtEstDeparture.setEditable(true);
+		this.txtEarlDeparture.setEditable(true);
+		this.txtLatArrival.setEditable(true);
+		
+		this.cmbFromCountries.setEnabled(true);
+		this.cmbFromStates.setEnabled(true);
+		this.cmbFromCities.setEnabled(true);
+		
+		this.cmbToCountries.setEnabled(true);
+		this.cmbToStates.setEnabled(true);
+		this.cmbToCities.setEnabled(true);
+		
+	}
 	
 
 }//End of LocationForm Class
