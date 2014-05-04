@@ -146,5 +146,15 @@ public class TravelTypeSelector extends JPanel {
 		sp2.updateUI();
 		setVisible(true);
 	}
+	
+	public void showPanel()
+	{
+		sourceVehicle = null;
+		dlmInUse.clear();
+		used.clear();
+		dlmAvail.clear();
+		available.clear();
+		setVisible(true);
+	}
 
 }

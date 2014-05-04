@@ -187,7 +187,7 @@ public class LocationForm extends JPanel {
 		txtCity.setText(source.getName());
 		txtLon.setText(Double.toString(source.getLongitude()));
 		txtLat.setText(Double.toString(source.getLatitude()));
-		
+		chkTruck.setSelected(source.travelTypeAvailable(Vehicle.TravelModes.TRUCK));
 		chkPlane.setSelected(source.travelTypeAvailable(Vehicle.TravelModes.PLANE));
 
 		chkRail.setSelected(source.travelTypeAvailable(Vehicle.TravelModes.RAIL));
@@ -202,7 +202,7 @@ public class LocationForm extends JPanel {
 		txtCity.setText("");
 		txtLon.setText("");
 		txtLat.setText("");
-		
+		chkTruck.setSelected(true);
 		
 		chkPlane.setSelected(false);	
 		chkRail.setSelected(false);
@@ -220,7 +220,7 @@ public class LocationForm extends JPanel {
 		txtState.setEnabled(false);
 		txtLon.setEnabled(false);
 		txtLat.setEnabled(false);
-
+		chkTruck.setEnabled(false);
 		chkRail.setEnabled(false);
 		chkPlane.setEnabled(false);
 		chkCargo.setEnabled(false);

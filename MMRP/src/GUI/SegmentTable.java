@@ -44,10 +44,22 @@ public class SegmentTable extends JTable {
 	public void showPanel(Vehicle v) {
 		System.out.println("Called vehicle table show");
 		source=v;
-		setData();
+		if(v!=null)
+		{
+			setData();
+	
+		}
+		else
+			this.setModel(new SegmentModel(new ArrayList<Segment>()));
+		
 		setVisible(true);
 	}
 	
+	public void showPanel()
+	{
+		this.setModel(new SegmentModel(new ArrayList<Segment>()));
+		setVisible(true);
+	}
 	public void showPanel(String sqlWhere) {
 		 	setData(sqlWhere);
 		 	setVisible(true);

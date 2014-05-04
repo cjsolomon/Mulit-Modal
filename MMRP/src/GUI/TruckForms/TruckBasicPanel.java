@@ -31,6 +31,7 @@ public class TruckBasicPanel extends JPanel {
 	private JButton btnCancel;
 	private JButton btnSave;
 	ArrayList<TableRefreshListener> listener = new ArrayList<TableRefreshListener>();
+	ArrayList<TravelTypeSetListener> travelTypeListener = new ArrayList<TravelTypeSetListener>();
 	public TruckBasicPanel()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -82,7 +83,13 @@ public class TruckBasicPanel extends JPanel {
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				update();
+				if(source==null)
+				{
+					update();
+					for(TravelTypeSetListener t : travelTypeListener ) t.setTravelType();
+				}
+				else
+					update();
 				btnSave.setVisible(false);
 				readOnly();
 				btnEdit.setVisible(true);
@@ -164,6 +171,10 @@ public class TruckBasicPanel extends JPanel {
 		txtName.setText("");
 		cmbCarrier.setSelectedIndex(0);
 		cmbStatus.setSelectedIndex(0);
+	}
+	public void addTravelTypeSetListener(TravelTypeSetListener t)
+	{
+		this.travelTypeListener.add(t);
 	}
 
 }

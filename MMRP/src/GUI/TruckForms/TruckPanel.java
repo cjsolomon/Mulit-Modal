@@ -16,6 +16,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JButton;
+import GUI.TravelTypeSetListener;
 
 public class TruckPanel extends JPanel {
 	TruckTable tt;
@@ -77,13 +78,22 @@ public class TruckPanel extends JPanel {
 		truckInfo.addTab("Segments",sp2);
 		truckInfo.addTab("Types",tts);
 		truckInfo.setVisible(false);
-		
+		tbp.addTravelTypeSetListener(new TravelTypeSetListener(){
+			public void setTravelType()
+			{
+				tts.showPanel(tbp.source);
+			}
+		});
 		btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
 				truckInfo.setVisible(true);
 				tbp.showPanel();
+				segments.showPanel();
+				sp2.setVisible(true);
+				tts.showPanel();
+				truckInfo.setSelectedIndex(0);
 			}
 		});
 		
@@ -106,6 +116,14 @@ public class TruckPanel extends JPanel {
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(tt.getSelectedRow()!=-1)
+					tt.getSelectedTruck().Delete();
+			}
+		});
 		add(btnDelete, "8, 4");
 		add(truckInfo,"2, 5, 7, 1");
 		
