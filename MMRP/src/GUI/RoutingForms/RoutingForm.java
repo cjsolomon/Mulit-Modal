@@ -2,6 +2,7 @@ package GUI.RoutingForms;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -16,6 +17,7 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 
+import core.Segment;
 import core.Shipment;
 import core.Vehicle;
 
@@ -179,10 +181,12 @@ public class RoutingForm extends JPanel{
 		this.cmbASMode = new JComboBox(Vehicle.TravelModes.values());
 		this.cmbASMode.setSelectedItem(Vehicle.TravelModes.ALL);
 		this.cmbBFMode = new JComboBox(Vehicle.TravelModes.values());
+		cmbBFMode.setEnabled(false);
 		this.cmbNAVMode = new JComboBox(Vehicle.TravelModes.values());
 		this.cmbNCMode = new JComboBox(Vehicle.TravelModes.values());
 		this.cmbNCMode.setSelectedItem(Vehicle.TravelModes.ALL);
 		this.cmbTTMode = new JComboBox(Vehicle.TravelModes.values());
+		this.cmbBFMode.setSelectedItem(Vehicle.TravelModes.ALL);
 		
 		this.cmbBFMode.removeItem(Vehicle.TravelModes.ALL);
 		this.cmbBFMode.removeItem(Vehicle.TravelModes.NONE);
@@ -196,6 +200,7 @@ public class RoutingForm extends JPanel{
 		
 		this.cmbASMode.setEnabled(false);
 		this.cmbNCMode.setEnabled(false);
+		this.cmbBFMode.setEnabled(false);
 		
 		add(this.cmbNCMode,"10,4");
 		add(this.cmbBFMode ,"10,8");
@@ -207,10 +212,58 @@ public class RoutingForm extends JPanel{
 		btnRoute.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(source!=null)
+				
+				//javax.swing.JPopupMenu pu = new javax.swing.JPopupMenu("Hello");
+				//pu.setVisible(true);
+				
+				if(source!=null && (chkNodeCrawler.isSelected() || chkBestFind.isSelected() || chkTravelByType.isSelected() || chkAStar.isSelected() || chkNextAvailVehicle.isSelected()))
 				{
-					NodeCrawler nc = new NodeCrawler(source);
-					refresh.setSegs(nc.getPath());
+					ArrayList<Segment> bestRoute = new ArrayList<Segment>();
+					double cost = 10000000;
+					
+					if(chkNodeCrawler.isSelected()){
+						Routing.NodeCrawler NC = new Routing.NodeCrawler(source);
+						NC.setMetric(new Routing.WeightedMetric((Integer)spinNCD.getValue(),(Integer)spinNCT.getValue(), (Integer)spinNCC.getValue()));
+						bestRoute = NC.getPath();
+						cost = NC.getTotalRouteWeightedCost(bestRoute);
+					}
+					if(chkBestFind.isSelected()){
+						
+						Routing.BestFirstFind BFF  = new Routing.BestFirstFind(new Routing.WeightedMetric((Integer)spinBFD.getValue(),(Integer)spinBFT.getValue(), (Integer)spinBFC.getValue()), source);
+						ArrayList<Segment> newPath = BFF.getPath();
+						if(BFF.getTotalRouteWeightedCost(newPath) < cost){
+							cost = BFF.getTotalRouteWeightedCost(newPath);
+							bestRoute = newPath;
+						}
+					}	
+					if(chkTravelByType.isSelected()){
+						
+						Routing.TravelByType TBT  = new Routing.TravelByType((Vehicle.TravelModes)cmbTTMode.getSelectedItem(), new Routing.WeightedMetric((Integer)spinTTD.getValue(),(Integer)spinTTT.getValue(), (Integer)spinTTC.getValue()), source);
+						ArrayList<Segment> newPath = TBT.getPath();
+						if(TBT.getTotalRouteWeightedCost(newPath) < cost){
+							cost = TBT.getTotalRouteWeightedCost(newPath);
+							bestRoute = newPath;
+						}
+						
+					}
+					if(chkAStar.isSelected()){
+						Routing.AStarAlg AS  = new Routing.AStarAlg(source,new Routing.WeightedMetric((Integer)spinASD.getValue(),(Integer)spinAST.getValue(), (Integer)spinASC.getValue()));
+						ArrayList<Segment> newPath = AS.getPath();
+						if(AS.getTotalRouteWeightedCost(newPath) < cost){
+							cost = AS.getTotalRouteWeightedCost(newPath);
+							bestRoute = newPath;
+						}
+					}
+					if(chkNextAvailVehicle.isSelected()){
+						Routing.NextAvailableVehicle NAV  = new Routing.NextAvailableVehicle((Vehicle.TravelModes)cmbTTMode.getSelectedItem(), new Routing.WeightedMetric((Integer)spinTTD.getValue(),(Integer)spinTTT.getValue(), (Integer)spinTTC.getValue()), source);
+						ArrayList<Segment> newPath = NAV.getPath();
+						if(NAV.getTotalRouteWeightedCost(newPath) < cost){
+							cost = NAV.getTotalRouteWeightedCost(newPath);
+							bestRoute = newPath;
+						}
+					}
+					
+					refresh.setSegs(bestRoute);
 					refresh.refreshTable();
 				}
 				

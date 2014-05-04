@@ -78,7 +78,7 @@ public class SegmentPanel extends JPanel {
 	public void showPanel()
 	{
 		sp.setVisible(true);
-		st.showPanel("where SegmentID > 8000");
+		st.showPanel("where SegmentID > 7999 AND SegmentID < 8001");
 		sf.setVisible(false);
 		setVisible(true);
 		

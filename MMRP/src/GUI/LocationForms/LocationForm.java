@@ -21,6 +21,7 @@ import core.Truck;
 import core.Vehicle;
 import core.Vehicle.TravelModes;
 import GUI.TableRefreshListener;
+import javax.swing.SwingConstants;
 
 public class LocationForm extends JPanel {
 
@@ -30,6 +31,7 @@ public class LocationForm extends JPanel {
 	private JButton btnEdit,btnSave,btnCancel;
 	Location source;
 	private ArrayList<TableRefreshListener> refreshList;
+	private JLabel lblLocation;
 	public LocationForm()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -61,7 +63,8 @@ public class LocationForm extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				FormFactory.RELATED_GAP_ROWSPEC,}));
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		lblCity = new JLabel("City:");
 		lblState = new JLabel("State:");
@@ -82,30 +85,34 @@ public class LocationForm extends JPanel {
 		txtState  = new JTextField(20);
 		txtCountry  = new JTextField(20);
 		
-		add(lblCity, "2,2,right,center");
-		add(txtCity,"4,2");
+		lblLocation = new JLabel("Location");
+		lblLocation.setHorizontalAlignment(SwingConstants.CENTER);
+		add(lblLocation, "4, 2");
 		
-		add(lblState , "2,4,right,center");
-		add(txtState,"4,4");
+		add(lblCity, "2, 4, right, center");
+		add(txtCity,"4, 4");
 		
-		add(lblCountry,"2,6,right,center");
-		add(txtCountry,"4,6");
+		add(lblState , "2, 6, right, center");
+		add(txtState,"4, 6");
 		
-		add(lblLat,"2,8,right,center");
-		add(txtLat,"4,8");
+		add(lblCountry,"2, 8, right, center");
+		add(txtCountry,"4, 8");
 		
-		add(lblLon,"2,10,right,center");
-		add(txtLon,"4,10");
+		add(lblLat,"2, 10, right, center");
+		add(txtLat,"4, 10");
 		
-		add(lblTruck, "8,2,right,center");
-		add(lblRail,"8,4,right,center");
-		add(lblPlane,"8,6,right,center");
-		add(lblCargo,"8,8,right,center");
+		add(lblLon,"2, 12, right, center");
+		add(txtLon,"4, 12");
 		
-		add(chkTruck,"10,2");
-		add(chkRail,"10,4");
-		add(chkPlane,"10,6");
-		add(chkCargo,"10,8");
+		add(lblTruck, "8, 4, right, center");
+		add(lblRail,"8, 6, right, center");
+		add(lblPlane,"8, 8, right, center");
+		add(lblCargo,"8, 10, right, center");
+		
+		add(chkTruck,"10, 4");
+		add(chkRail,"10, 6");
+		add(chkPlane,"10, 8");
+		add(chkCargo,"10, 10");
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -120,7 +127,7 @@ public class LocationForm extends JPanel {
 				}
 			}
 		});
-		add(btnSave,"8,12");
+		add(btnSave,"8, 14");
 		
 		
 		btnEdit = new JButton("Edit");
@@ -132,7 +139,7 @@ public class LocationForm extends JPanel {
 				btnSave.setVisible(true);
 			}
 		});
-		add(btnEdit,"8, 12");
+		add(btnEdit,"8, 14");
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -149,10 +156,8 @@ public class LocationForm extends JPanel {
 				}
 			}
 		});
-		add(btnCancel,"10, 12");
+		add(btnCancel,"10, 14");
 		btnSave.setVisible(false);
-		chkTruck.setSelected(true);
-		chkTruck.setEnabled(false);
 		
 	}
 	

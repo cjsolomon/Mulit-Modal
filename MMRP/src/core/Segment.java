@@ -48,7 +48,7 @@ public class Segment extends BaseClass {
 	private static final int DEFAULT_EARLIEST_ARRIVAL_TIME = 50;
 	private static final int DEFAULT_EARLIEST_DEPARTURE_TIME = 0;
 	private static final int DEFAULT_START_LOCATION_ID = 1;
-	private static final String DEFAULT_LANES = "defaultLanes";
+	private static final String DEFAULT_LANES = "ANY";
 	private static final int DEFAULT_LATEST_ARRIVAL_TIME = 50;
 	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 1000;
 	private static final String DEFAULT_MODE = "TRUCK";
