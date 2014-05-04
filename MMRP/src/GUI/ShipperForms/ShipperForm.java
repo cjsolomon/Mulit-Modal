@@ -181,6 +181,11 @@ public class ShipperForm extends JPanel {
 
 	
 		btnSaveEdit.setVisible(true);
+		btnSaveEdit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setEditable();
+			}
+		});
 		btnCancel = new JButton("Cancel");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
