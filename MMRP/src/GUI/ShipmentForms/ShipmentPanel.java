@@ -27,6 +27,7 @@ public class ShipmentPanel extends JPanel {
 	private JButton btnDelete;
 	private JButton btnNew;
 	private JButton btnView;
+	
 	public ShipmentPanel()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -86,12 +87,22 @@ public class ShipmentPanel extends JPanel {
 		btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				jp.setVisible(true);
+				sp2.setVisible(true);
+				sht.showPanel(null);
 				sf.showPanel();
 			}
 		});
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(st.getSelectedRow()!=-1)
+					st.getSelectedShipment().Delete();
+			}
+		});
 		add(btnDelete, "9, 7");
 		add(jp,"2, 8, 8, 1");
 		

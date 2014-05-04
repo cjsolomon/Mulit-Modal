@@ -1,5 +1,7 @@
 package GUI.ShipmentForms;
 
+import javax.swing.AbstractListModel;
+import javax.swing.ComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -33,8 +35,10 @@ import javax.swing.JButton;
 public class ShipmentForm extends JPanel 
 {
 	JLabel lblLocationName,lblCompanyName,lblContactName,lblPhone,lblEmail,lblPrefCarriers;
-	JTextField txtCompanyName,txtContactName,txtPhone,txtEmail,txtPrefCarriers;
-	JComboBox<String> cmbFromCountries,cmbFromStates,cmbFromCities,cmbToCountries,cmbToCities,cmbToStates;
+	JTextField txtContactName,txtPhone,txtEmail,txtPrefCarriers;
+	JComboBox<ComboItem> txtCompanyName;
+	JTextField cmbFromCountries,cmbFromStates,cmbFromCities;
+	JComboBox<String> cmbToCountries,cmbToCities,cmbToStates;
 	JComboBox<Integer> cmbPriority;
 	JCheckBox chkTolls, chkCongestion;
 	JLabel lblToLocation,lblPriority,lblSize,lblWeight,lblEarliestDateTimeArrival,lblEarliestDateTimeDeparture,lblLatestDateTimeArrival,lblLatestDateTimeDeparture,lblTimeToLoad,lblTimeToUnLoad,lblTollRoads,lblCongestionByPass,lblMaxStops;
@@ -42,23 +46,25 @@ public class ShipmentForm extends JPanel
 	JLabel lblTrailerType,lblLoadingType,lblUnloadingType,lblHazmatConstraints;
 	JTextField txtTrailerType,txtLoadingType,txtUnloadingType,txtHazmatConstraints;
 	Shipment source;
-	
+
 	JPanel shipmentPanel,shipperPanel;
 	private JButton btnEdit,btnSave,btnCancel;
 	private JTextField txtEarliestDeparture;
 	private JTextField txtEarliestArrival;
 	private JTextField txtLatestDeparture;
+	private Boolean newShipment;
+
+	private Shipper selectedShipper;
+	private ComboItem[] shippers;
 	/**
 	 * @wbp.nonvisual location=-29,429
 	 */
 
 	private JTextField txtLatestArrival;
-	private JComboBox cbShipper;
-	private JLabel lblShipperID;
 
 	public ShipmentForm()
 	{
-	
+
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(71dlu;default)"),
@@ -75,7 +81,7 @@ public class ShipmentForm extends JPanel
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				ColumnSpec.decode("max(43dlu;default)"),},
-			new RowSpec[] {
+				new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("max(103dlu;default)"),
@@ -105,7 +111,7 @@ public class ShipmentForm extends JPanel
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
+				new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -118,28 +124,15 @@ public class ShipmentForm extends JPanel
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
-
-		lblLocationName=new JLabel("Location:");
-		lblCompanyName = new JLabel("Company:");
 		lblContactName = new JLabel("Contact:");
 		lblPhone = new JLabel("Phone:");
 		lblPrefCarriers = new JLabel("Preferred Carriers:");
 		lblEmail = new JLabel("Email:");
-
-		txtCompanyName = new JTextField(25);
 		txtContactName = new JTextField(25);
 		txtPhone=new JTextField(25);
 		txtEmail = new JTextField(25);
 		txtPrefCarriers = new JTextField(25);
 
-		cmbFromCountries = new JComboBox<String>();
-		cmbFromCountries.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				loadStates(cmbFromCountries,cmbFromStates);
-			}
-		});
-		
 		cmbToCountries = new JComboBox<String>();
 		cmbToCountries.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -147,17 +140,7 @@ public class ShipmentForm extends JPanel
 				loadStates(cmbToCountries,cmbToStates);
 			}
 		});
-
-		loadCountries(this.cmbFromCountries,this.cmbToCountries);
-		//loadCountries(this.cmbToCountries);
-
-		cmbFromStates= new JComboBox<String> ();
-		cmbFromStates.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e)
-			{
-				loadCities(cmbFromCountries,cmbFromStates,cmbFromCities);
-			}
-		});
+		loadCountries();
 		cmbToStates = new JComboBox<String>();
 		cmbToStates.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -165,20 +148,36 @@ public class ShipmentForm extends JPanel
 				loadCities(cmbToCountries,cmbToStates,cmbToCities);
 			}
 		});
-		cmbFromCities = new JComboBox<String> ();
 		cmbToCities = new JComboBox<String>();
-		shipperPanel.add(lblLocationName,"2,2,right,center");
-		shipperPanel.add(cmbFromCountries,"4, 2");
-		shipperPanel.add(cmbFromStates,"6,2");
-		shipperPanel.add(cmbFromCities,"8, 2, fill, default");
-		
-		lblShipperID = new JLabel("Shipper ID");
-		shipperPanel.add(lblShipperID, "14, 2");
-		shipperPanel.add(lblCompanyName,"2,4,right,center");
-		shipperPanel.add(txtCompanyName,"4, 4, 5, 1");
-		
-		cbShipper = new JComboBox();
-		shipperPanel.add(cbShipper, "14, 4, fill, default");
+		lblCompanyName = new JLabel("Company:");
+		shipperPanel.add(lblCompanyName,"2, 2, right, center");
+
+		txtCompanyName = new JComboBox<ComboItem>();
+		txtCompanyName.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(txtCompanyName.getSelectedIndex()!=-1)
+				{
+					setShipper((ComboItem)txtCompanyName.getSelectedItem());
+				}
+			}
+		});
+
+		shipperPanel.add(txtCompanyName,"4, 2, 5, 1");
+
+		lblLocationName=new JLabel("Location:");
+		shipperPanel.add(lblLocationName,"2, 4, right, center");
+
+		cmbFromCountries = new JTextField();
+
+		shipperPanel.add(cmbFromCountries,"4, 4");
+		//loadCountries(this.cmbToCountries);
+
+		cmbFromStates= new JTextField ();
+		shipperPanel.add(cmbFromStates,"6, 4");
+		cmbFromCities = new JTextField ();
+		shipperPanel.add(cmbFromCities,"8, 4, fill, default");
+		loadShippers();
 		shipperPanel.add(lblContactName,"2,6,right,center");
 		shipperPanel.add(txtContactName,"4, 6, 5, 1");
 		shipperPanel.add(lblPhone,"2,8,right,center");
@@ -190,7 +189,7 @@ public class ShipmentForm extends JPanel
 
 		add(shipperPanel, "2, 2, 14, 2");
 
-		 shipmentPanel = new JPanel();
+		shipmentPanel = new JPanel();
 		shipmentPanel.setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
@@ -202,7 +201,7 @@ public class ShipmentForm extends JPanel
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("default:grow"),},
-			new RowSpec[] {
+				new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -241,7 +240,7 @@ public class ShipmentForm extends JPanel
 		cmbPriority= new JComboBox<Integer>();
 		for(int i=0;i<11;i++)
 			cmbPriority.addItem(i);
-		
+
 		this.lblWeight=new JLabel("Weight:");
 		txtWeight=new JTextField(20);
 
@@ -296,15 +295,15 @@ public class ShipmentForm extends JPanel
 		shipmentPanel.add(cmbPriority,"4, 8, 3, 1");
 
 		shipmentPanel.add(this.lblEarliestDateTimeDeparture,"2,10,right,center");
-		
+
 		txtEarliestDeparture = new JTextField();
 		shipmentPanel.add(txtEarliestDeparture, "4, 10, fill, default");
 		txtEarliestDeparture.setColumns(10);
-		
+
 		txtLatestDeparture = new JTextField();
 		shipmentPanel.add(txtLatestDeparture, "10, 10, fill, default");
 		txtLatestDeparture.setColumns(10);
-		
+
 		txtEarliestArrival = new JTextField();
 		shipmentPanel.add(txtEarliestArrival, "4, 12, fill, top");
 		txtEarliestArrival.setColumns(10);
@@ -314,7 +313,7 @@ public class ShipmentForm extends JPanel
 
 		shipmentPanel.add(this.lblCongestionByPass,"8,6,right,center");
 		shipmentPanel.add(this.chkCongestion,"10,6,right,center");
-		
+
 		txtLatestArrival = new JTextField();
 		shipmentPanel.add(txtLatestArrival, "10, 12, fill, default");
 		txtLatestArrival.setColumns(10);
@@ -324,9 +323,11 @@ public class ShipmentForm extends JPanel
 		shipmentPanel.add(this.lblTimeToUnLoad,"2,16,right,center");
 		shipmentPanel.add(this.txtTimeUnLoad,"4, 16, 3, 1, fill, center");
 
+		shipmentPanel.add(this.lblMaxStops,"8,14,right,center");
+		shipmentPanel.add(this.txtMaxStops,"10,14");
 		shipmentPanel.add(this.lblHazmatConstraints,"2, 18, right, default");
 		shipmentPanel.add(this.txtHazmatConstraints,"4, 18, 3, 1");
-		
+
 		shipmentPanel.add(this.lblLoadingType,"2, 20, right, default");
 		shipmentPanel.add(this.txtLoadingType,"4, 20, 3, 1");
 		shipmentPanel.add(this.lblUnloadingType,"2, 22, right, default");
@@ -334,13 +335,15 @@ public class ShipmentForm extends JPanel
 		shipmentPanel.add(this.lblTrailerType,"2, 24, right, default");
 		shipmentPanel.add(this.txtTrailerType,"4, 24, 3, 1");
 		add(shipmentPanel,"2, 5, 14, 5");
-		
+
 		btnSave = new JButton("Save");
 		shipmentPanel.add(btnSave, "8, 26");
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
 				update();
+				newShipment=false;
+				setReadOnly();
 			}
 		});
 		btnSave.setVisible(false);
@@ -349,7 +352,7 @@ public class ShipmentForm extends JPanel
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(btnSave.isVisible())
+				if(btnSave.isVisible()&&!newShipment)
 				{
 					btnSave.setVisible(false);
 					btnEdit.setVisible(true);
@@ -357,92 +360,129 @@ public class ShipmentForm extends JPanel
 				}
 				else
 				{
+					getParent().setVisible(false);
 					setVisible(false);
 				}
 			}
 		});
-		
+
 		btnEdit = new JButton("Edit");
 		shipmentPanel.add(btnEdit, "8, 26");
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setEditable();
-				
+
 			}
 		});
-		
-		loadShippers(cbShipper);
-		
-		}
 
-		public void showPanel()
-		{
-			this.setVisible(true);
-			setEditable();
-		}
+	}
 
-		public void showPanel(Shipment s)
+	public void showPanel()
+	{
+		newShipment=true;		
+		setNew();
+		setEditable();
+		this.setVisible(true);
+	}
+
+	public void showPanel(Shipment s)
+	{
+		newShipment=false;
+		source=s;
+		setReadOnly();
+		setShipment();
+		setVisible(true);
+	}
+	private void update()
+	{
+		Shipper s;
+		if(source==null)
 		{
-			source=s;
-			setReadOnly();
-			setVisible(true);
-		}
-		private void update()
-		{
-			btnSave.setVisible(false);
-			btnEdit.setVisible(true);
-		}
-		private void setEditable()
-		{
-			this.txtHazmatConstraints.setEditable(true);
-			this.txtLoadingType.setEditable(true);
-			this.txtMaxStops.setEditable(true);
-			this.txtSize.setEditable(true);
-			this.txtTimeLoad.setEditable(true);
-			this.txtTimeUnLoad.setEditable(true);
-			this.txtTrailerType.setEditable(true);
-			this.txtUnloadingType.setEditable(true);
-			this.txtWeight.setEditable(true);
-			this.cmbPriority.setEnabled(true);
-			this.cmbToCities.setEnabled(true);
-			this.cmbToCountries.setEnabled(true);
-			this.cmbToStates.setEnabled(true);
-			this.txtEarliestArrival.setEditable(true);
-			this.txtLatestArrival.setEditable(true);
-			this.txtEarliestDeparture.setEditable(true);
-			this.txtLatestDeparture.setEditable(true);
-			
-			this.cbShipper.setEnabled(true);
-			
-			this.chkCongestion.setEnabled(true);
-			this.chkTolls.setEnabled(true);
-			btnEdit.setVisible(false);
-			btnSave.setVisible(true);
+			source = new Shipment();
 		}
 		
-		private void setReadOnly()
+		if(this.chkCongestion.isSelected())
+			source.setCongestionByPassTrue();
+		else
+			source.setCongestionByPassFalse();
+		
+	
+		source.setFromLocationID(this.selectedShipper.getLocationID());
+		source.setHazmat(this.txtHazmatConstraints.getText());
+
+		source.setMaxStops(Integer.parseInt(this.txtMaxStops.getText()));
+		source.setPrefCarrier(this.txtPrefCarriers.getText());
+		source.setPriority((int)this.cmbPriority.getSelectedItem());
+		source.setShipperID(selectedShipper.getID());
+		source.setSize(Double.parseDouble(this.txtSize.getText()));
+		if(this.chkTolls.isSelected())
+			source.setTollRoadsTrue();
+		else
+			source.setTollRoadsFalse();
+		
+		source.setWeight(Double.parseDouble(this.txtWeight.getText().toString()));
+		
+		
+		source.Update();
+		btnSave.setVisible(false);
+		btnEdit.setVisible(true);
+	}
+
+	private void setNew()
+	{
+		source = null;
+		txtCompanyName.setSelectedIndex(-1);
+		txtContactName.setText("");
+		txtPhone.setText("");
+		txtEmail.setText("");
+		txtPrefCarriers.setText("");
+
+
+		this.cmbFromCountries.setText("");
+		this.cmbFromStates.setText("");
+		this.cmbFromCities.setText("");
+
+		this.txtLoadingType.setText("");
+		this.txtMaxStops.setText("");
+		this.txtSize.setText("");
+		this.txtTimeLoad.setText("");
+		this.txtTimeUnLoad.setText("");
+		this.txtTrailerType.setText("");
+		this.txtUnloadingType.setText("");
+		this.txtWeight.setText("");
+		this.txtHazmatConstraints.setText("");
+
+
+
+		this.cmbToCountries.setSelectedIndex(-1);
+		this.cmbToStates.setSelectedIndex(-1);
+		this.cmbToCities.setSelectedIndex(-1);
+
+		this.chkCongestion.setSelected(false);
+		this.chkTolls.setSelected(false);
+
+		this.cmbPriority.setSelectedIndex(-1);
+	}
+
+	private void setShipment()
+	{
+		if(source!=null)
 		{
 			Shipper s = source.getShipper();
-			txtCompanyName.setText(s.getCompanyName());
+			ComboItem temp = new ComboItem();
+			temp.setID(s.getID());
+			temp.setName(s.getCompanyName());
+			txtCompanyName.setSelectedItem(temp);
 			txtContactName.setText(s.getContactName());
 			txtPhone.setText(s.getPhoneNumber());
 			txtEmail.setText(s.getEmailAddress());
 			txtPrefCarriers.setText(s.getPrefferedCarriers());
 
 			Location l = Location.Load(s.getLocationID());
-			this.cmbFromCountries.setSelectedItem(l.getCountry());
-			this.cmbFromStates.setSelectedItem(l.getState());
-			this.cmbFromCities.setSelectedItem(l.getName());
+			this.cmbFromCountries.setText(l.getCountry());
+			this.cmbFromStates.setText(l.getState());
+			this.cmbFromCities.setText(l.getName());
 
-			txtCompanyName.setEditable(false);
-			txtContactName.setEditable(false);
-			txtPhone.setEditable(false);
-			txtEmail.setEditable(false);
-			txtPrefCarriers.setEditable(false);
-			this.cmbFromCities.setEnabled(false);
-			this.cmbFromCountries.setEnabled(false);
-			this.cmbFromStates.setEnabled(false);
-			
 			this.txtLoadingType.setText(source.getLoadingType());
 			this.txtMaxStops.setText(((Integer)source.getMaxStops()).toString());
 			this.txtSize.setText(((Double)source.getSize()).toString());
@@ -452,122 +492,247 @@ public class ShipmentForm extends JPanel
 			this.txtUnloadingType.setText(source.getUnloadType());
 			this.txtWeight.setText(((Double)source.getWeight()).toString());
 			this.txtHazmatConstraints.setText(source.getHazmat());
-			
-			this.txtLoadingType.setEditable(false);
-			this.txtMaxStops.setEditable(false);
-			this.txtSize.setEditable(false);
-			this.txtTimeLoad.setEditable(false);
-			this.txtTimeUnLoad.setEditable(false);
-			this.txtTrailerType.setEditable(false);
-			this.txtUnloadingType.setEditable(false);
-			this.txtWeight.setEditable(false);
-			this.txtHazmatConstraints.setEditable(false);
-			this.txtEarliestArrival.setEditable(false);
-			this.txtLatestArrival.setEditable(false);
-			this.txtEarliestDeparture.setEditable(false);
-			this.txtLatestDeparture.setEditable(false);
-			
+
+
 			Location e = Location.Load(source.getToLocationID());
 			this.cmbToCountries.setSelectedItem(e.getCountry());
 			this.cmbToStates.setSelectedItem(e.getState());
 			this.cmbToCities.setSelectedItem(e.getName());
-			
-			this.cmbToCities.setEnabled(false);
-			this.cmbToCountries.setEnabled(false);
-			this.cmbToStates.setEnabled(false);
 
 			this.chkCongestion.setSelected(source.getCongestionByPass());
 			this.chkTolls.setSelected(source.getTollRoads());
-			this.chkCongestion.setEnabled(false);
-			this.chkTolls.setEnabled(false);
-			
-			this.cmbPriority.setSelectedItem(source.getPriority());
-			this.cmbPriority.setEnabled(false);
-			
-			this.cbShipper.setEnabled(false);
-			
-			
-		}
 
-		protected void loadStates(JComboBox sourceCountry,JComboBox sourceStates)
-		{
-			if(sourceStates!=null && sourceCountry.getSelectedIndex()!=-1)
-			{
-				sourceStates.removeAllItems();
-				try
-				{
-					ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct State from location where Country = '" + sourceCountry.getSelectedItem().toString()+"'");
-					for(Map m :tmp)
-					{
-						sourceStates.addItem(m.get("State").toString());
-					}
-				}
-				catch(Exception ex)
-				{
-					ex.printStackTrace();
-				}
-			}
+
+			this.cmbPriority.setSelectedItem(source.getPriority());
 		}
-		protected void loadCountries(JComboBox source1,JComboBox source2)
+	}
+	private void setEditable()
+	{
+		if(newShipment)
+			txtCompanyName.setEnabled(true);
+
+		txtContactName.setEditable(false);
+		txtPhone.setEditable(false);
+		txtEmail.setEditable(false);
+		txtPrefCarriers.setEditable(false);
+		this.cmbFromCities.setEnabled(false);
+		this.cmbFromCountries.setEnabled(false);
+		this.cmbFromStates.setEnabled(false);
+
+		
+		this.txtMaxStops.setEditable(true);
+		this.txtSize.setEditable(true);
+		
+		
+		this.txtWeight.setEditable(true);
+		this.cmbPriority.setEnabled(true);
+		this.cmbToCities.setEnabled(true);
+		this.cmbToCountries.setEnabled(true);
+		this.cmbToStates.setEnabled(true);
+		this.txtEarliestArrival.setEditable(true);
+		this.txtEarliestDeparture.setEditable(true);
+	
+
+
+
+		this.chkCongestion.setEnabled(true);
+		this.chkTolls.setEnabled(true);
+		btnEdit.setVisible(false);
+		btnSave.setVisible(true);
+		
+		this.txtHazmatConstraints.setEditable(false);
+		this.txtLoadingType.setEditable(false);
+		this.txtTimeLoad.setEditable(false);
+		this.txtTimeUnLoad.setEditable(false);
+		this.txtTrailerType.setEditable(false);
+		this.txtUnloadingType.setEditable(false);
+		this.txtLatestArrival.setEditable(false);
+		this.txtLatestDeparture.setEditable(false);
+	}
+
+	private void setReadOnly()
+	{
+
+		txtCompanyName.setEnabled(false);
+		txtContactName.setEditable(false);
+		txtPhone.setEditable(false);
+		txtEmail.setEditable(false);
+		txtPrefCarriers.setEditable(false);
+		this.cmbFromCities.setEnabled(false);
+		this.cmbFromCountries.setEnabled(false);
+		this.cmbFromStates.setEnabled(false);
+
+
+
+		this.txtLoadingType.setEditable(false);
+		this.txtMaxStops.setEditable(false);
+		this.txtSize.setEditable(false);
+		this.txtTimeLoad.setEditable(false);
+		this.txtTimeUnLoad.setEditable(false);
+		this.txtTrailerType.setEditable(false);
+		this.txtUnloadingType.setEditable(false);
+		this.txtWeight.setEditable(false);
+		this.txtHazmatConstraints.setEditable(false);
+		this.txtEarliestArrival.setEditable(false);
+		this.txtLatestArrival.setEditable(false);
+		this.txtEarliestDeparture.setEditable(false);
+		this.txtLatestDeparture.setEditable(false);
+
+
+
+		this.cmbToCities.setEnabled(false);
+		this.cmbToCountries.setEnabled(false);
+		this.cmbToStates.setEnabled(false);
+
+		this.chkCongestion.setEnabled(false);
+		this.chkTolls.setEnabled(false);
+
+		this.cmbPriority.setEnabled(false);	
+		btnEdit.setVisible(true);
+		btnSave.setVisible(false);
+	}
+
+	protected void loadStates(JComboBox sourceCountry,JComboBox sourceStates)
+	{
+		if(sourceStates!=null && sourceCountry.getSelectedIndex()!=-1)
 		{
+			sourceStates.removeAllItems();
 			try
 			{
-				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct Country from location");
+				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct State from location where Country = '" + sourceCountry.getSelectedItem().toString()+"'");
 				for(Map m :tmp)
 				{
-					source1.addItem(m.get("Country").toString());
-					source2.addItem(m.get("Country").toString());
+					sourceStates.addItem(m.get("State").toString());
 				}
 			}
-			catch(Exception e)
+			catch(Exception ex)
 			{
-				e.printStackTrace();
+				ex.printStackTrace();
 			}
-			source1.setSelectedIndex(-1);
-			source2.setSelectedIndex(-1);
 		}
-		protected void loadCities(JComboBox sourceCountry,JComboBox sourceStates,JComboBox sourceCities)
+	}
+	protected void loadCountries()
+	{
+		try
 		{
-			if(sourceCities!=null && sourceStates.getSelectedIndex()!=-1)
+			ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct Country from location");
+			for(Map m :tmp)
 			{
-				sourceCities.removeAllItems();
-				try
-				{
-					ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct Name from location where Country = '" + sourceCountry.getSelectedItem().toString()+"' and State = '" + sourceStates.getSelectedItem().toString()+"'");
-					for(Map m :tmp)
-					{
-						sourceCities.addItem(m.get("Name").toString());
-					}
-				}
-				catch(Exception ex)
-				{
-					ex.printStackTrace();
-				}
+				cmbToCountries.addItem(m.get("Country").toString());
 			}
-
 		}
-		
-		protected void loadShippers(JComboBox sourceShipper)
+		catch(Exception e)
 		{
-			if(sourceShipper!=null && sourceShipper.getSelectedIndex()!=-1)
+			e.printStackTrace();
+		}
+		cmbToCountries.setSelectedIndex(-1);
+	}
+	protected void loadCities(JComboBox sourceCountry,JComboBox sourceStates,JComboBox sourceCities)
+	{
+		if(sourceCities!=null && sourceStates.getSelectedIndex()!=-1)
+		{
+			sourceCities.removeAllItems();
+			try
 			{
-				sourceShipper.removeAllItems();
-				try
+				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct Name from location where Country = '" + sourceCountry.getSelectedItem().toString()+"' and State = '" + sourceStates.getSelectedItem().toString()+"'");
+				for(Map m :tmp)
 				{
-					ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct ShipperID from Shippers");
-					for(Map m :tmp)
-					{
-						sourceShipper.addItem(m.get("ShipperID").toString());
-					}
-				}
-				catch(Exception ex)
-				{
-					ex.printStackTrace();
+					sourceCities.addItem(m.get("Name").toString());
 				}
 			}
-
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
 		}
 
 	}
+
+	protected void loadShippers()
+	{			
+		try
+		{
+			ArrayList<Map<String,Object>> data  = BaseClass.executeQuery("Select ShipperID, CompanyName from shipper order by CompanyName");
+			shippers = new ComboItem[data.size()];
+			for(int i = 0; i<data.size();i++)
+			{
+				ComboItem temp = new ComboItem();
+				temp.setID((Integer)data.get(i).get("ShipperID"));
+				temp.setName(data.get(i).get("CompanyName").toString());
+				shippers[i]=temp;
+				txtCompanyName.addItem(shippers[i]);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	private void setShipper(ComboItem input)
+	{
+		selectedShipper = Shipper.Load(input.getID());
+		txtContactName.setText(selectedShipper.getContactName());
+		txtPhone.setText(selectedShipper.getPhoneNumber());
+		txtEmail.setText(selectedShipper.getEmailAddress());
+		txtPrefCarriers.setText(selectedShipper.getPrefferedCarriers());
+
+		Location l = Location.Load(selectedShipper.getLocationID());
+		this.cmbFromCountries.setText(l.getCountry());
+		this.cmbFromStates.setText(l.getState());
+		this.cmbFromCities.setText(l.getName());
+	}
+}
+
+
+
+class ComboItem
+{
+	int id;
+	String name;
+
+	public ComboItem()
+	{
+		id=-1;
+		name ="";
+	}
+
+	public void setName(String n)
+	{
+		name = n;
+	}
+	public void setID(int i)
+	{
+		id=i;
+	}
+
+	public int getID()
+	{
+		return id;
+	}
+	public String getName()
+	{
+		return name;
+	}
+
+	@Override
+	public String toString()
+	{
+		return name;
+	}
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o==null)return false;
+		if(o==this)return true;
+		if(!(o instanceof ComboItem)) return false;
+		ComboItem test = (ComboItem)o;
+		if(test.getID()==id)
+			return true;
+		return false;
+	}
+}
+
+
+
 
 
