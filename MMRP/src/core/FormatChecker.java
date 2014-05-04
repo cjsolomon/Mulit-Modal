@@ -101,7 +101,7 @@ public class FormatChecker {
 		}
 		else 
 		{
-			Log.writeLogWarning("Invalid numerical entry given; not in range.");
+		//	Log.writeLogWarning("Invalid numerical entry given; not in range.");
 			return false;
 		}
 	}
@@ -120,7 +120,7 @@ public class FormatChecker {
 		}
 		else 
 		{
-			Log.writeLogWarning("Numerical entry given; below lower bound value.");
+			//Log.writeLogWarning("Numerical entry given; below lower bound value.");
 			return false;
 		}
 	}
@@ -139,7 +139,7 @@ public class FormatChecker {
 		}
 		else 
 		{
-			Log.writeLogWarning("Numerical entry given; above upper bound value.");
+			//Log.writeLogWarning("Numerical entry given; above upper bound value.");
 			return false;
 		}
 	}
