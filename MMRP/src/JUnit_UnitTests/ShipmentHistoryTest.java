@@ -3,6 +3,7 @@ package JUnit_UnitTests;
 import java.util.ArrayList;
 
 import core.Cargo;
+import core.Location;
 import core.Segment;
 import core.Shipment;
 import core.ShipmentHistory;
@@ -96,10 +97,36 @@ public class ShipmentHistoryTest {
 	
 	@Test
 	public void testLoadAllForShipment() {
-		//This test assumes that shipment 1 is in the database and has history
-		ArrayList<ShipmentHistory> shipList = ShipmentHistory.LoadAllForShipment(1);
+		Location start = new Location();
+		start.setName("JUnit - ShipmentHistory.LoadAll - start");
+		Location end = new Location();
+		end.setName("JUnit - ShipmentHistory.LoadAll - end");
+		start.Update();
+		end.Update();
+		
+		Segment seg = new Segment();
+		seg.setStartLocation(start.getID());
+		seg.setEndLocation(end);
+		seg.Update();
+		
+		Shipment test = new Shipment();
+		test.setFromLocationID(start.getID());
+		test.setToLocationID(end.getID());
+		test.Update();
+		
+		ShipmentHistory test_history = new ShipmentHistory();
+		test_history.setSegmentID(seg.getID());
+		test_history.setShipmentID(test.getId());
+		test_history.setNodeNumber(17);
+		test_history.Update();
+		
+		ArrayList<ShipmentHistory> shipList = ShipmentHistory.LoadAllForShipment(test.getId());
 		Assert.assertFalse(shipList.isEmpty());
 		
+		start.Delete();
+		end.Delete();
+		seg.Delete();
+		test_history.Delete();
 	}
 	
 	@Test

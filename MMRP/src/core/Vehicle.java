@@ -64,7 +64,6 @@ public abstract class Vehicle extends BaseClass {
 	protected Status status;						//The current status of the vehicle
 	protected TravelModes mode;						//The type of vehicle
 	protected int id;								//The unique vehicle ID
-	private ArrayList<Shipment> shipments;
 	private ArrayList<Segment> schedule;
 	private ArrayList<TravelType> typesAvail;
 	
@@ -279,13 +278,6 @@ public abstract class Vehicle extends BaseClass {
 		return schedule;
 	}
 
-	public ArrayList<TravelType> getAvailableTypes()
-	{
-		//if(typesAvail == null)
-			typesAvail=TravelType.LoadForVehicle(this.getId(), this.getTravelMode());
-		return typesAvail;
-		
-	}
 	/**
 	* This function adds a segment to the trucks schedule
 	* @param s Segment to be added to schedule
@@ -294,55 +286,6 @@ public abstract class Vehicle extends BaseClass {
 	{
 		getSchedule().add(s);
 		s.Update();
-	}
-	
-	/**
-	* This function loads the truck at the Location indicated 
-	* @param L Location to be loaded at
-	*/
-	public void LoadAtLocation(Location L)
-	{
-		if(shipments==null)
-		{
-			shipments=new ArrayList<Shipment>();
-		}
-		//load all shipments to be loaded on to the vehicle at said location
-	}
-	
-	/**
-	* This function unloads the truck at the Location indicated 
-	* @param L Location to be unloaded at
-	*/
-	public void UnLoadAtLocation(Location l)
-	{
-		if(shipments==null || shipments.size()==0)
-		{
-			return;
-		}
-		//remove all shipments that get off at this location
-	}
-	
-	/**
-	* This function loads a shipment into the truck 
-	* @param s Shipment to be loaded 
-	*/
-	public void LoadShipment(Shipment s)
-	{
-		if(shipments==null)
-		{
-			shipments=new ArrayList<Shipment>();
-		}
-		//todo Check capacity restraints... remove lower priority shipment if necessary
-		shipments.add(s);
-	}
-	/**
-	* This function removes a shipment from the truck 
-	* @param s Shipment to be removed
-	*/
-	public void RemoveShipment(Shipment s)
-	{
-		shipments.remove(s);
-		
 	}
 	
 	public void removeFromTypes(TravelType t)
@@ -360,6 +303,14 @@ public abstract class Vehicle extends BaseClass {
 		this.MarkDirty();
 	}
 	
+	public ArrayList<TravelType> getAvailableTypes()
+	{
+		//if(typesAvail == null)
+			typesAvail=TravelType.LoadForVehicle(this.getId(), this.getTravelMode());
+		return typesAvail;
+		
+	}
+
 	/**
 	 * This function returns the name of the vehicle
 	 */

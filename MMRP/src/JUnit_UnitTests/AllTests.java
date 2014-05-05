@@ -11,7 +11,8 @@ import core.Carrier;
 	LogTest.class,BikeTest.class,CargoTest.class,PlaneTest.class, RailTest.class, 
 	TruckTest.class, BaseUnitTest.class, CarrierTest.class, FormatCheckerTest.class,
 	LocationTest.class, SegmentTest.class, ShipmentHistoryTest.class, ShipmentTest.class,
-	ShippingRateTest.class, TravelTypeTest.class, VehicleTest.class
+	ShippingRateTest.class, TravelTypeTest.class, VehicleTest.class, WeightedMetricTest.class,
+	ShipperTest.class, AStarNodeTest.class
 	})
 public class AllTests {
 
