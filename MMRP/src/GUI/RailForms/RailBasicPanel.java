@@ -69,6 +69,7 @@ public class RailBasicPanel extends JPanel {
 		add(cmbCarrier,"4, 6, 2, 1");
 		
 		btnEdit = new JButton("Edit");
+		btnEdit.setToolTipText("Click here to edit selected Rail");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -79,6 +80,7 @@ public class RailBasicPanel extends JPanel {
 		});
 		add(btnEdit, "4, 8");
 		btnSave = new JButton("Save");
+		btnSave.setToolTipText("Click here to save changes");
 		btnSave.setVisible(false);
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -98,6 +100,7 @@ public class RailBasicPanel extends JPanel {
 		add(btnSave,"4,8");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.setToolTipText("Click here to cancel any changes");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{

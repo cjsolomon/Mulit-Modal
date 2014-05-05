@@ -76,6 +76,7 @@ public class PlaneTypePanel extends JPanel {
 		add(sp,"2, 2, 21, 12");
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click here to view selected Plane Type");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ptt.getSelectedRow()!=-1)
@@ -85,6 +86,7 @@ public class PlaneTypePanel extends JPanel {
 		add(btnView, "18, 14");
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click here to create a new Plane Type");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				pt.showPanel();
@@ -94,6 +96,7 @@ public class PlaneTypePanel extends JPanel {
 		add(btnNew, "20, 14");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click here to delete the selected Plane Type");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ptt.getSelectedRow()!=-1)

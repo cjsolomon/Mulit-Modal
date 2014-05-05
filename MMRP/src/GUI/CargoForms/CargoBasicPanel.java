@@ -53,13 +53,19 @@ public class CargoBasicPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		lblName=new JLabel("Name:");
+		lblName.setToolTipText("The name of the Cargo Ship");
 		lblCarrier = new JLabel("Carrier:");
+		lblCarrier.setToolTipText("This is the Carrier that owns the Cargo Ship");
 		lblStatus = new JLabel("Status:");
+		lblStatus.setToolTipText("This is the current status of the Cargo Ship");
 		
 		txtName = new JTextField(20);
+		txtName.setToolTipText("The name of the Cargo Ship");
 
 		cmbStatus = new JComboBox(core.Vehicle.Status.values());
+		cmbStatus.setToolTipText("This is the current status of the Cargo Ship");
 		cmbCarrier = new JComboBox(Carrier.LoadAll("").toArray());
+		cmbCarrier.setToolTipText("This is the Carrier that owns the Cargo Ship");
 		
 		
 		add(lblName,"2,2,right,center");
@@ -71,6 +77,7 @@ public class CargoBasicPanel extends JPanel {
 		add(cmbCarrier,"4, 6, 2, 1");
 		
 		btnEdit = new JButton("Edit");
+		btnEdit.setToolTipText("Click here to modify the Cargo Ship");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -82,6 +89,7 @@ public class CargoBasicPanel extends JPanel {
 		add(btnEdit, "4, 8");
 		btnSave = new JButton("Save");
 		btnSave.setVisible(false);
+		btnSave.setToolTipText("Click here to save changes");
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -102,6 +110,7 @@ public class CargoBasicPanel extends JPanel {
 		add(btnSave,"4,8");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.setToolTipText("Click here to cancel changes");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{

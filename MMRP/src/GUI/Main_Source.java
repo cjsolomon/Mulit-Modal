@@ -201,7 +201,7 @@ public class Main_Source {
 				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("31dlu", false), Sizes.constant("40dlu", false)), 0),}));
 		
 		btnShipments = new JButton("Shipments");
-		btnShipments.setToolTipText("Click here to view shipment information");
+		btnShipments.setToolTipText("Click here to view Shipment information");
 		btnShipments.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnShipments.setMnemonic(KeyEvent.VK_S);
 		btnShipments.addActionListener(new ActionListener(){
@@ -247,6 +247,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(segmentPanel, "6, 4, 11, 31");
 		frmMmrp.getContentPane().add(route,"6,4,11,31");
 		btnLocations = new JButton("Locations");
+		btnLocations.setToolTipText("Click here to view Location information");
 		btnLocations.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -262,6 +263,7 @@ public class Main_Source {
 		
 						
 		btnTruck = new JButton("Trucks");
+		btnTruck.setToolTipText("Click here to view Truck information");
 		btnTruck.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				System.out.println("Button Clicked");
@@ -275,6 +277,7 @@ public class Main_Source {
 		});
 		frmMmrp.getContentPane().add(btnTruck, "2, 8,fill,fill");
 		btnTruckType = new JButton("Truck Types");
+		btnTruckType.setToolTipText("Click here to view Truck Type information");
 		btnTruckType.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e)
 			 {
@@ -288,6 +291,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnTruckType,"2, 10, right, center");
 
 		btnPlane = new JButton("Planes");
+		btnPlane.setToolTipText("Click here to view Plane information");
 		btnPlane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
@@ -299,6 +303,7 @@ public class Main_Source {
 		});
 		frmMmrp.getContentPane().add(btnPlane, "2, 12, fill, fill");
 		btnPlaneType = new JButton("Plane Types");
+		btnPlaneType.setToolTipText("Click here to view Plane Type information");
 		btnPlaneType.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e)
 			 {
@@ -312,6 +317,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnPlaneType,"2, 14, right, center");
 
 		btnRail = new JButton("Rails");
+		btnRail.setToolTipText("Click here to view Rail information");
 		btnRail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
@@ -323,6 +329,7 @@ public class Main_Source {
 		});
 		frmMmrp.getContentPane().add(btnRail, "2, 16, fill, fill");
 		btnRailType = new JButton("Rail Types");
+		btnRailType.setToolTipText("Click here to view Rail Type information");
 		btnRailType.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e)
 			 {
@@ -336,6 +343,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnRailType,"2, 18, right, center");
 		
 		btnCargo = new JButton("Cargo Ships");
+		btnCargo.setToolTipText("Click here to view Cargo Ship information");
 		btnCargo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
@@ -346,6 +354,7 @@ public class Main_Source {
 			}
 		});
 		btnCargoType = new JButton("Cargo Types");
+		btnCargoType.setToolTipText("Click here to view Cargo Type information");
 		frmMmrp.getContentPane().add(btnCargo,"2, 20, fill, fill");
 		btnCargoType.addActionListener(new ActionListener(){
 			 public void actionPerformed(ActionEvent e)
@@ -360,6 +369,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnCargoType,"2, 22, right, center");
 		
 		btnCarriers = new JButton("Carriers");
+		btnCarriers.setToolTipText("Click here to view Carrier information");
 		btnCarriers.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -374,6 +384,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnCarriers, "2, 24, fill, fill");
 						
 		btnShippingRates = new JButton("Shipping Rates");
+		btnShippingRates.setToolTipText("Click here to view Shipping Rate information");
 		btnShippingRates.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -388,6 +399,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnShippingRates, "2, 26, fill, fill");
 						
 		btnShipper = new JButton("Shippers");
+		btnShipper.setToolTipText("Click here to view Shipper information");
 		btnShipper.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -402,6 +414,7 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(btnShipper, "2, 28, fill, fill");
 				
 		btnSegments = new JButton("Segments");
+		btnSegments.setToolTipText("Click here to view Segment information");
 		btnSegments.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -414,6 +427,7 @@ public class Main_Source {
 		});
 		frmMmrp.getContentPane().add(btnSegments, "2, 30, fill, fill");
 		btnRouting=new JButton("Routing");
+		btnRouting.setToolTipText("Click here to Route shipments");
 		btnRouting.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -427,7 +441,7 @@ public class Main_Source {
 		});
 		frmMmrp.getContentPane().add(btnRouting, "2, 32, fill, fill");
 		final JButton btnExit = new JButton("Exit");
-		btnExit.setToolTipText("Exit MMRP");
+		btnExit.setToolTipText("Click here to exit MMRP");
 		frmMmrp.getContentPane().add(btnExit, "2, 34, fill, fill");
 		btnExit.setMnemonic(KeyEvent.VK_E);
 		btnExit.setFont(new Font("Tahoma", Font.PLAIN, 14));

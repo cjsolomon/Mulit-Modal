@@ -188,9 +188,9 @@ public class ShippingRateForm extends JPanel {
 		
 		
 		btnCancel = new JButton("Cancel");
-
+		btnCancel.setToolTipText("Click to cancel any changes");
 		add(btnCancel, "7, 25");
-		
+		btnEdit.setToolTipText("Click to edit the Shipping Rate");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -199,7 +199,7 @@ public class ShippingRateForm extends JPanel {
 				btnEdit.setVisible(false);
 			}
 		});
-
+		btnSave.setToolTipText("Click to save changes");
 		btnSave.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -213,7 +213,7 @@ public class ShippingRateForm extends JPanel {
  				newShippingRate=false;
 			}
 		});
-	
+		btnCancel.setToolTipText("Click to cancel any changes");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -230,6 +230,16 @@ public class ShippingRateForm extends JPanel {
 			}
 		});
 		
+		this.txtFlatRate.setToolTipText("This is the base rate");
+		this.txtMileRate.setToolTipText("This is the cost charges per mile");
+		this.txtRank.setToolTipText("Currently not supported");
+		this.txtRate1.setToolTipText("This is the cost charged when the shipment is between Weight 1 and Weight 2");
+		this.txtRate2.setToolTipText("This is the cost charged when the shipment is between Weight 2 and Weight 3");
+		this.txtRate3.setToolTipText("This is the cost charged when the shipment is above Weight 3");
+		this.txtWeight1.setToolTipText("This is the first category of shipment weight");
+		this.txtWeight2.setToolTipText("This is the second category of shipment weight");
+		this.txtWeight3.setToolTipText("This is the third category of shipment weight");
+	
 		}
 
 		public void showPanel()

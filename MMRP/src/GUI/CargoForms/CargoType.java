@@ -48,6 +48,7 @@ public class CargoType extends JPanel {
 	private TravelType source;
 	private ArrayList<TableRefreshListener> refresh;
 	public CargoType() {
+		setToolTipText("This is the maximum weight this type can carry");
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -75,9 +76,11 @@ public class CargoType extends JPanel {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		lblName = new JLabel("Type Name");
+		lblName.setToolTipText("This is the Types name");
 		lblCargoType = new JLabel("Cargo Type");
 		lblID = new JLabel("TypeID");
 		txtTypeName = new JTextField(20);
+		txtTypeName.setToolTipText("This is the Types name");
 		txtID = new JTextField(10);
 		
 		add(lblCargoType, "4, 2, center, center");
@@ -85,19 +88,24 @@ public class CargoType extends JPanel {
 		add(lblID, "2, 4, right, center");
 		
 		chckbxRadiation = new JCheckBox("Radiation");
+		chckbxRadiation.setToolTipText("Currently not supported");
 		add(chckbxRadiation, "6, 4");
 		
 		chckbxRefrigeration = new JCheckBox("Refrigeration");
+		chckbxRefrigeration.setToolTipText("Currently not supported");
 		add(chckbxRefrigeration, "6, 6");
 		
 		lblServiceType = new JLabel("Service Type");
+		lblServiceType.setToolTipText("Currently not supported");
 		add(lblServiceType, "2, 8, right, top");
 		
 		txtServiceType = new JTextField(10);
+		txtServiceType.setToolTipText("Currently not supported");
 		add(txtServiceType, "4, 8, fill, default");
 		
 		
 		chckbxHazardousMaterial = new JCheckBox("Hazardous Material");
+		chckbxHazardousMaterial.setToolTipText("Currently not supported");
 		add(chckbxHazardousMaterial, "6, 8");
 		add(lblName,"2,6,right,center");
 		add(txtTypeName, "4, 6, left, center");
@@ -105,31 +113,39 @@ public class CargoType extends JPanel {
 		add(lblMaxWeight,"2, 10, right, center");
 		
 		txtMaxWeight=new JTextField(20);
+		txtMaxWeight.setToolTipText("This is the maximum weight this type can carry");
 		add(txtMaxWeight, "4, 10, left, center");
 		
 		chckbxExplosiveMaterial = new JCheckBox("Explosive Material");
+		chckbxExplosiveMaterial.setToolTipText("Currently not supported");
 
 		add(chckbxExplosiveMaterial, "6, 10");
 		
 		
 		lblMinCapacity=new JLabel("Min. Capacity");
+		lblMinCapacity.setToolTipText("This is the minimum that the type must be filled to be used");
 		add(lblMinCapacity,"2, 12, right, center");
 		txtMinCapacity = new JTextField(20);
+		txtMinCapacity.setToolTipText("This is the minimum that the type must be filled to be used");
 
 		add(txtMinCapacity, "4, 12, left, center");
 		
 		chckbxTracking = new JCheckBox("Tracking Available");
+		chckbxTracking.setToolTipText("Currently not supported");
 		add(chckbxTracking, "6, 12");
 		
 		lblMaxCapacity = new JLabel("Max. Capacity");
+		lblMaxCapacity.setToolTipText("This is the maximum the type can be filled and still be used");
 		add(lblMaxCapacity, "2, 14, right, default");
 		
 		txtID.setEditable(false);
 		
 		txtMaxCapacity = new JTextField(10);
+		txtMaxCapacity.setToolTipText("This is the maximum the type can be filled and still be used");
 		add(txtMaxCapacity, "4, 14, left, default");
 			
 			btnSave = new JButton("Save");
+			btnSave.setToolTipText("Click here to save new Cargo Type");
 			btnSave.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e)
 				{
@@ -152,6 +168,7 @@ public class CargoType extends JPanel {
 			add(btnEdit, "4, 16, right, default");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.setToolTipText("Click here to cancel changes");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(btnEdit.isVisible()||source==null)
@@ -245,11 +262,11 @@ public class CargoType extends JPanel {
 		this.txtMinCapacity.setEnabled(true);
 		this.txtTypeName.setEnabled(true);
 		
-		this.chckbxExplosiveMaterial.setEnabled(true);
-		this.chckbxHazardousMaterial.setEnabled(true);
-		this.chckbxRadiation.setEnabled(true);
-		this.chckbxRefrigeration.setEnabled(true);
-		this.chckbxTracking.setEnabled(true);
+		this.chckbxExplosiveMaterial.setEnabled(false);
+		this.chckbxHazardousMaterial.setEnabled(false);
+		this.chckbxRadiation.setEnabled(false);
+		this.chckbxRefrigeration.setEnabled(false);
+		this.chckbxTracking.setEnabled(false);
 	}
 	private void update()
 	{

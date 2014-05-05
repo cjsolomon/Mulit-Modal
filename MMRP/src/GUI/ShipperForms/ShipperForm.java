@@ -236,6 +236,23 @@ public class ShipperForm extends JPanel {
 		this.loadPreferredCarriers(this.cbPreferredCarrier2);
 		this.loadPreferredCarriers(this.cbPreferredCarrier3);
 		this.loadPreferredCarriers(this.cbPreferredCarrier4);
+		
+		
+		this.btnCancel.setToolTipText("Click here to cancel any changes");
+		this.btnEdit.setToolTipText("Click here to edit the Shipper");
+		this.btnSave.setToolTipText("Click here to save changes");
+		this.cbCity.setToolTipText("This is the city the Shipper is located in");
+		this.cbCountry.setToolTipText("This is the country the Shipper is located in");
+		this.cbPreferredCarrier1.setToolTipText("Currently no supported");
+		this.cbPreferredCarrier2.setToolTipText("Currently no supported");
+		this.cbPreferredCarrier3.setToolTipText("Currently no supported");
+		this.cbPreferredCarrier4.setToolTipText("Currently no supported");
+		this.cbState.setToolTipText("This si the state the Shipper is located in");
+		this.txtCompanyName.setToolTipText("This is the Shipper's name");
+		this.txtContactName.setToolTipText("This is the contact's name");
+		this.txtEmail.setToolTipText("This is the email address the Shipper can be reached at");
+		this.txtNumber.setToolTipText("This is the phone number the Shipper can be reached at");
+		
 		}
 
 		public void showPanel()

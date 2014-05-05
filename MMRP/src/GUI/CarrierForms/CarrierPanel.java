@@ -60,6 +60,7 @@ public class CarrierPanel extends JPanel {
 		add(sp, "2, 2, 8, 5");
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click here to view selected Carrier");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ct.getSelectedRow()!=-1)
@@ -71,6 +72,7 @@ public class CarrierPanel extends JPanel {
 		add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click here to create a new Carrier");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				cf.showPanel();
@@ -79,6 +81,7 @@ public class CarrierPanel extends JPanel {
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click here to delete the selected Carrier");
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{

@@ -86,6 +86,7 @@ public class PlanePanel extends JPanel {
 		planeInfo.setVisible(false);
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click here to create a new Plane");
 		btnNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -99,6 +100,7 @@ public class PlanePanel extends JPanel {
 		});
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click here to view selected Plane");
 		btnView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -117,6 +119,7 @@ public class PlanePanel extends JPanel {
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click here to delete selected Plane");
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -129,6 +132,7 @@ public class PlanePanel extends JPanel {
 		});
 		add(btnDelete, "8, 4");
 		add(planeInfo,"2, 5, 7, 1");
+		
 		
 	}
 	public void showPanel()

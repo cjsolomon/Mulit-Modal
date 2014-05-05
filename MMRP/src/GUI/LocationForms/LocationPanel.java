@@ -64,6 +64,7 @@ public class LocationPanel extends JPanel {
 		add(sp, "2, 2, 8, 5");
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click here to view selected Location");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(lt.getSelectedRow()!=-1)
@@ -75,6 +76,7 @@ public class LocationPanel extends JPanel {
 		add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click here to create a new Location");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				lf.showPanel();
@@ -83,6 +85,7 @@ public class LocationPanel extends JPanel {
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click here to delete selected Location");
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{

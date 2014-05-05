@@ -91,6 +91,7 @@ public class TravelTypeSelector extends JPanel {
 		add(sp2, "16, 6, 3, 7, fill, fill");
 		
 		JButton btnToUsed = new JButton("<-");
+		btnToUsed.setToolTipText("Click here to add selected Available type");
 		btnToUsed.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(lstAvail.getSelectedIndex()!=-1)
@@ -105,6 +106,7 @@ public class TravelTypeSelector extends JPanel {
 		});
 		
 		JButton btnToAvailable = new JButton("->");
+		btnToAvailable.setToolTipText("Click here to remove selected Used type");
 		btnToAvailable.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(lstInUse.getSelectedIndex()!=-1)

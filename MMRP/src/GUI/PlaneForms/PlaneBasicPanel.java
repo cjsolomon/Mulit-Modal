@@ -69,6 +69,7 @@ public class PlaneBasicPanel extends JPanel {
 		add(cmbCarrier,"4, 6, 2, 1");
 		
 		btnEdit = new JButton("Edit");
+		btnEdit.setToolTipText("Click here to edit Plane's information");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -79,6 +80,7 @@ public class PlaneBasicPanel extends JPanel {
 		});
 		add(btnEdit, "4, 8");
 		btnSave = new JButton("Save");
+		btnSave.setToolTipText("Click here to save changes");
 		btnSave.setVisible(false);
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -98,6 +100,7 @@ public class PlaneBasicPanel extends JPanel {
 		add(btnSave,"4,8");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.setToolTipText("Click here to cancel changes");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -116,6 +119,13 @@ public class PlaneBasicPanel extends JPanel {
 			}
 		});
 		add(btnCancel, "5, 8");
+		
+		//TOOL TIPS
+		this.cmbCarrier.setToolTipText("This is the owner of the Plane");
+		this.cmbStatus.setToolTipText("This is the current status of the Plane");
+		this.txtName.setToolTipText("This is the name of the Plane");
+		
+		
 	}
 	public void showPanel()
 	{

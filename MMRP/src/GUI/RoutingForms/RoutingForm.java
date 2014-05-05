@@ -272,6 +272,35 @@ public class RoutingForm extends JPanel{
 		
 		label = new JLabel("");
 		add(label, "6, 16");
+		
+		this.btnRoute.setToolTipText("Click here to route the selected shipment");
+		this.chkAStar.setToolTipText("Use A Star algorithm to route shipment");
+		this.chkBestFind.setToolTipText("Use Best Find algorithm to route shipment");
+		this.chkNextAvailVehicle.setToolTipText("Use Next Available Vehicle algorithm to route shipment");
+		this.chkNodeCrawler.setToolTipText("Use Node Crawler algorithm to route shipment");
+		this.chkTravelByType.setToolTipText("Use Travel By Type algorithm to route shipment");
+		this.cmbASMode.setToolTipText("Not used for A Star");
+		this.cmbBFMode.setToolTipText("Not used for Best Find");
+		this.cmbNAVMode.setToolTipText("Select the Vehicle Mode to use");
+		this.cmbNCMode.setToolTipText("Not used for Node Crawler");
+		this.cmbTTMode.setToolTipText("Select the Vehicle Mode to use");
+		this.spinASC.setToolTipText("Set the importance of low fiscal cost");
+		this.spinASD.setToolTipText("Set the importance of low distance");
+		this.spinAST.setToolTipText("Set the importance of low time");
+		this.spinBFC.setToolTipText("Set the importance of low fiscal cost");
+		this.spinBFD.setToolTipText("Set the importance of low distance");
+		this.spinBFT.setToolTipText("Set the importance of low time");
+		this.spinNAVC.setToolTipText("Set the importance of low fiscal cost");
+		this.spinNAVD.setToolTipText("Set the importance of low distance");
+		this.spinNAVT.setToolTipText("Set the importance of low time");
+		this.spinNCC.setToolTipText("Set the importance of low fiscal cost");
+		this.spinNCD.setToolTipText("Set the importance of low distance");
+		this.spinNCT.setToolTipText("Set the importance of low time");
+		this.spinTTC.setToolTipText("Set the importance of low fiscal cost");
+		this.spinTTD.setToolTipText("Set the importance of low distance");
+		this.spinTTT.setToolTipText("Set the importance of low time");
+
+		
 	}
 	public void showPanel()
 	{

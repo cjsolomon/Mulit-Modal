@@ -41,8 +41,6 @@ public class CarrierForm extends JPanel {
 	
 	private Carrier source;
 	private JButton btnCancel;
-	private JLabel lblAreaCode;
-	private JTextField txtAreaCode;
 	private JLabel lblAuthorize;
 	private JTextField txtAuthorize;
 	private JLabel lblSatefyRating;
@@ -146,14 +144,6 @@ public class CarrierForm extends JPanel {
 		txtFaxNumber= new JTextField(20);
 		txtFaxNumber.setEditable(false);
 		add(txtFaxNumber, "4, 10, right, center");
-		
-		lblAreaCode = new JLabel("Area Code");
-		add(lblAreaCode, "7, 10, right, default");
-		
-		txtAreaCode = new JTextField();
-		txtAreaCode.setEditable(false);
-		add(txtAreaCode, "9, 10, fill, default");
-		txtAreaCode.setColumns(10);
 		add(lblEmail,"2,12,right,center");
 		add(txtEmail, "4,12,right,center");
 		add(lblContractDate,"2,14,right,center");
@@ -175,6 +165,7 @@ public class CarrierForm extends JPanel {
 		add(lblTruck, "7, 16, right, default");
 		
 		txtTruck = new JTextField();
+		txtTruck.setEditable(false);
 		add(txtTruck, "9, 16, fill, default");
 		txtTruck.setColumns(10);
 		
@@ -189,6 +180,7 @@ public class CarrierForm extends JPanel {
 		add(lblCargo, "7, 18, right, default");
 		
 		txtCargo = new JTextField();
+		txtCargo.setEditable(false);
 		add(txtCargo, "9, 18, fill, default");
 		txtCargo.setColumns(10);
 		
@@ -203,6 +195,7 @@ public class CarrierForm extends JPanel {
 		add(lblPlane, "7, 20, right, default");
 		
 		txtPlane = new JTextField();
+		txtPlane.setEditable(false);
 		add(txtPlane, "9, 20, fill, default");
 		txtPlane.setColumns(10);
 		
@@ -217,6 +210,7 @@ public class CarrierForm extends JPanel {
 		add(lblRail, "7, 22, right, default");
 		
 		txtRail = new JTextField();
+		txtRail.setEditable(false);
 		add(txtRail, "9, 22, fill, default");
 		txtRail.setColumns(10);
 		add(btnEdit, "4, 25");
@@ -227,6 +221,7 @@ public class CarrierForm extends JPanel {
 
 		add(btnCancel, "7, 25");
 		
+		btnSave.setToolTipText("Save changes made");
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -237,6 +232,7 @@ public class CarrierForm extends JPanel {
 			}
 		});
 	
+		btnEdit.setToolTipText("Edit the selected Carrier");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -246,6 +242,7 @@ public class CarrierForm extends JPanel {
 			}
 		});
 		
+		btnCancel.setToolTipText("Cancel changes made");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -262,6 +259,22 @@ public class CarrierForm extends JPanel {
 				}
 			}
 		});
+		txtAuthorize.setToolTipText("Currently not supported");
+		txtCargo.setToolTipText("Currently not supported");
+		txtPlane.setToolTipText("Currently not supported");
+		txtRail.setToolTipText("Currently not supported");
+		txtTruck.setToolTipText("Currently not supported");
+		txtCode.setToolTipText("This is the short code for the Carrier");
+		txtContractDate.setToolTipText("Currently not supported");
+		txtEmail.setToolTipText("This is the email address the Carrier can be reached at");
+		txtFaxNumber.setToolTipText("This is the fax number the Carrier can be reached at");
+		txtInsEndDate.setToolTipText("Currently not supported");
+		txtName.setToolTipText("This is the name of the Carrier");
+		txtRatingDate.setToolTipText("Currently not supported");
+		txtSafetyRating.setToolTipText("This is the safety rating of the Carrier");
+		chckbxEmail.setToolTipText("Allows the Carrier to be reached by email");
+		chckbxFaxNumber.setToolTipText("Allows the Carrier to be reached by fax");
+		
 		
 		}
 
@@ -289,7 +302,6 @@ public class CarrierForm extends JPanel {
 			{
 				source = new Carrier();
 			}
-			source.setAreaCode(this.txtAreaCode.getText());
 			source.setAuthorize(Integer.parseInt(this.txtAuthorize.getText()));
 			source.setCarrierCode(this.txtCode.getText());
 			source.setCarrierName(this.txtName.getText());
@@ -322,7 +334,6 @@ public class CarrierForm extends JPanel {
 		
 		private void displayCarrier(){
 			this.txtID.setText(String.valueOf(source.getId()));
-			this.txtAreaCode.setText(source.getAreaCode());
 			this.txtAuthorize.setText(String.valueOf(source.getAuthorize()));
 			this.txtCargo.setText(String.valueOf(source.getCostModifierCargoShip()));
 			this.txtCode.setText(source.getCarrierCode());
@@ -354,20 +365,19 @@ public class CarrierForm extends JPanel {
 		
 		private void setEditable()
 		{
-			this.txtAreaCode.setEditable(true);
-			this.txtAuthorize.setEditable(true);
-			this.txtCargo.setEditable(true);
+			this.txtAuthorize.setEditable(false);
+			this.txtCargo.setEditable(false);
 			this.txtCode.setEditable(true);
-			this.txtContractDate.setEditable(true);
+			this.txtContractDate.setEditable(false);
 			this.txtEmail.setEditable(true);
 			this.txtFaxNumber.setEditable(true);
-			this.txtInsEndDate.setEditable(true);
+			this.txtInsEndDate.setEditable(false);
 			this.txtName.setEditable(true);
-			this.txtPlane.setEditable(true);
-			this.txtRail.setEditable(true);
-			this.txtRatingDate.setEditable(true);
+			this.txtPlane.setEditable(false);
+			this.txtRail.setEditable(false);
+			this.txtRatingDate.setEditable(false);
 			this.txtSafetyRating.setEditable(true);
-			this.txtTruck.setEditable(true);
+			this.txtTruck.setEditable(false);
 			
 			this.chckbxEmail.setEnabled(true);
 			this.chckbxFaxNumber.setEnabled(true);
@@ -377,7 +387,6 @@ public class CarrierForm extends JPanel {
 		
 		private void setReadOnly()
 		{
-			this.txtAreaCode.setEditable(false);
 			this.txtAuthorize.setEditable(false);
 			this.txtCargo.setEditable(false);
 			this.txtCode.setEditable(false);
@@ -403,18 +412,17 @@ public class CarrierForm extends JPanel {
 		private void setNew()
 		{
 			this.txtID.setText("");
-			this.txtAreaCode.setText("");
-			this.txtAuthorize.setText("");
+			this.txtAuthorize.setText("1");
 			this.txtCargo.setText("");
 			this.txtCode.setText("");
-			this.txtContractDate.setText("");
+			this.txtContractDate.setText("01/01/1970");
 			this.txtEmail.setText("");
 			this.txtFaxNumber.setText("");
-			this.txtInsEndDate.setText("");
+			this.txtInsEndDate.setText("01/01/1970");
 			this.txtName.setText("");
 			this.txtPlane.setText("");
 			this.txtRail.setText("");
-			this.txtRatingDate.setText("");
+			this.txtRatingDate.setText("01/01/1970");
 			this.txtSafetyRating.setText("");
 			this.txtTruck.setText("");
 			

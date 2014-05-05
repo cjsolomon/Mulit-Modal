@@ -94,6 +94,7 @@ public class PlaneType extends JPanel {
 		add(lblServiceType, "2, 8, right, top");
 		
 		txtServiceType = new JTextField(10);
+		txtServiceType.setEditable(false);
 		add(txtServiceType, "4, 8, fill, default");
 		
 		
@@ -130,6 +131,7 @@ public class PlaneType extends JPanel {
 		add(txtMaxCapacity, "4, 14, left, default");
 			
 			btnSave = new JButton("Save");
+			btnSave.setToolTipText("Click here to save changes");
 			btnSave.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e)
 				{
@@ -140,6 +142,7 @@ public class PlaneType extends JPanel {
 			add(btnSave, "4, 16, right, default");
 		
 			btnEdit = new JButton("Edit");
+			btnEdit.setToolTipText("Click here to edit Plane Type");
 			btnEdit.addActionListener(new ActionListener(){
 				public void actionPerformed(ActionEvent e)
 				{
@@ -152,6 +155,7 @@ public class PlaneType extends JPanel {
 			add(btnEdit, "4, 16, right, default");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.setToolTipText("Click here to cancel changes");
 		btnCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(btnEdit.isVisible()||source==null)
@@ -169,6 +173,18 @@ public class PlaneType extends JPanel {
 			}
 		});
 		add(btnCancel, "6, 16, left, default");
+		
+		//Tool tips
+		this.chckbxExplosiveMaterial.setToolTipText("Allows this type to carry explosive shipments");
+		this.chckbxHazardousMaterial.setToolTipText("Allows this type to carry hazardous shipments");
+		this.chckbxRadiation.setToolTipText("Allows this type to carry radioactive shipments");
+		this.chckbxRefrigeration.setToolTipText("Allows this type to carry refrigerated shipments");
+		this.chckbxTracking.setToolTipText("Allows this type to be tracked");
+		this.txtMaxCapacity.setToolTipText("This is the maximum capacity this type can carry");
+		this.txtMaxWeight.setToolTipText("This is the maximum weight this type can carry");
+		this.txtMinCapacity.setToolTipText("This is the minimum capacity this type must have to be used");
+		this.txtServiceType.setToolTipText("Currently not supported");
+		this.txtTypeName.setToolTipText("This is the name of the type");
 		
 		
 	}//End of LocationCreateEdit Constructor
@@ -196,7 +212,7 @@ public class PlaneType extends JPanel {
 	}
 	private void loadNew()
 	{
-		this.txtServiceType.setText("");
+		this.txtServiceType.setText("NONE");
 		this.txtMaxCapacity.setText("");
 		this.txtMaxWeight.setText("");
 		this.txtMinCapacity.setText("");
@@ -239,7 +255,7 @@ public class PlaneType extends JPanel {
 	}
 	private void setEditable()
 	{
-		this.txtServiceType.setEnabled(true);
+		this.txtServiceType.setEnabled(false);
 		this.txtMaxCapacity.setEnabled(true);
 		this.txtMaxWeight.setEnabled(true);
 		this.txtMinCapacity.setEnabled(true);

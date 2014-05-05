@@ -360,7 +360,28 @@ public class SegmentForm extends JPanel {
 			}
 		});
 
-    	
+    	//Tool tips
+		this.btnCancel.setToolTipText("Click to cancel any changes");
+		this.btnCreateNewShipment.setToolTipText("Click here to create a new Segment");
+		this.cbTravelModes.setToolTipText("This is the mode of travel over this Segment");
+		this.cbTravelType.setToolTipText("This is the travel type used over the Segment");
+		this.cbVehicleID.setToolTipText("This is the Vehicle being used over the Segment");
+		this.cmbFromCities.setToolTipText("This is the starting city");
+		this.cmbFromCountries.setToolTipText("This is the starting country");
+		this.cmbFromStates.setToolTipText("This is the starting state");
+		this.cmbToCities.setToolTipText("This is the ending city");
+		this.cmbToCountries.setToolTipText("This is the ending country");
+		this.cmbToStates.setToolTipText("This is the ending state");
+		this.txtActualCapacity.setToolTipText("This is the capacity that the vehicle on this Segment is currently filled");
+		this.txtDistance.setToolTipText("This is the distance between the starting and ending Locations");
+		this.txtEarlArrival.setToolTipText("Currently not supported");
+		this.txtEstArrival.setToolTipText("This is the appoximate time the vehicle will arrive at the destination");
+		this.txtEstDeparture.setToolTipText("This is approximate time the vehicle will leave the starting location");
+		this.txtLane.setToolTipText("Currently not supported");
+		this.txtLatArrival.setToolTipText("Currently not supported");
+		this.txtLatDeparture.setToolTipText("Currently not supported");
+		this.txtRateID.setToolTipText("This is the Shipping Rate being used over this Segment");
+	
 		
 	}//End of LocationForm Constructor
 	

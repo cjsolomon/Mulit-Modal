@@ -211,6 +211,21 @@ public class TruckType extends JPanel {
 					});
 					add(btnCancel, "6, 20, left, default");
 		
+					//Tool tips
+					this.btnCancel.setToolTipText("Click here to cancel changes");
+					this.btnEdit.setToolTipText("Click here to edit this type");
+					this.btnSave.setToolTipText("Click here to save changes");
+					this.chckbxExplosiveMaterial.setToolTipText("Allows this type to carry explosive shipments");
+					this.chckbxHazardousMaterial.setToolTipText("Allows this type to carry hazardous shipments");
+					this.chckbxRadiation.setToolTipText("Allows this type to carry radioactive shipments");
+					this.chckbxRefrigeration.setToolTipText("Allows this type to carry refrigerated shipments");
+					this.chckbxTracking.setToolTipText("Allows this type to be tracked");
+					this.txtMaxCapacity.setToolTipText("This is the maximum capacity this type can carry");
+					this.txtMaxWeight.setToolTipText("This is the maximum weight this type can carry");
+					this.txtMinCapacity.setToolTipText("This is the minimum capacity this type must have to be used");
+					this.txtServiceType.setToolTipText("Currently not supported");
+					this.txtTypeName.setToolTipText("This is the name of the type");
+					
 	}//End of LocationCreateEdit Constructor
 	
 	

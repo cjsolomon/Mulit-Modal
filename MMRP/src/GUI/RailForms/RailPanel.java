@@ -85,6 +85,7 @@ public class RailPanel extends JPanel {
 		railInfo.setVisible(false);
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click here to create a new Rail");
 		btnNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -98,6 +99,7 @@ public class RailPanel extends JPanel {
 		});
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click here to view selected Rail");
 		btnView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -116,6 +118,7 @@ public class RailPanel extends JPanel {
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click here to delete selected Rail");
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{

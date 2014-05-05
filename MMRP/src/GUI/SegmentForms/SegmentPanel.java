@@ -52,6 +52,7 @@ public class SegmentPanel extends JPanel {
 		add(sp, "2, 2, 8, 5");
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click to view selected Segment");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(st.getSelectedRow()!=-1)
@@ -63,6 +64,7 @@ public class SegmentPanel extends JPanel {
 		add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click to create a new Segment");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				sf.showPanel();
@@ -71,6 +73,7 @@ public class SegmentPanel extends JPanel {
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click to delete the selected Segment");
 		add(btnDelete, "9, 7");
 		add(sf,"2, 8, 8, 1");
 		

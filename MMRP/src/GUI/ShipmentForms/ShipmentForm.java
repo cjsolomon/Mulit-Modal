@@ -367,6 +367,7 @@ public class ShipmentForm extends JPanel
 				update();
 				newShipment=false;
 				setReadOnly();
+				btnSave.setToolTipText("Click here to save changes");
 			}
 		});
 		btnSave.setVisible(false);
@@ -375,6 +376,7 @@ public class ShipmentForm extends JPanel
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
+				btnCancel.setToolTipText("Click here to cancel any changes");
 				if(btnSave.isVisible()&&!newShipment)
 				{
 					btnSave.setVisible(false);
@@ -394,7 +396,7 @@ public class ShipmentForm extends JPanel
 		btnEdit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				setEditable();
-
+				btnEdit.setToolTipText("Click here to edit Shipment information");
 			}
 		});
 
@@ -464,13 +466,42 @@ public class ShipmentForm extends JPanel
 
 	private void setNew()
 	{
+		
+		
+		txtCompanyName.setToolTipText("Select a new Shipper");
+		txtContactName.setToolTipText("This is the contact for the Shipper");
+		txtPhone.setToolTipText("The Shipper can be reached at this number");
+		txtEmail.setToolTipText("The Shipper can be reached at this email address");
+		txtPrefCarriers.setToolTipText("Given a choice, these are the Carriers the Shipper will use");
+		txtMaxStops.setToolTipText("This is the maximum number of stops this Shipment can make.");
+		txtTimeLoad.setToolTipText("Currently not supported");
+		txtTimeUnLoad.setToolTipText("Currently not supported");
+		txtLoadingType.setToolTipText("Currently not supported");
+		txtUnloadingType.setToolTipText("Currently not supported");
+		txtTrailerType.setToolTipText("Currently not supported");
+		txtSize.setToolTipText("This is the volumetric size of the Shipment");
+		cmbFromCountries.setToolTipText("This is the country of origin");
+		cmbFromStates.setToolTipText("This is the state of origin");
+		cmbFromCities.setToolTipText("This is the city of origin");
+		cmbToCountries.setToolTipText("This is the destination country");
+		cmbToStates.setToolTipText("This is the destination state");
+		cmbToCities.setToolTipText("This is the destination city");
+		txtWeight.setToolTipText("This is the weight of the shipement");
+		txtEarliestArrival.setToolTipText("This is earliest the shipment can arrive");
+		txtEarliestDeparture.setToolTipText("This is earliest the shipment can depart");
+		txtLatestArrival.setToolTipText("This is latest the shipment can arrive");
+		txtLatestDeparture.setToolTipText("This is latest the shipment can depart");
+		chkCongestion.setToolTipText("Currently not supported");
+		chkTolls.setToolTipText("Currently not supported");
+		cmbPriority.setToolTipText("This is the importance of the shipment");
+		
 		source = null;
 		txtCompanyName.setSelectedIndex(-1);
 		txtContactName.setText("");
 		txtPhone.setText("");
 		txtEmail.setText("");
 		txtPrefCarriers.setText("");
-
+		this.txtCompanyName.setEnabled(true);
 
 		this.cmbFromCountries.setText("");
 		this.cmbFromStates.setText("");
@@ -499,6 +530,7 @@ public class ShipmentForm extends JPanel
 		this.chkTolls.setSelected(false);
 
 		this.cmbPriority.setSelectedIndex(-1);
+		
 	}
 
 	private void setShipment()
@@ -640,6 +672,36 @@ public class ShipmentForm extends JPanel
 		this.cmbPriority.setEnabled(false);	
 		btnEdit.setVisible(true);
 		btnSave.setVisible(false);
+		
+		
+		txtCompanyName.setToolTipText("This is the Shipment's Shipper");
+		txtContactName.setToolTipText("This is the contact for the Shipper");
+		txtPhone.setToolTipText("The Shipper can be reached at this number");
+		txtEmail.setToolTipText("The Shipper can be reached at this email address");
+		txtPrefCarriers.setToolTipText("Given a choice, these are the Carriers the Shipper will use");
+		txtMaxStops.setToolTipText("This is the maximum number of stops this Shipment can make.");
+		txtTimeLoad.setToolTipText("Currently not supported");
+		txtTimeUnLoad.setToolTipText("Currently not supported");
+		txtLoadingType.setToolTipText("Currently not supported");
+		txtUnloadingType.setToolTipText("Currently not supported");
+		txtTrailerType.setToolTipText("Currently not supported");
+		txtSize.setToolTipText("This is the volumetric size of the Shipment");
+		cmbFromCountries.setToolTipText("This is the country of origin");
+		cmbFromStates.setToolTipText("This is the state of origin");
+		cmbFromCities.setToolTipText("This is the city of origin");
+		cmbToCountries.setToolTipText("This is the destination country");
+		cmbToStates.setToolTipText("This is the destination state");
+		cmbToCities.setToolTipText("This is the destination city");
+		txtWeight.setToolTipText("This is the weight of the shipement");
+		txtEarliestArrival.setToolTipText("This is earliest the shipment can arrive");
+		txtEarliestDeparture.setToolTipText("This is earliest the shipment can depart");
+		txtLatestArrival.setToolTipText("This is latest the shipment can arrive");
+		txtLatestDeparture.setToolTipText("This is latest the shipment can depart");
+		chkCongestion.setToolTipText("Currently not supported");
+		chkTolls.setToolTipText("Currently not supported");
+		cmbPriority.setToolTipText("This is the importance of the shipment");
+		
+		
 	}
 
 	protected void loadStates(JComboBox sourceCountry,JComboBox sourceStates)

@@ -114,6 +114,7 @@ public class LocationForm extends JPanel {
 		add(chkPlane,"10, 8");
 		add(chkCargo,"10, 10");
 		btnSave = new JButton("Save");
+		btnSave.setToolTipText("Click here to save changes");
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -131,6 +132,7 @@ public class LocationForm extends JPanel {
 		
 		
 		btnEdit = new JButton("Edit");
+		btnEdit.setToolTipText("Click here to edit selected Location");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -141,6 +143,7 @@ public class LocationForm extends JPanel {
 		});
 		add(btnEdit,"8, 14");
 		btnCancel = new JButton("Cancel");
+		btnCancel.setToolTipText("Click here to cancel changes");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -159,6 +162,18 @@ public class LocationForm extends JPanel {
 		add(btnCancel,"10, 14");
 		btnSave.setVisible(false);
 		
+		
+		//Tool tips
+		this.chkCargo.setToolTipText("Allows Location to be reached by Cargo Ship");
+		this.chkPlane.setToolTipText("Allows Location to be reached by Plane");
+		this.chkRail.setToolTipText("Allows Location to be reached by Rail");
+		this.chkTruck.setToolTipText("Allows Location to be reached by Truck");
+		this.txtCity.setToolTipText("This is the name of this Location's city");
+		this.txtCountry.setToolTipText("This is the name of this Location's country");
+		this.txtState.setToolTipText("This is the name of this Location's state");
+		this.txtLat.setToolTipText("This is the latitude of this Location");
+		this.txtLon.setToolTipText("This is the longitude of this Location");
+	
 	}
 	
 	public void showPanel(Location l)

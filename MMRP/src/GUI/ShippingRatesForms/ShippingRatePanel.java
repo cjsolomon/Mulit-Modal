@@ -60,6 +60,7 @@ public class ShippingRatePanel extends JPanel {
 		add(sp, "2, 2, 8, 5");
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click to view the selected Shipping Rate");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(srt.getSelectedRow()!=-1)
@@ -71,6 +72,7 @@ public class ShippingRatePanel extends JPanel {
 		add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click to create a new Shipping Rate");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				srf.showPanel();
@@ -79,6 +81,7 @@ public class ShippingRatePanel extends JPanel {
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click to delete the selected Shipping Rate");
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{

@@ -86,6 +86,7 @@ public class CargoPanel extends JPanel {
 		cargoInfo.setVisible(false);
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click here to create a new Cargo Ship");
 		btnNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -99,6 +100,7 @@ public class CargoPanel extends JPanel {
 		});
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click here to view the selected Cargo Ship");
 		btnView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -117,6 +119,7 @@ public class CargoPanel extends JPanel {
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click here to delete selected Cargo Ship");
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{

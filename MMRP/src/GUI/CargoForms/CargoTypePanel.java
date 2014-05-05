@@ -76,6 +76,7 @@ public class CargoTypePanel extends JPanel {
 		add(sp,"2, 2, 21, 12");
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click here to view the selected Cargo Type");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctt.getSelectedRow()!=-1)
@@ -85,6 +86,7 @@ public class CargoTypePanel extends JPanel {
 		add(btnView, "18, 14");
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click here to create a new Cargo Type");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				ct.showPanel();
@@ -94,6 +96,7 @@ public class CargoTypePanel extends JPanel {
 		add(btnNew, "20, 14");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click here to delete the selected Cargo Type");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ctt.getSelectedRow()!=-1)
