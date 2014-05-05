@@ -420,6 +420,17 @@ public class ShipmentForm extends JPanel
 		else
 			source.setTollRoadsFalse();
 		
+		ArrayList<Map<String,Object>> eLocation = new ArrayList<Map<String,Object>>();
+		try
+		{
+		eLocation = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cmbToCities.getSelectedItem().toString() +"' AND State = '" +
+		this.cmbToStates.getSelectedItem().toString() + "' AND Country = '" +this.cmbToCountries.getSelectedItem().toString()+ "'");
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		source.setToLocationID(Integer.parseInt(eLocation.get(0).get("LocationID").toString()));
 		source.setWeight(Double.parseDouble(this.txtWeight.getText().toString()));
 		
 		
