@@ -51,6 +51,8 @@ public class RoutingForm extends JPanel{
 	private JSeparator separator_3;
 	private SegmentSelectionListener refresh;
 	private Shipment source;
+	private JLabel label;
+	private JLabel lblRouting;
 	public RoutingForm()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -73,6 +75,8 @@ public class RoutingForm extends JPanel{
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,},
 			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -188,10 +192,6 @@ public class RoutingForm extends JPanel{
 		this.cmbTTMode = new JComboBox(Vehicle.TravelModes.values());
 		this.cmbBFMode.setSelectedItem(Vehicle.TravelModes.ALL);
 		
-		this.cmbBFMode.removeItem(Vehicle.TravelModes.ALL);
-		this.cmbBFMode.removeItem(Vehicle.TravelModes.NONE);
-		
-		
 		this.cmbNAVMode.removeItem(Vehicle.TravelModes.ALL);
 		this.cmbNAVMode.removeItem(Vehicle.TravelModes.NONE);
 		
@@ -215,7 +215,6 @@ public class RoutingForm extends JPanel{
 				
 				//javax.swing.JPopupMenu pu = new javax.swing.JPopupMenu("Hello");
 				//pu.setVisible(true);
-				
 				if(source!=null && (chkNodeCrawler.isSelected() || chkBestFind.isSelected() || chkTravelByType.isSelected() || chkAStar.isSelected() || chkNextAvailVehicle.isSelected()))
 				{
 					ArrayList<Segment> bestRoute = new ArrayList<Segment>();
@@ -270,6 +269,9 @@ public class RoutingForm extends JPanel{
 			}
 		});
 		add(btnRoute,"6, 14");
+		
+		label = new JLabel("");
+		add(label, "6, 16");
 	}
 	public void showPanel()
 	{

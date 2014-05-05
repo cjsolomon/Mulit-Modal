@@ -1059,13 +1059,13 @@ public class Segment extends BaseClass {
 	 * This function estimates the capacity available over this Segment
 	 * @return Returns the estimated capacity along this Segment
 	 */
-	public int estimateCapacity() {
+	public double estimateCapacity() {
 		try {
 			ArrayList<Map<String, Object>> temp = executeQuery("Select Sum(Size)as Capacity from Shipment where ShipmentID IN (Select Distinct ShipmentID from ShipmentHistory where SegmentID = "
 					+ this.id + ")");
 			if (temp.get(0).get("Capacity") != null) {
 				System.out.println(temp.get(0).get("Capacity"));
-				return Integer.parseInt(temp.get(0).get("Capacity").toString());
+				return Double.parseDouble(temp.get(0).get("Capacity").toString());
 			} else
 				return 0;
 		} catch (Exception ex) {

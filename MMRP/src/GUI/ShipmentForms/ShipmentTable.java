@@ -24,13 +24,13 @@ public class ShipmentTable extends JTable {
 	}
 	public void showPanel()
 	{
-		source=Shipment.LoadAll("where ShipmentID = 8000");
+		source=Shipment.LoadAll("where ShipmentID > 7999 AND ShipmentID < 9015");
 		this.setModel(new ShipmentModel(source));
 		this.setVisible(true);
 	}
 	public void refresh()
 	{
-		source=Shipment.LoadAll("where ShipmentID = 8000");
+		source=Shipment.LoadAll("where ShipmentID > 7999 AND ShipmentID < 9015");
 		this.setModel(new ShipmentModel(source));
 	}
 	public Shipment getSelectedShipment()

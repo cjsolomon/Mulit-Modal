@@ -645,7 +645,7 @@ public class SegmentTest {
 	
 	@Test public void testEstimateCapacity() {
 		Segment test_segment = new Segment();
-		Assert.assertEquals(new Integer(0), new Integer(test_segment.estimateCapacity()));
+		Assert.assertEquals(new Double(0), new Double(test_segment.estimateCapacity()));
 	}
 
 }

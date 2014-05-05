@@ -25,6 +25,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -129,9 +131,13 @@ public class ShipmentForm extends JPanel
 		lblPrefCarriers = new JLabel("Preferred Carriers:");
 		lblEmail = new JLabel("Email:");
 		txtContactName = new JTextField(25);
+		txtContactName.setEditable(false);
 		txtPhone=new JTextField(25);
+		txtPhone.setEditable(false);
 		txtEmail = new JTextField(25);
+		txtEmail.setEditable(false);
 		txtPrefCarriers = new JTextField(25);
+		txtPrefCarriers.setEditable(false);
 
 		cmbToCountries = new JComboBox<String>();
 		cmbToCountries.addActionListener(new ActionListener(){
@@ -169,13 +175,16 @@ public class ShipmentForm extends JPanel
 		shipperPanel.add(lblLocationName,"2, 4, right, center");
 
 		cmbFromCountries = new JTextField();
+		cmbFromCountries.setEditable(false);
 
 		shipperPanel.add(cmbFromCountries,"4, 4");
 		//loadCountries(this.cmbToCountries);
 
 		cmbFromStates= new JTextField ();
+		cmbFromStates.setEditable(false);
 		shipperPanel.add(cmbFromStates,"6, 4");
 		cmbFromCities = new JTextField ();
+		cmbFromCities.setEditable(false);
 		shipperPanel.add(cmbFromCities,"8, 4, fill, default");
 		loadShippers();
 		shipperPanel.add(lblContactName,"2,6,right,center");
@@ -249,12 +258,17 @@ public class ShipmentForm extends JPanel
 
 		this.lblTimeToLoad = new JLabel("Time to Load:");
 		txtTimeLoad = new JTextField(20);
+		txtTimeLoad.setText("0");
+		txtTimeLoad.setEditable(false);
 
 		this.lblTimeToUnLoad = new JLabel("Time to UnLoad:");
 		txtTimeUnLoad=new JTextField(20);
+		txtTimeUnLoad.setText("0");
+		txtTimeUnLoad.setEditable(false);
 
 		this.lblCongestionByPass = new JLabel("Congestion By-Pass:");
 		chkCongestion=new JCheckBox();
+		chkCongestion.setEnabled(false);
 		this.lblMaxStops=new JLabel("Max Stops:");
 		txtMaxStops=new JTextField(20);
 
@@ -263,6 +277,7 @@ public class ShipmentForm extends JPanel
 
 		this.lblTollRoads=new JLabel("Toll Roads:");
 		chkTolls = new JCheckBox();
+		chkTolls.setEnabled(false);
 
 		this.lblUnloadingType = new JLabel("Unloading Type:");
 		this.lblLoadingType = new JLabel("Loading Type:");
@@ -270,9 +285,17 @@ public class ShipmentForm extends JPanel
 		this.lblTrailerType = new JLabel("Trailer Type Required:");
 
 		this.txtUnloadingType = new JTextField(25);
+		txtUnloadingType.setEditable(false);
+		txtUnloadingType.setText("NONE");
 		this.txtLoadingType = new JTextField(25);
+		txtLoadingType.setEditable(false);
+		txtLoadingType.setText("NONE");
 		this.txtTrailerType = new JTextField(25);
+		txtTrailerType.setEditable(false);
+		txtTrailerType.setText("NONE");
 		this.txtHazmatConstraints = new JTextField(25);
+		txtHazmatConstraints.setEditable(false);
+		txtHazmatConstraints.setText("NONE");
 
 
 		shipmentPanel.add(lblToLocation,"2,2,right,center");
@@ -453,16 +476,19 @@ public class ShipmentForm extends JPanel
 		this.cmbFromStates.setText("");
 		this.cmbFromCities.setText("");
 
-		this.txtLoadingType.setText("");
+		this.txtLoadingType.setText("NONE");
 		this.txtMaxStops.setText("");
 		this.txtSize.setText("");
-		this.txtTimeLoad.setText("");
-		this.txtTimeUnLoad.setText("");
-		this.txtTrailerType.setText("");
-		this.txtUnloadingType.setText("");
+		this.txtTimeLoad.setText("NONE");
+		this.txtTimeUnLoad.setText("NONE");
+		this.txtTrailerType.setText("NONE");
+		this.txtUnloadingType.setText("NONE");
 		this.txtWeight.setText("");
-		this.txtHazmatConstraints.setText("");
-
+		this.txtHazmatConstraints.setText("NONE");
+		this.txtEarliestArrival.setText("");
+		this.txtEarliestDeparture.setText("");
+		this.txtLatestArrival.setText("");
+		this.txtLatestDeparture.setText("");
 
 
 		this.cmbToCountries.setSelectedIndex(-1);
@@ -494,17 +520,35 @@ public class ShipmentForm extends JPanel
 			this.cmbFromStates.setText(l.getState());
 			this.cmbFromCities.setText(l.getName());
 
-			this.txtLoadingType.setText(source.getLoadingType());
+			//this.txtLoadingType.setText(source.getLoadingType());
 			this.txtMaxStops.setText(((Integer)source.getMaxStops()).toString());
 			this.txtSize.setText(((Double)source.getSize()).toString());
-			this.txtTimeLoad.setText(((Integer)source.getTimeToLoad()).toString());
-			this.txtTimeUnLoad.setText(((Integer)source.getTimeToUnload()).toString());
-			this.txtTrailerType.setText(source.getTrailerType());
-			this.txtUnloadingType.setText(source.getUnloadType());
+			//this.txtTimeLoad.setText(((Integer)source.getTimeToLoad()).toString());
+			//this.txtTimeUnLoad.setText(((Integer)source.getTimeToUnload()).toString());
+			//this.txtTrailerType.setText(source.getTrailerType());
+			//this.txtUnloadingType.setText(source.getUnloadType());
 			this.txtWeight.setText(((Double)source.getWeight()).toString());
-			this.txtHazmatConstraints.setText(source.getHazmat());
+			//this.txtHazmatConstraints.setText(source.getHazmat());
+			
+			
+			//Found this date converter at 
+			//http://stackoverflow.com/questions/10477714/converting-integer-time-stamp-into-java-date
+			String dateAsText = new SimpleDateFormat("HH:mm MM/dd/YYYY")
+            .format(new Date(source.getEarliestArrivalTime() * 1000L));
+			this.txtEarliestArrival.setText(dateAsText);
+			
+			dateAsText = new SimpleDateFormat("HH:mm MM/dd/YYYY")
+            .format(new Date(source.getEarliestDepartureTime() * 1000L));
+			this.txtEarliestDeparture.setText(dateAsText);
+			
+			dateAsText = new SimpleDateFormat("HH:mm MM/dd/YYYY")
+            .format(new Date(source.getLatestArrivalTime() * 1000L));
+			this.txtLatestArrival.setText(dateAsText);
 
-
+			dateAsText = new SimpleDateFormat("HH:mm MM/dd/YYYY")
+            .format(new Date(source.getLatestDepartureTime() * 1000L));
+			this.txtLatestDeparture.setText(dateAsText);
+			
 			Location e = Location.Load(source.getToLocationID());
 			this.cmbToCountries.setSelectedItem(e.getCountry());
 			this.cmbToStates.setSelectedItem(e.getState());
@@ -519,8 +563,8 @@ public class ShipmentForm extends JPanel
 	}
 	private void setEditable()
 	{
-		if(newShipment)
-			txtCompanyName.setEnabled(true);
+		//if(newShipment)
+		//	txtCompanyName.setEnabled(true);
 
 		txtContactName.setEditable(false);
 		txtPhone.setEditable(false);
@@ -542,12 +586,9 @@ public class ShipmentForm extends JPanel
 		this.cmbToStates.setEnabled(true);
 		this.txtEarliestArrival.setEditable(true);
 		this.txtEarliestDeparture.setEditable(true);
-	
+		this.txtLatestArrival.setEditable(true);
+		this.txtLatestDeparture.setEditable(true);
 
-
-
-		this.chkCongestion.setEnabled(true);
-		this.chkTolls.setEnabled(true);
 		btnEdit.setVisible(false);
 		btnSave.setVisible(true);
 		
@@ -557,8 +598,6 @@ public class ShipmentForm extends JPanel
 		this.txtTimeUnLoad.setEditable(false);
 		this.txtTrailerType.setEditable(false);
 		this.txtUnloadingType.setEditable(false);
-		this.txtLatestArrival.setEditable(false);
-		this.txtLatestDeparture.setEditable(false);
 	}
 
 	private void setReadOnly()

@@ -40,11 +40,14 @@ public class RoutingPanel extends JPanel
 	JScrollPane sp,sp2;
 	RouteTable rt;
 	private JButton btnView;
+	private JLabel lblShipmentsTo;
+	private JLabel lblSelectTheAlgorithms;
+	private JLabel lblBestRouteFound;
 	public RoutingPanel()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("max(64dlu;default)"),
+				ColumnSpec.decode("max(64dlu;default):grow"),
 				ColumnSpec.decode("max(117dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(12dlu;default)"),
@@ -55,6 +58,8 @@ public class RoutingPanel extends JPanel
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("max(84dlu;default)"),
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
@@ -62,7 +67,9 @@ public class RoutingPanel extends JPanel
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(49dlu;default)"),}));
+				FormFactory.DEFAULT_ROWSPEC,
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(16dlu;default)"),}));
 		
 		st=new ShipmentTable();
 		st.setVisible(false);
@@ -81,8 +88,11 @@ public class RoutingPanel extends JPanel
 					sf.setShipment(null);
 			}
 		});
+		
+		lblShipmentsTo = new JLabel("Select a shipment to route");
+		add(lblShipmentsTo, "2, 2");
 
-		add(sp, "2, 2, 8, 5");
+		add(sp, "2, 4, 8, 5");
 		
 
 
@@ -97,10 +107,10 @@ public class RoutingPanel extends JPanel
 			{
 				sp2.setVisible(true);
 				
-				NodeCrawler nc = new NodeCrawler();
+			//	NodeCrawler nc = new NodeCrawler();
 				
 				
-				
+				lblBestRouteFound.setVisible(true);
 				rt.showPanel(segs);
 			}
 			public void setSegs(ArrayList<Segment> temp)
@@ -112,11 +122,18 @@ public class RoutingPanel extends JPanel
 		
 		//sf.setBorder(new MatteBorder(0, 0, 0, 2, (Color) new Color(0, 0, 0)));
 		sf.setVisible(false);
-		add(sf,"2, 8, 8, 1");
+		
+		lblSelectTheAlgorithms = new JLabel("Select the algorithms to use");
+		add(lblSelectTheAlgorithms, "2, 9");
+		add(sf,"2, 10, 8, 1, default, top");
 		sp2 = new JScrollPane();
 		sp2.setViewportView(rt);
 		sp2.setVisible(false);
-		add(sp2,"2, 10, 8, 1");
+		
+		lblBestRouteFound = new JLabel("Best route found");
+		add(lblBestRouteFound, "2, 12");
+		add(sp2,"2, 14, 8, 1");
+		lblBestRouteFound.setVisible(false);
 		
 	}
 	public void showPanel()

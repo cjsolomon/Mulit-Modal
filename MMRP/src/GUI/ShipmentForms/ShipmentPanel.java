@@ -77,8 +77,9 @@ public class ShipmentPanel extends JPanel {
 				{
 					jp.setVisible(true);
 					sp2.setVisible(true);
-					sht.showPanel(st.getSelectedShipment());
+					//sht.showPanel(st.getSelectedShipment());
 					sf.showPanel(st.getSelectedShipment());
+					sht.showPanel(st.getSelectedShipment());
 					jp.setSelectedIndex(0);
 				}
 			}
