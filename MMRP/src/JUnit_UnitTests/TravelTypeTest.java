@@ -588,13 +588,14 @@ public class TravelTypeTest {
 		test_truck.Update();
 		test_type.setTravelTypeMode("TRUCK");	
 		test_type.setServiceType("Should not be in list");
+		test_type.Update();
 		test_type.addToVehicle(test_truck.getId(),"TRUCK");
 
 		TravelType not_on_truck = new TravelType();
 		not_on_truck.setTravelTypeMode("TRUCK");
 		not_on_truck.setServiceType("Look for me in type_list");
 		not_on_truck.Update();
-		test_type.Update();
+		
 		test_truck.Update();
 
 		ArrayList<TravelType> type_list = TravelType.LoadNotInVehilce(test_truck);
