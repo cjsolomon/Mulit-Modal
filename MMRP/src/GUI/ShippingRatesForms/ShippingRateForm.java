@@ -56,6 +56,7 @@ public class ShippingRateForm extends JPanel {
 	private JComboBox cbCarriers;
 	private JLabel lblRank;
 	private ShippingRate source;
+	private boolean newShippingRate;
 	private ArrayList<TableRefreshListener> refresh = new ArrayList<TableRefreshListener>();
 	public ShippingRateForm() {
 		
@@ -209,6 +210,7 @@ public class ShippingRateForm extends JPanel {
 				setReadOnly();
 				btnEdit.setVisible(true);
  				for(TableRefreshListener t : refresh) t.refreshTable();
+ 				newShippingRate=false;
 			}
 		});
 	
@@ -232,6 +234,7 @@ public class ShippingRateForm extends JPanel {
 
 		public void showPanel()
 		{
+			newShippingRate = true;
 			source=null;
 			setEditable();
 			setNew();
@@ -242,6 +245,7 @@ public class ShippingRateForm extends JPanel {
 
 		public void showPanel(ShippingRate sr)
 		{
+			newShippingRate =false;
 			source=sr;
 			displayShippingRate();
 			setReadOnly();
@@ -300,6 +304,10 @@ public class ShippingRateForm extends JPanel {
 		private void setEditable()
 		{
 		
+			if(!newShippingRate)
+				this.cbCarriers.setEnabled(false);
+			else
+				this.cbCarriers.setEnabled(true);
 			this.txtFlatRate.setEditable(true);
 			this.txtMileRate.setEditable(true);
 			this.txtRank.setEditable(true);
@@ -309,7 +317,7 @@ public class ShippingRateForm extends JPanel {
 			this.txtWeight1.setEditable(true);
 			this.txtWeight2.setEditable(true);
 			this.txtWeight3.setEditable(true);
-			this.cbCarriers.setEnabled(true);
+			
 			btnEdit.setVisible(false);
 			btnSave.setVisible(true);
 		}
