@@ -24,13 +24,13 @@ public class ShipperTable extends JTable {
 	}
 	public void showPanel()
 	{
-		source=Shipper.LoadAll("where ShipperID < 10");
+		source=Shipper.LoadAll("where ShipperID > 10");
 		this.setModel(new ShipperModel(source));
 		this.setVisible(true);
 	}
 	public void refresh()
 	{
-		source=Shipper.LoadAll("where ShipperID < 10");
+		source=Shipper.LoadAll("where ShipperID > 10");
 		this.setModel(new ShipperModel(source));
 	}
 	public Shipper getSelectedShipper()

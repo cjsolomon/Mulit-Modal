@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import GUI.TableRefreshListener;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -37,9 +39,9 @@ public class ShipperForm extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel lblEmail, lblLocation, lblNumber,lblContactName,lblCompanyName, lblShipper, lblID;
 	JTextField txtEmail,txtNumber,txtContactName,txtCompanyName, txtID;
-	private JButton btnSaveEdit;
+	private JButton btnSave,btnEdit;
 	
-	private boolean edit = false;
+	
 	private JButton btnCancel;
 	private JLabel lblPreferredCarriers;
 	private JLabel lblCountry;
@@ -52,7 +54,9 @@ public class ShipperForm extends JPanel {
 	private JComboBox cbPreferredCarrier2;
 	private JComboBox cbPreferredCarrier3;
 	private JComboBox cbPreferredCarrier4;
-	
+	private Shipper source;
+	private boolean newShipper;
+	private ArrayList<TableRefreshListener> refresh = new ArrayList<TableRefreshListener>();
 	public ShipperForm() {
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -141,8 +145,27 @@ public class ShipperForm extends JPanel {
 		add(lblEmail,"2,12,right,center");
 		add(txtEmail, "4,12,right,center");
 		
-		btnSaveEdit = new JButton("Edit");
-		
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				update();
+				btnSave.setVisible(false);
+				btnEdit.setVisible(true);
+				setReadOnly();
+				newShipper=false;
+				for(TableRefreshListener t : refresh)t.refreshTable();
+			}
+		});
+		btnEdit = new JButton("Edit");
+		btnEdit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				setEditable();
+				btnSave.setVisible(true);
+				btnEdit.setVisible(false);
+			}
+		});
 		cbPreferredCarrier4 = new JComboBox();
 		add(cbPreferredCarrier4, "7, 12, fill, default");
 		lblLocation = new JLabel("Location");
@@ -153,12 +176,24 @@ public class ShipperForm extends JPanel {
 		add(lblCountry, "2, 16, right, center");
 		
 		cbCountry = new JComboBox();
+		cbCountry.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				loadStates(cbCountry,cbState);
+			}
+		});
 		add(cbCountry, "4, 16, fill, default");
 		
 		lblState = new JLabel("State");
 		add(lblState, "2, 18, right, default");
 		
 		cbState = new JComboBox();
+		cbState.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				loadCities(cbCountry,cbState,cbCity);
+			}
+		});
 		add(cbState, "4, 18, fill, default");
 		
 		lblCity = new JLabel("City");
@@ -166,33 +201,26 @@ public class ShipperForm extends JPanel {
 		
 		cbCity = new JComboBox();
 		add(cbCity, "4, 20, fill, default");
-		add(btnSaveEdit, "4, 25");
+		add(btnSave, "4, 25");
+		add(btnEdit,"4,25");
 		
 		txtID.setEditable(false);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+
 		add(btnCancel, "7, 25");
 		
 
 	
-		btnSaveEdit.setVisible(true);
-		btnSaveEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setEditable();
-			}
-		});
-		btnCancel = new JButton("Cancel");
+	
+
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(btnSaveEdit.isVisible())
+				if(btnSave.isVisible() && source!=null)
 				{
-					btnSaveEdit.setVisible(false);
+					btnEdit.setVisible(true);
+					btnSave.setVisible(false);
 					setReadOnly();
 				}
 				else
@@ -203,8 +231,7 @@ public class ShipperForm extends JPanel {
 		});
 		
 		this.loadCountries();
-		this.loadStates(this.cbCountry, this.cbState);
-		this.loadCities(this.cbCountry, this.cbState, this.cbCity);
+
 		this.loadPreferredCarriers(this.cbPreferredCarrier1);
 		this.loadPreferredCarriers(this.cbPreferredCarrier2);
 		this.loadPreferredCarriers(this.cbPreferredCarrier3);
@@ -213,36 +240,78 @@ public class ShipperForm extends JPanel {
 
 		public void showPanel()
 		{
+			newShipper=true;
+			source=null;
 			setEditable();
+			setNew();
+			btnSave.setVisible(true);
+			btnEdit.setVisible(false);
 			this.setVisible(true);
 		}
 
 		public void showPanel(Shipper s)
 		{
-			displayShipper(s);
+			newShipper=false;
+			source=s;
+			displayShipper();
 			setReadOnly();
+			btnSave.setVisible(false);
+			btnEdit.setVisible(true);
 			setVisible(true);
 		}
 		private void update()
 		{
-			btnSaveEdit.setVisible(false);
+			if(source==null) source=new Shipper();
+			source.setCompanyName(this.txtCompanyName.getText());
+			source.setContactName(this.txtContactName.getText());
+			source.setEmailAddress(this.txtEmail.getText());
+			source.setPhoneNumber(this.txtNumber.getText());
+			
+			ArrayList<Map<String,Object>> location = new ArrayList<Map<String,Object>>();
+			try
+			{
+			location = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cbCity.getSelectedItem().toString() +"' AND State = '" +
+			this.cbState.getSelectedItem().toString() + "' AND Country = '" +this.cbCountry.getSelectedItem().toString()+ "'");
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			source.setLocationID(Integer.parseInt(location.get(0).get("LocationID").toString()));
+			
+			source.Update();
+			
+			this.txtID.setText(String.valueOf(source.getID()));
 		}
 		
-		private void displayShipper(Shipper displayShipper){
-			this.txtID.setText(String.valueOf(displayShipper.getID()));
-			this.txtCompanyName.setText(displayShipper.getCompanyName());
-			this.txtContactName.setText(displayShipper.getContactName());
-			this.txtEmail.setText(displayShipper.getEmailAddress());
-			this.txtNumber.setText(displayShipper.getPhoneNumber());
+		private void setNew()
+		{
+			this.txtID.setText("");
+			this.txtCompanyName.setText("");
+			this.txtContactName.setText("");
+			this.txtEmail.setText("");
+			this.txtNumber.setText("");
 			
-			Location shipperLocation = Location.Load(displayShipper.getLocationID());
+			this.cbCountry.setSelectedIndex(-1);
+			this.cbState.setSelectedIndex(-1);
+			this.cbCity.setSelectedIndex(-1);
+			
+			this.cbPreferredCarrier1.setSelectedItem("ANY");
+			this.cbPreferredCarrier2.setSelectedItem("ANY");
+			this.cbPreferredCarrier3.setSelectedItem("ANY");
+			this.cbPreferredCarrier4.setSelectedItem("ANY");
+		}
+		private void displayShipper(){
+			this.txtID.setText(String.valueOf(source.getID()));
+			this.txtCompanyName.setText(source.getCompanyName());
+			this.txtContactName.setText(source.getContactName());
+			this.txtEmail.setText(source.getEmailAddress());
+			this.txtNumber.setText(source.getPhoneNumber());
+			
+			Location shipperLocation = Location.Load(source.getLocationID());
 			
 			this.cbCountry.setSelectedItem(shipperLocation.getCountry());
-			this.cbState.removeAll();
-			this.loadStates(cbCountry, cbState);
 			this.cbState.setSelectedItem(shipperLocation.getState());
-			this.cbCity.removeAll();
-			this.loadCities(cbCountry, cbState, cbCity);
 			this.cbCity.setSelectedItem(shipperLocation.getName());
 			
 			this.cbPreferredCarrier1.setSelectedItem("ANY");
@@ -251,7 +320,7 @@ public class ShipperForm extends JPanel {
 			this.cbPreferredCarrier4.setSelectedItem("ANY");
 			
 			
-			btnSaveEdit.setVisible(true);
+		
 		}
 		
 		private void setEditable()
@@ -261,16 +330,24 @@ public class ShipperForm extends JPanel {
 			this.txtContactName.setEditable(true);
 			this.txtEmail.setEditable(true);
 			this.txtNumber.setEditable(true);
+			if(newShipper)
+			{
+				this.cbCountry.setEnabled(true);
+				this.cbState.setEnabled(true);
+				this.cbCity.setEnabled(true);
+			}
+			else
+			{
+				this.cbCountry.setEnabled(false);
+				this.cbState.setEnabled(false);
+				this.cbCity.setEnabled(false);
+			}
 			
-			this.cbCountry.setEnabled(true);
-			this.cbState.setEnabled(true);
-			this.cbCity.setEnabled(true);
-			
-			this.cbPreferredCarrier1.setSelectedItem("ANY");
-			this.cbPreferredCarrier2.setSelectedItem("ANY");
-			this.cbPreferredCarrier3.setSelectedItem("ANY");
-			this.cbPreferredCarrier4.setSelectedItem("ANY");
-			btnSaveEdit.setVisible(true);
+			this.cbPreferredCarrier1.setEnabled(false);
+			this.cbPreferredCarrier2.setEnabled(false);
+			this.cbPreferredCarrier3.setEnabled(false);
+			this.cbPreferredCarrier4.setEnabled(false);
+		
 		}
 		
 		private void setReadOnly()
@@ -284,11 +361,11 @@ public class ShipperForm extends JPanel {
 			this.cbState.setEnabled(false);
 			this.cbCity.setEnabled(false);
 			
-			this.cbPreferredCarrier1.setSelectedItem("NONE");
-			this.cbPreferredCarrier2.setSelectedItem("NONE");
-			this.cbPreferredCarrier3.setSelectedItem("NONE");
-			this.cbPreferredCarrier4.setSelectedItem("NONE");
-			btnSaveEdit.setVisible(true);
+			this.cbPreferredCarrier1.setEnabled(false);
+			this.cbPreferredCarrier2.setEnabled(false);
+			this.cbPreferredCarrier3.setEnabled(false);
+			this.cbPreferredCarrier4.setEnabled(false);
+
 
 		}
 
@@ -310,7 +387,6 @@ public class ShipperForm extends JPanel {
 				{
 					ex.printStackTrace();
 				}
-				sourceStates.setSelectedIndex(0);
 			}
 		}
 		protected void loadCountries()
@@ -320,14 +396,14 @@ public class ShipperForm extends JPanel {
 				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct Country from location");
 				for(Map m :tmp)
 				{
-					this.cbCountry.addItem(m.get("Country").toString());
+					cbCountry.addItem(m.get("Country").toString());
 				}
 			}
 			catch(Exception e)
 			{
 				e.printStackTrace();
 			}
-			cbCountry.setSelectedIndex(0);
+			cbCountry.setSelectedIndex(-1);
 		}
 		protected void loadCities(JComboBox sourceCountry,JComboBox sourceStates,JComboBox sourceCities)
 		{
@@ -355,7 +431,10 @@ public class ShipperForm extends JPanel {
 			prefCarriers.setSelectedIndex(0);
 			
 		}
-		
+		public void addTableRefreshListener(TableRefreshListener t)
+		{
+			refresh.add(t);
+		}
 
 
 	}
