@@ -8,6 +8,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import GUI.TravelTypeSetListener;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -32,9 +34,9 @@ public class CarrierForm extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel lblEmail, lblContractDate, lblNumber,lblCode,lblName, lblLocation, lblID;
 	JTextField txtEmail,txtContractDate,txtFaxNumber,txtCode,txtName, txtID;
-	private JButton btnSaveEdit;
+	private JButton btnEdit,btnSave;
 	
-	private boolean edit = false;
+	private Carrier source;
 	private JButton btnCancel;
 	private JLabel lblAreaCode;
 	private JTextField txtAreaCode;
@@ -154,8 +156,8 @@ public class CarrierForm extends JPanel {
 		add(lblContractDate,"2,14,right,center");
 		add(txtContractDate, "4,14,right,center");
 		
-		btnSaveEdit = new JButton("Edit");
-		
+		btnEdit = new JButton("Edit");
+		btnSave = new JButton("Save");
 		lblCostModifiers = new JLabel("Cost Modifiers");
 		add(lblCostModifiers, "7, 14, 3, 1, center, default");
 		
@@ -214,34 +216,42 @@ public class CarrierForm extends JPanel {
 		txtRail = new JTextField();
 		add(txtRail, "9, 22, fill, default");
 		txtRail.setColumns(10);
-		add(btnSaveEdit, "4, 25");
-		
+		add(btnEdit, "4, 25");
+		add(btnSave,"4,25");
 		txtID.setEditable(false);
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+
 		add(btnCancel, "7, 25");
 		
-
-	
-		btnSaveEdit.setVisible(true);
-		btnSaveEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setEditable();
+		btnSave.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				update();
+				btnSave.setVisible(false);
+				setReadOnly();
+				btnEdit.setVisible(true);
 			}
 		});
-		btnCancel = new JButton("Cancel");
+	
+		btnEdit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				setEditable();
+				btnSave.setVisible(true);
+				btnEdit.setVisible(false);
+			}
+		});
+		
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(btnSaveEdit.isVisible())
+				if(btnSave.isVisible()&& source!=null)
 				{
-					btnSaveEdit.setVisible(false);
 					setReadOnly();
+					btnSave.setVisible(false);
+					btnEdit.setVisible(true);
+					
 				}
 				else
 				{
@@ -254,14 +264,17 @@ public class CarrierForm extends JPanel {
 
 		public void showPanel()
 		{
+			source=null;
 			setEditable();
+			setNew();
+			
 			this.setVisible(true);
-			this.btnSaveEdit.setText("Save");
 		}
 
 		public void showPanel(Carrier c)
 		{
-			displayCarrier(c);
+			source = c;
+			displayCarrier();
 			setReadOnly();
 			setVisible(true);
 		}
@@ -269,38 +282,39 @@ public class CarrierForm extends JPanel {
 		
 		private void update()
 		{
-			btnSaveEdit.setVisible(false);
+			
 		}
 		
-		private void displayCarrier(Carrier displayCarrier){
-			this.txtID.setText(String.valueOf(displayCarrier.getId()));
-			this.txtAreaCode.setText(displayCarrier.getAreaCode());
-			this.txtAuthorize.setText(String.valueOf(displayCarrier.getAuthorize()));
-			this.txtCargo.setText(String.valueOf(displayCarrier.getCostModifierCargoShip()));
-			this.txtCode.setText(displayCarrier.getCarrierCode());
-			this.txtContractDate.setText(displayCarrier.getContractDate());
-			this.txtEmail.setText(displayCarrier.getEmailAddress());
-			this.txtFaxNumber.setText(displayCarrier.getFaxNumber());
-			this.txtInsEndDate.setText(displayCarrier.getInsEndDate());
-			this.txtName.setText(displayCarrier.getCarrierName());
-			this.txtPlane.setText(String.valueOf(displayCarrier.getCostModifierPlane()));
-			this.txtRail.setText(String.valueOf(displayCarrier.getCostModifierRail()));
-			this.txtRatingDate.setText(displayCarrier.getSafetyRateDate());
-			this.txtSafetyRating.setText(String.valueOf(displayCarrier.getSafetyRating()));
-			this.txtTruck.setText(String.valueOf(displayCarrier.getCostModifierTruck()));
+		private void displayCarrier(){
+			this.txtID.setText(String.valueOf(source.getId()));
+			this.txtAreaCode.setText(source.getAreaCode());
+			this.txtAuthorize.setText(String.valueOf(source.getAuthorize()));
+			this.txtCargo.setText(String.valueOf(source.getCostModifierCargoShip()));
+			this.txtCode.setText(source.getCarrierCode());
+			this.txtContractDate.setText(source.getContractDate());
+			this.txtEmail.setText(source.getEmailAddress());
+			this.txtFaxNumber.setText(source.getFaxNumber());
+			this.txtInsEndDate.setText(source.getInsEndDate());
+			this.txtName.setText(source.getCarrierName());
+			this.txtPlane.setText(String.valueOf(source.getCostModifierPlane()));
+			this.txtRail.setText(String.valueOf(source.getCostModifierRail()));
+			this.txtRatingDate.setText(source.getSafetyRateDate());
+			this.txtSafetyRating.setText(String.valueOf(source.getSafetyRating()));
+			this.txtTruck.setText(String.valueOf(source.getCostModifierTruck()));
 			
-			if(displayCarrier.isSendByEmail())
+			if(source.isSendByEmail())
 				this.chckbxEmail.setSelected(true);
 			else
 				this.chckbxEmail.setSelected(false);
-			if(displayCarrier.isSendByFax())
+			if(source.isSendByFax())
 				this.chckbxFaxNumber.setSelected(true);
 			else
 				this.chckbxFaxNumber.setSelected(true);
 			
 			this.chckbxEmail.setEnabled(false);
 			this.chckbxFaxNumber.setEnabled(false);
-			btnSaveEdit.setVisible(true);
+			btnEdit.setVisible(true);
+			btnSave.setVisible(false);
 		}
 		
 		private void setEditable()
@@ -322,7 +336,8 @@ public class CarrierForm extends JPanel {
 			
 			this.chckbxEmail.setEnabled(true);
 			this.chckbxFaxNumber.setEnabled(true);
-			btnSaveEdit.setVisible(true);
+			btnSave.setVisible(true);
+			btnEdit.setVisible(false);
 		}
 		
 		private void setReadOnly()
@@ -344,11 +359,38 @@ public class CarrierForm extends JPanel {
 			
 			this.chckbxEmail.setEnabled(false);
 			this.chckbxFaxNumber.setEnabled(false);
-			btnSaveEdit.setVisible(true);
+			btnSave.setVisible(false);
+			btnEdit.setVisible(true);
 			
 
 		}
+		
+		private void setNew()
+		{
+			this.txtID.setText("");
+			this.txtAreaCode.setText("");
+			this.txtAuthorize.setText("");
+			this.txtCargo.setText("");
+			this.txtCode.setText("");
+			this.txtContractDate.setText("");
+			this.txtEmail.setText("");
+			this.txtFaxNumber.setText("");
+			this.txtInsEndDate.setText("");
+			this.txtName.setText("");
+			this.txtPlane.setText("");
+			this.txtRail.setText("");
+			this.txtRatingDate.setText("");
+			this.txtSafetyRating.setText("");
+			this.txtTruck.setText("");
+			
 
+			this.chckbxEmail.setSelected(false);
+			this.chckbxFaxNumber.setSelected(false);	
+			this.chckbxEmail.setEnabled(false);
+			this.chckbxFaxNumber.setEnabled(false);
+			btnEdit.setVisible(false);
+			btnSave.setVisible(true);
+		}
 
 
 
