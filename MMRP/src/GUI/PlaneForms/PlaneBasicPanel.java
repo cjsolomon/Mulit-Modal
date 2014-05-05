@@ -31,6 +31,7 @@ public class PlaneBasicPanel extends JPanel {
 	private JButton btnCancel;
 	private JButton btnSave;
 	ArrayList<TableRefreshListener> listener = new ArrayList<TableRefreshListener>();
+	ArrayList<TravelTypeSetListener> travelTypeListener = new ArrayList<TravelTypeSetListener>();
 	public PlaneBasicPanel()
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -82,7 +83,13 @@ public class PlaneBasicPanel extends JPanel {
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				update();
+				if(source==null)
+				{
+					update();
+					for(TravelTypeSetListener t: travelTypeListener) t.setTravelType();
+				}
+				else
+					update();
 				btnSave.setVisible(false);
 				readOnly();
 				btnEdit.setVisible(true);
@@ -94,7 +101,7 @@ public class PlaneBasicPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(btnSave.isVisible())
+				if(btnSave.isVisible() && source!=null)
 				{
 					readOnly();
 					btnSave.setVisible(false);
@@ -165,5 +172,8 @@ public class PlaneBasicPanel extends JPanel {
 		cmbCarrier.setSelectedIndex(0);
 		cmbStatus.setSelectedIndex(0);
 	}
-
+	public void addTravelTypeSetListener(TravelTypeSetListener t)
+	{
+		this.travelTypeListener.add(t);
+	}
 }

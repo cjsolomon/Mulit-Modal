@@ -102,7 +102,7 @@ public class SegmentTable extends JTable {
 			if (column.equals("End"))
 				return t.getEndLocation().getName();
 			if(column.equals("Type"))
-				return "EMPTY";
+				return t.getTravelType().getTravelTypeName();
 			return null;
 		}
 

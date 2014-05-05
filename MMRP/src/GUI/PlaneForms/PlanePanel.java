@@ -17,13 +17,14 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JButton;
 import GUI.*;
+import GUI.TravelTypeSetListener;
 public class PlanePanel extends JPanel {
-	PlaneTable tt;
+	PlaneTable planeTable;
 	JScrollPane sp,sp2;
-	PlaneBasicPanel tbp;
+	PlaneBasicPanel planeBasicInfo;
 	private JButton btnDelete;
 	private JButton btnView;
-	private JTabbedPane truckInfo;
+	private JTabbedPane planeInfo;
 	private JButton btnNew;
 	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
@@ -52,38 +53,48 @@ public class PlanePanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		
-		tt=new PlaneTable();
-		tt.setVisible(false);
+		planeTable=new PlaneTable();
+		planeTable.setVisible(false);
 		sp=new JScrollPane();
-		sp.setViewportView(tt);
+		sp.setViewportView(planeTable);
 		sp.setVisible(false);
 		add(sp,"2, 2, 7, 2");
-		tbp = new PlaneBasicPanel();
-		tbp.addRefreshListener(new TableRefreshListener(){
+		planeBasicInfo = new PlaneBasicPanel();
+		planeBasicInfo.addRefreshListener(new TableRefreshListener(){
 			public void refreshTable()
 			{
-				tt.refresh();
+				planeTable.refresh();
 			}
 		});
-		tbp.setVisible(false);
+		planeBasicInfo.addTravelTypeSetListener(new TravelTypeSetListener(){
+			public void setTravelType()
+			{
+				tts.showPanel(planeBasicInfo.source);
+			}
+		});
+		planeBasicInfo.setVisible(false);
 		tts= new TravelTypeSelector();
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
 		segments = new SegmentTable();
 		segments.setVisible(false);
 		sp2.setViewportView(segments);
-		truckInfo = new JTabbedPane();
-		truckInfo.addTab("Basic", tbp);
-		truckInfo.addTab("Segments",sp2);
-		truckInfo.addTab("Types",tts);
-		truckInfo.setVisible(false);
+		planeInfo = new JTabbedPane();
+		planeInfo.addTab("Basic", planeBasicInfo);
+		planeInfo.addTab("Segments",sp2);
+		planeInfo.addTab("Types",tts);
+		planeInfo.setVisible(false);
 		
 		btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				truckInfo.setVisible(true);
-				tbp.showPanel();
+				planeInfo.setVisible(true);
+				planeBasicInfo.showPanel();
+				segments.showPanel();
+				sp2.setVisible(true);
+				tts.showPanel();
+				planeInfo.setSelectedIndex(0);
 			}
 		});
 		
@@ -91,14 +102,14 @@ public class PlanePanel extends JPanel {
 		btnView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(tt.getSelectedRow()!=-1)
+				if(planeTable.getSelectedRow()!=-1)
 				{
-					truckInfo.setVisible(true);
-					tbp.showPanel(tt.getSelectedTruck());
-					segments.showPanel(tt.getSelectedTruck());
+					planeInfo.setVisible(true);
+					planeBasicInfo.showPanel(planeTable.getSelectedPlane());
+					segments.showPanel(planeTable.getSelectedPlane());
 					sp2.setVisible(true);
-					tts.showPanel(tt.getSelectedTruck());
-					truckInfo.setSelectedIndex(0);
+					tts.showPanel(planeTable.getSelectedPlane());
+					planeInfo.setSelectedIndex(0);
 				}
 			}
 		});
@@ -106,21 +117,30 @@ public class PlanePanel extends JPanel {
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(planeTable.getSelectedRow()!=-1)
+				{
+					planeTable.getSelectedPlane().Delete();
+				}
+			}
+		});
 		add(btnDelete, "8, 4");
-		add(truckInfo,"2, 5, 7, 1");
+		add(planeInfo,"2, 5, 7, 1");
 		
 	}
 	public void showPanel()
 	{
 		sp.setVisible(true);
-		tt.showPanel();
-		sp.setViewportView(tt);
+		planeTable.showPanel();
+		sp.setViewportView(planeTable);
 		this.setVisible(true);
 	}
 	
 	private void hideControls()
 	{
-		tbp.setVisible(false);
+		planeBasicInfo.setVisible(false);
 	}
 	
 

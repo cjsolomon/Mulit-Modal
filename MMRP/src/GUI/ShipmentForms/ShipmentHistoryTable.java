@@ -56,7 +56,7 @@ public class ShipmentHistoryTable extends JTable {
 class ShipmentHistoryModel extends AbstractTableModel
 {
 	ArrayList<ShipmentHistory> data;
-	String[] columns = {"ID", "Name","Code","Safety Rating"};
+	String[] columns = {"ID", "Order","Start","End"};
 	public ShipmentHistoryModel(ArrayList<ShipmentHistory> source)
 	{
 		data=source;

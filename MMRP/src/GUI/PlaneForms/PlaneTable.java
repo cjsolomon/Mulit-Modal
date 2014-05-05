@@ -28,7 +28,7 @@ public class PlaneTable extends JTable {
 		source=Plane.LoadAll("");
 		this.setModel(new PlaneModel(source));
 	}
-	public Plane getSelectedTruck()
+	public Plane getSelectedPlane()
 	{
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
 		for(Plane t : source)
