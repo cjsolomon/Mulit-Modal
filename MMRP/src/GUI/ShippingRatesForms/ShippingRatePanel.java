@@ -3,6 +3,8 @@ package GUI.ShippingRatesForms;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import GUI.TableRefreshListener;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -44,6 +46,12 @@ public class ShippingRatePanel extends JPanel {
 		
 		srt=new ShippingRateTable();
 		srf = new ShippingRateForm();
+		srf.addTableRefreshListener(new TableRefreshListener(){
+			public void refreshTable()
+			{
+				srt.refresh();
+			}
+		});
 		srf.setVisible(false);
 		srt.setVisible(false);
 		sp = new JScrollPane();
@@ -71,6 +79,16 @@ public class ShippingRatePanel extends JPanel {
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(srt.getSelectedRow()!=-1)
+				{
+					srt.getSelectedShippingRate().Delete();
+					srt.refresh();
+				}
+			}
+		});
 		add(btnDelete, "9, 7");
 		add(srf,"2, 8, 8, 1");
 		

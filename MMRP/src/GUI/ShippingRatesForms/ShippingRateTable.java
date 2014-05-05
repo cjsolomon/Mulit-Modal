@@ -24,13 +24,13 @@ public class ShippingRateTable extends JTable {
 	}
 	public void showPanel()
 	{
-		source=ShippingRate.LoadAll("where ShippingRateID < 10");
+		source=ShippingRate.LoadAll("where ShippingRateID > 10");
 		this.setModel(new ShippingRateModel(source));
 		this.setVisible(true);
 	}
 	public void refresh()
 	{
-		source=ShippingRate.LoadAll("where ShippingRateID < 10");
+		source=ShippingRate.LoadAll("where ShippingRateID > 10");
 		this.setModel(new ShippingRateModel(source));
 	}
 	public ShippingRate getSelectedShippingRate()

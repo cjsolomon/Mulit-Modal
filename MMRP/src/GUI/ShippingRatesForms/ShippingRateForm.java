@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import GUI.TableRefreshListener;
+import GUI.TravelTypeSetListener;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -35,9 +38,9 @@ public class ShippingRateForm extends JPanel {
 	private static final long serialVersionUID = 1L;
 	JLabel lblMileRate, lblWeight1, lblFlatRate,lblTravelType,lblCarrier, lblShippingRate, lblID;
 	JTextField txtMileRate,txtWeight1,txtFlatRate, txtID;
-	private JButton btnSaveEdit;
+	private JButton btnSave,btnEdit;
 	
-	private boolean edit = false;
+
 	private JButton btnCancel;
 	private JLabel lblWeight2;
 	private JTextField txtWeight2;
@@ -52,7 +55,8 @@ public class ShippingRateForm extends JPanel {
 	private JTextField txtRate3;
 	private JComboBox cbCarriers;
 	private JLabel lblRank;
-	
+	private ShippingRate source;
+	private ArrayList<TableRefreshListener> refresh = new ArrayList<TableRefreshListener>();
 	public ShippingRateForm() {
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -119,7 +123,7 @@ public class ShippingRateForm extends JPanel {
 		add(txtID, "4,4,left,center");
 		add(lblID, "2, 4, right, center");
 		
-		cbCarriers = new JComboBox();
+		cbCarriers = new JComboBox(Carrier.LoadAll("").toArray());
 		add(cbCarriers, "4, 6, fill, default");
 		
 		add(lblFlatRate,"2,10,right,center");
@@ -131,7 +135,8 @@ public class ShippingRateForm extends JPanel {
 		add(lblWeight1,"2,14,right,center");
 		add(txtWeight1, "4,14,right,center");
 		
-		btnSaveEdit = new JButton("Edit");
+		btnEdit = new JButton("Edit");
+		btnSave = new JButton("Save");
 		
 		lblRate1 = new JLabel("Rate 1");
 		add(lblRate1, "7, 14, right, default");
@@ -174,35 +179,46 @@ public class ShippingRateForm extends JPanel {
 		txtRank = new JTextField();
 		add(txtRank, "4, 22, fill, default");
 		txtRank.setColumns(10);
-		add(btnSaveEdit, "4, 25");
+		add(btnSave, "4, 25");
+		add(btnEdit,"4,25");
 		
 		txtID.setEditable(false);
 		
-		this.populateCarrierComboBox();
+		
 		
 		btnCancel = new JButton("Cancel");
-		btnCancel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-			}
-		});
+
 		add(btnCancel, "7, 25");
 		
-
-	
-		btnSaveEdit.setVisible(true);
-		btnSaveEdit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		btnEdit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
 				setEditable();
+				btnSave.setVisible(true);
+				btnEdit.setVisible(false);
 			}
 		});
-		btnCancel = new JButton("Cancel");
+
+		btnSave.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+
+				update();
+				btnSave.setVisible(false);
+				setReadOnly();
+				btnEdit.setVisible(true);
+ 				for(TableRefreshListener t : refresh) t.refreshTable();
+			}
+		});
+	
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(btnSaveEdit.isVisible())
+				if(btnSave.isVisible() && source!=null)
 				{
-					btnSaveEdit.setVisible(true);
+					btnEdit.setVisible(true);
+					btnSave.setVisible(false);
 					setReadOnly();
 				}
 				else
@@ -216,39 +232,71 @@ public class ShippingRateForm extends JPanel {
 
 		public void showPanel()
 		{
+			source=null;
 			setEditable();
+			setNew();
 			this.setVisible(true);
-			this.btnSaveEdit.setText("Save");
+			this.btnSave.setVisible(true);
+			this.btnEdit.setVisible(false);
 		}
 
 		public void showPanel(ShippingRate sr)
 		{
-			displayShippingRate(sr);
+			source=sr;
+			displayShippingRate();
 			setReadOnly();
 			setVisible(true);
-			this.btnSaveEdit.setText("Edit");
+			this.btnEdit.setVisible(true);
+			this.btnSave.setVisible(false);
 		}
 		private void update()
 		{
-			btnSaveEdit.setVisible(false);
-		}
-		
-		private void displayShippingRate(ShippingRate displaySR){
-			this.txtID.setText(String.valueOf(displaySR.getId()));
-			this.txtFlatRate.setText(String.valueOf(displaySR.getFlatRate()));
-			this.txtMileRate.setText(String.valueOf(displaySR.getMileRate()));
-			this.txtRank.setText(String.valueOf(displaySR.getRank()));
-			this.txtRate1.setText(String.valueOf(displaySR.getRate1()));
-			this.txtRate2.setText(String.valueOf(displaySR.getRate2()));
-			this.txtRate3.setText(String.valueOf(displaySR.getRate3()));
-			this.txtWeight1.setText(String.valueOf(displaySR.getWeight1()));
-			this.txtWeight2.setText(String.valueOf(displaySR.getWeight2()));
-			this.txtWeight3.setText(String.valueOf(displaySR.getWeight3()));
-			this.cbCarriers.setSelectedItem(displaySR.getCarrier().getCarrierName());
+			if(source == null)source = new ShippingRate();
 			
-			btnSaveEdit.setVisible(true);
+			source.setCarrier((Carrier)this.cbCarriers.getSelectedItem());
+			source.setFlatRate(Double.parseDouble(this.txtFlatRate.getText()));
+			source.setMileRate(Double.parseDouble(this.txtMileRate.getText()));
+			source.setRank(Integer.parseInt(this.txtRank.getText()));
+			source.setRate1(Double.parseDouble(this.txtRate1.getText()));
+			source.setRate2(Double.parseDouble(this.txtRate2.getText()));
+			source.setRate3(Double.parseDouble(this.txtRate3.getText()));
+			source.setWeight1(Double.parseDouble(this.txtWeight1.getText()));
+			source.setWeight2(Double.parseDouble(this.txtWeight2.getText()));
+			source.setWeight3(Double.parseDouble(this.txtWeight3.getText()));
+			
+			source.Update();
+			
+			this.txtID.setText(String.valueOf(source.getId()));
 		}
 		
+		private void displayShippingRate(){
+			this.txtID.setText(String.valueOf(source.getId()));
+			this.txtFlatRate.setText(String.valueOf(source.getFlatRate()));
+			this.txtMileRate.setText(String.valueOf(source.getMileRate()));
+			this.txtRank.setText(String.valueOf(source.getRank()));
+			this.txtRate1.setText(String.valueOf(source.getRate1()));
+			this.txtRate2.setText(String.valueOf(source.getRate2()));
+			this.txtRate3.setText(String.valueOf(source.getRate3()));
+			this.txtWeight1.setText(String.valueOf(source.getWeight1()));
+			this.txtWeight2.setText(String.valueOf(source.getWeight2()));
+			this.txtWeight3.setText(String.valueOf(source.getWeight3()));
+			this.cbCarriers.setSelectedItem(source.getCarrier());
+		}
+		
+		private void setNew()
+		{
+			this.txtID.setText("");
+			this.txtFlatRate.setText("");
+			this.txtMileRate.setText("");
+			this.txtRank.setText("");
+			this.txtRate1.setText("");
+			this.txtRate2.setText("");
+			this.txtRate3.setText("");
+			this.txtWeight1.setText("");
+			this.txtWeight2.setText("");
+			this.txtWeight3.setText("");
+			this.cbCarriers.setSelectedIndex(-1);
+		}
 		private void setEditable()
 		{
 		
@@ -262,7 +310,8 @@ public class ShippingRateForm extends JPanel {
 			this.txtWeight2.setEditable(true);
 			this.txtWeight3.setEditable(true);
 			this.cbCarriers.setEnabled(true);
-			btnSaveEdit.setVisible(true);
+			btnEdit.setVisible(false);
+			btnSave.setVisible(true);
 		}
 		
 		private void setReadOnly()
@@ -277,27 +326,15 @@ public class ShippingRateForm extends JPanel {
 			this.txtWeight2.setEditable(false);
 			this.txtWeight3.setEditable(false);
 			this.cbCarriers.setEnabled(false);
-			btnSaveEdit.setVisible(true);
+			btnEdit.setVisible(true);
+			btnSave.setVisible(false);
 			
 		}
-		
-		private void populateCarrierComboBox(){
-			
-			try
-			{
-				ArrayList<Map<String,Object>> tmp = BaseClass.executeQuery("Select Distinct CarrierName from Carriers");
-				for(Map m :tmp)
-				{
-					this.cbCarriers.addItem(m.get("CarrierName").toString());
-				}
-			}
-			catch(Exception e)
-			{
-				e.printStackTrace();
-			}
-			this.cbCarriers.setSelectedIndex(-1);
+	
+		public void addTableRefreshListener(TableRefreshListener t)
+		{
+			refresh.add(t);
 		}
-
 
 
 	}
