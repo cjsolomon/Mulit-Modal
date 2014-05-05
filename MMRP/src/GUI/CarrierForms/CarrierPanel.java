@@ -3,6 +3,8 @@ package GUI.CarrierForms;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import GUI.TableRefreshListener;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -44,6 +46,12 @@ public class CarrierPanel extends JPanel {
 		
 		ct=new CarrierTable();
 		cf = new CarrierForm();
+		cf.addTableRefreshListener(new TableRefreshListener(){
+			public void refreshTable()
+			{
+				ct.refresh();
+			}
+		});
 		cf.setVisible(false);
 		ct.setVisible(false);
 		sp = new JScrollPane();
@@ -71,6 +79,16 @@ public class CarrierPanel extends JPanel {
 		add(btnNew, "8, 7");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(ct.getSelectedRow()!=-1)
+				{
+					ct.getSelectedCarrier().Delete();
+					ct.refresh();
+				}
+			}
+		});
 		add(btnDelete, "9, 7");
 		add(cf,"2, 8, 8, 1");
 		

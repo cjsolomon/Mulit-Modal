@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import GUI.TableRefreshListener;
 import GUI.TravelTypeSetListener;
 
 import com.jgoodies.forms.layout.FormLayout;
@@ -26,6 +27,8 @@ import javax.swing.border.MatteBorder;
 import com.jgoodies.forms.layout.Sizes;
 
 import core.Carrier;
+import core.TravelType;
+import core.Vehicle;
 
 import javax.swing.JButton;
 
@@ -59,7 +62,7 @@ public class CarrierForm extends JPanel {
 	private JTextField txtRail;
 	private JCheckBox chckbxFaxNumber;
 	private JCheckBox chckbxEmail;
-	
+	private ArrayList<TableRefreshListener> refresh = new ArrayList<TableRefreshListener>();
 	public CarrierForm() {
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -282,7 +285,39 @@ public class CarrierForm extends JPanel {
 		
 		private void update()
 		{
+			if(source==null)
+			{
+				source = new Carrier();
+			}
+			source.setAreaCode(this.txtAreaCode.getText());
+			source.setAuthorize(Integer.parseInt(this.txtAuthorize.getText()));
+			source.setCarrierCode(this.txtCode.getText());
+			source.setCarrierName(this.txtName.getText());
+			source.setContractDate(this.txtContractDate.getText());
+			source.setEmailAddress(this.txtEmail.getText());
+			source.setFaxNumber(this.txtFaxNumber.getText());
+			source.setInsEndDate(this.txtInsEndDate.getText());
+			source.setSafetyRateDate(this.txtRatingDate.getText());
+			source.setSafetyRating(Integer.parseInt(this.txtSafetyRating.getText()));
+			if(this.chckbxEmail.isSelected())
+				source.setSendByEmailTrue();
+			else
+				source.setSendByEmailFalse();
 			
+			if(this.chckbxFaxNumber.isSelected())
+				source.setSendByFaxTrue();
+			else
+				source.setSendByFaxFalse();
+			
+			
+			source.Update();
+			this.txtID.setText(((Integer)source.getId()).toString());
+			//this.txtID.setText(((Integer)source.getVehicleTypeID()).toString());
+			for(TableRefreshListener r: refresh)
+				r.refreshTable();
+			setReadOnly();
+			btnEdit.setVisible(true);
+			btnSave.setVisible(false);
 		}
 		
 		private void displayCarrier(){
@@ -393,7 +428,12 @@ public class CarrierForm extends JPanel {
 		}
 
 
-
+		public void addTableRefreshListener(TableRefreshListener add)
+		{
+			if(refresh==null)
+				refresh = new ArrayList<TableRefreshListener>();
+			refresh.add(add);
+		}
 	}
 
 

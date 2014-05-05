@@ -24,13 +24,13 @@ public class CarrierTable extends JTable {
 	}
 	public void showPanel()
 	{
-		source=Carrier.LoadAll("where CarrierID < 10");
+		source=Carrier.LoadAll("where CarrierID > 10");
 		this.setModel(new CarrierModel(source));
 		this.setVisible(true);
 	}
 	public void refresh()
 	{
-		source=Carrier.LoadAll("where CarrierID < 10");
+		source=Carrier.LoadAll("where CarrierID > 10");
 		this.setModel(new CarrierModel(source));
 	}
 	public Carrier getSelectedCarrier()

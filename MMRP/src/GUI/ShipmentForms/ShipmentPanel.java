@@ -103,7 +103,10 @@ public class ShipmentPanel extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				if(st.getSelectedRow()!=-1)
+				{
 					st.getSelectedShipment().Delete();
+					st.refresh();
+				}
 			}
 		});
 		add(btnDelete, "9, 7");

@@ -120,6 +120,7 @@ public class RailPanel extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				railTable.getSelectedRail().Delete();
+				railTable.refresh();
 			}
 		});
 		add(btnDelete, "8, 4");

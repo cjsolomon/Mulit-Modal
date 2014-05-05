@@ -121,7 +121,10 @@ public class TruckPanel extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				if(tt.getSelectedRow()!=-1)
+				{
 					tt.getSelectedTruck().Delete();
+					tt.refresh();
+				}
 			}
 		});
 		add(btnDelete, "8, 4");

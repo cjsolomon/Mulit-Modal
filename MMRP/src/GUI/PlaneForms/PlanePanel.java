@@ -123,6 +123,7 @@ public class PlanePanel extends JPanel {
 				if(planeTable.getSelectedRow()!=-1)
 				{
 					planeTable.getSelectedPlane().Delete();
+					planeTable.refresh();
 				}
 			}
 		});
