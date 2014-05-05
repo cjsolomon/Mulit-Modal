@@ -28,7 +28,7 @@ public class CargoTable extends JTable {
 		source=Cargo.LoadAll("");
 		this.setModel(new CargoModel(source));
 	}
-	public Cargo getSelectedTruck()
+	public Cargo getSelectedCargo()
 	{
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
 		for(Cargo t : source)

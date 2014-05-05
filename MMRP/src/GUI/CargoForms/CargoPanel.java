@@ -9,9 +9,9 @@ import javax.swing.JTabbedPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import GUI.SegmentTable;
-import GUI.TravelTypeSelector;
 import GUI.*;
+import GUI.RailForms.RailTable;
+
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -19,12 +19,12 @@ import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JButton;
 
 public class CargoPanel extends JPanel {
-	CargoTable tt;
+	CargoTable cargoTable;
 	JScrollPane sp,sp2;
-	CargoBasicPanel tbp;
+	CargoBasicPanel cargoBasicInfo;
 	private JButton btnDelete;
 	private JButton btnView;
-	private JTabbedPane truckInfo;
+	private JTabbedPane cargoInfo;
 	private JButton btnNew;
 	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
@@ -53,38 +53,48 @@ public class CargoPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		
-		tt=new CargoTable();
-		tt.setVisible(false);
+		cargoTable=new CargoTable();
+		cargoTable.setVisible(false);
 		sp=new JScrollPane();
-		sp.setViewportView(tt);
+		sp.setViewportView(cargoTable);
 		sp.setVisible(false);
 		add(sp,"2, 2, 7, 2");
-		tbp = new CargoBasicPanel();
-		tbp.addRefreshListener(new TableRefreshListener(){
+		cargoBasicInfo = new CargoBasicPanel();
+		cargoBasicInfo.addRefreshListener(new TableRefreshListener(){
 			public void refreshTable()
 			{
-				tt.refresh();
+				cargoTable.refresh();
 			}
 		});
-		tbp.setVisible(false);
+		cargoBasicInfo.addTravelTypeSetListener(new TravelTypeSetListener(){
+			public void setTravelType()
+			{
+				tts.showPanel(cargoBasicInfo.source);
+			}
+		});
+		cargoBasicInfo.setVisible(false);
 		tts= new TravelTypeSelector();
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
 		segments = new SegmentTable();
 		segments.setVisible(false);
 		sp2.setViewportView(segments);
-		truckInfo = new JTabbedPane();
-		truckInfo.addTab("Basic", tbp);
-		truckInfo.addTab("Segments",sp2);
-		truckInfo.addTab("Types",tts);
-		truckInfo.setVisible(false);
+		cargoInfo = new JTabbedPane();
+		cargoInfo.addTab("Basic", cargoBasicInfo);
+		cargoInfo.addTab("Segments",sp2);
+		cargoInfo.addTab("Types",tts);
+		cargoInfo.setVisible(false);
 		
 		btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				truckInfo.setVisible(true);
-				tbp.showPanel();
+				cargoInfo.setVisible(true);
+				cargoBasicInfo.showPanel();
+				segments.showPanel();
+				sp2.setVisible(true);
+				tts.showPanel();
+				cargoInfo.setSelectedIndex(0);
 			}
 		});
 		
@@ -92,14 +102,14 @@ public class CargoPanel extends JPanel {
 		btnView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(tt.getSelectedRow()!=-1)
+				if(cargoTable.getSelectedRow()!=-1)
 				{
-					truckInfo.setVisible(true);
-					tbp.showPanel(tt.getSelectedTruck());
-					segments.showPanel(tt.getSelectedTruck());
+					cargoInfo.setVisible(true);
+					cargoBasicInfo.showPanel(cargoTable.getSelectedCargo());
+					segments.showPanel(cargoTable.getSelectedCargo());
 					sp2.setVisible(true);
-					tts.showPanel(tt.getSelectedTruck());
-					truckInfo.setSelectedIndex(0);
+					tts.showPanel(cargoTable.getSelectedCargo());
+					cargoInfo.setSelectedIndex(0);
 				}
 			}
 		});
@@ -107,21 +117,30 @@ public class CargoPanel extends JPanel {
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(cargoTable.getSelectedRow()!=-1)
+				{
+					cargoTable.getSelectedCargo().Delete();
+				}
+			}
+		});
 		add(btnDelete, "8, 4");
-		add(truckInfo,"2, 5, 7, 1");
+		add(cargoInfo,"2, 5, 7, 1");
 		
 	}
 	public void showPanel()
 	{
 		sp.setVisible(true);
-		tt.showPanel();
-		sp.setViewportView(tt);
+		cargoTable.showPanel();
+		sp.setViewportView(cargoTable);
 		this.setVisible(true);
 	}
 	
 	private void hideControls()
 	{
-		tbp.setVisible(false);
+		cargoBasicInfo.setVisible(false);
 	}
 	
 
