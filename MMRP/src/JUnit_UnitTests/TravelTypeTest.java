@@ -534,7 +534,6 @@ public class TravelTypeTest {
 		Truck test_truck = new Truck();
 		test_truck.setVehicleName("JUnit TravelType.testAddToVehicle1");
 		test_truck.Update();
-		//Test Relies on TravelType with ID of 8000 to be in the database
 		test_type.setTravelTypeMode("TRUCK");	
 		test_type.addToVehicle(test_truck.getId(),"TRUCK");
 		Truck test_truck2 = Truck.Load(test_truck.getId());
@@ -567,19 +566,60 @@ public class TravelTypeTest {
 
 		Assert.assertEquals(test_string, test_type.getTravelTypeName());
 	}
-	
+
 	@Test
 	public void testDelete () {
 		String ttest_string = new String("JUnit TravelTypeTest.testDelete");
 		test_type.setServiceType(ttest_string);
 		test_type.setTravelTypeMode("BIKE");
-		
+
 		test_type.Update();
 		test_type.Delete();
-		
+
 		ArrayList<TravelType> type_list = TravelType.LoadAll("where ServiceType = '" + ttest_string +"'");
 		Assert.assertTrue(type_list.isEmpty());
 		Assert.assertTrue(test_type.isDeleted());
+	}
+
+	@Test
+	public void testLoadNotInVehicle() {
+		Truck test_truck = new Truck();
+		test_truck.setVehicleName("JUnit TravelType.testLoadNotInVehicle");
+		test_truck.Update();
+		test_type.setTravelTypeMode("TRUCK");	
+		test_type.setServiceType("Should not be in list");
+		test_type.addToVehicle(test_truck.getId(),"TRUCK");
+
+		TravelType not_on_truck = new TravelType();
+		not_on_truck.setTravelTypeMode("TRUCK");
+		not_on_truck.setServiceType("Look for me in type_list");
+		not_on_truck.Update();
+		test_type.Update();
+		test_truck.Update();
+
+		ArrayList<TravelType> type_list = TravelType.LoadNotInVehilce(test_truck);
+		boolean flag = false;
+		for (TravelType check : type_list) {
+			if (check.getServiceType().equals("Look for me in type_list"))
+				flag = true;
+		}
+		
+		Assert.assertTrue(flag);
+		
+		for (TravelType check : type_list) {
+			if (check.getServiceType().equals("Should not be in list"))
+				flag = false;
+		}
+		
+		Assert.assertTrue(flag);
+
+		ArrayList<Truck> tList = Truck.LoadAll("where TruckName = 'JUnit TravelType.testLoadNotInVehicle'");
+		for (Truck delete : tList)
+			delete.Delete();
+		test_type.Delete();
+		not_on_truck.Delete();
+
+
 	}
 
 }
