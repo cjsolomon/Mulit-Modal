@@ -28,7 +28,7 @@ public class RailTable extends JTable {
 		source=Rail.LoadAll("");
 		this.setModel(new RailModel(source));
 	}
-	public Rail getSelectedTruck()
+	public Rail getSelectedRail()
 	{
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
 		for(Rail t : source)
