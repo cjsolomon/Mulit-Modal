@@ -37,7 +37,7 @@ public class FormatChecker {
 	 */
 	static public boolean isValidEmail(String address)
 	{
-		/*if(address != null)
+		if(address != null)
 		{
 			Pattern pattern = Pattern.compile("\\S+@\\S+\\.\\S{2,4}");
 			Matcher matcher = pattern.matcher(address);
@@ -54,8 +54,8 @@ public class FormatChecker {
 		{
 			Log.writeLogWarning("Invalid format on email address.");
 			return false;
-		}*/
-		return true;
+		}
+		
 
 	}
 
