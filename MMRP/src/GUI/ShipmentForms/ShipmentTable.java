@@ -41,7 +41,7 @@ public class ShipmentTable extends JTable {
 	{
 		try
 		{
-			src = BaseClass.executeQuery("SELECT ShipmentID, s.Name as StartLocation, e.Name as EndLocation from Shipment sh left join Location s on sh.FromLocationID=s.LocationID left join Location e on sh.ToLocationID = e.LocationID");
+			src = BaseClass.executeQuery("SELECT ShipmentID, s.Name as StartLocation, e.Name as EndLocation, shipper.CompanyName as Shipper from Shipment sh left join Location s on sh.FromLocationID=s.LocationID left join Location e on sh.ToLocationID = e.LocationID left join Shipper shipper on sh.shipper = shipper.ShipperID");
 		}
 		catch(Exception ex)
 		{
@@ -55,7 +55,7 @@ public class ShipmentTable extends JTable {
 	{
 		try
 		{
-			src = BaseClass.executeQuery("SELECT ShipmentID, s.Name as StartLocation, e.Name as EndLocation from Shipment sh left join Location s on sh.FromLocationID=s.LocationID left join Location e on sh.ToLocationID = e.LocationID");
+			src = BaseClass.executeQuery("SELECT ShipmentID, s.Name as StartLocation, e.Name as EndLocation, shipper.CompanyName as Shipper from Shipment sh left join Location s on sh.FromLocationID=s.LocationID left join Location e on sh.ToLocationID = e.LocationID left join Shipper shipper on sh.shipper = shipper.ShipperID");
 		}
 		catch(Exception ex)
 		{
@@ -82,7 +82,7 @@ public class ShipmentTable extends JTable {
 class ShipmentModel extends AbstractTableModel
 {
 	ArrayList<Map<String,Object>> data;
-	String[] columns = {"ID","From","To"};
+	String[] columns = {"ID","Shipper","From","To"};
 	public ShipmentModel(ArrayList<Map<String,Object>> source)
 	{
 		data=source;
@@ -105,10 +105,12 @@ class ShipmentModel extends AbstractTableModel
 			case 0:
 			return data.get(row).get("ShipmentID");
 			case 1:
-			return data.get(row).get("StartLocation");
+				return data.get(row).get("Shipper");
 			case 2:
-			return data.get(row).get("EndLocation");
+			return data.get(row).get("StartLocation");
 			case 3:
+			return data.get(row).get("EndLocation");
+
 			
 			default:
 				return data.get(row).get("ShipmentID");

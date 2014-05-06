@@ -19,6 +19,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class ShipmentPanel extends JPanel {
 	
@@ -73,6 +75,20 @@ public class ShipmentPanel extends JPanel {
 		jp.addTab("History",sp2);
 		add(sp, "2, 2, 8, 5");
 		
+		st.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(st.getSelectedRow()!=-1)
+				{
+					jp.setVisible(true);
+					sp2.setVisible(true);
+					//sht.showPanel(st.getSelectedShipment());
+					sf.showPanel(st.getSelectedShipment());
+						sht.showPanel(st.getSelectedShipment());
+					jp.setSelectedIndex(0);
+				}
+			}
+		});
 		btnView = new JButton("View");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -87,7 +103,7 @@ public class ShipmentPanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "7, 7");
+	//	add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
 		btnNew.addActionListener(new ActionListener() {
