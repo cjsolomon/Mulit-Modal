@@ -49,7 +49,7 @@ public class ShippingRateTable extends JTable {
 	}
 	public ShippingRate getSelectedShippingRate()
 	{
-		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 1).toString());
+		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
 		for(ShippingRate t : source)
 		{
 			if(t.getId()==searchID)
