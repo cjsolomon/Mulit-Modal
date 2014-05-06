@@ -9,6 +9,10 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import core.Carrier;
+import core.Shipment;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -22,7 +26,7 @@ public class CarrierPanel extends JPanel {
 	private JButton btnDelete;
 	private JButton btnNew;
 	private JButton btnView;
-	public CarrierPanel()
+	public CarrierPanel(final GUI.Main_Source main)
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -65,6 +69,7 @@ public class CarrierPanel extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				if(ct.getSelectedRow()!=-1)
 				{
+					main.setCarrier(0);
 					cf.showPanel(ct.getSelectedCarrier());
 				}
 			}
@@ -103,6 +108,27 @@ public class CarrierPanel extends JPanel {
 		cf.setVisible(false);
 		setVisible(true);
 		
+	}
+	
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			ct.showPanel();
+			cf.setVisible(false);
+			setVisible(true);
+			main.setCarrier(0);
+		}else{
+			//btnView.doClick();
+			Carrier carrier = Carrier.Load(id);
+			ct.showPanel();
+			//sht.showPanel(st.getSelectedShipment());
+			cf.showPanel(carrier);
+			sp.setVisible(true);
+			setVisible(true);
+			main.setCarrier(0);
+		}
 	}
 	
 	

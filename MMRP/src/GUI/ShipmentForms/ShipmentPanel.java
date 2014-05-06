@@ -8,6 +8,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import core.Shipment;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -28,7 +31,7 @@ public class ShipmentPanel extends JPanel {
 	private JButton btnNew;
 	private JButton btnView;
 	
-	public ShipmentPanel()
+	public ShipmentPanel(final GUI.Main_Source main)
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -50,7 +53,7 @@ public class ShipmentPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		st=new ShipmentTable();
+		st=new ShipmentTable(main);
 		sf = new ShipmentForm();
 		jp = new JTabbedPane();
 		sht = new ShipmentHistoryTable();
@@ -114,12 +117,29 @@ public class ShipmentPanel extends JPanel {
 		add(jp,"2, 8, 8, 1");
 		
 	}
-	public void showPanel()
+	public void showPanel(int id, final GUI.Main_Source main)
 	{
-		sp.setVisible(true);
-		st.showPanel();
-		sf.setVisible(false);
-		setVisible(true);
+		
+		if(id == 0){
+			sp.setVisible(true);
+			st.showPanel();
+			sf.setVisible(false);
+			setVisible(true);
+			main.setShipment(0);
+		}else{
+			//btnView.doClick();
+			Shipment shipment = Shipment.Load(id);
+			jp.setVisible(true);
+			sp2.setVisible(true);
+			st.showPanel();
+			//sht.showPanel(st.getSelectedShipment());
+			sf.showPanel(shipment);
+			sht.showPanel(shipment);
+			jp.setSelectedIndex(0);
+			sp.setVisible(true);
+			setVisible(true);
+			main.setShipment(0);
+		}
 	}
 
 }

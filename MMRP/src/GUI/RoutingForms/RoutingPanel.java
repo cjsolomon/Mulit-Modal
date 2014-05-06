@@ -43,7 +43,7 @@ public class RoutingPanel extends JPanel
 	private JLabel lblShipmentsTo;
 	private JLabel lblSelectTheAlgorithms;
 	private JLabel lblBestRouteFound;
-	public RoutingPanel()
+	public RoutingPanel(final GUI.Main_Source main)
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -71,12 +71,12 @@ public class RoutingPanel extends JPanel
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("max(16dlu;default)"),}));
 		
-		st=new ShipmentTable();
+		st=new ShipmentTable(main);
 		st.setVisible(false);
 		sp = new JScrollPane();
 		sp.setViewportView(st);
 		sp.setVisible(false);
-		rt = new RouteTable();
+		rt = new RouteTable(main);
 		rt.setVisible(false);
 
 		st.getSelectionModel().addListSelectionListener(new ListSelectionListener(){

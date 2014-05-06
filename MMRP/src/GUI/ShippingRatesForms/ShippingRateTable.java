@@ -1,5 +1,7 @@
 package GUI.ShippingRatesForms;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
@@ -14,13 +16,25 @@ public class ShippingRateTable extends JTable {
 	ArrayList<ShippingRate> source = new ArrayList<ShippingRate>();
 
 
-	public ShippingRateTable()
+	public ShippingRateTable(final GUI.Main_Source main)
 	{
 		super();
 		this.setModel(new ShippingRateModel(new ArrayList<ShippingRate>()));
 		this.getColumnModel().getColumn(0).setWidth(10);
 		this.getColumnModel().getColumn(1).setWidth(10);
 		this.getColumnModel().getColumn(2).setWidth(10);
+		
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		            System.out.println("Double click detected");
+		            ArrayList<Carrier> carrier = Carrier.LoadAll("where CarrierName = '" +ShippingRateTable.this.getValueAt(ShippingRateTable.this.getSelectedRow(), 1)+ "'");
+		            main.setCarrier(carrier.get(0).getId());
+		            main.getCarrierButton().doClick();
+		        }
+		    }
+		});
 	}
 	public void showPanel()
 	{
@@ -35,7 +49,7 @@ public class ShippingRateTable extends JTable {
 	}
 	public ShippingRate getSelectedShippingRate()
 	{
-		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
+		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 1).toString());
 		for(ShippingRate t : source)
 		{
 			if(t.getId()==searchID)

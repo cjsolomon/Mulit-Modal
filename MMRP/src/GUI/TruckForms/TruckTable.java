@@ -1,14 +1,16 @@
 package  GUI.TruckForms;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 import core.Truck;
 public class TruckTable extends JTable {
-
+	
 	ArrayList<Truck> source;
-	public TruckTable()
+	public TruckTable(final GUI.Main_Source main)
 	{
 		super();
 		this.setModel(new TruckModel(new ArrayList<Truck>()));
@@ -16,6 +18,7 @@ public class TruckTable extends JTable {
 		this.getColumnModel().getColumn(1).setWidth(10);
 		this.getColumnModel().getColumn(2).setWidth(10);
 		this.getColumnModel().getColumn(3).setWidth(10);
+		
 	}
 	public void showPanel()
 	{

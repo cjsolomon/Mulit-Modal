@@ -239,6 +239,7 @@ public class ShippingRateForm extends JPanel {
 		this.txtWeight1.setToolTipText("This is the first category of shipment weight");
 		this.txtWeight2.setToolTipText("This is the second category of shipment weight");
 		this.txtWeight3.setToolTipText("This is the third category of shipment weight");
+		
 	
 		}
 

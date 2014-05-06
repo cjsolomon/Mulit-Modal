@@ -22,7 +22,7 @@ public class ShippingRatePanel extends JPanel {
 	private JButton btnDelete;
 	private JButton btnNew;
 	private JButton btnView;
-	public ShippingRatePanel()
+	public ShippingRatePanel(final GUI.Main_Source main)
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -44,7 +44,7 @@ public class ShippingRatePanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
-		srt=new ShippingRateTable();
+		srt=new ShippingRateTable(main);
 		srf = new ShippingRateForm();
 		srf.addTableRefreshListener(new TableRefreshListener(){
 			public void refreshTable()

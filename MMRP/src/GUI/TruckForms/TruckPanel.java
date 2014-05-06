@@ -28,7 +28,7 @@ public class TruckPanel extends JPanel {
 	private JButton btnNew;
 	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
-	public TruckPanel()
+	public TruckPanel(final GUI.Main_Source main)
 	{
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -53,7 +53,7 @@ public class TruckPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		
-		tt=new TruckTable();
+		tt=new TruckTable(main);
 		tt.setVisible(false);
 		sp=new JScrollPane();
 		sp.setViewportView(tt);
@@ -85,6 +85,7 @@ public class TruckPanel extends JPanel {
 			}
 		});
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click to create a new Truck");
 		btnNew.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -94,10 +95,12 @@ public class TruckPanel extends JPanel {
 				sp2.setVisible(true);
 				tts.showPanel();
 				truckInfo.setSelectedIndex(0);
+				tt.refresh();
 			}
 		});
 		
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click to view the selected Truck");
 		btnView.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -109,6 +112,7 @@ public class TruckPanel extends JPanel {
 					sp2.setVisible(true);
 					tts.showPanel(tt.getSelectedTruck());
 					truckInfo.setSelectedIndex(0);
+					
 				}
 			}
 		});
@@ -116,6 +120,7 @@ public class TruckPanel extends JPanel {
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click to delete the selected Truck");
 		btnDelete.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -144,5 +149,9 @@ public class TruckPanel extends JPanel {
 		tbp.setVisible(false);
 	}
 	
-
+	public void refreshTable()
+	{
+		tt.refresh();
+		
+	}
 }

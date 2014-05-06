@@ -1,5 +1,7 @@
 package GUI.ShipmentForms;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -15,13 +17,25 @@ public class ShipmentTable extends JTable {
 	ArrayList<Shipment> source = new ArrayList<Shipment>();
 
 	ArrayList<Map<String,Object>> src = new ArrayList<Map<String,Object>>();
-	public ShipmentTable()
+	public ShipmentTable(final GUI.Main_Source main)
 	{
 		super();
 		this.setModel(new ShipmentModel(new ArrayList<Map<String,Object>>()));
 		this.getColumnModel().getColumn(0).setWidth(10);
 		this.getColumnModel().getColumn(1).setWidth(10);
 		this.getColumnModel().getColumn(2).setWidth(10);
+		
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		            System.out.println("Double click detected");
+		            main.setShipment(Integer.parseInt(ShipmentTable.this.getValueAt(ShipmentTable.this.getSelectedRow(), 0).toString()));
+		            main.getShipmentButton().doClick();
+		        }
+		    }
+		});
+		
 	}
 	public void showPanel()
 	{
@@ -51,13 +65,16 @@ public class ShipmentTable extends JTable {
 	}
 	public Shipment getSelectedShipment()
 	{
-		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
-		for(Shipment t : source)
-		{
-			if(t.getId()==searchID)
-				return t;
-		}
-		return null;
+		
+		Shipment shipment = Shipment.Load(Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString()));
+		return shipment;
+		//int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
+		//for(Shipment t : source)
+		//{
+		//	if(t.getId()==searchID)
+		//		return t;
+		//}
+		//return null;
 	}
 }
 

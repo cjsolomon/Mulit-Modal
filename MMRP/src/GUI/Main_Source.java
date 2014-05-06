@@ -78,6 +78,28 @@ public class Main_Source {
 	private JButton btnShipper;
 	private SegmentPanel segmentPanel;
 	private RoutingPanel route;
+	
+	//Interconnecting variables
+	int shipmentID = 0;
+	int carrierID = 0;
+	
+	public JButton getShipmentButton(){
+		return this.btnShipments;
+	}
+	
+	public void setShipment(int id){
+		shipmentID = id;
+	}
+	
+	public JButton getCarrierButton(){
+		return this.btnCarriers;
+	}
+	
+	public void setCarrier(int id){
+		carrierID = id;
+	}
+
+	
 	/**
 	 * Launch the application.
 	 */
@@ -114,19 +136,19 @@ public class Main_Source {
 		frmMmrp.setBackground(new Color(255, 255, 255));
 		frmMmrp.setBounds(100, 100, 1163, 978);
 		frmMmrp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		shpFrm=new ShipmentPanel();
+		shpFrm=new ShipmentPanel(this);
 		shpFrm.setVisible(false);
 		locationForm = new LocationPanel();
 		locationForm.setVisible(false);
 		segmentPanel = new SegmentPanel();
 		segmentPanel.setVisible(false);
-		cp = new CarrierPanel();
+		cp = new CarrierPanel(this);
 		cp.setVisible(false);
 		sp = new ShipperPanel();
 		sp.setVisible(false);
-		srp = new ShippingRatePanel();
+		srp = new ShippingRatePanel(this);
 		srp.setVisible(false);
-		truckForm=new TruckPanel();
+		truckForm=new TruckPanel(this);
 		truckForm.setVisible(false);
 		railForm = new RailPanel();
 		railForm.setVisible(false);
@@ -142,7 +164,7 @@ public class Main_Source {
 		rtp.setVisible(false);
 		ctp = new CargoTypePanel();
 		ctp.setVisible(false);
-		route = new RoutingPanel();
+		route = new RoutingPanel(this);
 		route.setVisible(false);
 		/*
 		 * Code defined here is for the shipments button
@@ -208,7 +230,7 @@ public class Main_Source {
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
-				shpFrm.showPanel();
+				shpFrm.showPanel(shipmentID, GUI.Main_Source.this);
 				enableButtons();
 				btnShipments.setEnabled(false);
 				lblFormLabel.setText("Shipments");
@@ -374,7 +396,7 @@ public class Main_Source {
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
-				cp.showPanel();
+				cp.showPanel(carrierID, GUI.Main_Source.this);
 				enableButtons();
 				btnCarriers.setEnabled(false);
 				lblFormLabel.setText("Carriers");
@@ -439,6 +461,7 @@ public class Main_Source {
 				
 			}
 		});
+		
 		frmMmrp.getContentPane().add(btnRouting, "2, 32, fill, fill");
 		final JButton btnExit = new JButton("Exit");
 		btnExit.setToolTipText("Click here to exit MMRP");

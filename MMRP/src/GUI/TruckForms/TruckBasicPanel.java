@@ -69,6 +69,7 @@ public class TruckBasicPanel extends JPanel {
 		add(cmbCarrier,"4, 6, 2, 1");
 		
 		btnEdit = new JButton("Edit");
+		btnEdit.setToolTipText("Click this button to edit the Truck");
 		btnEdit.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -79,6 +80,7 @@ public class TruckBasicPanel extends JPanel {
 		});
 		add(btnEdit, "4, 8");
 		btnSave = new JButton("Save");
+		btnSave.setToolTipText("Click this button to save any changes");
 		btnSave.setVisible(false);
 		btnSave.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
@@ -98,6 +100,7 @@ public class TruckBasicPanel extends JPanel {
 		add(btnSave,"4,8");
 		
 		btnCancel = new JButton("Cancel");
+		btnCancel.setToolTipText("Click this button to cancel any changes");
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
@@ -116,6 +119,13 @@ public class TruckBasicPanel extends JPanel {
 			}
 		});
 		add(btnCancel, "5, 8");
+		
+		//Tool tips
+		this.cmbCarrier.setToolTipText("This is the owner of the Truck");
+		this.cmbStatus.setToolTipText("This is the current status of the Truck");
+		this.txtName.setToolTipText("This is the name of the Truck");
+	
+		
 	}
 	public void showPanel()
 	{

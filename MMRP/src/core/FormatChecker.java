@@ -55,11 +55,6 @@ public class FormatChecker {
 			Log.writeLogWarning("Invalid format on email address.");
 			return false;
 		}
-<<<<<<< HEAD
-		
-
-=======
->>>>>>> a431adb53519fb2efe947563bce005685b519b15
 	}
 
 	/**

@@ -75,6 +75,7 @@ public class TruckTypePanel extends JPanel {
 		sp.setVisible(false);
 		add(sp,"2, 2, 21, 12");
 		btnView = new JButton("View");
+		btnView.setToolTipText("Click to view selected Truck Type");
 		btnView.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ttt.getSelectedRow()!=-1)
@@ -84,6 +85,7 @@ public class TruckTypePanel extends JPanel {
 		add(btnView, "18, 14");
 		
 		btnNew = new JButton("New");
+		btnNew.setToolTipText("Click to create a new Truck Type");
 		btnNew.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tt.showPanel();
@@ -93,6 +95,7 @@ public class TruckTypePanel extends JPanel {
 		add(btnNew, "20, 14");
 		
 		btnDelete = new JButton("Delete");
+		btnDelete.setToolTipText("Click to delete the selected Truck Type");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(ttt.getSelectedRow()!=-1)

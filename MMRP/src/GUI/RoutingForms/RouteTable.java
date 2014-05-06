@@ -2,10 +2,14 @@ package GUI.RoutingForms;
 
 import javax.swing.JTable;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+
+import GUI.TruckForms.TruckTable;
 
 
 
@@ -16,13 +20,25 @@ public class RouteTable extends JTable {
 	ArrayList<Segment> source = new ArrayList<Segment>();
 
 
-	public RouteTable()
+	public RouteTable(final GUI.Main_Source main)
 	{
 		super();
 		this.setModel(new RouteTableModel(new ArrayList<Segment>()));
 		this.getColumnModel().getColumn(0).setWidth(10);
 		this.getColumnModel().getColumn(1).setWidth(10);
 		this.getColumnModel().getColumn(2).setWidth(10);
+		
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		            System.out.println("Double click detected");
+		            main.setShipment(Integer.parseInt(RouteTable.this.getValueAt(RouteTable.this.getSelectedRow(), 0).toString()));
+		            main.getShipmentButton().doClick();
+		        }
+		    }
+		});
+		
 	}
 	public void showPanel(ArrayList<Segment> segs)
 	{
