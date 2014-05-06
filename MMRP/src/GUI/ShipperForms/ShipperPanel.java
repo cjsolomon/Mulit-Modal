@@ -9,6 +9,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import core.Shipper;
+
 import javax.swing.JLabel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
@@ -104,5 +107,24 @@ public class ShipperPanel extends JPanel {
 		setVisible(true);
 		
 	}
-
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			st.showPanel();
+			sf.setVisible(false);
+			setVisible(true);
+			main.setShipment(0);
+		}else{
+			//btnView.doClick();
+			Shipper shipment = Shipper.Load(id);
+			st.showPanel();
+			//sht.showPanel(st.getSelectedShipment());
+			sf.showPanel(shipment);
+			sp.setVisible(true);
+			setVisible(true);
+			main.setShipment(0);
+		}
+	}
 }

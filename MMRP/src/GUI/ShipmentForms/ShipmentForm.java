@@ -63,8 +63,9 @@ public class ShipmentForm extends JPanel
 	 */
 
 	private JTextField txtLatestArrival;
+	private JButton btnGoToShipper;
 
-	public ShipmentForm()
+	public ShipmentForm(final GUI.Main_Source main)
 	{
 
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -82,13 +83,13 @@ public class ShipmentForm extends JPanel
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(43dlu;default)"),},
-				new RowSpec[] {
+				ColumnSpec.decode("max(55dlu;default)"),},
+			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
-				RowSpec.decode("max(103dlu;default)"),
+				RowSpec.decode("max(106dlu;default)"),
 				FormFactory.UNRELATED_GAP_ROWSPEC,
-				RowSpec.decode("max(25dlu;default)"),
+				RowSpec.decode("max(29dlu;default)"),
 				RowSpec.decode("max(23dlu;default)"),
 				RowSpec.decode("max(157dlu;default)"),
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -111,9 +112,11 @@ public class ShipmentForm extends JPanel
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
-				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),},
-				new RowSpec[] {
+				FormFactory.DEFAULT_COLSPEC,
+				FormFactory.RELATED_GAP_COLSPEC,},
+			new RowSpec[] {
+				FormFactory.RELATED_GAP_ROWSPEC,
+				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
 				FormFactory.RELATED_GAP_ROWSPEC,
@@ -196,7 +199,16 @@ public class ShipmentForm extends JPanel
 		shipperPanel.add(lblPrefCarriers,"2,12,right,center");
 		shipperPanel.add(txtPrefCarriers,"4, 12, 5, 1");
 
-		add(shipperPanel, "2, 2, 14, 2");
+		add(shipperPanel, "2, 2, 14, 3");
+		
+		btnGoToShipper = new JButton("Go To Shipper");
+		btnGoToShipper.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				main.setShipper(selectedShipper.getID());
+				main.getShipperButton().doClick();
+			}
+		});
+		shipperPanel.add(btnGoToShipper, "13, 12");
 
 		shipmentPanel = new JPanel();
 		shipmentPanel.setLayout(new FormLayout(new ColumnSpec[] {
@@ -437,7 +449,7 @@ public class ShipmentForm extends JPanel
 
 		source.setMaxStops(Integer.parseInt(this.txtMaxStops.getText()));
 		source.setPrefCarrier(this.txtPrefCarriers.getText());
-		source.setPriority((int)this.cmbPriority.getSelectedItem());
+		source.setPriority((Integer)this.cmbPriority.getSelectedItem());
 		source.setShipperID(selectedShipper.getID());
 		source.setSize(Double.parseDouble(this.txtSize.getText()));
 		if(this.chkTolls.isSelected())

@@ -19,6 +19,8 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -56,7 +58,7 @@ public class ShipmentPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		st=new ShipmentTable(main);
-		sf = new ShipmentForm();
+		sf = new ShipmentForm(main);
 		jp = new JTabbedPane();
 		sht = new ShipmentHistoryTable();
 		sht.setVisible(false);
@@ -73,6 +75,22 @@ public class ShipmentPanel extends JPanel {
 		sp2.setVisible(false);
 		jp.addTab("Info", sf);
 		jp.addTab("History",sp2);
+		
+		jp.getModel().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e)
+			{
+				if(jp.getSelectedIndex()==0)
+				{
+					sf.setVisible(true);
+					sp2.setVisible(false);
+				}
+				else
+				{
+					sf.setVisible(false);
+					sp2.setVisible(true);
+				}
+			}
+		});
 		add(sp, "2, 2, 8, 5");
 		
 		st.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
@@ -83,9 +101,11 @@ public class ShipmentPanel extends JPanel {
 					jp.setVisible(true);
 					sp2.setVisible(true);
 					//sht.showPanel(st.getSelectedShipment());
+					
+					sht.showPanel(st.getSelectedShipment());
 					sf.showPanel(st.getSelectedShipment());
-						sht.showPanel(st.getSelectedShipment());
-					jp.setSelectedIndex(0);
+					sp2.setVisible(false);
+					jp.setSelectedComponent(sf);
 				}
 			}
 		});

@@ -82,7 +82,17 @@ public class Main_Source {
 	//Interconnecting variables
 	int shipmentID = 0;
 	int carrierID = 0;
+	int shipperID =0;
 	
+	public JButton getShipperButton()
+	{
+		return this.btnShipper;
+	}
+	
+	public void setShipper(int id)
+	{
+		shipperID=id;
+	}
 	public JButton getShipmentButton(){
 		return this.btnShipments;
 	}
@@ -220,7 +230,9 @@ public class Main_Source {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				RowSpec.decode("45px"),
 				FormFactory.RELATED_GAP_ROWSPEC,
-				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("31dlu", false), Sizes.constant("40dlu", false)), 0),}));
+				new RowSpec(RowSpec.CENTER, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("31dlu", false), Sizes.constant("40dlu", false)), 0),
+				FormFactory.RELATED_GAP_ROWSPEC,
+				RowSpec.decode("max(39dlu;default)"),}));
 		
 		btnShipments = new JButton("Shipments");
 		btnShipments.setToolTipText("Click here to view Shipment information");
@@ -253,21 +265,21 @@ public class Main_Source {
 		frmMmrp.getContentPane().add(separator, "5, 1, 1, 34");
 
 		
-		frmMmrp.getContentPane().add(shpFrm, "6, 4, 11, 31");//, row, colSpan, rowSpan)"4,4,fill,fill");
-		frmMmrp.getContentPane().add(locationForm,"6, 4, 11, 31");
-		frmMmrp.getContentPane().add(truckForm,"6, 4, 11, 31");
-		frmMmrp.getContentPane().add(railForm,"6, 4, 11, 31");
-		frmMmrp.getContentPane().add(planeForm,"6, 4, 11, 31");
-		frmMmrp.getContentPane().add(cargoForm,"6, 4, 11, 31");
-		frmMmrp.getContentPane().add(ttp,"6,4,11,31");
-		frmMmrp.getContentPane().add(rtp,"6,4,11,31");
-		frmMmrp.getContentPane().add(ctp,"6,4,11,31");
-		frmMmrp.getContentPane().add(ptp,"6,4,11,31");
-		frmMmrp.getContentPane().add(cp, "6, 4, 11, 31");
-		frmMmrp.getContentPane().add(srp, "6, 4, 11, 31");
-		frmMmrp.getContentPane().add(sp, "6, 4, 11, 31");
-		frmMmrp.getContentPane().add(segmentPanel, "6, 4, 11, 31");
-		frmMmrp.getContentPane().add(route,"6,4,11,31");
+		frmMmrp.getContentPane().add(shpFrm, "6, 4, 11, 33");//, row, colSpan, rowSpan)"4,4,fill,fill");
+		frmMmrp.getContentPane().add(locationForm,"6, 4, 11, 33");
+		frmMmrp.getContentPane().add(truckForm,"6, 4, 11, 33");
+		frmMmrp.getContentPane().add(railForm,"6, 4, 11, 33");
+		frmMmrp.getContentPane().add(planeForm,"6, 4, 11, 33");
+		frmMmrp.getContentPane().add(cargoForm,"6, 4, 11, 33");
+		frmMmrp.getContentPane().add(ttp,"6,4,11,33");
+		frmMmrp.getContentPane().add(rtp,"6,4,11,33");
+		frmMmrp.getContentPane().add(ctp,"6,4,11,33");
+		frmMmrp.getContentPane().add(ptp,"6,4,11,33");
+		frmMmrp.getContentPane().add(cp, "6, 4, 11, 33");
+		frmMmrp.getContentPane().add(srp, "6, 4, 11, 33");
+		frmMmrp.getContentPane().add(sp, "6, 4, 11, 33");
+		frmMmrp.getContentPane().add(segmentPanel, "6, 4, 11, 33");
+		frmMmrp.getContentPane().add(route,"6,4,11,33");
 		btnLocations = new JButton("Locations");
 		btnLocations.setToolTipText("Click here to view Location information");
 		btnLocations.addActionListener(new ActionListener()
@@ -426,7 +438,7 @@ public class Main_Source {
 			public void actionPerformed(ActionEvent e)
 			{
 				hidePanels();
-				sp.showPanel();
+				sp.showPanel(shipperID, GUI.Main_Source.this);
 				enableButtons();
 				btnShipper.setEnabled(false);
 				lblFormLabel.setText("Shippers");
