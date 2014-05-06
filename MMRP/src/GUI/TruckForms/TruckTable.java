@@ -3,52 +3,79 @@ package  GUI.TruckForms;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
+
+import GUI.ShipmentForms.ShipmentTable;
+
+import core.BaseClass;
 import core.Truck;
 public class TruckTable extends JTable {
 	
 	ArrayList<Truck> source;
+	ArrayList<Map<String,Object>> src = new ArrayList<Map<String,Object>>();
 	public TruckTable(final GUI.Main_Source main)
 	{
 		super();
-		this.setModel(new TruckModel(new ArrayList<Truck>()));
+		this.setModel(new TruckModel(src));
 		this.getColumnModel().getColumn(0).setWidth(10);
 		this.getColumnModel().getColumn(1).setWidth(10);
 		this.getColumnModel().getColumn(2).setWidth(10);
 		this.getColumnModel().getColumn(3).setWidth(10);
-		
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		            System.out.println("Double click detected");
+		            TruckModel ttm = (TruckModel)getModel();
+		            main.setCarrier(ttm.getCarrierID(getSelectedRow()));
+		            main.getCarrierButton().doClick();
+		        }
+		    }
+		});
 	}
 	public void showPanel()
 	{
-		source=Truck.LoadAll("where TruckID < 100");
-		this.setModel(new TruckModel(source));
+		try
+		{
+			src = BaseClass.executeQuery("Select t.TruckID as ID, c.CarrierName as Carrier, t.status as Status ,t.TruckName as Name,c.CarrierID as CID from truck t left join carriers c on t.carrier=c.CarrierID where t.Deleted=false");
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		//source=Truck.LoadAll("where TruckID < 100");
+		this.setModel(new TruckModel(src));
 		this.setVisible(true);
 	}
 	public void refresh()
 	{
-		source=Truck.LoadAll("where TruckID < 100");
-		this.setModel(new TruckModel(source));
+		try
+		{
+			src = BaseClass.executeQuery("Select t.TruckID as ID, c.CarrierName as Carrier, t.status as Status ,t.TruckName as Name,c.CarrierID as CID from truck t left join carriers c on t.carrier=c.CarrierID where t.Deleted=false");
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		this.setModel(new TruckModel(src));
 	}
 	public Truck getSelectedTruck()
 	{
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(), 0).toString());
-		for(Truck t : source)
-		{
-			if(t.getId()==searchID)
-				return t;
-		}
-		return null;
+		return Truck.Load(searchID);
+		
 	}
 }
 
 
 class TruckModel extends AbstractTableModel
 {
-	ArrayList<Truck> data;
+	ArrayList<Map<String,Object>> data;
 	String[] columns = {"ID","Carrier","Status","Name"};
-	public TruckModel(ArrayList<Truck> source)
+	public TruckModel(ArrayList<Map<String,Object>> source)
 	{
 		data=source;
 	}
@@ -66,20 +93,24 @@ class TruckModel extends AbstractTableModel
 		switch(col)
 		{
 			case 0:
-			return data.get(row).getId();
+			return data.get(row).get("ID");
 			case 1:
-			return data.get(row).getCarrier().getCarrierName();
+			return data.get(row).get("Carrier");
 			case 2:
-			return data.get(row).getStatus();
+			return data.get(row).get("Status");
 			case 3:
-			return data.get(row).getVehicleName();
+			return data.get(row).get("Name");
 			default:
-				return data.get(row).getVehicleName();
+				return data.get(row).get("ID");
 		}
 	}
 	@Override
 	public String getColumnName(int column) {
 		return columns[column];
+	}
+	public int getCarrierID(int row)
+	{
+		return Integer.parseInt(data.get(row).get("CID").toString());
 	}
 
 }

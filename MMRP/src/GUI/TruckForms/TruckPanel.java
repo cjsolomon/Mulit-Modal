@@ -6,10 +6,11 @@ import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-import GUI.SegmentTable;
 import GUI.*;
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
@@ -84,6 +85,33 @@ public class TruckPanel extends JPanel {
 				tts.showPanel(tbp.source);
 			}
 		});
+		truckInfo.getModel().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e)
+			{
+				if(truckInfo.getSelectedIndex()==0)
+				{
+					tbp.setVisible(true);
+					sp2.setVisible(false);
+					tts.setVisible(false);
+				}
+				else
+				{
+					if(truckInfo.getSelectedIndex()==1)
+					{
+						tbp.setVisible(false);
+						sp2.setVisible(true);
+						tts.setVisible(false);
+					}
+					else
+					{
+						tbp.setVisible(false);
+						sp2.setVisible(false);
+						tts.setVisible(true);
+					}
+				}
+				
+			}
+		});
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click to create a new Truck");
 		btnNew.addActionListener(new ActionListener(){
@@ -98,7 +126,21 @@ public class TruckPanel extends JPanel {
 				tt.refresh();
 			}
 		});
-		
+		tt.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(tt.getSelectedRow()!=-1)
+				{
+					truckInfo.setVisible(true);
+					tbp.showPanel(tt.getSelectedTruck());
+					segments.showPanel(tt.getSelectedTruck());
+					sp2.setVisible(true);
+					tts.showPanel(tt.getSelectedTruck());
+					tts.setVisible(false);
+					truckInfo.setSelectedComponent(tbp);
+				}
+			}
+		});
 		btnView = new JButton("View");
 		btnView.setToolTipText("Click to view the selected Truck");
 		btnView.addActionListener(new ActionListener(){
@@ -116,7 +158,7 @@ public class TruckPanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "5, 4");
+		//add(btnView, "5, 4");
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");
