@@ -83,6 +83,7 @@ public class Main_Source {
 	int shipmentID = 0;
 	int carrierID = 0;
 	int shipperID =0;
+	int segmentID=0;
 	
 	public JButton getShipperButton()
 	{
@@ -92,6 +93,15 @@ public class Main_Source {
 	public void setShipper(int id)
 	{
 		shipperID=id;
+	}
+	public JButton getSegmentButton()
+	{
+		return this.btnSegments;
+	}
+	
+	public void setSegment(int id)
+	{
+		segmentID=id;
 	}
 	public JButton getShipmentButton(){
 		return this.btnShipments;
@@ -452,9 +462,10 @@ public class Main_Source {
 		btnSegments.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
+				
 				hidePanels();
 				enableButtons();
-				segmentPanel.showPanel();
+				segmentPanel.showPanel(segmentID,GUI.Main_Source.this);
 				lblFormLabel.setText("Segments");
 				btnSegments.setEnabled(false);
 			}

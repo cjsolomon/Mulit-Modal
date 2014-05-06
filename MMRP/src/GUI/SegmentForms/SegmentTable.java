@@ -48,6 +48,13 @@ public class SegmentTable extends JTable {
 		setVisible(true);
 	}
 	
+	public void showPanel()
+	{
+		source =null;
+		this.setModel(new SegmentModel(Segment.LoadAll("")));
+		setVisible(true);
+	}
+	
 	public void showPanel(String sqlWhere) {
 		 	setData(sqlWhere);
 		 	setVisible(true);

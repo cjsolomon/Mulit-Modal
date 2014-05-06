@@ -1,5 +1,7 @@
 package GUI.ShipmentForms;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
@@ -14,13 +16,25 @@ public class ShipmentHistoryTable extends JTable {
 		Shipment source;
 		ArrayList<ShipmentHistory> data;
 
-	public ShipmentHistoryTable()
+	public ShipmentHistoryTable(final GUI.Main_Source main)
 	{
 		super();
 		this.setModel(new ShipmentHistoryModel(new ArrayList<ShipmentHistory>()));
 		this.getColumnModel().getColumn(0).setWidth(10);
 		this.getColumnModel().getColumn(1).setWidth(10);
 		this.getColumnModel().getColumn(2).setWidth(10);
+		
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		            System.out.println("Double click detected");
+		            main.setSegment(getSelectedHistory().getSegmentID());
+		            
+		            main.getSegmentButton().doClick();
+		        }
+		    }
+		});
 	}
 	public void showPanel(Shipment s)
 	{

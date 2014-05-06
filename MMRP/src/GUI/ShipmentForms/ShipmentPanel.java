@@ -60,7 +60,7 @@ public class ShipmentPanel extends JPanel {
 		st=new ShipmentTable(main);
 		sf = new ShipmentForm(main);
 		jp = new JTabbedPane();
-		sht = new ShipmentHistoryTable();
+		sht = new ShipmentHistoryTable(main);
 		sht.setVisible(false);
 		jp.setVisible(false);
 		
