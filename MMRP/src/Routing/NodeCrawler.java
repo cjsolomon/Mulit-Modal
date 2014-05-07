@@ -82,7 +82,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 		//We will enter a while loop until we find a path
 		int tries = 0;
 		while(tries < maxTries && !pathFound){
-			System.out.println("Node Crawler - Current Attempt : " + tries+1 + " of " + maxTries);
+			System.out.println("Node Crawler - Current Attempt : " + (tries+1) + " of " + maxTries);
 			//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
 			if(Math.floor(Math.random() * 100) < precentChanceOfDirectPath){
 				System.out.println("Node Crawler - Attempting Direct Path");
@@ -154,7 +154,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
-			System.out.println("Node Crawler - Checking Segment : " + i+1 + " of " + segmentsToCheck.size());
+			System.out.println("Node Crawler - Checking Segment : " + (i+1) + " of " + segmentsToCheck.size());
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" ||

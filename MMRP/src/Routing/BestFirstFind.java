@@ -82,7 +82,7 @@ public class BestFirstFind extends RoutingAlgorithm{
 			int tries = 0;
 			while(tries < maxTries && !pathFound){
 				
-				System.out.println("Best First Find - Current Attempt : " + tries+1 + " of " + maxTries);
+				System.out.println("Best First Find - Current Attempt : " + (tries+1) + " of " + maxTries);
 				//Attempt to find a direct path from the currentLocation to the end using the best path possible
 				paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 				if(paths.size() > 0){
@@ -150,7 +150,7 @@ public class BestFirstFind extends RoutingAlgorithm{
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
-			System.out.println("Best First Find - Checking Segment :" + i+1 + " of " + segmentsToCheck.size());
+			System.out.println("Best First Find - Checking Segment :" + (i+1) + " of " + segmentsToCheck.size());
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 			   segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" ||

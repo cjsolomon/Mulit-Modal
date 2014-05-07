@@ -160,11 +160,11 @@ public class RailBasicPanel extends JPanel {
 			source.setStatus((Vehicle.Status)cmbStatus.getSelectedItem());
 			source.setCarrier((Carrier)cmbCarrier.getSelectedItem());
 			source.Update();
+			for(TableRefreshListener t : listener)
+				t.refreshTable();
 		}
 		else
 			JOptionPane.showMessageDialog(null, "The name you entered was not an appropriate length. Please enter a name between 1 and 45 characters long.", "Invalid Name", JOptionPane.ERROR_MESSAGE);
-		for(TableRefreshListener t : listener)
-			t.refreshTable();
 	}
 	private void setEditable()
 	{
