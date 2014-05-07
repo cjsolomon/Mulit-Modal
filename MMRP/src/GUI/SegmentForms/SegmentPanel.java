@@ -14,6 +14,9 @@ import core.Shipment;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -66,7 +69,17 @@ public class SegmentPanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "7, 7");
+		st.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(st.getSelectedRow()!=-1)
+				{
+					sf.showPanel(st.getSelectedSegment());
+				}
+			}
+		});
+
+		//add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click to create a new Segment");
@@ -96,7 +109,7 @@ public class SegmentPanel extends JPanel {
 	public void showPanel()
 	{
 		sp.setVisible(true);
-		st.showPanel("where SegmentID > 7999 AND SegmentID < 8001");
+		st.showPanel();
 		sf.setVisible(false);
 		setVisible(true);
 		

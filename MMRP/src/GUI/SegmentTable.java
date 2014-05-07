@@ -3,6 +3,7 @@ package GUI;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Map;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
@@ -15,10 +16,11 @@ public class SegmentTable extends JTable {
 	
 	
 	ArrayList<Segment> segments = new ArrayList<Segment>();
+	ArrayList<Map<String,Object>> src = new ArrayList<Map<String,Object>>();
 	Vehicle source;
 	public SegmentTable(final GUI.Main_Source main) {
 		super();
-		this.setModel(new SegmentModel(new ArrayList<Segment>()));
+		this.setModel(new SegmentModel(src));
 		this.addMouseListener(new MouseAdapter(){
 		    public void mouseClicked(MouseEvent e){
 		    	System.out.println("Mouse click detected");
@@ -32,63 +34,56 @@ public class SegmentTable extends JTable {
 		// setData();
 	}
 
-	public Segment getSelectedVehicle() {
+	public Segment getSelectedSegment() {
 		int searchID = Integer.parseInt(this.getValueAt(this.getSelectedRow(),
 				0).toString());
-		for (int i = 0; i < segments.size(); i++) {
-			if (segments.get(i).getID() == searchID)
-				return segments.get(i);
-		}
-		return null;
+		return Segment.Load(searchID);
 	}
 
-	public void deleteSelectedVehicle() {
-		Segment.Load((Integer)(this.getValueAt(this.getSelectedRow(),0))).Delete();
-		setData();
-	}
-
-	private void setData() {
-
-		segments=source.getSchedule();
-		this.setModel(new SegmentModel(segments));
-	}
 
 	public void showPanel(Vehicle v) {
 		System.out.println("Called vehicle table show");
 		source=v;
 		if(v!=null)
 		{
-			setData();
-	
+			try
+			{
+				src = BaseClass.executeQuery("SELECT sh.SegmentID as ID, s.Name as StartLocation, e.Name as EndLocation, type.VehicleTypeName as Type from Segment sh left join Location s on sh.FromLocationID=s.LocationID left join Location e on sh.ToLocationID = e.LocationID left join TravelTypes type on sh.TravelTypeID = type.VehicleTypeID where sh.Deleted = false and sh.VehicleID ='"+ v.getId() +"' AND sh.ModeType ='"+ v.getTravelMode()+"'");
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			this.setModel(new SegmentModel(src));
 		}
 		else
-			this.setModel(new SegmentModel(new ArrayList<Segment>()));
+			this.setModel(new SegmentModel(new ArrayList<Map<String,Object>>()));
 		
 		setVisible(true);
 	}
 	
 	public void showPanel()
 	{
-		this.setModel(new SegmentModel(new ArrayList<Segment>()));
+		this.setModel(new SegmentModel(new ArrayList<Map<String,Object>>()));
 		setVisible(true);
 	}
-	public void showPanel(String sqlWhere) {
-		 	setData(sqlWhere);
-		 	setVisible(true);
-	}
+	//public void showPanel(String sqlWhere) {
+		 //	setData(sqlWhere);
+		 //	setVisible(true);
+	//}
 
-	private void setData(String sqlWhere) {
+	//private void setData(String sqlWhere) {
 		 
- 		segments= Segment.LoadAll(sqlWhere);
+ 		//segments= Segment.LoadAll(sqlWhere);
 		//segments.addAll(Segment.LoadAll(sqlWhere));
- 		this.setModel(new SegmentModel(segments));
- 	}
+ 	//	this.setModel(new SegmentModel(segments));
+ //	}
 	class SegmentModel extends AbstractTableModel {
 		public String[] columnNames = { "ID","Start", "End", "Type" };
-		public ArrayList<Segment> trucks;
+		public ArrayList<Map<String,Object>> data;
 
-		public SegmentModel(ArrayList<Segment> temp) {
-			trucks = temp;
+		public SegmentModel(ArrayList<Map<String,Object>> temp) {
+			data = temp;
 		}
 
 		public int getColumnCount() {
@@ -96,7 +91,7 @@ public class SegmentTable extends JTable {
 		}
 
 		public int getRowCount() {
-			return trucks.size();
+			return data.size();
 		}
 
 		@Override
@@ -105,17 +100,22 @@ public class SegmentTable extends JTable {
 		}
 
 		public Object getValueAt(int row, int col) {
-			String column = getColumnName(col);
-			Segment t = trucks.get(row);
-			if (column.equals("ID"))
-				return t.getID();
-			if (column.equals("Start"))
-				return t.getStartLocation().getName();
-			if (column.equals("End"))
-				return t.getEndLocation().getName();
-			if(column.equals("Type"))
-				return t.getTravelType().getTravelTypeName();
-			return null;
+			switch(col)
+			{
+		
+			case 0:
+			return data.get(row).get("ID");
+			case 1:
+			return data.get(row).get("StartLocation");
+			case 2:
+			return data.get(row).get("EndLocation");
+			case 3:
+			return data.get(row).get("Type");
+			default:
+				return data.get(row).get("ID");
+
+			}
+
 		}
 
 		@Override

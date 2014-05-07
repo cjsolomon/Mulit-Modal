@@ -105,7 +105,7 @@ public class TruckBasicPanel extends JPanel {
 		btnCancel.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(btnSave.isVisible())
+				if(btnSave.isVisible()&&source!=null)
 				{
 					readOnly();
 					btnSave.setVisible(false);
