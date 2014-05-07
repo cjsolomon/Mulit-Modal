@@ -548,18 +548,11 @@ public class Main_Source {
 			}
 		});
 		
+		btnShipments.doClick();
 	}
 	
 	
-	/**
-	 * Function written to unhide the top buttons when a user has selecetd shipments or vehicles
-	 * @param b1 - The first button to be unhidden
-	 * @param b2 - The second button to be enabled
-	 * @param b3 - The third button to be enabled
-	 * @param b4 - The fourth button to be enabled
-	 */
-	
-	private void hidePanels()
+private void hidePanels()
 	{
 		shpFrm.setVisible(false);
 		this.locationForm.setVisible(false);
@@ -596,16 +589,5 @@ public class Main_Source {
 		this.btnRouting.setEnabled(true);
 		
 	}
-	private static void unhide(JButton b1, JButton b2, JButton b3, JButton b4) {
-		Log.writeLogInfo("Unhiding Top Menu Buttons");
-		if (!b1.isEnabled())
-			b1.setEnabled(true);
-		if (!b2.isEnabled())
-			b2.setEnabled(true);
-		if (!b3.isEnabled())
-			b3.setEnabled(true);
-		if (!b4.isEnabled())
-			b4.setEnabled(true);
-	}
-	
+
 }
