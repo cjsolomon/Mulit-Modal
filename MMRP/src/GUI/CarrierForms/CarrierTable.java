@@ -88,7 +88,11 @@ class CarrierModel extends AbstractTableModel
 			case 2:
 			return data.get(row).get("CarrierCode");
 			case 3:
-			return data.get(row).get("CarrierID");
+				if((Integer)data.get(row).get("SafetyRating") < 33)
+					return "Poor";
+				else if((Integer)data.get(row).get("SafetyRating") < 66)
+					return "Good";
+				else return "Excellent";
 			
 			default:
 				return data.get(row).get("SafetyRating");
