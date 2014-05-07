@@ -11,6 +11,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import GUI.TableRefreshListener;
+import GUI.TravelTypeSetListener;
+
+
 import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
@@ -22,11 +26,13 @@ import core.Location;
 import core.Plane;
 import core.Rail;
 import core.Segment;
+import core.Shipper;
 import core.TravelType;
 import core.Truck;
 import core.Vehicle;
 import core.Vehicle.TravelModes;
 import javax.swing.SwingConstants;
+import com.jgoodies.forms.layout.Sizes;
 
 public class SegmentForm extends JPanel {
 	
@@ -34,9 +40,10 @@ public class SegmentForm extends JPanel {
 	JLabel lblEndCity,lblEndState,lblEndCountry, lblEndLocation;
 	JComboBox<String> cmbToCountries, cmbToStates, cmbToCities;
 	JComboBox<String> cmbFromCities, cmbFromStates, cmbFromCountries, cbTravelModes;
-	
-	boolean editing = false;
-
+	private ComboItem[] vehicles;
+	private ComboItem[] types;
+	private boolean newSegment;
+	private Segment source;
 	private JLabel lblSegmentID;
 	private JTextField txtSegmentID;
 	private JLabel lblVehicleID;
@@ -62,19 +69,23 @@ public class SegmentForm extends JPanel {
 	private JTextField txtEstArrival;
 	private JTextField txtEarlArrival;
 	private JTextField txtLatArrival;
-	private JButton btnCreateNewShipment;
+	private JButton btnSave;
+	private JButton btnEdit;
 	private JButton btnCancel;
 	private JLabel lblTravelType;
-	private JComboBox<String> cbTravelType;
+	private JComboBox cbTravelType;
 	private JLabel lblSegments;
-	
-	public SegmentForm() {
+	private ArrayList<TableRefreshListener> refresh = new ArrayList<TableRefreshListener>(); 
+	private JButton btnGoTo;
+	private JButton btnGoToType;
+
+	public SegmentForm(final GUI.Main_Source main) {
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
 				ColumnSpec.decode("max(58dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
-				ColumnSpec.decode("default:grow"),
-				ColumnSpec.decode("max(44dlu;default)"),
+				new ColumnSpec(ColumnSpec.FILL, Sizes.bounded(Sizes.DEFAULT, Sizes.constant("64dlu", true), Sizes.constant("70dlu", true)), 0),
+				ColumnSpec.decode("max(53dlu;default)"),
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -131,7 +142,10 @@ public class SegmentForm extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				cmbFromStates.removeAllItems();
-				loadStates(cmbFromCountries,cmbFromStates);
+				if(cmbFromCountries.getSelectedIndex()!=-1)
+				{
+					loadStates(cmbFromCountries,cmbFromStates);
+				}
 			}
 		});
 		
@@ -139,7 +153,9 @@ public class SegmentForm extends JPanel {
 		cmbToCountries.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
+				
 				cmbToStates.removeAllItems();
+				if(cmbToCountries.getSelectedIndex()!=-1)
 				loadStates(cmbToCountries,cmbToStates);
 			}
 		});
@@ -149,6 +165,7 @@ public class SegmentForm extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				cmbFromCities.removeAll();
+				if(cmbFromStates.getSelectedIndex()!=-1)
 				loadCities(cmbFromCountries,cmbFromStates,cmbFromCities);
 			}
 		});
@@ -157,6 +174,7 @@ public class SegmentForm extends JPanel {
 			public void actionPerformed(ActionEvent e)
 			{
 				cmbToCities.removeAll();
+				if(cmbToStates.getSelectedIndex()!=-1)
 				loadCities(cmbToCountries,cmbToStates,cmbToCities);
 			}
 		});
@@ -185,7 +203,7 @@ public class SegmentForm extends JPanel {
 		
 		lblMode = new JLabel("Mode");
 		add(lblMode, "2, 6, right, default");
-		cbTravelModes = new JComboBox<String>();
+		cbTravelModes = new JComboBox();
 		add(cbTravelModes, "4, 6, fill, top");
 		
 		
@@ -205,6 +223,51 @@ public class SegmentForm extends JPanel {
 		cbVehicleID.setEditable(false);
 		add(cbVehicleID, "4, 8, fill, default");
 		
+		btnGoTo = new JButton("Go To");
+		btnGoTo.addActionListener(new ActionListener()
+		{
+			public void actionPerformed(ActionEvent e)
+			{
+				if(cbVehicleID.getSelectedIndex()!=-1)
+				{
+					main.setVehicleID(((ComboItem)cbVehicleID.getSelectedItem()).getID());
+					String type = cbTravelModes.getSelectedItem().toString();
+					if(type.equals(Vehicle.TravelModes.TRUCK.toString()))
+			          {
+			          	main.getTruckButton().doClick();
+			          }
+			          else
+			          {
+			          	
+			          	if(type.equals(Vehicle.TravelModes.RAIL.toString()))
+			          	{
+			          		main.getRailButton().doClick();
+			          	}
+			          	else
+			          	{
+			          		
+			          		if(type.equals(Vehicle.TravelModes.CARGO.toString()))
+			          		{
+			          			main.getCargoButton().doClick();
+			          		}
+			          		else
+			          		{
+			          			if(type.equals(Vehicle.TravelModes.PLANE.toString()))
+			          			{
+			          				main.getPlaneButton().doClick();
+			          			}
+			          		}
+			          	}
+			          	
+			          }
+					
+					
+					
+				}
+			}
+		});
+		add(btnGoTo, "5, 8");
+		
 		lblLatestDeparture = new JLabel("Latest Departure");
 		add(lblLatestDeparture, "9, 8, right, default");
 		
@@ -218,6 +281,50 @@ public class SegmentForm extends JPanel {
 		
 		cbTravelType = new JComboBox();
 		add(cbTravelType, "4, 10, fill, default");
+		
+		btnGoToType = new JButton("Go To Type");
+		btnGoToType.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(cbTravelType.getSelectedIndex()!=-1)
+				{
+					main.setTravelTypeID(((ComboItem)cbTravelType.getSelectedItem()).getID());
+					String type = cbTravelModes.getSelectedItem().toString();
+					if(type.equals(Vehicle.TravelModes.TRUCK.toString()))
+			          {
+			          	main.getTruckTravelTypeButton().doClick();
+			          }
+			          else
+			          {
+			          	
+			          	if(type.equals(Vehicle.TravelModes.RAIL.toString()))
+			          	{
+			          		main.getRailTravelTypeButton().doClick();
+			          	}
+			          	else
+			          	{
+			          		
+			          		if(type.equals(Vehicle.TravelModes.CARGO.toString()))
+			          		{
+			          			main.getCargoTravelTypeButton().doClick();
+			          		}
+			          		else
+			          		{
+			          			if(type.equals(Vehicle.TravelModes.PLANE.toString()))
+			          			{
+			          				main.getPlaneTravelTypeButton().doClick();
+			          			}
+			          		}
+			          	}
+			          	
+			          }
+					
+					
+					
+				}
+			}
+		});
+		add(btnGoToType, "5, 10");
 		
 		lblEstArrival = new JLabel("Est. Arrival");
 		add(lblEstArrival, "9, 10, right, default");
@@ -294,19 +401,54 @@ public class SegmentForm extends JPanel {
 		add(lblEndCountry,"9, 22, right, center");
 		add(cmbToCities, "11, 26, fill, top");
 
-		btnCreateNewShipment = new JButton("Save");
-		btnCreateNewShipment.addActionListener(new ActionListener() {
+		btnSave = new JButton("Save");
+		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				setEditable();
+				if(source==null)
+				{
+					update();
+					for(TableRefreshListener t : refresh) t.refreshTable();
+				}
+				else
+					update();
+				btnSave.setVisible(false);
+				setReadOnly();
+				btnEdit.setVisible(true);
+				newSegment=false;
 			}
 		});
-		add(btnCreateNewShipment, "9, 28");
-		
+		add(btnSave, "9, 28");
+		btnEdit = new JButton("Edit");
+		btnEdit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				setEditable();
+				btnSave.setVisible(true);
+				btnEdit.setVisible(false);
+			}
+		});
+		add(btnEdit, "9, 28");
 		btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e)
+			{
+				if(btnSave.isVisible()&& source!=null)
+				{
+					setReadOnly();
+					btnSave.setVisible(false);
+					btnEdit.setVisible(true);
+					
+				}
+				else
+				{
+					setVisible(false);
+				}
+			}
+		});
 		add(btnCancel, "11, 28");
     	
     	
-		this.cbTravelModes.removeAllItems();
+		
 		this.cbTravelModes.addItem("Select...");
 		for(TravelModes t : Vehicle.TravelModes.values())
 			cbTravelModes.addItem(t.toString());
@@ -314,32 +456,18 @@ public class SegmentForm extends JPanel {
 		cbTravelModes.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(cbTravelModes.getSelectedIndex()>0 && !editing)
+				cmbToCountries.removeAllItems();
+				cmbFromCountries.removeAllItems();
+				if(cbTravelModes.getSelectedIndex()>0)
 				{
-					cmbToCountries.removeAllItems();
-					cmbFromCountries.removeAllItems();
+					
 					loadCountries();
 					String mode = cbTravelModes.getSelectedItem().toString();
 					ArrayList<Vehicle> temp = new ArrayList<Vehicle>();
 					cbVehicleID.removeAllItems();
-					if(mode.equals(Vehicle.TravelModes.TRUCK.toString()))
-						temp.addAll(Truck.LoadAll("where TruckID < 10"));
-					if(mode.equals(Vehicle.TravelModes.CARGO.toString()))
-						temp.addAll(Cargo.LoadAll("where CargoID < 10"));
-					if(mode.equals(Vehicle.TravelModes.PLANE))
-						temp.addAll(Plane.LoadAll("where PlaneID < 10"));
-					if(mode.equals(Vehicle.TravelModes.RAIL))
-						temp.addAll(Rail.LoadAll("where RailID < 10"));
-					
-					for(Vehicle v : temp)
-					{
-						cbVehicleID.addItem(v);
-					}
-					
-					
+					loadVehicles(mode);
+					cbVehicleID.setSelectedIndex(-1);
 				}
-				if(editing)
-					editing = !editing;
 				
 			}
 		});
@@ -347,13 +475,12 @@ public class SegmentForm extends JPanel {
 		this.cbVehicleID.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(cbVehicleID.getSelectedIndex()>0)
+				
+				if(cbVehicleID.getSelectedIndex()!=-1)
 				{
-					ArrayList<TravelType> types = new ArrayList<TravelType>();
-					types = ((Vehicle)cbVehicleID.getSelectedItem()).getAvailableTypes();
-					for(int i =0; i <types.size(); i++){
-						cbTravelType.addItem(types.get(i).getTravelTypeName());
-					}
+					cbTravelType.removeAllItems();
+					loadTypes();
+					cbTravelType.setSelectedIndex(-1);
 					
 				}
 				
@@ -362,7 +489,7 @@ public class SegmentForm extends JPanel {
 
     	//Tool tips
 		this.btnCancel.setToolTipText("Click to cancel any changes");
-		this.btnCreateNewShipment.setToolTipText("Click here to create a new Segment");
+		this.btnSave.setToolTipText("Click here to create a new Segment");
 		this.cbTravelModes.setToolTipText("This is the mode of travel over this Segment");
 		this.cbTravelType.setToolTipText("This is the travel type used over the Segment");
 		this.cbVehicleID.setToolTipText("This is the Vehicle being used over the Segment");
@@ -467,54 +594,111 @@ public class SegmentForm extends JPanel {
     	
 	}//End of loadTravelModes()
 	
-	public void showPanel(){
+	public void showPanel()
+	{
+		newSegment=true;
+		source=null;
+		setEditable();
+		setNew();
+		btnSave.setVisible(true);
+		btnEdit.setVisible(false);
 		this.setVisible(true);
 	}
-	
-	public void showPanel(Segment loadSegment){
-		
-		setSegment(loadSegment);
+
+	public void showPanel(Segment s)
+	{
+		newSegment=false;
+		source=s;
+		setSegment();
 		setReadOnly();
-		btnCreateNewShipment.setVisible(true);
-		btnCreateNewShipment.setText("Edit");
+		btnSave.setVisible(false);
+		btnEdit.setVisible(true);
 		setVisible(true);
 	}
 	
+	public void setNew()
+	{
+		this.txtSegmentID.setText("");
+
+		cbTravelModes.setSelectedIndex(-1);
+
+		this.cbVehicleID.setSelectedIndex(-1);
+		
+		this.cbTravelType.setSelectedIndex(-1);
+		
+		this.txtDistance.setText("");
+		this.txtLane.setText("");
+		this.txtRateID.setText("");
+		this.txtActualCapacity.setText("");
+		this.txtEstArrival.setText("");
+		this.txtEarlArrival.setText("");
+		this.txtLatArrival.setText("");
+		this.txtEstDeparture.setText("");
+		this.txtEarlDeparture.setText("");
+		this.txtLatDeparture.setText("");
+		
+		this.cmbFromCountries.removeAll();
+		this.cmbFromStates.removeAll();
+		this.cmbFromCities.removeAll();
+		
+		
+		this.cmbToCountries.removeAll();
+
+		this.cmbToStates.removeAll();
+
+		this.cmbToCities.removeAll();
 	
-	public void setSegment(Segment loadSegment){
-		this.txtSegmentID.setText(String.valueOf(loadSegment.getID()));
-		editing = true;
-		this.cbTravelModes.addItem(loadSegment.getTravelType().getTravelTypeMode());
-		this.cbTravelModes.setSelectedItem(loadSegment.getTravelType().getTravelTypeMode());
-		this.cbVehicleID.addItem(loadSegment.getVehicle().getId());
-		this.cbVehicleID.setSelectedItem(loadSegment.getVehicle().getId());
-		this.cbTravelType.addItem(String.valueOf(loadSegment.getTravelType().getVehicleTypeID()));
-		this.cbTravelType.setSelectedItem(loadSegment.getTravelType().getVehicleTypeID());
-		this.txtDistance.setText(String.valueOf(loadSegment.getDistance()));
-		this.txtLane.setText(loadSegment.getLane());
-		this.txtRateID.setText(String.valueOf(loadSegment.getShippingRate().getId() + " - Flat Rate : " + loadSegment.getShippingRate().getFlatRate()));
-		this.txtActualCapacity.setText(String.valueOf(loadSegment.getActualCapacity()));
-		this.txtEstArrival.setText(String.valueOf(loadSegment.getEstimatedArrivalTime()));
-		this.txtEarlArrival.setText(String.valueOf(loadSegment.getEarliestArrivalTime()));
-		this.txtLatArrival.setText(String.valueOf(loadSegment.getLatestArrivalTime()));
-		this.txtEstDeparture.setText(String.valueOf(loadSegment.getEstimatedDepartureTime()));
-		this.txtEarlDeparture.setText(String.valueOf(loadSegment.getEarliestDepartureTime()));
-		this.txtLatDeparture.setText(String.valueOf(loadSegment.getLatestDepartureTime()));
-		
-		this.cmbFromCountries.addItem(loadSegment.getStartLocation().getCountry());
-		this.cmbFromCountries.setSelectedItem(loadSegment.getStartLocation().getCountry());
-		this.cmbFromStates.addItem(loadSegment.getStartLocation().getState());
-		this.cmbFromStates.setSelectedItem(loadSegment.getStartLocation().getState());
-		this.cmbFromCities.addItem(loadSegment.getStartLocation().getName());
-		this.cmbFromCities.setSelectedItem(loadSegment.getStartLocation().getName());
-		
-		this.cmbToCountries.addItem(loadSegment.getEndLocation().getCountry());
-		this.cmbToCountries.setSelectedItem(loadSegment.getEndLocation().getCountry());
-		this.cmbToStates.addItem(loadSegment.getEndLocation().getState());
-		this.cmbToStates.setSelectedItem(loadSegment.getEndLocation().getState());
-		this.cmbToCities.addItem(loadSegment.getEndLocation().getName());
-		this.cmbToCities.setSelectedItem(loadSegment.getEndLocation().getName());
-		
+	}
+	public void setSegment(){
+		if(source!=null)
+		{
+			
+			
+			
+			this.txtSegmentID.setText(String.valueOf(source.getID()));
+			//this.cbTravelModes.setSelectedItem(loadSegment.getTravelType().getTravelTypeMode());
+			TravelType t = source.getTravelType();
+
+			cbTravelModes.setSelectedItem(t.getTravelTypeMode());
+			
+			
+			
+			Vehicle v = source.getVehicle();
+			ComboItem temp = new ComboItem();
+			temp.setID(v.getId());
+			temp.setName(v.getVehicleName());
+			this.cbVehicleID.setSelectedItem(temp);
+			
+			
+
+			TravelType tt = source.getTravelType();
+			temp = new ComboItem();
+			temp.setID(tt.getVehicleTypeID());
+			temp.setName(tt.getTravelTypeName());
+			this.cbTravelType.setSelectedItem(temp);
+			
+			this.txtDistance.setText(String.valueOf(source.getDistance()));
+			this.txtLane.setText(source.getLane());
+			//this.txtRateID.setText(String.valueOf(source.getShippingRate().getId() + " - Flat Rate : " + source.getShippingRate().getFlatRate()));
+			this.txtActualCapacity.setText(String.valueOf(source.getActualCapacity()));
+			this.txtEstArrival.setText(String.valueOf(source.getEstimatedArrivalTime()));
+			this.txtEarlArrival.setText(String.valueOf(source.getEarliestArrivalTime()));
+			this.txtLatArrival.setText(String.valueOf(source.getLatestArrivalTime()));
+			this.txtEstDeparture.setText(String.valueOf(source.getEstimatedDepartureTime()));
+			this.txtEarlDeparture.setText(String.valueOf(source.getEarliestDepartureTime()));
+			this.txtLatDeparture.setText(String.valueOf(source.getLatestDepartureTime()));
+			
+			this.cmbFromCountries.setSelectedItem(source.getStartLocation().getCountry());
+			this.cmbFromStates.setSelectedItem(source.getStartLocation().getState());
+			this.cmbFromCities.setSelectedItem(source.getStartLocation().getName());
+			
+			
+			this.cmbToCountries.setSelectedItem(source.getEndLocation().getCountry());
+
+			this.cmbToStates.setSelectedItem(source.getEndLocation().getState());
+	
+			this.cmbToCities.setSelectedItem(source.getEndLocation().getName());
+		}
 	}
 	
 	public void setReadOnly(){
@@ -567,6 +751,174 @@ public class SegmentForm extends JPanel {
 		this.cmbToCities.setEnabled(true);
 		
 	}
-	
+	private void update()
+	{
+		if(source==null) source=new Segment();
+		source.setActualCapacity(Double.parseDouble(this.txtActualCapacity.getText()));
+		source.setDistance(Double.parseDouble(txtDistance.getText()));
+		ArrayList<Map<String,Object>> location = new ArrayList<Map<String,Object>>();
+		try
+		{
+		location = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cmbFromCities.getSelectedItem().toString() +"' AND State = '" +
+		this.cmbFromStates.getSelectedItem().toString() + "' AND Country = '" +this.cmbFromCountries.getSelectedItem().toString()+ "'");
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		source.setStartLocation(Integer.parseInt(location.get(0).get("LocationID").toString()));
+		try
+		{
+		location = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cmbToCities.getSelectedItem().toString() +"' AND State = '" +
+		this.cmbToStates.getSelectedItem().toString() + "' AND Country = '" +this.cmbToCountries.getSelectedItem().toString()+ "'");
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		source.setEndLocation(Integer.parseInt(location.get(0).get("LocationID").toString()));
+		
+		source.setLane(this.txtLane.getText());
+		source.setMode(this.cbTravelModes.getSelectedItem().toString());
+		source.setTravelType(TravelType.Load(((ComboItem)this.cbTravelType.getSelectedItem()).getID()));
+		source.setVehicle(((ComboItem)this.cbVehicleID.getSelectedItem()).getID(), Vehicle.loadMode(cbTravelModes.getSelectedItem().toString()));
+		
+		source.Update();
+		
+		this.txtSegmentID.setText(String.valueOf(source.getID()));
+	}
+	protected void loadVehicles(String type)
+	{			
+		String table="";
+		String namePrefix="";
+		  if(type.equals(Vehicle.TravelModes.TRUCK.toString()))
+          {
+          	table ="Truck";
+          	namePrefix="Truck";
+          }
+          else
+          {
+          	
+          	if(type.equals(Vehicle.TravelModes.RAIL.toString()))
+          	{
+          		table ="rail";
+              	namePrefix="Rail";
+          	}
+          	else
+          	{
+          		
+          		if(type.equals(Vehicle.TravelModes.CARGO.toString()))
+          		{
+          			table ="CargoShip";
+                  	namePrefix="Ship";
+          		}
+          		else
+          		{
+          			if(type.equals(Vehicle.TravelModes.PLANE.toString()))
+          			{
+          				table ="Plane";
+          	          	namePrefix="Plane";
+          			}
+          		}
+          	}
+          	
+          }
+		try
+		{
+			ArrayList<Map<String,Object>> data  = BaseClass.executeQuery("Select " + namePrefix+"ID as ID, " + namePrefix +"Name as Name from "+ table);
+			vehicles = new ComboItem[data.size()];
+			for(int i = 0; i<data.size();i++)
+			{
+				ComboItem temp = new ComboItem();
+				temp.setID((Integer)data.get(i).get("ID"));
+				temp.setName(data.get(i).get("Name").toString());
+				vehicles[i]=temp;
+				cbVehicleID.addItem(vehicles[i]);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	private void loadTypes()
+	{
+		if(cbVehicleID.getSelectedIndex()!=-1)
+		{
+		try
+		{
+			int id = ((ComboItem)this.cbVehicleID.getSelectedItem()).getID();
+			String mode = this.cbTravelModes.getSelectedItem().toString();
 
+			ArrayList<Map<String,Object>> data  = BaseClass.executeQuery("Select VehicleTypeName,VehicleTypeID from TravelTypes where VehicleTypeID In("+
+					"Select TravelTypeID from indextable where vehicleID = '" + id + "' AND TravelMode = '" + mode + "'" +  
+					" and Deleted=false)" + " AND VehicleMode = '" +mode + "' AND Deleted = false");
+			types = new ComboItem[data.size()];
+			
+			for(int i = 0; i<data.size();i++)
+			{
+				ComboItem temp = new ComboItem();
+				temp.setID((Integer)data.get(i).get("VehicleTypeID"));
+				temp.setName(data.get(i).get("VehicleTypeName").toString());
+				types[i]=temp;
+				cbTravelType.addItem(vehicles[i]);
+			}
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		}
+	}
+	public void addTableRefreshListener(TableRefreshListener t)
+	{
+		refresh.add(t);
+	}
 }//End of LocationForm Class
+class ComboItem
+{
+	int id;
+	String name;
+
+	public ComboItem()
+	{
+		id=-1;
+		name ="";
+	}
+
+	public void setName(String n)
+	{
+		name = n;
+	}
+	public void setID(int i)
+	{
+		id=i;
+	}
+
+	public int getID()
+	{
+		return id;
+	}
+	public String getName()
+	{
+		return name;
+	}
+
+	@Override
+	public String toString()
+	{
+		return name;
+	}
+	@Override
+	public boolean equals(Object o)
+	{
+		if(o==null)return false;
+		if(o==this)return true;
+		if(!(o instanceof ComboItem)) return false;
+		ComboItem test = (ComboItem)o;
+		if(test.getID()==id)
+			return true;
+		return false;
+	}
+}

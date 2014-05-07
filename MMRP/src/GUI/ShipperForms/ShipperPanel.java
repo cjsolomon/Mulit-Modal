@@ -129,7 +129,7 @@ public class ShipperPanel extends JPanel {
 			st.showPanel();
 			sf.setVisible(false);
 			setVisible(true);
-			main.setShipment(0);
+			main.setShipper(0);
 		}else{
 			//btnView.doClick();
 			Shipper shipment = Shipper.Load(id);
@@ -138,7 +138,7 @@ public class ShipperPanel extends JPanel {
 			sf.showPanel(shipment);
 			sp.setVisible(true);
 			setVisible(true);
-			main.setShipment(0);
+			main.setShipper(0);
 		}
 	}
 }

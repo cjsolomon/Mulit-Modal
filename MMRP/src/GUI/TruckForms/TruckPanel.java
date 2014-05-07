@@ -17,6 +17,10 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+import core.Segment;
+import core.Truck;
+
 import javax.swing.JButton;
 import GUI.TravelTypeSetListener;
 
@@ -196,5 +200,30 @@ public class TruckPanel extends JPanel {
 	{
 		tt.refresh();
 		
+	}
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			tt.showPanel();
+			sp.setViewportView(tt);
+			this.setVisible(true);
+			main.setVehicleID(0);
+		}else{
+			//btnView.doClick();
+			Truck t = Truck.Load(id);
+
+			tt.showPanel();
+			truckInfo.setVisible(true);
+			tbp.showPanel(t);
+			segments.showPanel(t);
+			sp2.setVisible(true);
+			tts.showPanel(t);
+			tts.setVisible(false);
+			truckInfo.setSelectedComponent(tbp);
+			main.setVehicleID(0);
+			this.setVisible(true);
+		}
 	}
 }

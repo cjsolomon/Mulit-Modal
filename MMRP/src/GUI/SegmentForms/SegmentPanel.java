@@ -4,6 +4,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import GUI.TableRefreshListener;
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -28,7 +30,7 @@ public class SegmentPanel extends JPanel {
 	private JButton btnDelete;
 	private JButton btnNew;
 	private JButton btnView;
-	public SegmentPanel()
+	public SegmentPanel(final GUI.Main_Source main)
 	{
 		setLayout(new FormLayout(new ColumnSpec[] {
 				FormFactory.RELATED_GAP_COLSPEC,
@@ -39,7 +41,7 @@ public class SegmentPanel extends JPanel {
 				FormFactory.RELATED_GAP_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
 				FormFactory.DEFAULT_COLSPEC,
-				ColumnSpec.decode("max(63dlu;default)"),},
+				ColumnSpec.decode("max(75dlu;default)"),},
 			new RowSpec[] {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,
@@ -51,8 +53,14 @@ public class SegmentPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		st=new SegmentTable();
-		sf = new SegmentForm();
+		sf = new SegmentForm(main);
 		sf.setVisible(false);
+		sf.addTableRefreshListener(new TableRefreshListener(){
+			public void refreshTable()
+			{
+				st.refresh();
+			}
+		});
 		st.setVisible(false);
 		sp = new JScrollPane();
 		sp.setViewportView(st);
@@ -122,7 +130,7 @@ public class SegmentPanel extends JPanel {
 			st.showPanel();
 			sf.setVisible(false);
 			setVisible(true);
-			main.setShipment(0);
+			main.setSegment(0);
 		}else{
 			//btnView.doClick();
 			Segment shipment = Segment.Load(id);
@@ -132,7 +140,7 @@ public class SegmentPanel extends JPanel {
 			sf.showPanel(shipment);
 			sp.setVisible(true);
 			setVisible(true);
-			main.setShipment(0);
+			main.setSegment(0);
 		}
 	}
 

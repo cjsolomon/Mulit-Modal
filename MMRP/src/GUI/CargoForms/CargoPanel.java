@@ -19,6 +19,10 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+import core.Cargo;
+import core.Plane;
+
 import javax.swing.JButton;
 
 public class CargoPanel extends JPanel {
@@ -188,6 +192,31 @@ public class CargoPanel extends JPanel {
 		cargoTable.showPanel();
 		sp.setViewportView(cargoTable);
 		this.setVisible(true);
+	}
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			cargoTable.showPanel();
+			sp.setViewportView(cargoTable);
+			this.setVisible(true);
+			main.setVehicleID(0);
+		}else{
+			//btnView.doClick();
+			Cargo t = Cargo.Load(id);
+
+			cargoTable.showPanel();
+			cargoInfo.setVisible(true);
+			cargoBasicInfo.showPanel(t);
+			segments.showPanel(t);
+			sp2.setVisible(true);
+			tts.showPanel(t);
+			tts.setVisible(false);
+			cargoInfo.setSelectedComponent(cargoBasicInfo);
+			main.setVehicleID(0);
+			this.setVisible(true);
+		}
 	}
 	
 	private void hideControls()

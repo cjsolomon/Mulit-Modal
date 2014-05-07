@@ -150,7 +150,7 @@ public class RailTypePanel extends JPanel {
 			rtt.showPanel();
 			rt.setVisible(false);
 			setVisible(true);
-			main.setCarrier(0);
+			main.setTravelTypeID(0);
 		}else{
 			//btnView.doClick();
 			TravelType t = TravelType.Load(id);
@@ -159,7 +159,7 @@ public class RailTypePanel extends JPanel {
 			rt.showPanel(t);
 			sp.setVisible(true);
 			setVisible(true);
-			main.setCarrier(0);
+			main.setTravelTypeID(0);
 		}
 	}
 

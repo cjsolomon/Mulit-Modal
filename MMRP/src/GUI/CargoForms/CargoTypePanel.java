@@ -151,7 +151,7 @@ public class CargoTypePanel extends JPanel {
 			ctt.showPanel();
 			ct.setVisible(false);
 			setVisible(true);
-			main.setCarrier(0);
+			main.setTravelTypeID(0);
 		}else{
 			//btnView.doClick();
 			TravelType t = TravelType.Load(id);
@@ -160,7 +160,7 @@ public class CargoTypePanel extends JPanel {
 			ct.showPanel(t);
 			sp.setVisible(true);
 			setVisible(true);
-			main.setCarrier(0);
+			main.setTravelTypeID(0);
 		}
 	}
 

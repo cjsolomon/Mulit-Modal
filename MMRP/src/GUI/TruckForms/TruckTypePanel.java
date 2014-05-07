@@ -149,7 +149,7 @@ public class TruckTypePanel extends JPanel {
 			ttt.showPanel();
 			tt.setVisible(false);
 			setVisible(true);
-			main.setCarrier(0);
+			main.setTravelTypeID(0);
 		}else{
 			//btnView.doClick();
 			TravelType t = TravelType.Load(id);
@@ -158,7 +158,7 @@ public class TruckTypePanel extends JPanel {
 			tt.showPanel(t);
 			sp.setVisible(true);
 			setVisible(true);
-			main.setCarrier(0);
+			main.setTravelTypeID(0);
 		}
 	}
 

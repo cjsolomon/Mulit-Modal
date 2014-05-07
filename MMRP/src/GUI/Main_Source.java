@@ -85,6 +85,29 @@ public class Main_Source {
 	int shipperID =0;
 	int segmentID=0;
 	int travelTypeID =0;
+	int vehicleID=0;
+	
+	public void setVehicleID(int id)
+	{
+		vehicleID=id;
+	}
+	
+	public JButton getTruckButton()
+	{
+		return this.btnTruck;
+	}
+	public JButton getPlaneButton()
+	{
+		return this.btnPlane;
+	}
+	public JButton getRailButton()
+	{
+		return this.btnRail;
+	}
+	public JButton getCargoButton()
+	{
+		return this.btnCargo;
+	}
 	
 	public void setTravelTypeID(int id)
 	{
@@ -183,7 +206,7 @@ public class Main_Source {
 		shpFrm.setVisible(false);
 		locationForm = new LocationPanel();
 		locationForm.setVisible(false);
-		segmentPanel = new SegmentPanel();
+		segmentPanel = new SegmentPanel(this);
 		segmentPanel.setVisible(false);
 		cp = new CarrierPanel(this);
 		cp.setVisible(false);
@@ -228,7 +251,7 @@ public class Main_Source {
 				FormFactory.UNRELATED_GAP_COLSPEC,
 				ColumnSpec.decode("100px"),
 				FormFactory.UNRELATED_GAP_COLSPEC,
-				ColumnSpec.decode("362px"),},
+				ColumnSpec.decode("407px"),},
 			new RowSpec[] {
 				FormFactory.DEFAULT_ROWSPEC,
 				RowSpec.decode("23px"),
@@ -336,7 +359,7 @@ public class Main_Source {
 				System.out.println("Button Clicked");
 				hidePanels();
 				System.out.println("Hide Panels");
-				truckForm.showPanel();
+				truckForm.showPanel(vehicleID,GUI.Main_Source.this);
 				enableButtons();
 				btnTruck.setEnabled(false);
 				lblFormLabel.setText("Trucks");
@@ -362,7 +385,7 @@ public class Main_Source {
 		btnPlane.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
-				planeForm.showPanel();
+				planeForm.showPanel(vehicleID,GUI.Main_Source.this);
 				enableButtons();
 				btnPlane.setEnabled(false);
 				lblFormLabel.setText("Planes");
@@ -388,7 +411,7 @@ public class Main_Source {
 		btnRail.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
-				railForm.showPanel();
+				railForm.showPanel(vehicleID,GUI.Main_Source.this);
 				enableButtons();
 				btnRail.setEnabled(false);
 				lblFormLabel.setText("Rails");
@@ -414,7 +437,7 @@ public class Main_Source {
 		btnCargo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				hidePanels();
-				cargoForm.showPanel();
+				cargoForm.showPanel(vehicleID,GUI.Main_Source.this);
 				enableButtons();
 				btnCargo.setEnabled(false);
 				lblFormLabel.setText("Cargo");

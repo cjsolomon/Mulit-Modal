@@ -18,6 +18,10 @@ import com.jgoodies.forms.factories.FormFactory;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
+
+import core.Rail;
+import core.Truck;
+
 import javax.swing.JButton;
 import GUI.*;
 public class RailPanel extends JPanel {
@@ -191,6 +195,30 @@ public class RailPanel extends JPanel {
 	{
 		railBasicInfo.setVisible(false);
 	}
-	
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			railTable.showPanel();
+			sp.setViewportView(railTable);
+			this.setVisible(true);
+			main.setVehicleID(0);
+		}else{
+			//btnView.doClick();
+			Rail t = Rail.Load(id);
+
+			railTable.showPanel();
+			railInfo.setVisible(true);
+			railBasicInfo.showPanel(t);
+			segments.showPanel(t);
+			sp2.setVisible(true);
+			tts.showPanel(t);
+			tts.setVisible(false);
+			railInfo.setSelectedComponent(railBasicInfo);
+			main.setVehicleID(0);
+			this.setVisible(true);
+		}
+	}
 
 }
