@@ -42,15 +42,15 @@ public class Segment extends BaseClass {
 	// Default Variables
 	private static final double MIN_DISTANCE = 0;
 	private static final double MIN_CAPACITY = 0;
-	private static final int DEFAULT_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_ARRIVAL_TIME = 500000;
 	private static final int DEFAULT_DEPARTURE_TIME = 0;
 	private static final double DEFAULT_DISTANCE = 100;
-	private static final int DEFAULT_EARLIEST_ARRIVAL_TIME = 50;
+	private static final int DEFAULT_EARLIEST_ARRIVAL_TIME = 0;
 	private static final int DEFAULT_EARLIEST_DEPARTURE_TIME = 0;
 	private static final int DEFAULT_START_LOCATION_ID = 1;
 	private static final String DEFAULT_LANES = "ANY";
-	private static final int DEFAULT_LATEST_ARRIVAL_TIME = 50;
-	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 1000;
+	private static final int DEFAULT_LATEST_ARRIVAL_TIME = 500000;
+	private static final int DEFAULT_LATEST_DEPARTURE_TIME = 1000000;
 	private static final String DEFAULT_MODE = "TRUCK";
 	private static final int DEFAULT_END_LOCATION_ID = 2;
 

@@ -16,12 +16,233 @@ public class Test extends BaseClass
 	public Test Load(){return null;}
 	public boolean Update(){return true;};
 	public boolean Delete(){return true;};
-	public void printRandmonness()
+	public static double  distanceCalculator(Location l1, Location l2)
 	{
-
+		double R = 6371;
+		double theta1 = Math.toDegrees(l1.getLatitude());
+		double theta2 = Math.toDegrees(l2.getLatitude());
+		double deltaTheta = Math.toDegrees(l1.getLatitude() - l2.getLatitude());
+		double deltaPhi = Math.toDegrees(l1.getLongitude() - l2.getLongitude());
+		
+		double a = 	Math.sin(deltaTheta/2) *  Math.sin(deltaTheta/2) +
+					Math.cos(theta1) *  Math.cos(theta2) *
+					Math.sin(deltaPhi /2) * Math.sin(deltaPhi/2);
+		
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		
+		return R * c;
+					
 	}
+	
+	public static void vehicleGenerator(ArrayList<Location> LocationsToUse, ArrayList<Carrier> carriersToUse){
+	
+		
+		//Grab a random Carrier
+		int carrierID = carriersToUse.get((int)(Math.random() * carriersToUse.size())).getId();
+		
+		//Generate how many segments this vehicle will travel along
+		int numberOfSegments = (int)(Math.random() * 10) + 1;
+		
+		//Generate a random number to determine the vehicle type
+		int rand = (int)(Math.random() * 4);
+		//default travelType id
+		int travelTypeID  = 10000;
+		Vehicle.TravelModes mode = Vehicle.TravelModes.TRUCK;
+				
+		//This is the travel Speed
+		double speed = 5;
+		
+		//This is the shipping rate ID
+		int shippingRateID = 1;
+		
+		//This is the name of the vehicle
+		String name = "";
+
+		
+		//This is the new Vehicle
+		Vehicle newVehicle = new Truck();
+		
+		switch(rand){
+				
+		case 0:
+			mode = Vehicle.TravelModes.TRUCK;
+			//Grab a random Truck Type
+			travelTypeID = (int)(Math.random() * 6 + 10000);
+			speed = 5;
+			//Now depending on the type of travel type and the carrier we
+			//may have to create a new Shipping Rate.
+			//as a general rule of thumb, the more spacious, ie the higher the 
+			//id number, the more expensive it will be
+			shippingRateID = generateShippingRate(carrierID, (double)((travelTypeID -10000) * 5));
+			name = "Truck";
+			Truck newTruck = new Truck();
+			newTruck.setTravelMode(Vehicle.TravelModes.TRUCK);
+			newVehicle = newTruck;
+			break;
+		case 1:
+			mode = Vehicle.TravelModes.CARGO;
+			//Grab a random Cargo Type
+			travelTypeID = (int)(Math.random() * 6 + 10006);
+			speed = 1;
+			//Now depending on the type of travel type and the carrier we
+			//may have to create a new Shipping Rate.
+			//as a general rule of thumb, the more spacious, ie the higher the 
+			//id number, the more expensive it will be
+			shippingRateID = generateShippingRate(carrierID, (double)((travelTypeID -10000) * 1));
+			name = "Cargo";
+			Cargo newCargo = new Cargo();
+			newCargo.setTravelMode(Vehicle.TravelModes.CARGO);
+			newVehicle = newCargo;
+			break;
+		case 2:
+			mode = Vehicle.TravelModes.PLANE;
+			//Grab a random Plane Type
+			travelTypeID = (int)(Math.random() * 4 + 10012);
+			speed = 40;
+			//Now depending on the type of travel type and the carrier we
+			//may have to create a new Shipping Rate.
+			//as a general rule of thumb, the more spacious, ie the higher the 
+			//id number, the more expensive it will be
+			shippingRateID = generateShippingRate(carrierID, (double)((travelTypeID -10000) * 15));
+			name = "Plane";
+			Plane newPlane = new Plane();
+			newPlane.setTravelMode(Vehicle.TravelModes.PLANE);
+			newVehicle = newPlane;
+			break;
+		case 3:
+			mode = Vehicle.TravelModes.RAIL;
+			//Grab a random Rail Type
+			travelTypeID = (int)(Math.random() * 5 + 10016);
+			speed= 3;
+			//Now depending on the type of travel type and the carrier we
+			//may have to create a new Shipping Rate.
+			//as a general rule of thumb, the more spacious, ie the higher the 
+			//id number, the more expensive it will be
+			shippingRateID = generateShippingRate(carrierID, (double)((travelTypeID -10000) * 3));
+			name = "Rail";
+			Rail newRail = new Rail();
+			newRail.setTravelMode(Vehicle.TravelModes.RAIL);
+			newVehicle = newRail;
+			break;
+		} 
+		
+		newVehicle.setCarrier(Carrier.Load(carrierID));
+		newVehicle.setStatus("RUNNING");
+		newVehicle.setVehicleName(name + (int)(Math.random() * 100000));
+		newVehicle.Update();
+		
+		
+		
+		//Times off the start are 0
+		int timeOfDeparture = 0;
+		int timeOfArrival = 10000;
+		
+		//Unchanging times
+		int earliestDeparture = 0;
+		int latestDeparture = 0;
+		int latestArrival = 10000;
+		int earliestArrival = 10000;
+		
+		//The current distance
+		double distance = 0;
+		
+		Location startLocation = LocationsToUse.get((int)(Math.random() * LocationsToUse.size()));;
+		//Make sure this is a valid starting location
+		
+		while(!startLocation.getTravelModes().contains(mode))
+			startLocation = LocationsToUse.get((int)(Math.random() * LocationsToUse.size()));
+		Location endLocation = startLocation;
+		int iteration = 0;
+		Location currentLocation = startLocation;
+		
+		//Generate each segment
+		while(iteration < numberOfSegments){
+		
+		//Choose an endLocation that is not the startLocation
+		while(endLocation.getID() == startLocation.getID() || !endLocation.getTravelModes().contains(mode)){
+			endLocation = LocationsToUse.get((int)(Math.random() * LocationsToUse.size()));
+		}
+		
+		//Get the distance between the start and end location
+		distance = distanceCalculator(startLocation, endLocation)/10;
+		
+		//Calculate the time using the speed
+		timeOfArrival = (int)(distance/speed) + timeOfDeparture;
+		
+		//Generic times
+		earliestArrival = timeOfArrival;
+		latestArrival = timeOfArrival;
+		
+		//push the new segment into the database
+		Segment newSegment = new Segment();
+		newSegment.setActualCapacity(0);
+		newSegment.setDistance(distance);
+		newSegment.setEarliestDepartureTime(timeOfDeparture);
+		newSegment.setEstimatedDepartureTime(timeOfDeparture);
+		newSegment.setEarliestArrivalTime(timeOfDeparture);
+		newSegment.setEndLocation(endLocation);
+		newSegment.setEarliestArrivalTime(timeOfArrival);
+		newSegment.setEstimatedArrivalTime(timeOfArrival);
+		newSegment.setLatestArrivalTime(timeOfArrival);
+		newSegment.setLane("ANY");
+		newSegment.setMode(mode.toString());
+		newSegment.setShippingRate(ShippingRate.Load(shippingRateID));
+		newSegment.setStartLocation(startLocation);
+		newSegment.setTravelType(TravelType.Load(travelTypeID));
+		newSegment.setVehicle(newVehicle);
+		newSegment.Update();
+		
+		
+		//Update the time of departure
+		timeOfDeparture = timeOfArrival + 5;
+		earliestDeparture = timeOfDeparture;
+		latestDeparture = timeOfDeparture;
+		
+		//Update the startLocation
+		startLocation = endLocation;
+		iteration++;
+		
+		}//End of segment generation
+	}
+	
+	public static int generateShippingRate(int carrierID, double flatRate){
+		//Check to see if the shipping rate exists, if it does, use it, if it doesnt
+		//create it
+		ArrayList<ShippingRate> shippingRateExists = ShippingRate.LoadAll("where CarrierID = '" +carrierID + "' AND FlatRate ='" +flatRate+ "'");
+		if(shippingRateExists.size() > 0){
+			return shippingRateExists.get(0).getId();
+		}else{
+			ShippingRate SR = new ShippingRate();
+			SR.setCarrier(Carrier.Load(carrierID));
+			SR.setFlatRate(flatRate);
+			SR.setMileRate(2);
+			SR.setRank(1);
+			SR.setRate1(10);
+			SR.setRate2(20);
+			SR.setRate3(30);
+			SR.setWeight1(10);
+			SR.setWeight2(20);
+			SR.setWeight3(30);
+			SR.Update();
+			return SR.getId();
+		}
+		
+	}
+	
 	public static void main(String[] args) throws Exception
 	{
+		
+		//Grab all the real Locations
+		//ArrayList<Location> allLocations = new ArrayList<Location>();
+		//allLocations = Location.LoadAll("where LocationID < 272");
+				
+		//Grab all the real Carriers
+		//ArrayList<Carrier> allCarriers = new ArrayList<Carrier>();
+		//allCarriers = Carrier.LoadAll("where CarrierID < 709");
+		
+		//for(int i = 0; i < 100; i++){
+		//	vehicleGenerator(allLocations, allCarriers);
+		//}
 		
 		//BaseClass.purgeDeleted();
 		//
