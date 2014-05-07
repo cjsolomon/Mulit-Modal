@@ -15,6 +15,9 @@ import core.Shipper;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -73,7 +76,17 @@ public class ShipperPanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "7, 7");
+		st.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(st.getSelectedRow()!=-1)
+				{
+					sf.showPanel(st.getSelectedShipper());
+				}
+			}
+		});
+
+		//add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click to create a new Shipper");
