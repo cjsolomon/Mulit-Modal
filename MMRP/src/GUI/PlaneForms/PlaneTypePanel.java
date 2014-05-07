@@ -15,6 +15,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class PlaneTypePanel extends JPanel {
 	PlaneTypeTable ptt;
@@ -75,7 +77,15 @@ public class PlaneTypePanel extends JPanel {
 		sp.setViewportView(ptt);
 		sp.setVisible(false);
 		add(sp,"2, 2, 21, 12");
-		
+		ptt.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(ptt.getSelectedRow()!=-1)
+				{
+					pt.showPanel(ptt.getSelectedTravelType());
+				}
+			}
+		});
 		btnView = new JButton("View");
 		btnView.setToolTipText("Click here to view selected Plane Type");
 		btnView.addActionListener(new ActionListener() {
@@ -84,7 +94,7 @@ public class PlaneTypePanel extends JPanel {
 					pt.showPanel(ptt.getSelectedTravelType());
 			}
 		});
-		add(btnView, "18, 14");
+	//	add(btnView, "18, 14");
 		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click here to create a new Plane Type");

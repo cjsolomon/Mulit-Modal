@@ -72,7 +72,7 @@ public class TruckPanel extends JPanel {
 		tts= new TravelTypeSelector();
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
-		segments = new SegmentTable();
+		segments = new SegmentTable(main);
 		segments.setVisible(false);
 		sp2.setViewportView(segments);
 		truckInfo = new JTabbedPane();

@@ -1,22 +1,34 @@
 package GUI;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+import GUI.ShipmentForms.ShipmentTable;
+
 import core.*;
-import core.Truck;
-import core.Vehicle;
 
 public class SegmentTable extends JTable {
 	
 	
 	ArrayList<Segment> segments = new ArrayList<Segment>();
 	Vehicle source;
-	public SegmentTable() {
+	public SegmentTable(final GUI.Main_Source main) {
 		super();
 		this.setModel(new SegmentModel(new ArrayList<Segment>()));
+		this.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		            System.out.println("Double click detected");
+		            main.setSegment(Integer.parseInt(getValueAt(getSelectedRow(), 0).toString()));
+		            main.getSegmentButton().doClick();
+		        }
+		    }
+		});
 		// setData();
 	}
 

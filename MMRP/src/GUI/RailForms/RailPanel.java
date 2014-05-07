@@ -28,7 +28,7 @@ public class RailPanel extends JPanel {
 	private JButton btnNew;
 	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
-	public RailPanel()
+	public RailPanel(final GUI.Main_Source main)
 	{
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -76,7 +76,7 @@ public class RailPanel extends JPanel {
 		tts= new TravelTypeSelector();
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
-		segments = new SegmentTable();
+		segments = new SegmentTable(main);
 		segments.setVisible(false);
 		sp2.setViewportView(segments);
 		railInfo = new JTabbedPane();

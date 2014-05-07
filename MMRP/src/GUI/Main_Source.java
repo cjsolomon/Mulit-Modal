@@ -170,11 +170,11 @@ public class Main_Source {
 		srp.setVisible(false);
 		truckForm=new TruckPanel(this);
 		truckForm.setVisible(false);
-		railForm = new RailPanel();
+		railForm = new RailPanel(this);
 		railForm.setVisible(false);
-		planeForm = new PlanePanel();
+		planeForm = new PlanePanel(this);
 		planeForm.setVisible(false);
-		cargoForm = new CargoPanel();
+		cargoForm = new CargoPanel(this);
 		cargoForm.setVisible(false);
 		ttp = new TruckTypePanel();
 		ttp.setVisible(false);

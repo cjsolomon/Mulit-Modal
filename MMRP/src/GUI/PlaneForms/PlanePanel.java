@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -28,7 +30,7 @@ public class PlanePanel extends JPanel {
 	private JButton btnNew;
 	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
-	public PlanePanel()
+	public PlanePanel(final GUI.Main_Source main)
 	{
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -53,7 +55,7 @@ public class PlanePanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		
-		planeTable=new PlaneTable();
+		planeTable=new PlaneTable(main);
 		planeTable.setVisible(false);
 		sp=new JScrollPane();
 		sp.setViewportView(planeTable);
@@ -76,7 +78,7 @@ public class PlanePanel extends JPanel {
 		tts= new TravelTypeSelector();
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
-		segments = new SegmentTable();
+		segments = new SegmentTable(main);
 		segments.setVisible(false);
 		sp2.setViewportView(segments);
 		planeInfo = new JTabbedPane();
@@ -84,7 +86,34 @@ public class PlanePanel extends JPanel {
 		planeInfo.addTab("Segments",sp2);
 		planeInfo.addTab("Types",tts);
 		planeInfo.setVisible(false);
-		
+		planeInfo.getModel().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e)
+			{
+				if(planeInfo.getSelectedIndex()==0)
+				{
+					planeBasicInfo.setVisible(true);
+					sp2.setVisible(false);
+					tts.setVisible(false);
+				}
+				else
+				{
+					if(planeInfo.getSelectedIndex()==1)
+					{
+						planeBasicInfo.setVisible(false);
+						sp2.setVisible(true);
+						tts.setVisible(false);
+					}
+					else
+					{
+						planeBasicInfo.setVisible(false);
+						sp2.setVisible(false);
+						tts.setVisible(true);
+					}
+				}
+				
+			}
+		});
+
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click here to create a new Plane");
 		btnNew.addActionListener(new ActionListener(){
@@ -98,7 +127,22 @@ public class PlanePanel extends JPanel {
 				planeInfo.setSelectedIndex(0);
 			}
 		});
-		
+		planeTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(planeTable.getSelectedRow()!=-1)
+				{
+					planeInfo.setVisible(true);
+					planeBasicInfo.showPanel(planeTable.getSelectedPlane());
+					segments.showPanel(planeTable.getSelectedPlane());
+					sp2.setVisible(true);
+					tts.showPanel(planeTable.getSelectedPlane());
+					tts.setVisible(false);
+					planeInfo.setSelectedComponent(planeBasicInfo);
+				}
+			}
+		});
+
 		btnView = new JButton("View");
 		btnView.setToolTipText("Click here to view selected Plane");
 		btnView.addActionListener(new ActionListener(){
@@ -115,7 +159,7 @@ public class PlanePanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "5, 4");
+		//add(btnView, "5, 4");
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");

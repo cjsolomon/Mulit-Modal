@@ -15,6 +15,8 @@ import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class TruckTypePanel extends JPanel {
 	TruckTypeTable ttt;
@@ -75,6 +77,16 @@ public class TruckTypePanel extends JPanel {
 		sp.setViewportView(ttt);
 		sp.setVisible(false);
 		add(sp,"2, 2, 21, 12");
+		ttt.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(ttt.getSelectedRow()!=-1)
+				{
+					tt.showPanel(ttt.getSelectedTravelType());
+				}
+			}
+		});
+
 		btnView = new JButton("View");
 		btnView.setToolTipText("Click to view selected Truck Type");
 		btnView.addActionListener(new ActionListener() {
@@ -83,7 +95,7 @@ public class TruckTypePanel extends JPanel {
 					tt.showPanel(ttt.getSelectedTravelType());
 			}
 		});
-		add(btnView, "18, 14");
+	//	add(btnView, "18, 14");
 		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click to create a new Truck Type");

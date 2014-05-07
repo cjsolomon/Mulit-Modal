@@ -29,7 +29,7 @@ public class CargoPanel extends JPanel {
 	private JButton btnNew;
 	private TravelTypeSelector tts;
 	private GUI.SegmentTable segments;
-	public CargoPanel()
+	public CargoPanel(final GUI.Main_Source main)
 	{
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -77,7 +77,7 @@ public class CargoPanel extends JPanel {
 		tts= new TravelTypeSelector();
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
-		segments = new SegmentTable();
+		segments = new SegmentTable(main);
 		segments.setVisible(false);
 		sp2.setViewportView(segments);
 		cargoInfo = new JTabbedPane();
