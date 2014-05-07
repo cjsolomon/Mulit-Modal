@@ -16,6 +16,9 @@ import core.Shipment;
 
 import javax.swing.JLabel;
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -75,7 +78,17 @@ public class CarrierPanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "7, 7");
+		ct.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(ct.getSelectedRow()!=-1)
+				{
+					cf.showPanel(ct.getSelectedCarrier());
+				}
+			}
+		});
+
+		//add(btnView, "7, 7");
 		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click here to create a new Carrier");
