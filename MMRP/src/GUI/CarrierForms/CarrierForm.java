@@ -5,6 +5,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -298,38 +299,58 @@ public class CarrierForm extends JPanel {
 		
 		private void update()
 		{
-			if(source==null)
+			
+			String errorString = "";
+			//Error Checking
+			if(this.txtName.getText().isEmpty() || this.txtName.getText().length() < 1 ||  this.txtName.getText().length() > 45)
+				errorString += "The Carrier Name was not a valid entry between 1 and 45 characters.\n";
+			if(this.txtCode.getText().isEmpty() || this.txtCode.getText().length() < 1 ||  this.txtCode.getText().length() > 4)
+				errorString += "The Carrier Code was not a valid entry between 1 and 4 characters.\n";
+			if(this.txtEmail.getText().isEmpty() || !core.FormatChecker.isValidEmail(this.txtEmail.getText()))
+				errorString += "The email address was not valid. Please enter an email address with the following format,\n\t(any alphanumeric string)@(any alphanumeric string).(2-4 alphabetic characters)\n";
+			if(this.txtFaxNumber.getText().isEmpty() || !core.FormatChecker.isValidPhone(this.txtFaxNumber.getText()))
+				errorString += "The phone number was not a valid entry, please enter a ten digit number with the following format,\n\t###-###-####.\n";
+			if(this.txtSafetyRating.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtSafetyRating.getText()),0, 100))
+				errorString += "The safety rating entered was not a valid entry, please enter a digit between 0 and 100 inclusive.\n\tNote: the higher the safety rating, the more safe the Carrier.\n";
+			if(errorString.isEmpty())
 			{
-				source = new Carrier();
+				if(source==null)
+				{
+					source = new Carrier();
+				}
+				source.setAuthorize(Integer.parseInt(this.txtAuthorize.getText()));
+				source.setCarrierCode(this.txtCode.getText());
+				source.setCarrierName(this.txtName.getText());
+				source.setContractDate(this.txtContractDate.getText());
+				source.setEmailAddress(this.txtEmail.getText());
+				source.setFaxNumber(this.txtFaxNumber.getText());
+				source.setInsEndDate(this.txtInsEndDate.getText());
+				source.setSafetyRateDate(this.txtRatingDate.getText());
+				source.setSafetyRating(Integer.parseInt(this.txtSafetyRating.getText()));
+				if(this.chckbxEmail.isSelected())
+					source.setSendByEmailTrue();
+				else
+					source.setSendByEmailFalse();
+				
+				if(this.chckbxFaxNumber.isSelected())
+					source.setSendByFaxTrue();
+				else
+					source.setSendByFaxFalse();
+				
+				
+				source.Update();
+				this.txtID.setText(((Integer)source.getId()).toString());
+				//this.txtID.setText(((Integer)source.getVehicleTypeID()).toString());
+				for(TableRefreshListener r: refresh)
+					r.refreshTable();
+				setReadOnly();
+				btnEdit.setVisible(true);
+				btnSave.setVisible(false);
 			}
-			source.setAuthorize(Integer.parseInt(this.txtAuthorize.getText()));
-			source.setCarrierCode(this.txtCode.getText());
-			source.setCarrierName(this.txtName.getText());
-			source.setContractDate(this.txtContractDate.getText());
-			source.setEmailAddress(this.txtEmail.getText());
-			source.setFaxNumber(this.txtFaxNumber.getText());
-			source.setInsEndDate(this.txtInsEndDate.getText());
-			source.setSafetyRateDate(this.txtRatingDate.getText());
-			source.setSafetyRating(Integer.parseInt(this.txtSafetyRating.getText()));
-			if(this.chckbxEmail.isSelected())
-				source.setSendByEmailTrue();
-			else
-				source.setSendByEmailFalse();
-			
-			if(this.chckbxFaxNumber.isSelected())
-				source.setSendByFaxTrue();
-			else
-				source.setSendByFaxFalse();
-			
-			
-			source.Update();
-			this.txtID.setText(((Integer)source.getId()).toString());
-			//this.txtID.setText(((Integer)source.getVehicleTypeID()).toString());
-			for(TableRefreshListener r: refresh)
-				r.refreshTable();
-			setReadOnly();
-			btnEdit.setVisible(true);
-			btnSave.setVisible(false);
+			else{
+				//An error occurred
+				JOptionPane.showMessageDialog(null, errorString , "Invalid data entered", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		
 		private void displayCarrier(){

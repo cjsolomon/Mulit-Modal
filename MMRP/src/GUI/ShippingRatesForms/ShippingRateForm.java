@@ -5,6 +5,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -266,22 +267,49 @@ public class ShippingRateForm extends JPanel {
 		}
 		private void update()
 		{
-			if(source == null)source = new ShippingRate();
-			
-			source.setCarrier((Carrier)this.cbCarriers.getSelectedItem());
-			source.setFlatRate(Double.parseDouble(this.txtFlatRate.getText()));
-			source.setMileRate(Double.parseDouble(this.txtMileRate.getText()));
-			source.setRank(Integer.parseInt(this.txtRank.getText()));
-			source.setRate1(Double.parseDouble(this.txtRate1.getText()));
-			source.setRate2(Double.parseDouble(this.txtRate2.getText()));
-			source.setRate3(Double.parseDouble(this.txtRate3.getText()));
-			source.setWeight1(Double.parseDouble(this.txtWeight1.getText()));
-			source.setWeight2(Double.parseDouble(this.txtWeight2.getText()));
-			source.setWeight3(Double.parseDouble(this.txtWeight3.getText()));
-			
-			source.Update();
-			
-			this.txtID.setText(String.valueOf(source.getId()));
+			String errorString = "";
+			//Error Checking
+			if(this.txtFlatRate.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtFlatRate.getText()), 0))
+				errorString += "The flat rate entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtMileRate.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtMileRate.getText()), 0))
+				errorString += "The mile rate entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtRate1.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtRate1.getText()), 0))
+				errorString += "The rate 1 entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtRate2.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtRate2.getText()), 0))
+				errorString += "The rate 2 entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtRate3.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtRate3.getText()), 0))
+				errorString += "The rate 3 entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtWeight1.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtWeight1.getText()), 0))
+				errorString += "The weight 1 entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtWeight2.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtWeight2.getText()), 0))
+				errorString += "The weight 2 entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtWeight3.getText().isEmpty() || !core.FormatChecker.checkLowerBound(Double.valueOf(this.txtWeight3.getText()), 0))
+				errorString += "The weight 3 entered was not greater than 0. Please enter a numeric value greater than 0.\n";
+			if(this.txtRank.getText().isEmpty() || !core.FormatChecker.inRange(Integer.parseInt(this.txtRank.getText()), 0, 10))
+				errorString += "The rank value entered was not a value between 0 and 10 inclusive.\n";
+			if(errorString.isEmpty())
+			{
+				if(source == null)source = new ShippingRate();
+				
+				source.setCarrier((Carrier)this.cbCarriers.getSelectedItem());
+				source.setFlatRate(Double.parseDouble(this.txtFlatRate.getText()));
+				source.setMileRate(Double.parseDouble(this.txtMileRate.getText()));
+				source.setRank(Integer.parseInt(this.txtRank.getText()));
+				source.setRate1(Double.parseDouble(this.txtRate1.getText()));
+				source.setRate2(Double.parseDouble(this.txtRate2.getText()));
+				source.setRate3(Double.parseDouble(this.txtRate3.getText()));
+				source.setWeight1(Double.parseDouble(this.txtWeight1.getText()));
+				source.setWeight2(Double.parseDouble(this.txtWeight2.getText()));
+				source.setWeight3(Double.parseDouble(this.txtWeight3.getText()));
+				
+				source.Update();
+				
+				this.txtID.setText(String.valueOf(source.getId()));
+			}
+			else{
+				//An error occurred
+				JOptionPane.showMessageDialog(null, errorString , "Invalid data entered", JOptionPane.ERROR_MESSAGE);
+			}
 		}
 		
 		private void displayShippingRate(){

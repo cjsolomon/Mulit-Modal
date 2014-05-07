@@ -5,6 +5,7 @@ import java.awt.event.ItemEvent;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -278,27 +279,44 @@ public class ShipperForm extends JPanel {
 		}
 		private void update()
 		{
-			if(source==null) source=new Shipper();
-			source.setCompanyName(this.txtCompanyName.getText());
-			source.setContactName(this.txtContactName.getText());
-			source.setEmailAddress(this.txtEmail.getText());
-			source.setPhoneNumber(this.txtNumber.getText());
-			
-			ArrayList<Map<String,Object>> location = new ArrayList<Map<String,Object>>();
-			try
+			String errorString = "";
+			//Error Checking
+			if(this.txtCompanyName.getText().isEmpty() || this.txtCompanyName.getText().length() < 1 ||  this.txtCompanyName.getText().length() > 45)
+				errorString += "The Company Name was not a valid entry between 1 and 45 characters.\n";
+			if(this.txtContactName.getText().isEmpty() || this.txtContactName.getText().length() < 1 ||  this.txtContactName.getText().length() > 45)
+				errorString += "The Contact Name was not a valid entry between 1 and 45 characters.\n";
+			if(this.txtEmail.getText().isEmpty() || !core.FormatChecker.isValidEmail(this.txtEmail.getText()))
+				errorString += "The email address was not valid. Please enter an email address with the following format,\n\t(any alphanumeric string)@(any alphanumeric string).(2-4 alphabetic characters)\n";
+			if(this.txtNumber.getText().isEmpty() || !core.FormatChecker.isValidPhone(this.txtNumber.getText()))
+				errorString += "The phone number was not a valid entry, please enter a ten digit number with the following format,\n\t###-###-####.\n";
+			if(errorString.isEmpty())
 			{
-			location = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cbCity.getSelectedItem().toString() +"' AND State = '" +
-			this.cbState.getSelectedItem().toString() + "' AND Country = '" +this.cbCountry.getSelectedItem().toString()+ "'");
+				if(source==null) source=new Shipper();
+				source.setCompanyName(this.txtCompanyName.getText());
+				source.setContactName(this.txtContactName.getText());
+				source.setEmailAddress(this.txtEmail.getText());
+				source.setPhoneNumber(this.txtNumber.getText());
+				
+				ArrayList<Map<String,Object>> location = new ArrayList<Map<String,Object>>();
+				try
+				{
+				location = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cbCity.getSelectedItem().toString() +"' AND State = '" +
+				this.cbState.getSelectedItem().toString() + "' AND Country = '" +this.cbCountry.getSelectedItem().toString()+ "'");
+				}
+				catch(Exception ex)
+				{
+					ex.printStackTrace();
+				}
+				source.setLocationID(Integer.parseInt(location.get(0).get("LocationID").toString()));
+				
+				source.Update();
+				
+				this.txtID.setText(String.valueOf(source.getID()));
 			}
-			catch(Exception ex)
-			{
-				ex.printStackTrace();
+			else{
+				//An error occurred
+				JOptionPane.showMessageDialog(null, errorString , "Invalid data entered", JOptionPane.ERROR_MESSAGE);
 			}
-			source.setLocationID(Integer.parseInt(location.get(0).get("LocationID").toString()));
-			
-			source.Update();
-			
-			this.txtID.setText(String.valueOf(source.getID()));
 		}
 		
 		private void setNew()

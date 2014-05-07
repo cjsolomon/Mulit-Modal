@@ -5,6 +5,7 @@ import javax.swing.ComboBoxModel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -432,48 +433,63 @@ public class ShipmentForm extends JPanel
 	}
 	private void update()
 	{
-		Shipper s;
-		if(source==null)
+		String errorString = "";
+		//Error Checking
+		if(this.txtWeight.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtWeight.getText()),0, 1000000))
+			errorString += "The Minimum Capacity was not a valid entry between " + 0 + " and " + 1000000+ ".\n";
+		if(this.txtSize.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtSize.getText()),0, 1000000))
+			errorString += "The size of the shipment was not a valid entry between " + 0 + " and " + 1000000 + ".\n";
+		if(this.txtMaxStops.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtMaxStops.getText()),0, 5000))
+			errorString += "The maximum number of stops was not a valid entry between " + 0 + " and " + 5000 + ".\n";
+		if(errorString.isEmpty())
 		{
-			source = new Shipment();
-		}
+			Shipper s;
+			if(source==null)
+			{
+				source = new Shipment();
+			}
+			
+			if(this.chkCongestion.isSelected())
+				source.setCongestionByPassTrue();
+			else
+				source.setCongestionByPassFalse();
+			
 		
-		if(this.chkCongestion.isSelected())
-			source.setCongestionByPassTrue();
-		else
-			source.setCongestionByPassFalse();
-		
+			source.setFromLocationID(this.selectedShipper.getLocationID());
+			source.setHazmat(this.txtHazmatConstraints.getText());
 	
-		source.setFromLocationID(this.selectedShipper.getLocationID());
-		source.setHazmat(this.txtHazmatConstraints.getText());
-
-		source.setMaxStops(Integer.parseInt(this.txtMaxStops.getText()));
-		source.setPrefCarrier(this.txtPrefCarriers.getText());
-		source.setPriority((Integer)this.cmbPriority.getSelectedItem());
-		source.setShipperID(selectedShipper.getID());
-		source.setSize(Double.parseDouble(this.txtSize.getText()));
-		if(this.chkTolls.isSelected())
-			source.setTollRoadsTrue();
-		else
-			source.setTollRoadsFalse();
-		
-		ArrayList<Map<String,Object>> eLocation = new ArrayList<Map<String,Object>>();
-		try
-		{
-		eLocation = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cmbToCities.getSelectedItem().toString() +"' AND State = '" +
-		this.cmbToStates.getSelectedItem().toString() + "' AND Country = '" +this.cmbToCountries.getSelectedItem().toString()+ "'");
+			source.setMaxStops(Integer.parseInt(this.txtMaxStops.getText()));
+			source.setPrefCarrier(this.txtPrefCarriers.getText());
+			source.setPriority((Integer)this.cmbPriority.getSelectedItem());
+			source.setShipperID(selectedShipper.getID());
+			source.setSize(Double.parseDouble(this.txtSize.getText()));
+			if(this.chkTolls.isSelected())
+				source.setTollRoadsTrue();
+			else
+				source.setTollRoadsFalse();
+			
+			ArrayList<Map<String,Object>> eLocation = new ArrayList<Map<String,Object>>();
+			try
+			{
+			eLocation = BaseClass.executeQuery("Select * from Location where Name = '"+ this.cmbToCities.getSelectedItem().toString() +"' AND State = '" +
+			this.cmbToStates.getSelectedItem().toString() + "' AND Country = '" +this.cmbToCountries.getSelectedItem().toString()+ "'");
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			source.setToLocationID(Integer.parseInt(eLocation.get(0).get("LocationID").toString()));
+			source.setWeight(Double.parseDouble(this.txtWeight.getText().toString()));
+			
+			
+			source.Update();
+			btnSave.setVisible(false);
+			btnEdit.setVisible(true);
 		}
-		catch(Exception ex)
-		{
-			ex.printStackTrace();
+		else{
+			//An error occurred
+			JOptionPane.showMessageDialog(null, errorString , "Invalid data entered", JOptionPane.ERROR_MESSAGE);
 		}
-		source.setToLocationID(Integer.parseInt(eLocation.get(0).get("LocationID").toString()));
-		source.setWeight(Double.parseDouble(this.txtWeight.getText().toString()));
-		
-		
-		source.Update();
-		btnSave.setVisible(false);
-		btnEdit.setVisible(true);
 	}
 
 	private void setNew()

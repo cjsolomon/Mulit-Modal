@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -254,24 +255,45 @@ public class LocationForm extends JPanel {
 	
 	private void update()
 	{
-		if(source==null)source = new Location();
-		for(TravelModes m : Vehicle.TravelModes.values())
-			source.removeTravelMode(m);
-		source.setCountry(txtCountry.getText());
-		source.setState(txtState.getText());
-		source.setName(txtCity.getText());
-		source.setLatitude(Double.parseDouble(txtLat.getText()));
-		source.setLongitude(Double.parseDouble(txtLon.getText()));
-		if(chkTruck.isSelected())
-			source.addTravelMode(Vehicle.TravelModes.TRUCK);
-		if(chkRail.isSelected())
-			source.addTravelMode(Vehicle.TravelModes.RAIL);
-		if(chkPlane.isSelected())
-			source.addTravelMode(Vehicle.TravelModes.PLANE);
-		if(chkCargo.isSelected())
-			source.addTravelMode(Vehicle.TravelModes.RAIL);
 		
-		source.Update();
+		String errorString = "";
+		//Error Checking
+		if(this.txtCity.getText().isEmpty() || this.txtCity.getText().length() < 1 ||  this.txtCity.getText().length() > 45)
+			errorString += "The City was not a valid entry between 1 and 45 characters.\n";
+		if(this.txtState.getText().isEmpty() || this.txtState.getText().length() < 1 ||  this.txtState.getText().length() > 45)
+			errorString += "The State was not a valid entry between 1 and 45 characters.\n";
+		if(this.txtCountry.getText().isEmpty() || this.txtCountry.getText().length() < 1 ||  this.txtCountry.getText().length() > 45)
+			errorString += "The Country was not a valid entry between 1 and 45 characters.\n";
+		if(this.txtLat.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtLat.getText()),-90.0, 90.0))
+			errorString += "The entered latitude value was not valid. Please enter a latitude value between -90.0 degrees and +90.0d degrees.\n";
+		if(this.txtLon.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtLon.getText()),-180.0, 180.0))
+			errorString += "The entered longitude value was not valid. Please enter a longitude value between -180.0 degrees and +180.0d degrees.\n";
+		
+		if(errorString.isEmpty())
+		{
+			if(source==null)source = new Location();
+			for(TravelModes m : Vehicle.TravelModes.values())
+				source.removeTravelMode(m);
+			source.setCountry(txtCountry.getText());
+			source.setState(txtState.getText());
+			source.setName(txtCity.getText());
+			source.setLatitude(Double.parseDouble(txtLat.getText()));
+			source.setLongitude(Double.parseDouble(txtLon.getText()));
+			if(chkTruck.isSelected())
+				source.addTravelMode(Vehicle.TravelModes.TRUCK);
+			if(chkRail.isSelected())
+				source.addTravelMode(Vehicle.TravelModes.RAIL);
+			if(chkPlane.isSelected())
+				source.addTravelMode(Vehicle.TravelModes.PLANE);
+			if(chkCargo.isSelected())
+				source.addTravelMode(Vehicle.TravelModes.RAIL);
+			
+			source.Update();
+		}
+		else{
+			//An error occurred
+			JOptionPane.showMessageDialog(null, errorString , "Invalid data entered", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }
