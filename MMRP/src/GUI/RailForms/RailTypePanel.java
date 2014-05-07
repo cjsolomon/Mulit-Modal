@@ -14,7 +14,12 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import core.TravelType;
+
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 public class RailTypePanel extends JPanel {
 	RailTypeTable rtt;
@@ -84,7 +89,17 @@ public class RailTypePanel extends JPanel {
 					rt.showPanel(rtt.getSelectedTravelType());
 			}
 		});
-		add(btnView, "18, 14");
+		rtt.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(rtt.getSelectedRow()!=-1)
+				{
+					rt.showPanel(rtt.getSelectedTravelType());
+				}
+			}
+		});
+
+		//add(btnView, "18, 14");
 		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click here to create a new Rail Type");
@@ -126,6 +141,26 @@ public class RailTypePanel extends JPanel {
 		rtt.showPanel();
 		sp.setViewportView(rtt);
 		this.setVisible(true);
+	}
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			rtt.showPanel();
+			rt.setVisible(false);
+			setVisible(true);
+			main.setCarrier(0);
+		}else{
+			//btnView.doClick();
+			TravelType t = TravelType.Load(id);
+			rtt.showPanel();
+			//sht.showPanel(st.getSelectedShipment());
+			rt.showPanel(t);
+			sp.setVisible(true);
+			setVisible(true);
+			main.setCarrier(0);
+		}
 	}
 
 }

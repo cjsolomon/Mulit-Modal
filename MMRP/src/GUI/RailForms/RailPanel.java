@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -53,7 +55,7 @@ public class RailPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		
-		railTable=new RailTable();
+		railTable=new RailTable(main);
 		railTable.setVisible(false);
 		sp=new JScrollPane();
 		sp.setViewportView(railTable);
@@ -73,7 +75,7 @@ public class RailPanel extends JPanel {
 			}
 		});
 		railBasicInfo.setVisible(false);
-		tts= new TravelTypeSelector();
+		tts= new TravelTypeSelector(main);
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
 		segments = new SegmentTable(main);
@@ -84,7 +86,34 @@ public class RailPanel extends JPanel {
 		railInfo.addTab("Segments",sp2);
 		railInfo.addTab("Types",tts);
 		railInfo.setVisible(false);
-		
+		railInfo.getModel().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e)
+			{
+				if(railInfo.getSelectedIndex()==0)
+				{
+					railBasicInfo.setVisible(true);
+					sp2.setVisible(false);
+					tts.setVisible(false);
+				}
+				else
+				{
+					if(railInfo.getSelectedIndex()==1)
+					{
+						railBasicInfo.setVisible(false);
+						sp2.setVisible(true);
+						tts.setVisible(false);
+					}
+					else
+					{
+						railBasicInfo.setVisible(false);
+						sp2.setVisible(false);
+						tts.setVisible(true);
+					}
+				}
+				
+			}
+		});
+
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click here to create a new Rail");
 		btnNew.addActionListener(new ActionListener(){
@@ -115,7 +144,23 @@ public class RailPanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "5, 4");
+		railTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(railTable.getSelectedRow()!=-1)
+				{
+					railInfo.setVisible(true);
+					railBasicInfo.showPanel(railTable.getSelectedRail());
+					segments.showPanel(railTable.getSelectedRail());
+					sp2.setVisible(true);
+					tts.showPanel(railTable.getSelectedRail());
+					tts.setVisible(false);
+					railInfo.setSelectedComponent(railBasicInfo);
+				}
+			}
+		});
+
+		//add(btnView, "5, 4");
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");

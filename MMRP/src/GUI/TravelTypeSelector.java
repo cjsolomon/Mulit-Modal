@@ -3,6 +3,9 @@ package  GUI;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
+
+
+
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
@@ -18,6 +21,8 @@ import javax.swing.JButton;
 import javax.swing.JScrollPane;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class TravelTypeSelector extends JPanel {
 	
@@ -30,7 +35,7 @@ public class TravelTypeSelector extends JPanel {
 	DefaultListModel dlmInUse,dlmAvail;
 	JScrollPane sp1,sp2;
 
-	public TravelTypeSelector()
+	public TravelTypeSelector(final GUI.Main_Source main)
 	{
 		dlmInUse = new DefaultListModel();
 	
@@ -80,13 +85,96 @@ public class TravelTypeSelector extends JPanel {
 		add(lblUsed, "5, 4");
 		
 		lblAvailable = new JLabel("Available");
+		
 		add(lblAvailable, "17, 4");
 		
 		lstInUse = new JList(dlmInUse);
+		lstInUse.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		        	TravelType t = (TravelType)lstAvail.getSelectedValue();
+		            System.out.println("Double click detected");
+		            
+		            main.setTravelTypeID(t.getVehicleTypeID());
+		            if(t.getTravelTypeMode().equals(Vehicle.TravelModes.TRUCK.toString()))
+		            {
+		            	main.getTruckTravelTypeButton().doClick();
+		            }
+		            else
+		            {
+		            	
+		            	if(t.getTravelTypeMode().equals(Vehicle.TravelModes.RAIL.toString()))
+		            	{
+		            		main.getRailTravelTypeButton().doClick();
+		            	}
+		            	else
+		            	{
+		            		
+		            		if(t.getTravelTypeMode().equals(Vehicle.TravelModes.CARGO.toString()))
+		            		{
+		            			main.getCargoTravelTypeButton().doClick();
+		            		}
+		            		else
+		            		{
+		            			if(t.getTravelTypeMode().equals(Vehicle.TravelModes.PLANE.toString()))
+		            			{
+		            				main.getPlaneTravelTypeButton().doClick();
+		            			}
+		            		}
+		            	}
+		            	
+		            }
+		           
+		         
+		        }
+		    }
+		});
 		sp1.setViewportView(lstInUse);
 		add(sp1, "4, 6, 3, 7, fill, fill");
 		
 		lstAvail = new JList(dlmAvail);
+		lstAvail.addMouseListener(new MouseAdapter(){
+		    public void mouseClicked(MouseEvent e){
+		    	System.out.println("Mouse click detected");
+		        if(e.getClickCount()==2){
+		        	TravelType t = (TravelType)lstAvail.getSelectedValue();
+		            System.out.println("Double click detected");
+		            
+		            main.setTravelTypeID(t.getVehicleTypeID());
+		            if(t.getTravelTypeMode().equals(Vehicle.TravelModes.TRUCK.toString()))
+		            {
+		            	main.getTruckTravelTypeButton().doClick();
+		            }
+		            else
+		            {
+		            	
+		            	if(t.getTravelTypeMode().equals(Vehicle.TravelModes.RAIL.toString()))
+		            	{
+		            		main.getRailTravelTypeButton().doClick();
+		            	}
+		            	else
+		            	{
+		            		
+		            		if(t.getTravelTypeMode().equals(Vehicle.TravelModes.CARGO.toString()))
+		            		{
+		            			main.getCargoTravelTypeButton().doClick();
+		            		}
+		            		else
+		            		{
+		            			if(t.getTravelTypeMode().equals(Vehicle.TravelModes.PLANE.toString()))
+		            			{
+		            				main.getPlaneTravelTypeButton().doClick();
+		            			}
+		            		}
+		            	}
+		            	
+		            }
+		           
+		         
+		        }
+		    }
+		});
 		sp2.setViewportView(lstAvail);
 		add(sp2, "16, 6, 3, 7, fill, fill");
 		

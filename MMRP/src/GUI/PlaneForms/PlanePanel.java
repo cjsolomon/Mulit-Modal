@@ -75,7 +75,7 @@ public class PlanePanel extends JPanel {
 			}
 		});
 		planeBasicInfo.setVisible(false);
-		tts= new TravelTypeSelector();
+		tts= new TravelTypeSelector(main);
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
 		segments = new SegmentTable(main);

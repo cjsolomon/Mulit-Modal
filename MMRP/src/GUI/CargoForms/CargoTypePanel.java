@@ -10,7 +10,14 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import core.Carrier;
+import core.TravelType;
+
 import javax.swing.JButton;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -84,7 +91,17 @@ public class CargoTypePanel extends JPanel {
 					ct.showPanel(ctt.getSelectedTravelType());
 			}
 		});
-		add(btnView, "18, 14");
+		ctt.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(ctt.getSelectedRow()!=-1)
+				{
+					ct.showPanel(ctt.getSelectedTravelType());
+				}
+			}
+		});
+
+		//add(btnView, "18, 14");
 		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click here to create a new Cargo Type");
@@ -125,6 +142,26 @@ public class CargoTypePanel extends JPanel {
 		ctt.showPanel();
 		sp.setViewportView(ctt);
 		this.setVisible(true);
+	}
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			ctt.showPanel();
+			ct.setVisible(false);
+			setVisible(true);
+			main.setCarrier(0);
+		}else{
+			//btnView.doClick();
+			TravelType t = TravelType.Load(id);
+			ctt.showPanel();
+			//sht.showPanel(st.getSelectedShipment());
+			ct.showPanel(t);
+			sp.setVisible(true);
+			setVisible(true);
+			main.setCarrier(0);
+		}
 	}
 
 }

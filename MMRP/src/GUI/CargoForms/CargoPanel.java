@@ -7,6 +7,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
@@ -54,7 +56,7 @@ public class CargoPanel extends JPanel {
 				FormFactory.DEFAULT_ROWSPEC,}));
 		
 		
-		cargoTable=new CargoTable();
+		cargoTable=new CargoTable(main);
 		cargoTable.setVisible(false);
 		sp=new JScrollPane();
 		sp.setViewportView(cargoTable);
@@ -74,7 +76,7 @@ public class CargoPanel extends JPanel {
 			}
 		});
 		cargoBasicInfo.setVisible(false);
-		tts= new TravelTypeSelector();
+		tts= new TravelTypeSelector(main);
 		tts.setVisible(false);
 		sp2 = new JScrollPane();
 		segments = new SegmentTable(main);
@@ -85,6 +87,34 @@ public class CargoPanel extends JPanel {
 		cargoInfo.addTab("Segments",sp2);
 		cargoInfo.addTab("Types",tts);
 		cargoInfo.setVisible(false);
+		cargoInfo.getModel().addChangeListener(new ChangeListener(){
+			public void stateChanged(ChangeEvent e)
+			{
+				if(cargoInfo.getSelectedIndex()==0)
+				{
+					cargoBasicInfo.setVisible(true);
+					sp2.setVisible(false);
+					tts.setVisible(false);
+				}
+				else
+				{
+					if(cargoInfo.getSelectedIndex()==1)
+					{
+						cargoBasicInfo.setVisible(false);
+						sp2.setVisible(true);
+						tts.setVisible(false);
+					}
+					else
+					{
+						cargoBasicInfo.setVisible(false);
+						sp2.setVisible(false);
+						tts.setVisible(true);
+					}
+				}
+				
+			}
+		});
+
 		
 		
 		btnNew = new JButton("New");
@@ -100,7 +130,23 @@ public class CargoPanel extends JPanel {
 				cargoInfo.setSelectedIndex(0);
 			}
 		});
-		
+		cargoTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent e)
+			{
+				if(cargoTable.getSelectedRow()!=-1)
+				{
+					cargoInfo.setVisible(true);
+					cargoBasicInfo.showPanel(cargoTable.getSelectedCargo());
+					segments.showPanel(cargoTable.getSelectedCargo());
+					sp2.setVisible(true);
+					tts.showPanel(cargoTable.getSelectedCargo());
+					tts.setVisible(false);
+					cargoInfo.setSelectedComponent(cargoBasicInfo);
+				}
+			}
+		});
+
+
 		btnView = new JButton("View");
 		btnView.setToolTipText("Click here to view the selected Cargo Ship");
 		btnView.addActionListener(new ActionListener(){
@@ -117,7 +163,7 @@ public class CargoPanel extends JPanel {
 				}
 			}
 		});
-		add(btnView, "5, 4");
+		//add(btnView, "5, 4");
 		add(btnNew, "7, 4");
 		
 		btnDelete = new JButton("Delete");

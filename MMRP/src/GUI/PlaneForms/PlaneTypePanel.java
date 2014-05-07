@@ -14,6 +14,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
 import com.jgoodies.forms.factories.FormFactory;
+
+import core.TravelType;
+
 import javax.swing.JButton;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -136,6 +139,26 @@ public class PlaneTypePanel extends JPanel {
 		ptt.showPanel();
 		sp.setViewportView(ptt);
 		this.setVisible(true);
+	}
+	public void showPanel(int id, final GUI.Main_Source main)
+	{
+		
+		if(id == 0){
+			sp.setVisible(true);
+			ptt.showPanel();
+			pt.setVisible(false);
+			setVisible(true);
+			main.setCarrier(0);
+		}else{
+			//btnView.doClick();
+			TravelType t = TravelType.Load(id);
+			ptt.showPanel();
+			//sht.showPanel(st.getSelectedShipment());
+			pt.showPanel(t);
+			sp.setVisible(true);
+			setVisible(true);
+			main.setCarrier(0);
+		}
 	}
 
 }

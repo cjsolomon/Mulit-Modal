@@ -84,6 +84,29 @@ public class Main_Source {
 	int carrierID = 0;
 	int shipperID =0;
 	int segmentID=0;
+	int travelTypeID =0;
+	
+	public void setTravelTypeID(int id)
+	{
+		travelTypeID = id;
+	}
+	
+	public JButton getRailTravelTypeButton()
+	{
+		return this.btnRailType;
+	}
+	public JButton getPlaneTravelTypeButton()
+	{
+		return this.btnPlaneType;
+	}
+	public JButton getTruckTravelTypeButton()
+	{
+		return this.btnTruckType;
+	}
+	public JButton getCargoTravelTypeButton()
+	{
+		return this.btnCargoType;
+	}
 	
 	public JButton getShipperButton()
 	{
@@ -326,7 +349,7 @@ public class Main_Source {
 			 public void actionPerformed(ActionEvent e)
 			 {
 				 hidePanels();
-				 ttp.showPanel();
+				 ttp.showPanel(travelTypeID,GUI.Main_Source.this);
 				 enableButtons();
 				 btnTruckType.setEnabled(false);
 				 lblFormLabel.setText("Truck Types");
@@ -352,7 +375,7 @@ public class Main_Source {
 			 public void actionPerformed(ActionEvent e)
 			 {
 				 hidePanels();
-				 ptp.showPanel();
+				 ptp.showPanel(travelTypeID,GUI.Main_Source.this);
 				 enableButtons();
 				 btnPlaneType.setEnabled(false);
 				 lblFormLabel.setText("Plane Types");
@@ -378,7 +401,7 @@ public class Main_Source {
 			 public void actionPerformed(ActionEvent e)
 			 {
 				 hidePanels();
-				 rtp.showPanel();
+				 rtp.showPanel(travelTypeID,GUI.Main_Source.this);
 				 enableButtons();
 				 btnRailType.setEnabled(false);
 				 lblFormLabel.setText("Rail Types");
@@ -404,7 +427,7 @@ public class Main_Source {
 			 public void actionPerformed(ActionEvent e)
 			 {
 				 hidePanels();
-				 ctp.showPanel();
+				 ctp.showPanel(travelTypeID,GUI.Main_Source.this);
 				 enableButtons();
 				 btnCargoType.setEnabled(false);
 				 lblFormLabel.setText("Cargo Types");
