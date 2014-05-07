@@ -3,6 +3,7 @@ package  GUI.CargoForms;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -85,6 +86,7 @@ public class CargoPanel extends JPanel {
 		cargoInfo.addTab("Types",tts);
 		cargoInfo.setVisible(false);
 		
+		
 		btnNew = new JButton("New");
 		btnNew.setToolTipText("Click here to create a new Cargo Ship");
 		btnNew.addActionListener(new ActionListener(){
@@ -123,7 +125,8 @@ public class CargoPanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(cargoTable.getSelectedRow()!=-1)
+				
+				if(cargoTable.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Cargo Ship may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Cargo Ship", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					cargoTable.getSelectedCargo().Delete();
 				}

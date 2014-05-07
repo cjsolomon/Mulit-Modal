@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSpinner;
@@ -221,44 +222,63 @@ public class RoutingForm extends JPanel{
 					double cost = 10000000;
 					
 					if(chkNodeCrawler.isSelected()){
-						Routing.NodeCrawler NC = new Routing.NodeCrawler(source);
-						NC.setMetric(new Routing.WeightedMetric((Integer)spinNCD.getValue(),(Integer)spinNCT.getValue(), (Integer)spinNCC.getValue()));
-						bestRoute = NC.getPath();
-						cost = NC.getTotalRouteWeightedCost(bestRoute);
+						if((Integer)spinNCD.getValue() + (Integer)spinNCT.getValue() + (Integer)spinNCC.getValue() < 1){
+							JOptionPane.showMessageDialog(null, "The Node Crawler weights must atleast have a value of 1", "Invalid Weights", JOptionPane.ERROR_MESSAGE);
+						}else{
+							Routing.NodeCrawler NC = new Routing.NodeCrawler(source);
+							NC.setMetric(new Routing.WeightedMetric((Integer)spinNCD.getValue(),(Integer)spinNCT.getValue(), (Integer)spinNCC.getValue()));
+							bestRoute = NC.getPath();
+							cost = NC.getTotalRouteWeightedCost(bestRoute);
+						}
 					}
 					if(chkBestFind.isSelected()){
 						
-						Routing.BestFirstFind BFF  = new Routing.BestFirstFind(new Routing.WeightedMetric((Integer)spinBFD.getValue(),(Integer)spinBFT.getValue(), (Integer)spinBFC.getValue()), source);
-						ArrayList<Segment> newPath = BFF.getPath();
-						if(BFF.getTotalRouteWeightedCost(newPath) < cost){
-							cost = BFF.getTotalRouteWeightedCost(newPath);
-							bestRoute = newPath;
+						if((Integer)spinBFD.getValue() + (Integer)spinBFT.getValue() + (Integer)spinBFC.getValue() < 1){
+							JOptionPane.showMessageDialog(null, "The Best Find weights must atleast have a value of 1", "Invalid Weights", JOptionPane.ERROR_MESSAGE);
+						}else{
+							Routing.BestFirstFind BFF  = new Routing.BestFirstFind(new Routing.WeightedMetric((Integer)spinBFD.getValue(),(Integer)spinBFT.getValue(), (Integer)spinBFC.getValue()), source);
+							ArrayList<Segment> newPath = BFF.getPath();
+							if(BFF.getTotalRouteWeightedCost(newPath) < cost){
+								cost = BFF.getTotalRouteWeightedCost(newPath);
+								bestRoute = newPath;
+							}
 						}
 					}	
 					if(chkTravelByType.isSelected()){
-						
-						Routing.TravelByType TBT  = new Routing.TravelByType((Vehicle.TravelModes)cmbTTMode.getSelectedItem(), new Routing.WeightedMetric((Integer)spinTTD.getValue(),(Integer)spinTTT.getValue(), (Integer)spinTTC.getValue()), source);
-						ArrayList<Segment> newPath = TBT.getPath();
-						if(TBT.getTotalRouteWeightedCost(newPath) < cost){
-							cost = TBT.getTotalRouteWeightedCost(newPath);
-							bestRoute = newPath;
+						if((Integer)spinTTD.getValue() + (Integer)spinTTT.getValue() + (Integer)spinTTC.getValue() < 1){
+							JOptionPane.showMessageDialog(null, "The Travel By Type weights must atleast have a value of 1", "Invalid Weights", JOptionPane.ERROR_MESSAGE);
+						}else{
+							Routing.TravelByType TBT  = new Routing.TravelByType((Vehicle.TravelModes)cmbTTMode.getSelectedItem(), new Routing.WeightedMetric((Integer)spinTTD.getValue(),(Integer)spinTTT.getValue(), (Integer)spinTTC.getValue()), source);
+							ArrayList<Segment> newPath = TBT.getPath();
+							if(TBT.getTotalRouteWeightedCost(newPath) < cost){
+								cost = TBT.getTotalRouteWeightedCost(newPath);
+								bestRoute = newPath;
+							}
 						}
 						
 					}
 					if(chkAStar.isSelected()){
-						Routing.AStarAlg AS  = new Routing.AStarAlg(source,new Routing.WeightedMetric((Integer)spinASD.getValue(),(Integer)spinAST.getValue(), (Integer)spinASC.getValue()));
-						ArrayList<Segment> newPath = AS.getPath();
-						if(AS.getTotalRouteWeightedCost(newPath) < cost){
-							cost = AS.getTotalRouteWeightedCost(newPath);
-							bestRoute = newPath;
+						if((Integer)spinASD.getValue() + (Integer)spinAST.getValue() + (Integer)spinASC.getValue() < 1){
+							JOptionPane.showMessageDialog(null, "The A Star weights must atleast have a value of 1", "Invalid Weights", JOptionPane.ERROR_MESSAGE);
+						}else{
+							Routing.AStarAlg AS  = new Routing.AStarAlg(source,new Routing.WeightedMetric((Integer)spinASD.getValue(),(Integer)spinAST.getValue(), (Integer)spinASC.getValue()));
+							ArrayList<Segment> newPath = AS.getPath();
+							if(AS.getTotalRouteWeightedCost(newPath) < cost){
+								cost = AS.getTotalRouteWeightedCost(newPath);
+								bestRoute = newPath;
+							}
 						}
 					}
 					if(chkNextAvailVehicle.isSelected()){
-						Routing.NextAvailableVehicle NAV  = new Routing.NextAvailableVehicle((Vehicle.TravelModes)cmbTTMode.getSelectedItem(), new Routing.WeightedMetric((Integer)spinTTD.getValue(),(Integer)spinTTT.getValue(), (Integer)spinTTC.getValue()), source);
-						ArrayList<Segment> newPath = NAV.getPath();
-						if(NAV.getTotalRouteWeightedCost(newPath) < cost){
-							cost = NAV.getTotalRouteWeightedCost(newPath);
-							bestRoute = newPath;
+						if((Integer)spinNAVD.getValue() + (Integer)spinNAVT.getValue() + (Integer)spinNAVC.getValue() < 1){
+							JOptionPane.showMessageDialog(null, "The Noext Avialable Vehicle weights must atleast have a value of 1", "Invalid Weights", JOptionPane.ERROR_MESSAGE);
+						}else{
+							Routing.NextAvailableVehicle NAV  = new Routing.NextAvailableVehicle((Vehicle.TravelModes)cmbNAVMode.getSelectedItem(), new Routing.WeightedMetric((Integer)spinNAVD.getValue(),(Integer)spinNAVT.getValue(), (Integer)spinNAVC.getValue()), source);
+							ArrayList<Segment> newPath = NAV.getPath();
+							if(NAV.getTotalRouteWeightedCost(newPath) < cost){
+								cost = NAV.getTotalRouteWeightedCost(newPath);
+								bestRoute = newPath;
+							}
 						}
 					}
 					

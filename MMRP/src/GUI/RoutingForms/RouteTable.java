@@ -53,7 +53,7 @@ public class RouteTable extends JTable {
 class RouteTableModel extends AbstractTableModel
 {
 	ArrayList<Segment> data;
-	String[] columns = {"ID", "To","From","Time","Cost", "Distance"};
+	String[] columns = {"ID", "To","From","Mode","Time","Cost", "Distance"};
 	public RouteTableModel(ArrayList<Segment> source)
 	{
 		data=source;
@@ -80,10 +80,12 @@ class RouteTableModel extends AbstractTableModel
 			case 2:
 			return data.get(row).getEndLocation().getName();
 			case 3:
-			return Math.abs(data.get(row).getEstimatedArrivalTime() -data.get(row).getEstimatedDepartureTime());
+			return data.get(row).getTravelType().getTravelTypeMode().toString();
 			case 4:
-				return data.get(row).getShippingRate().getFlatRate();
+			return Math.abs(data.get(row).getEstimatedArrivalTime() -data.get(row).getEstimatedDepartureTime());
 			case 5:
+				return data.get(row).getShippingRate().getFlatRate();
+			case 6:
 				return data.get(row).getDistance();
 			default:
 				return data.get(row).getID();

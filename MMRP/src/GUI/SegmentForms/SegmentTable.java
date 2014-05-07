@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import javax.swing.JTable;
 import javax.swing.table.AbstractTableModel;
 
+//import GUI.PlaneForms.PlaneModel;
+
 import core.*;
-import core.Truck;
-import core.Vehicle;
 
 public class SegmentTable extends JTable {
 	

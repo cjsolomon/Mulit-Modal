@@ -3,6 +3,7 @@ package  GUI.TruckForms;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -167,7 +168,7 @@ public class TruckPanel extends JPanel {
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				if(tt.getSelectedRow()!=-1)
+				if(tt.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Truck may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Truck", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					tt.getSelectedTruck().Delete();
 					tt.refresh();

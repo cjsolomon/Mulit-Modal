@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -213,7 +214,7 @@ public class CargoType extends JPanel {
 	}
 	private void loadNew()
 	{
-		this.txtServiceType.setText("");
+		this.txtServiceType.setText("NONE");
 		this.txtMaxCapacity.setText("");
 		this.txtMaxWeight.setText("");
 		this.txtMinCapacity.setText("");
@@ -256,7 +257,7 @@ public class CargoType extends JPanel {
 	}
 	private void setEditable()
 	{
-		this.txtServiceType.setEnabled(true);
+		this.txtServiceType.setEnabled(false);
 		this.txtMaxCapacity.setEnabled(true);
 		this.txtMaxWeight.setEnabled(true);
 		this.txtMinCapacity.setEnabled(true);
@@ -270,32 +271,49 @@ public class CargoType extends JPanel {
 	}
 	private void update()
 	{
-		if(source==null)
+		String errorString = "";
+		//Error Checking
+		if(this.txtTypeName.getText().isEmpty() || this.txtTypeName.getText().length() < 1 ||  this.txtTypeName.getText().length() > 45)
+			errorString += "The Type Name was not a valid entry between 1 and 45 characters.\n";
+		if(this.txtMaxWeight.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtMaxWeight.getText()),0, core.TravelType.getDefaultMaximumWeight()))
+			errorString += "The Maximum Weight was not in the range of " + 0 + " and " + core.TravelType.getDefaultMaximumWeight() + ".\n";
+		if(this.txtMinCapacity.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtMinCapacity.getText()),0, core.TravelType.getDefaultMaximumCapacity()))
+			errorString += "The Minimum Capacity was not in the range of " + core.TravelType.getDefaultMinimumCapacity() + " and " + core.TravelType.getDefaultMaximumCapacity() + ".\n";
+		if(this.txtMaxCapacity.getText().isEmpty() || !core.FormatChecker.inRange(Double.valueOf(this.txtMaxCapacity.getText()),core.TravelType.getDefaultMinimumCapacity(), core.TravelType.getDefaultMaximumCapacity()))
+			errorString += "The Maximum Capacity was not in the range of " + core.TravelType.getDefaultMinimumCapacity() + " and " + core.TravelType.getDefaultMaximumCapacity() + ".\n";
+		if(errorString.isEmpty())
 		{
-			source = new TravelType();
-			source.setTrailer1("");
-			source.setTrailer2("");
-			source.setTravelTypeMode(Vehicle.TravelModes.CARGO.toString());
-		}
-		source.setExp(this.chckbxExplosiveMaterial.isSelected());
-		source.setHaz(this.chckbxHazardousMaterial.isSelected());
-		source.setMaxCap(Double.parseDouble(this.txtMaxCapacity.getText()));
-		source.setMaxWeight(Double.parseDouble(this.txtMaxWeight.getText()));
-		source.setMinCap(Double.parseDouble(this.txtMinCapacity.getText()));
-		source.setRad(this.chckbxRadiation.isSelected());
-		source.setRef(this.chckbxRefrigeration.isSelected());
-		source.setServiceType(this.txtServiceType.getText());
-		source.setTracking(this.chckbxTracking.isSelected());
-		source.setTravelTypeName(this.txtTypeName.getText());
+			if(source==null)
+			{
+				source = new TravelType();
+				source.setTrailer1("NONE");
+				source.setTrailer2("NONE");
+				source.setTravelTypeMode(Vehicle.TravelModes.CARGO.toString());
+			}
+			source.setExp(this.chckbxExplosiveMaterial.isSelected());
+			source.setHaz(this.chckbxHazardousMaterial.isSelected());
+			source.setMaxCap(Double.parseDouble(this.txtMaxCapacity.getText()));
+			source.setMaxWeight(Double.parseDouble(this.txtMaxWeight.getText()));
+			source.setMinCap(Double.parseDouble(this.txtMinCapacity.getText()));
+			source.setRad(this.chckbxRadiation.isSelected());
+			source.setRef(this.chckbxRefrigeration.isSelected());
+			source.setServiceType(this.txtServiceType.getText());
+			source.setTracking(this.chckbxTracking.isSelected());
+			source.setTravelTypeName(this.txtTypeName.getText());
 		
-		source.Update();
-		this.txtID.setText(((Integer)source.getVehicleTypeID()).toString());
-		//this.txtID.setText(((Integer)source.getVehicleTypeID()).toString());
-		for(TableRefreshListener r: refresh)
-			r.refreshTable();
-		setReadOnly();
-		btnEdit.setVisible(true);
-		btnSave.setVisible(false);
+			source.Update();
+			this.txtID.setText(((Integer)source.getVehicleTypeID()).toString());
+			//this.txtID.setText(((Integer)source.getVehicleTypeID()).toString());
+			for(TableRefreshListener r: refresh)
+				r.refreshTable();
+			setReadOnly();
+			btnEdit.setVisible(true);
+			btnSave.setVisible(false);
+		}
+		else{
+			//An error occurred
+			JOptionPane.showMessageDialog(null, errorString , "Invalid data entered", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 	public void addTableRefreshListener(TableRefreshListener add)
 	{

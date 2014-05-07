@@ -3,6 +3,7 @@ package  GUI.RailForms;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -122,8 +123,11 @@ public class RailPanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				railTable.getSelectedRail().Delete();
-				railTable.refresh();
+				if(railTable.getSelectedRow() != -1 && JOptionPane.showConfirmDialog(null,"Deleting this Rail may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Rail", JOptionPane.YES_NO_OPTION) == 0)
+				{
+					railTable.getSelectedRail().Delete();
+					railTable.refresh();
+				}
 			}
 		});
 		add(btnDelete, "8, 4");

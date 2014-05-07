@@ -1,5 +1,6 @@
 package GUI.CarrierForms;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -90,7 +91,7 @@ public class CarrierPanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(ct.getSelectedRow()!=-1)
+				if(ct.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Carrier may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Carrier", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					ct.getSelectedCarrier().Delete();
 					ct.refresh();

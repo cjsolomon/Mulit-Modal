@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -161,10 +162,14 @@ public class TruckBasicPanel extends JPanel {
 	private void update()
 	{
 		if(source==null) source = new Truck();
-		source.setVehicleName(txtName.getText());
-		source.setStatus((Vehicle.Status)cmbStatus.getSelectedItem());
-		source.setCarrier((Carrier)cmbCarrier.getSelectedItem());
-		source.Update();
+		if(txtName.getText().length() < 46 &&  txtName.getText().length() > 1){
+			source.setVehicleName(txtName.getText());
+			source.setStatus((Vehicle.Status)cmbStatus.getSelectedItem());
+			source.setCarrier((Carrier)cmbCarrier.getSelectedItem());
+			source.Update();
+		}
+		else
+			JOptionPane.showMessageDialog(null, "The name you entered was not an appropriate length. Please enter a name between 1 and 45 characters long.", "Invalid Name", JOptionPane.ERROR_MESSAGE);
 		for(TableRefreshListener t : listener)
 			t.refreshTable();
 	}

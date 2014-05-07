@@ -1,5 +1,6 @@
 package GUI.ShipperForms;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -88,7 +89,7 @@ public class ShipperPanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(st.getSelectedRow()!=-1)
+				if(st.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Shipper may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Shipper", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					st.getSelectedShipper().Delete();
 					st.refresh();

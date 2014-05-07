@@ -105,11 +105,15 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 			//We do not have a direct path so we will enter a while loop until we find a path
 			int tries = 0;
 			while(tries < maxTries && !pathFound){
+				
+				System.out.println("Next Available Vehicle  - Current Attempt : " + tries+1 + " of " + maxTries);
 				//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
 				if(Math.floor(Math.random() * 100) < percentChanceOfDirectPath){
+					System.out.println("Next Available Vehicle  - Attempting Direct Path");
 					//We will attempt to find a directPath between this location and the end location
 					paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 					if(paths.size() > 0){
+						System.out.println("Next Available Vehicle  - Direct path found!");
 						//We have a direct path from the start to the finish so choose the best one and return it
 						Segment soonest = paths.get(0);
 						//Note: I could take the Math.abs value of the departure time - the currentTime, but seeing
@@ -128,9 +132,11 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 						pathFound = true;
 					}//End of direct path if
 				}else{
+					System.out.println("Next Available Vehicle  - Finding non-direct path");
 					//Grab all the Segments starting at this location
 					paths = validPaths(grabSegmentsStartingAt(currentLocationID));
 					if(paths.size()  > 0){
+						System.out.println("Next Available Vehicle  - Found next segment");
 						//We have valid paths we can use
 						Segment soonest = paths.get(0);
 						//Note: I could take the Math.abs value of the departure time - the currentTime, but seeing
@@ -148,8 +154,10 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 						route.add(soonest);
 						currentLocationID = soonest.getEndLocationID();
 					}else{
+						System.out.println("Next Available Vehicle  - Could not find next segment - rewinding path");
 						//We have no valid path from this point so we must rewind the path
 						if(!rewindPath(route)){
+							System.out.println("Next Available Vehicle  - Could not rewind path, could not find route");
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
 							continue;
@@ -187,18 +195,24 @@ public class NextAvailableVehicle extends RoutingAlgorithm{
 	 */
 	@Override
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
+		System.out.println("Next Available Vehicle  - Validating Segments");
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
+			System.out.println("Next Available Vehicle  - Checking Segment :" + i+1 + " of " + segmentsToCheck.size());
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" || 
 				!segmentsToCheck.get(i).getMode().equalsIgnoreCase(mode.toString()) ||
 				  this.route.contains(segmentsToCheck.get(i))){
+				System.out.println("Next Available Vehicle  - Segment NOT VALID");
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 				i--;
 			}//End of time, size and status restraint if
+			else{
+				System.out.println("Next Available Vehicle  - Segment VALID");
+			}
 		}//End of time and capacity checking for loop
 			
 	return segmentsToCheck;

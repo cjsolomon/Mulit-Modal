@@ -3,6 +3,7 @@ package GUI.RailForms;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -99,7 +100,7 @@ public class RailTypePanel extends JPanel {
 		btnDelete.setToolTipText("Click here to delete the selected Rail Type");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(rtt.getSelectedRow()!=-1)
+				if(rtt.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Rail Type may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Rail Type", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					rtt.getSelectedTravelType().Delete();
 					rtt.refresh();

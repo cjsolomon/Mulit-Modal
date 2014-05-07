@@ -696,7 +696,7 @@ public class Segment extends BaseClass {
 			s.MarkDeleted();
 		else
 			s.MarkUndeleted();
-		// s.setShippingRate(ShippingRate.Load((Integer)data.get("ShippingRateID")));
+		s.setShippingRate(ShippingRate.Load((Integer)data.get("ShippingRateID")));
 
 		Location tstart = new Location((Integer) data.get("StartID"));
 

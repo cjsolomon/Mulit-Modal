@@ -3,6 +3,7 @@ package GUI.TruckForms;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -98,7 +99,7 @@ public class TruckTypePanel extends JPanel {
 		btnDelete.setToolTipText("Click to delete the selected Truck Type");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ttt.getSelectedRow()!=-1)
+				if(ttt.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Truck Type may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Truck Type", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					ttt.getSelectedTravelType().Delete();
 					ttt.refresh();

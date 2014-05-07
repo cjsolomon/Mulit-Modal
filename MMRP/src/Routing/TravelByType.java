@@ -95,37 +95,46 @@ public class TravelByType extends RoutingAlgorithm{
 			//We do not have a direct path so we will enter a while loop until we find a path
 			int tries = 0;
 			while(tries < maxTries && !pathFound){
+				System.out.println("Travel By Type - Current Attempt : " + tries+1 + " of " + maxTries);
 				//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
 				if(Math.floor(Math.random() * 100) < percentChanceOfDirectPath){
+					System.out.println("Travel By Type - Attempting Direct Path");
 					//We will attempt to find a directPath between this location and the end location
 					paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 					if(paths.size() > 0){
+						System.out.println("Travel By Type - Direct Path found!");
 						//We have a direct path from the start to the finish so choose the best one and return it
 						route.add(metric.getLowestWeightedCostSegment(paths));
 						pathFound = true;
 					}//End of direct path if
 				}else{
+					System.out.println("Travel By Type - Finding next Segment");
 					//Grab all the Segments starting at this location
 					paths = validPaths(grabSegmentsStartingAt(currentLocationID));
 					if(paths.size()  > 0){
+						System.out.println("Travel By Type - Next Segment found");
 						//We have valid paths we can use
 						Segment nextSegment;
 						//Now we check to see if we want to use the best possbile path or not
 						if(Math.floor(Math.random() * 100) > percentChanceOfBestRoute){
+							System.out.println("Travel By Type - Choosing lowest cost segment");
 							//Choose the best route to travel along
 							nextSegment = metric.getLowestWeightedCostSegment(paths);
 							route.add(nextSegment);
 							currentLocationID = nextSegment.getEndLocationID();
 						}else{
 							//Choose a random path to travel along
+							System.out.println("Travel By Type - Choosing random segment");
 							nextSegment = paths.get((int)Math.floor(Math.random() * paths.size()));
 							route.add(nextSegment);
 							currentLocationID = nextSegment.getEndLocationID();
 							
 						}//End of not-best route path
 					}else{
+						System.out.println("Travel By Type - Next segment not found! - rewinding path");
 						//We have no valid path from this point so we must rewind the path
 						if(!rewindPath(route)){
+							System.out.println("Travel By Type - Could not rewind path, no route found!");
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
 							continue;
@@ -161,18 +170,24 @@ public class TravelByType extends RoutingAlgorithm{
 	 */
 	@Override
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
+		System.out.println("Travel By Type - Validating Segments");
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
+			System.out.println("Travel By Type - Checking Segment :" + i+1 + " of " + segmentsToCheck.size());
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" || 
 				!segmentsToCheck.get(i).getMode().equalsIgnoreCase(mode.toString()) ||
 				 this.route.contains(segmentsToCheck.get(i))){
+				System.out.println("Travel By Type - Segment NOT VALID");
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(segmentsToCheck.get(i));
 				i--;
 			}//End of time, size and status restraint if
+			else{
+				System.out.println("Travel By Type - Segment VALID");
+			}
 		}//End of time and capacity checking for loop
 			
 	return segmentsToCheck;

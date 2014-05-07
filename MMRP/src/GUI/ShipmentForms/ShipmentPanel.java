@@ -1,5 +1,6 @@
 package GUI.ShipmentForms;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -142,7 +143,7 @@ public class ShipmentPanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(st.getSelectedRow()!=-1)
+				if(st.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Shipment may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Shipment", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					st.getSelectedShipment().Delete();
 					st.refresh();

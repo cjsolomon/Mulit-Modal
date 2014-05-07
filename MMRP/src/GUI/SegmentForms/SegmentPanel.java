@@ -1,5 +1,6 @@
 package GUI.SegmentForms;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -78,6 +79,16 @@ public class SegmentPanel extends JPanel {
 		
 		btnDelete = new JButton("Delete");
 		btnDelete.setToolTipText("Click to delete the selected Segment");
+		btnDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(st.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Segment may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Segment", JOptionPane.YES_NO_OPTION) == 0)
+				{
+					st.getSelectedSegment().Delete();
+					//Refresh not set up yet
+					//st.refresh();
+				}
+			}
+		});
 		add(btnDelete, "9, 7");
 		add(sf,"2, 8, 8, 1");
 		

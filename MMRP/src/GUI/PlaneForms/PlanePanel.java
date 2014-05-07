@@ -3,6 +3,7 @@ package  GUI.PlaneForms;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
@@ -17,7 +18,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.RowSpec;
 import javax.swing.JButton;
 import GUI.*;
-import GUI.TravelTypeSetListener;
 public class PlanePanel extends JPanel {
 	PlaneTable planeTable;
 	JScrollPane sp,sp2;
@@ -123,7 +123,7 @@ public class PlanePanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(planeTable.getSelectedRow()!=-1)
+				if(planeTable.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Plane may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Plane", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					planeTable.getSelectedPlane().Delete();
 					planeTable.refresh();

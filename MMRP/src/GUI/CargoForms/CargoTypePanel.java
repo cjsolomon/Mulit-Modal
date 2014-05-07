@@ -2,6 +2,7 @@ package GUI.CargoForms;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JOptionPane;
 
 import GUI.TableRefreshListener;
 
@@ -99,7 +100,7 @@ public class CargoTypePanel extends JPanel {
 		btnDelete.setToolTipText("Click here to delete the selected Cargo Type");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ctt.getSelectedRow()!=-1)
+				if(ctt.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Cargo Type may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Cargo Type", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					ctt.getSelectedTravelType().Delete();
 					ctt.refresh();

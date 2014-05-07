@@ -81,9 +81,12 @@ public class BestFirstFind extends RoutingAlgorithm{
 			//We do not have a direct path so we will enter a while loop until we find a path
 			int tries = 0;
 			while(tries < maxTries && !pathFound){
+				
+				System.out.println("Best First Find - Current Attempt : " + tries+1 + " of " + maxTries);
 				//Attempt to find a direct path from the currentLocation to the end using the best path possible
 				paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 				if(paths.size() > 0){
+					System.out.println("Best First Find - Direct Path found!");
 					//We have a direct path from the start to the finish so choose the best one and return it
 					route.add(metric.getLowestWeightedCostSegment(paths));
 					//Set the currentLocationID to the end of the path
@@ -91,9 +94,11 @@ public class BestFirstFind extends RoutingAlgorithm{
 					pathFound = true;
 				}//End of direct path if
 				else{
+					System.out.println("Best First Find - No Direct Path available, choosing next best");
 					//Grab all the Segments starting at this location
 					paths = validPaths(grabSegmentsStartingAt(currentLocationID));
 					if(paths.size()  > 0){
+						System.out.println("Best First Find - Next best path found");
 						//We have valid paths we can use
 						Segment nextSegment;
 						//Choose the best route to travel along
@@ -101,8 +106,10 @@ public class BestFirstFind extends RoutingAlgorithm{
 						route.add(nextSegment);
 						currentLocationID = nextSegment.getEndLocationID();
 					}else{
+						System.out.println("Best First Find - Could not locate next path - rewinding path");
 						//We have no valid path from this point so we must rewind the path
 						if(!rewindPath(route)){
+							System.out.println("Best First Find - Could not rewind, could not find path!");
 							//we could not rewind the path, therefore we could not find a path
 							tries = maxTries;
 							continue;
@@ -115,6 +122,7 @@ public class BestFirstFind extends RoutingAlgorithm{
 					
 					//Check to see if we are done
 					if(currentLocationID == shipment.getToLocationID()){
+						System.out.println("Best First Find - Arrived at destination!");
 						//We have found a path to the end and are done
 						pathFound = true;
 					}
@@ -138,17 +146,23 @@ public class BestFirstFind extends RoutingAlgorithm{
 	 */
 	@Override
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
+		System.out.println("Best First Find - Validating Segments");
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
+			System.out.println("Best First Find - Checking Segment :" + i+1 + " of " + segmentsToCheck.size());
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 			   segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" ||
 			   this.route.contains(segmentsToCheck.get(i))){
+				System.out.println("Best First Find - Segment NOT VALID");
 				//We cannot use this segment so remove it from the list
 				segmentsToCheck.remove(i);
 				i--;
 			}//End of time, size and status restraint if
+			else{
+				System.out.println("Best First Find - Segment VALID");
+			}
 		}//End of time and capacity checking for loop
 			
 	return segmentsToCheck;

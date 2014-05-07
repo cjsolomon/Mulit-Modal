@@ -1,5 +1,6 @@
 package GUI.ShippingRatesForms;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -85,7 +86,7 @@ public class ShippingRatePanel extends JPanel {
 		btnDelete.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e)
 			{
-				if(srt.getSelectedRow()!=-1)
+				if(srt.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Shipping Rate may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Shipping Rate", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					srt.getSelectedShippingRate().Delete();
 					srt.refresh();

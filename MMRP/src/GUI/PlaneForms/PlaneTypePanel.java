@@ -3,6 +3,7 @@ package GUI.PlaneForms;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
@@ -99,7 +100,7 @@ public class PlaneTypePanel extends JPanel {
 		btnDelete.setToolTipText("Click here to delete the selected Plane Type");
 		btnDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(ptt.getSelectedRow()!=-1)
+				if(ptt.getSelectedRow()!=-1 && JOptionPane.showConfirmDialog(null,"Deleting this Plane Type may makes its future recovery from the database impossible. Are you sure you want to delete it?", "Deleting Plane Type", JOptionPane.YES_NO_OPTION) == 0)
 				{
 					ptt.getSelectedTravelType().Delete();
 					ptt.refresh();

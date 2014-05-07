@@ -82,21 +82,25 @@ public class NodeCrawler extends RoutingAlgorithm{
 		//We will enter a while loop until we find a path
 		int tries = 0;
 		while(tries < maxTries && !pathFound){
-			System.out.println("Attempt : "+ tries);
+			System.out.println("Node Crawler - Current Attempt : " + tries+1 + " of " + maxTries);
 			//Attempt to find a direct path from the currentLocation to the end giving a percent chance passed in
 			if(Math.floor(Math.random() * 100) < precentChanceOfDirectPath){
+				System.out.println("Node Crawler - Attempting Direct Path");
 				//We will attempt to find a directPath between this location and the end location
 				paths = validPaths(grabSegmentsBetween(Location.Load(currentLocationID), shipment.loadEndLocation()));
 				if(paths.size() > 0){
+					System.out.println("Node Crawler - Direct Path found!");
 					//Choose a random path to travel along
 					Segment nextSegment = paths.get((int)Math.floor(Math.random() * paths.size()));
 					route.add(nextSegment);
 					currentLocationID = nextSegment.getEndLocationID();
 				}//End of direct path if
 			}else{
+				System.out.println("Node Crawler - Grabbing random segment");
 				//Grab all the Segments starting at this location
 				paths = validPaths(grabSegmentsStartingAt(currentLocationID));
 				if(paths.size()  > 0){
+					System.out.println("Node Crawler - Adding new Segment");
 					//We have valid paths we can use
 					Segment nextSegment;
 					//Choose a random path to travel along
@@ -106,8 +110,10 @@ public class NodeCrawler extends RoutingAlgorithm{
 					
 					}//End of not-best route path
 				else{
+					System.out.println("Node Crawler - No Path found, rewinding");
 					//We have no valid path from this point so we must rewind the path
 					if(!rewindPath(route)){
+						System.out.println("Node Crawler - Could not rewind, no path found" );
 						//we could not rewind the path, therefore we could not find a path
 						tries = maxTries;
 						continue;
@@ -120,6 +126,7 @@ public class NodeCrawler extends RoutingAlgorithm{
 			}//End of non-directPath else
 				
 			if(currentLocationID == shipment.getToLocationID()){
+				System.out.println("Node Crawler - Arrived at end location");
 				//We have found a working path
 				pathFound = true;
 			}else{
@@ -143,17 +150,23 @@ public class NodeCrawler extends RoutingAlgorithm{
 	 */
 	@Override
 	public ArrayList<Segment> validPaths(ArrayList<Segment> segmentsToCheck){
+		System.out.println("Node Crawler - Validating Paths");
 		//We need to check to see if the vehicle is available at the location
 		//and if it has any capacity left to carry this shipment and if it is running and if it is the correct vehicle type
 		for(int i = 0; i < segmentsToCheck.size(); i++){
+			System.out.println("Node Crawler - Checking Segment : " + i+1 + " of " + segmentsToCheck.size());
 			if(segmentsToCheck.get(i).getEstimatedDepartureTime() < currentTime || 
 				Math.abs(segmentsToCheck.get(i).getActualCapacity() - segmentsToCheck.get(i).getTravelType().getMaxCap()) < shipment.getSize() || 
 				segmentsToCheck.get(i).getVehicle().getStatus().toString() != "RUNNING" ||
 				this.route.contains(segmentsToCheck.get(i))){
 				//We cannot use this segment so remove it from the list
+				System.out.println("Node Crawler - NOT VALID");
 				segmentsToCheck.remove(i);
 				i--;
 			}//End of time, size and status restraint if
+			else{
+				System.out.println("Node Crawler - VALID");
+			}
 		}//End of time and capacity checking for loop
 			
 	return segmentsToCheck;
