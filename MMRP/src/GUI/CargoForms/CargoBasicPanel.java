@@ -60,13 +60,15 @@ public class CargoBasicPanel extends JPanel {
 		lblStatus = new JLabel("Status:");
 		lblStatus.setToolTipText("This is the current status of the Cargo Ship");
 		
+		
+		
 		txtName = new JTextField(20);
-		txtName.setToolTipText("The name of the Cargo Ship");
+		txtName.setToolTipText("Enter a name between 1 and 45 characters");
 
 		cmbStatus = new JComboBox(core.Vehicle.Status.values());
-		cmbStatus.setToolTipText("This is the current status of the Cargo Ship");
+		cmbStatus.setToolTipText("Select the current status of the Cargo Ship");
 		cmbCarrier = new JComboBox(Carrier.LoadAll("").toArray());
-		cmbCarrier.setToolTipText("This is the Carrier that owns the Cargo Ship");
+		cmbCarrier.setToolTipText("Select an owner for the Cargo Ship");
 		
 		
 		add(lblName,"2,2,right,center");

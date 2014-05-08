@@ -124,7 +124,7 @@ public class PlaneBasicPanel extends JPanel {
 		//TOOL TIPS
 		this.cmbCarrier.setToolTipText("This is the owner of the Plane");
 		this.cmbStatus.setToolTipText("This is the current status of the Plane");
-		this.txtName.setToolTipText("This is the name of the Plane");
+		this.lblName.setToolTipText("This is the name of the Plane");
 		
 		
 	}
@@ -151,6 +151,10 @@ public class PlaneBasicPanel extends JPanel {
 	}
 	private void readOnly()
 	{
+		this.cmbCarrier.setToolTipText("This is the owner of the Plane");
+		this.cmbStatus.setToolTipText("This is the current status of the Plane");
+		this.lblName.setToolTipText("This is the name of the Plane");
+		
 		txtName.setEnabled(false);
 		cmbCarrier.setEnabled(false);
 		cmbStatus.setEnabled(false);
@@ -176,6 +180,9 @@ public class PlaneBasicPanel extends JPanel {
 	}
 	private void setEditable()
 	{
+		this.cmbCarrier.setToolTipText("Select an onwer for this Plane");
+		this.cmbStatus.setToolTipText("Select a status for this Plane");
+		this.lblName.setToolTipText("Enter a name between 1 and 45 characters");
 		txtName.setEnabled(true);
 		cmbCarrier.setEnabled(true);
 		cmbStatus.setEnabled(true);

@@ -413,6 +413,53 @@ public class ShipmentForm extends JPanel
 			}
 		});
 
+		
+		txtCompanyName.setToolTipText("This is the company name of the Shipper");
+		txtContactName.setToolTipText("This is the contact for the Shipper");
+		txtPhone.setToolTipText("The Shipper can be reached at this number");
+		txtEmail.setToolTipText("The Shipper can be reached at this email address");
+		txtPrefCarriers.setToolTipText("Given a choice, these are the Carriers the Shipper will use");
+		txtMaxStops.setToolTipText("This is the maximum number of stops this Shipment can make.");
+		txtTimeLoad.setToolTipText("Currently not supported");
+		txtTimeUnLoad.setToolTipText("Currently not supported");
+		txtLoadingType.setToolTipText("Currently not supported");
+		txtUnloadingType.setToolTipText("Currently not supported");
+		txtTrailerType.setToolTipText("Currently not supported");
+		txtSize.setToolTipText("This is the volumetric size of the Shipment");
+		cmbFromCountries.setToolTipText("This is the country of origin");
+		cmbFromStates.setToolTipText("This is the state of origin");
+		cmbFromCities.setToolTipText("This is the city of origin");
+		cmbToCountries.setToolTipText("This is the destination country");
+		cmbToStates.setToolTipText("This is the destination state");
+		cmbToCities.setToolTipText("This is the destination city");
+		txtWeight.setToolTipText("This is the weight of the shipement");
+		txtEarliestArrival.setToolTipText("This is earliest the shipment can arrive");
+		txtEarliestDeparture.setToolTipText("This is earliest the shipment can depart");
+		txtLatestArrival.setToolTipText("This is latest the shipment can arrive");
+		txtLatestDeparture.setToolTipText("This is latest the shipment can depart");
+		chkCongestion.setToolTipText("Currently not supported");
+		chkTolls.setToolTipText("Currently not supported");
+		cmbPriority.setToolTipText("This is the importance of the shipment");
+		
+		
+		lblWeight.setToolTipText("This is the weight of the shipement");
+		this.lblEarliestDateTimeArrival.setToolTipText("This is earliest the shipment can arrive");
+		this.lblEarliestDateTimeDeparture.setToolTipText("This is earliest the shipment can depart");
+		this.lblLatestDateTimeArrival.setToolTipText("This is latest the shipment can arrive");
+		this.lblLatestDateTimeDeparture.setToolTipText("This is latest the shipment can depart");
+		lblCompanyName.setToolTipText("This is the company name of the Shipper");
+		lblContactName.setToolTipText("This is the contact for the Shipper");
+		lblPhone.setToolTipText("The Shipper can be reached at this number");
+		lblEmail.setToolTipText("The Shipper can be reached at this email address");
+		lblPrefCarriers.setToolTipText("Given a choice, these are the Carriers the Shipper will use");
+		lblMaxStops.setToolTipText("This is the maximum number of stops this Shipment can make.");
+		this.lblTimeToLoad.setToolTipText("Currently not supported");
+		this.lblTimeToUnLoad.setToolTipText("Currently not supported");
+		lblLoadingType.setToolTipText("Currently not supported");
+		lblUnloadingType.setToolTipText("Currently not supported");
+		lblTrailerType.setToolTipText("Currently not supported");
+		lblSize.setToolTipText("This is the volumetric size of the Shipment");
+		
 	}
 
 	public void showPanel()
@@ -494,34 +541,6 @@ public class ShipmentForm extends JPanel
 
 	private void setNew()
 	{
-		
-		
-		txtCompanyName.setToolTipText("Select a new Shipper");
-		txtContactName.setToolTipText("This is the contact for the Shipper");
-		txtPhone.setToolTipText("The Shipper can be reached at this number");
-		txtEmail.setToolTipText("The Shipper can be reached at this email address");
-		txtPrefCarriers.setToolTipText("Given a choice, these are the Carriers the Shipper will use");
-		txtMaxStops.setToolTipText("This is the maximum number of stops this Shipment can make.");
-		txtTimeLoad.setToolTipText("Currently not supported");
-		txtTimeUnLoad.setToolTipText("Currently not supported");
-		txtLoadingType.setToolTipText("Currently not supported");
-		txtUnloadingType.setToolTipText("Currently not supported");
-		txtTrailerType.setToolTipText("Currently not supported");
-		txtSize.setToolTipText("This is the volumetric size of the Shipment");
-		cmbFromCountries.setToolTipText("This is the country of origin");
-		cmbFromStates.setToolTipText("This is the state of origin");
-		cmbFromCities.setToolTipText("This is the city of origin");
-		cmbToCountries.setToolTipText("This is the destination country");
-		cmbToStates.setToolTipText("This is the destination state");
-		cmbToCities.setToolTipText("This is the destination city");
-		txtWeight.setToolTipText("This is the weight of the shipement");
-		txtEarliestArrival.setToolTipText("This is earliest the shipment can arrive");
-		txtEarliestDeparture.setToolTipText("This is earliest the shipment can depart");
-		txtLatestArrival.setToolTipText("This is latest the shipment can arrive");
-		txtLatestDeparture.setToolTipText("This is latest the shipment can depart");
-		chkCongestion.setToolTipText("Currently not supported");
-		chkTolls.setToolTipText("Currently not supported");
-		cmbPriority.setToolTipText("This is the importance of the shipment");
 		
 		source = null;
 		txtCompanyName.setSelectedIndex(-1);
@@ -623,8 +642,32 @@ public class ShipmentForm extends JPanel
 	}
 	private void setEditable()
 	{
-		//if(newShipment)
-		//	txtCompanyName.setEnabled(true);
+		txtCompanyName.setToolTipText("Select a new Shipper");
+		txtContactName.setToolTipText("This is the contact for the Shipper");
+		txtPhone.setToolTipText("The Shipper can be reached at this number");
+		txtEmail.setToolTipText("The Shipper can be reached at this email address");
+		txtPrefCarriers.setToolTipText("Given a choice, these are the Carriers the Shipper will use");
+		txtMaxStops.setToolTipText("Set the maximum number of stops greater than 0");
+		txtTimeLoad.setToolTipText("Currently not supported");
+		txtTimeUnLoad.setToolTipText("Currently not supported");
+		txtLoadingType.setToolTipText("Currently not supported");
+		txtUnloadingType.setToolTipText("Currently not supported");
+		txtTrailerType.setToolTipText("Currently not supported");
+		txtSize.setToolTipText("Set the shipment size greater than 0");
+		cmbFromCountries.setToolTipText("Select a country of origin");
+		cmbFromStates.setToolTipText("Select a state of origin");
+		cmbFromCities.setToolTipText("Select a city of origin");
+		cmbToCountries.setToolTipText("Select the destination country");
+		cmbToStates.setToolTipText("Select the destination state");
+		cmbToCities.setToolTipText("Select the destination city");
+		txtWeight.setToolTipText("Set the weight of the shipment to a value greater than 0");
+		txtEarliestArrival.setToolTipText("Format : HH:mm MM/dd/YYYY");
+		txtEarliestDeparture.setToolTipText("Format : HH:mm MM/dd/YYYY");
+		txtLatestArrival.setToolTipText("Format : HH:mm MM/dd/YYYY");
+		txtLatestDeparture.setToolTipText("Format : HH:mm MM/dd/YYYY");
+		chkCongestion.setToolTipText("Currently not supported");
+		chkTolls.setToolTipText("Currently not supported");
+		cmbPriority.setToolTipText("Select the importants of the shipment, the higher the more important.");
 
 		txtContactName.setEditable(false);
 		txtPhone.setEditable(false);
@@ -663,6 +706,33 @@ public class ShipmentForm extends JPanel
 	private void setReadOnly()
 	{
 
+		txtCompanyName.setToolTipText("This is the company name of the Shipper");
+		txtContactName.setToolTipText("This is the contact for the Shipper");
+		txtPhone.setToolTipText("The Shipper can be reached at this number");
+		txtEmail.setToolTipText("The Shipper can be reached at this email address");
+		txtPrefCarriers.setToolTipText("Given a choice, these are the Carriers the Shipper will use");
+		txtMaxStops.setToolTipText("This is the maximum number of stops this Shipment can make.");
+		txtTimeLoad.setToolTipText("Currently not supported");
+		txtTimeUnLoad.setToolTipText("Currently not supported");
+		txtLoadingType.setToolTipText("Currently not supported");
+		txtUnloadingType.setToolTipText("Currently not supported");
+		txtTrailerType.setToolTipText("Currently not supported");
+		txtSize.setToolTipText("This is the volumetric size of the Shipment");
+		cmbFromCountries.setToolTipText("This is the country of origin");
+		cmbFromStates.setToolTipText("This is the state of origin");
+		cmbFromCities.setToolTipText("This is the city of origin");
+		cmbToCountries.setToolTipText("This is the destination country");
+		cmbToStates.setToolTipText("This is the destination state");
+		cmbToCities.setToolTipText("This is the destination city");
+		txtWeight.setToolTipText("This is the weight of the shipement");
+		txtEarliestArrival.setToolTipText("This is earliest the shipment can arrive");
+		txtEarliestDeparture.setToolTipText("This is earliest the shipment can depart");
+		txtLatestArrival.setToolTipText("This is latest the shipment can arrive");
+		txtLatestDeparture.setToolTipText("This is latest the shipment can depart");
+		chkCongestion.setToolTipText("Currently not supported");
+		chkTolls.setToolTipText("Currently not supported");
+		cmbPriority.setToolTipText("This is the importance of the shipment");
+		
 		txtCompanyName.setEnabled(false);
 		txtContactName.setEditable(false);
 		txtPhone.setEditable(false);

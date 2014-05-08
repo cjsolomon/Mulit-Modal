@@ -241,6 +241,16 @@ public class ShippingRateForm extends JPanel {
 		this.txtWeight2.setToolTipText("This is the second category of shipment weight");
 		this.txtWeight3.setToolTipText("This is the third category of shipment weight");
 		
+		this.lblFlatRate.setToolTipText("This is the base rate");
+		this.lblMileRate.setToolTipText("This is the cost charges per mile");
+		this.lblRank.setToolTipText("Currently not supported");
+		this.lblRate1.setToolTipText("This is the cost charged when the shipment is between Weight 1 and Weight 2");
+		this.lblRate2.setToolTipText("This is the cost charged when the shipment is between Weight 2 and Weight 3");
+		this.lblRate3.setToolTipText("This is the cost charged when the shipment is above Weight 3");
+		this.lblWeight1.setToolTipText("This is the first category of shipment weight");
+		this.lblWeight2.setToolTipText("This is the second category of shipment weight");
+		this.lblWeight3.setToolTipText("This is the third category of shipment weight");
+		
 	
 		}
 
@@ -343,6 +353,16 @@ public class ShippingRateForm extends JPanel {
 		private void setEditable()
 		{
 		
+			this.txtFlatRate.setToolTipText("Enter a flat rate greater than 0");
+			this.txtMileRate.setToolTipText("Enter a mile rate greater than 0");
+			this.txtRank.setToolTipText("Enter a rank between 0 and 10");
+			this.txtRate1.setToolTipText("Enter a rate value greater than 0");
+			this.txtRate2.setToolTipText("Enter a rate value greater than 0");
+			this.txtRate3.setToolTipText("Enter a rate value greater than 0");
+			this.txtWeight1.setToolTipText("Enter a weight value greater than 0");
+			this.txtWeight2.setToolTipText("Enter a weight value greater than 0");
+			this.txtWeight3.setToolTipText("Enter a weight value greater than 0");
+			
 			if(!newShippingRate)
 				this.cbCarriers.setEnabled(false);
 			else
@@ -363,6 +383,16 @@ public class ShippingRateForm extends JPanel {
 		
 		private void setReadOnly()
 		{
+			this.txtFlatRate.setToolTipText("This is the base rate");
+			this.txtMileRate.setToolTipText("This is the cost charges per mile");
+			this.txtRank.setToolTipText("Currently not supported");
+			this.txtRate1.setToolTipText("This is the cost charged when the shipment is between Weight 1 and Weight 2");
+			this.txtRate2.setToolTipText("This is the cost charged when the shipment is between Weight 2 and Weight 3");
+			this.txtRate3.setToolTipText("This is the cost charged when the shipment is above Weight 3");
+			this.txtWeight1.setToolTipText("This is the first category of shipment weight");
+			this.txtWeight2.setToolTipText("This is the second category of shipment weight");
+			this.txtWeight3.setToolTipText("This is the third category of shipment weight");
+			
 			this.txtFlatRate.setEditable(false);
 			this.txtMileRate.setEditable(false);
 			this.txtRank.setEditable(false);

@@ -509,6 +509,16 @@ public class SegmentForm extends JPanel {
 		this.txtLatDeparture.setToolTipText("Currently not supported");
 		this.txtRateID.setToolTipText("This is the Shipping Rate being used over this Segment");
 	
+		this.lblActualCapacity.setToolTipText("This is the capacity that the vehicle on this Segment is currently filled");
+		this.lblDistance.setToolTipText("This is the distance between the starting and ending Locations");
+		this.lblEarliestArrival.setToolTipText("Currently not supported");
+		this.lblEstArrival.setToolTipText("This is the appoximate time the vehicle will arrive at the destination");
+		this.lblEstDeparture.setToolTipText("This is approximate time the vehicle will leave the starting location");
+		this.lblLane.setToolTipText("Currently not supported");
+		this.lblLatestArrival.setToolTipText("Currently not supported");
+		this.lblLatestDeparture.setToolTipText("Currently not supported");
+		this.lblRateid.setToolTipText("This is the Shipping Rate being used over this Segment");
+		
 		
 	}//End of LocationForm Constructor
 	
@@ -702,6 +712,26 @@ public class SegmentForm extends JPanel {
 	}
 	
 	public void setReadOnly(){
+		
+		this.cbTravelModes.setToolTipText("This is the mode of travel over this Segment");
+		this.cbTravelType.setToolTipText("This is the travel type used over the Segment");
+		this.cbVehicleID.setToolTipText("This is the Vehicle being used over the Segment");
+		this.cmbFromCities.setToolTipText("This is the starting city");
+		this.cmbFromCountries.setToolTipText("This is the starting country");
+		this.cmbFromStates.setToolTipText("This is the starting state");
+		this.cmbToCities.setToolTipText("This is the ending city");
+		this.cmbToCountries.setToolTipText("This is the ending country");
+		this.cmbToStates.setToolTipText("This is the ending state");
+		this.txtActualCapacity.setToolTipText("This is the capacity that the vehicle on this Segment is currently filled");
+		this.txtDistance.setToolTipText("This is the distance between the starting and ending Locations");
+		this.txtEarlArrival.setToolTipText("Currently not supported");
+		this.txtEstArrival.setToolTipText("This is the appoximate time the vehicle will arrive at the destination");
+		this.txtEstDeparture.setToolTipText("This is approximate time the vehicle will leave the starting location");
+		this.txtLane.setToolTipText("Currently not supported");
+		this.txtLatArrival.setToolTipText("Currently not supported");
+		this.txtLatDeparture.setToolTipText("Currently not supported");
+		this.txtRateID.setToolTipText("This is the Shipping Rate being used over this Segment");
+		
 		this.txtSegmentID.setEditable(false);
 		this.cbTravelModes.setEnabled(false);
 		this.cbVehicleID.setEnabled(false);
@@ -728,6 +758,26 @@ public class SegmentForm extends JPanel {
 	}
 	
 	public void setEditable(){
+		
+		this.cbTravelModes.setToolTipText("Select a travel mode for this Segment");
+		this.cbTravelType.setToolTipText("Select the travel type for this Vehicle");
+		this.cbVehicleID.setToolTipText("Select the vehicle for this Segment");
+		this.cmbFromCities.setToolTipText("Select the origin city");
+		this.cmbFromCountries.setToolTipText("Select the origin country");
+		this.cmbFromStates.setToolTipText("Select the origin state");
+		this.cmbToCities.setToolTipText("Select the destination city");
+		this.cmbToCountries.setToolTipText("Select the destination country");
+		this.cmbToStates.setToolTipText("Select the destination state");
+		//this.txtActualCapacity.setToolTipText("This is the capacity that the vehicle on this Segment is currently filled");
+		//this.txtDistance.setToolTipText("This is the distance between the starting and ending Locations");
+		//this.txtEarlArrival.setToolTipText("Currently not supported");
+		this.txtEstArrival.setToolTipText("Format : HH:mm MM/dd/YYYY");
+		this.txtEstDeparture.setToolTipText("Format : HH:mm MM/dd/YYYY");
+		//this.txtLane.setToolTipText("Currently not supported");
+		//this.txtLatArrival.setToolTipText("Currently not supported");
+		//this.txtLatDeparture.setToolTipText("Currently not supported");
+		this.txtRateID.setToolTipText("Select the Shipping Rate to use over this segment");
+		
 		this.cbTravelModes.setEnabled(true);
 		this.cbVehicleID.setEnabled(true);
 		this.cbTravelType.setEnabled(true);

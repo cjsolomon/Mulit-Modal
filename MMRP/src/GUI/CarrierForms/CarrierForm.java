@@ -260,22 +260,23 @@ public class CarrierForm extends JPanel {
 				}
 			}
 		});
-		txtAuthorize.setToolTipText("Currently not supported");
-		txtCargo.setToolTipText("Currently not supported");
-		txtPlane.setToolTipText("Currently not supported");
-		txtRail.setToolTipText("Currently not supported");
-		txtTruck.setToolTipText("Currently not supported");
-		txtCode.setToolTipText("This is the short code for the Carrier");
-		txtContractDate.setToolTipText("Currently not supported");
-		txtEmail.setToolTipText("This is the email address the Carrier can be reached at");
-		txtFaxNumber.setToolTipText("This is the fax number the Carrier can be reached at");
-		txtInsEndDate.setToolTipText("Currently not supported");
-		txtName.setToolTipText("This is the name of the Carrier");
-		txtRatingDate.setToolTipText("Currently not supported");
-		txtSafetyRating.setToolTipText("This is the safety rating of the Carrier");
+		
+		
+		lblAuthorize.setToolTipText("Currently not supported");
+		lblCargo.setToolTipText("Currently not supported");
+		lblPlane.setToolTipText("Currently not supported");
+		lblRail.setToolTipText("Currently not supported");
+		lblTruck.setToolTipText("Currently not supported");
+		lblCode.setToolTipText("This is the short code for the Carrier");
+		lblContractDate.setToolTipText("Currently not supported");
+		lblEmail.setToolTipText("This is the email address the Carrier can be reached at");
+		lblNumber.setToolTipText("This is the fax number the Carrier can be reached at");
+		lblInsEndDate.setToolTipText("Currently not supported");
+		lblName.setToolTipText("This is the name of the Carrier");
+		lblSafetyRatingDate.setToolTipText("Currently not supported");
+		lblSatefyRating.setToolTipText("This is the safety rating of the Carrier");
 		chckbxEmail.setToolTipText("Allows the Carrier to be reached by email");
 		chckbxFaxNumber.setToolTipText("Allows the Carrier to be reached by fax");
-		
 		
 		}
 
@@ -386,6 +387,22 @@ public class CarrierForm extends JPanel {
 		
 		private void setEditable()
 		{
+			txtAuthorize.setToolTipText("Currently not supported");
+			txtCargo.setToolTipText("Currently not supported");
+			txtPlane.setToolTipText("Currently not supported");
+			txtRail.setToolTipText("Currently not supported");
+			txtTruck.setToolTipText("Currently not supported");
+			txtCode.setToolTipText("Enter a code between 1 and 4 character");
+			txtContractDate.setToolTipText("Currently not supported");
+			txtEmail.setToolTipText("Format :(any alphanumeric string)@(any alphanumeric string).(2-4 alphabetic characters)");
+			txtFaxNumber.setToolTipText("Format : ###-###-####");
+			txtInsEndDate.setToolTipText("Currently not supported");
+			txtName.setToolTipText("Enter a character name between 1 and 45 characters.");
+			txtRatingDate.setToolTipText("Currently not supported");
+			txtSafetyRating.setToolTipText("Enter a safety rating value between 0 and 100");
+			chckbxEmail.setToolTipText("Allows the Carrier to be reached by email");
+			chckbxFaxNumber.setToolTipText("Allows the Carrier to be reached by fax");
+			
 			this.txtAuthorize.setEditable(false);
 			this.txtCargo.setEditable(false);
 			this.txtCode.setEditable(true);
@@ -404,10 +421,28 @@ public class CarrierForm extends JPanel {
 			this.chckbxFaxNumber.setEnabled(true);
 			btnSave.setVisible(true);
 			btnEdit.setVisible(false);
+		
+			
 		}
 		
 		private void setReadOnly()
 		{
+			txtAuthorize.setToolTipText("Currently not supported");
+			txtCargo.setToolTipText("Currently not supported");
+			txtPlane.setToolTipText("Currently not supported");
+			txtRail.setToolTipText("Currently not supported");
+			txtTruck.setToolTipText("Currently not supported");
+			txtCode.setToolTipText(this.lblCode.getToolTipText());
+			txtContractDate.setToolTipText("Currently not supported");
+			txtEmail.setToolTipText(this.lblEmail.getToolTipText());
+			txtFaxNumber.setToolTipText(this.lblNumber.getToolTipText());
+			txtInsEndDate.setToolTipText("Currently not supported");
+			txtName.setToolTipText(this.lblName.getToolTipText());
+			txtRatingDate.setToolTipText("Currently not supported");
+			txtSafetyRating.setToolTipText(this.lblSatefyRating.getToolTipText());
+			chckbxEmail.setToolTipText("Allows the Carrier to be reached by email");
+			chckbxFaxNumber.setToolTipText("Allows the Carrier to be reached by fax");
+			
 			this.txtAuthorize.setEditable(false);
 			this.txtCargo.setEditable(false);
 			this.txtCode.setEditable(false);
@@ -432,6 +467,7 @@ public class CarrierForm extends JPanel {
 		
 		private void setNew()
 		{
+			
 			this.txtID.setText("");
 			this.txtAuthorize.setText("1");
 			this.txtCargo.setText("");

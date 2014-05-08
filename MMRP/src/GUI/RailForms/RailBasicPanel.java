@@ -120,6 +120,12 @@ public class RailBasicPanel extends JPanel {
 			}
 		});
 		add(btnCancel, "5, 8");
+		
+		lblName.setToolTipText("This is the name of the Rail");
+		txtName.setToolTipText("This is the name of the Rail");
+		cmbStatus.setToolTipText("This is the current status of the Rail");
+		cmbCarrier.setToolTipText("This is the owner of the Rail");
+		
 	}
 	public void showPanel()
 	{
@@ -144,6 +150,11 @@ public class RailBasicPanel extends JPanel {
 	}
 	private void readOnly()
 	{
+		
+		txtName.setToolTipText("Enter a Rail name between 1 and 45 characters.");
+		cmbStatus.setToolTipText("Select a current status for this Rail");
+		cmbCarrier.setToolTipText("Select an owner for this Rail");
+		
 		txtName.setEnabled(false);
 		cmbCarrier.setEnabled(false);
 		cmbStatus.setEnabled(false);
@@ -168,6 +179,9 @@ public class RailBasicPanel extends JPanel {
 	}
 	private void setEditable()
 	{
+		txtName.setToolTipText("Enter a Rail name between 1 and 45 characters.");
+		cmbStatus.setToolTipText("Select a current status for this Rail");
+		cmbCarrier.setToolTipText("Select an owner for this Rail");
 		txtName.setEnabled(true);
 		cmbCarrier.setEnabled(true);
 		cmbStatus.setEnabled(true);

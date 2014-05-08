@@ -181,11 +181,11 @@ public class PlaneType extends JPanel {
 		this.chckbxRadiation.setToolTipText("Allows this type to carry radioactive shipments");
 		this.chckbxRefrigeration.setToolTipText("Allows this type to carry refrigerated shipments");
 		this.chckbxTracking.setToolTipText("Allows this type to be tracked");
-		this.txtMaxCapacity.setToolTipText("This is the maximum capacity this type can carry");
-		this.txtMaxWeight.setToolTipText("This is the maximum weight this type can carry");
-		this.txtMinCapacity.setToolTipText("This is the minimum capacity this type must have to be used");
-		this.txtServiceType.setToolTipText("Currently not supported");
-		this.txtTypeName.setToolTipText("This is the name of the type");
+		this.lblMaxCapacity.setToolTipText("This is the maximum capacity this type can carry");
+		this.lblMaxWeight.setToolTipText("This is the maximum weight this type can carry");
+		this.lblMinCapacity.setToolTipText("This is the minimum capacity this type must have to be used");
+		this.lblServiceType.setToolTipText("Currently not supported");
+		this.lblName.setToolTipText("This is the name of the type");
 		
 		
 	}//End of LocationCreateEdit Constructor
@@ -240,6 +240,13 @@ public class PlaneType extends JPanel {
 	}
 	private void setReadOnly()
 	{
+		
+		this.lblMaxCapacity.setToolTipText("This is the maximum capacity this type can carry");
+		this.lblMaxWeight.setToolTipText("This is the maximum weight this type can carry");
+		this.lblMinCapacity.setToolTipText("This is the minimum capacity this type must have to be used");
+		this.lblServiceType.setToolTipText("Currently not supported");
+		this.lblName.setToolTipText("This is the name of the type");
+		
 		this.txtServiceType.setEnabled(false);
 		this.txtMaxCapacity.setEnabled(false);
 		this.txtMaxWeight.setEnabled(false);
@@ -256,6 +263,12 @@ public class PlaneType extends JPanel {
 	}
 	private void setEditable()
 	{
+		this.txtMaxCapacity.setToolTipText("Enter a maximum capacity value greater than 0");
+		this.txtMaxWeight.setToolTipText("Enter a maximum weight value greater than 0");
+		this.txtMinCapacity.setToolTipText("Enter a minimum capacity value greater than or equal to 0");
+		this.txtServiceType.setToolTipText("Currently not supported");
+		this.txtTypeName.setToolTipText("Enter a type name between 1 and 45 characters");
+		
 		this.txtServiceType.setEnabled(false);
 		this.txtMaxCapacity.setEnabled(true);
 		this.txtMaxWeight.setEnabled(true);

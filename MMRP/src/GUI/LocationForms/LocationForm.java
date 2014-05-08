@@ -169,11 +169,11 @@ public class LocationForm extends JPanel {
 		this.chkPlane.setToolTipText("Allows Location to be reached by Plane");
 		this.chkRail.setToolTipText("Allows Location to be reached by Rail");
 		this.chkTruck.setToolTipText("Allows Location to be reached by Truck");
-		this.txtCity.setToolTipText("This is the name of this Location's city");
-		this.txtCountry.setToolTipText("This is the name of this Location's country");
-		this.txtState.setToolTipText("This is the name of this Location's state");
-		this.txtLat.setToolTipText("This is the latitude of this Location");
-		this.txtLon.setToolTipText("This is the longitude of this Location");
+		this.lblCity.setToolTipText("This is the name of this Location's city");
+		this.lblCountry.setToolTipText("This is the name of this Location's country");
+		this.lblState.setToolTipText("This is the name of this Location's state");
+		this.lblLat.setToolTipText("This is the latitude of this Location");
+		this.lblLon.setToolTipText("This is the longitude of this Location");
 	
 	}
 	
@@ -212,6 +212,13 @@ public class LocationForm extends JPanel {
 	}
 	private void setNew()
 	{
+
+		this.txtCity.setToolTipText("Enter a city name between 1 and 45 characters");
+		this.txtCountry.setToolTipText("Enter a country name between 1 and 45 characters");
+		this.txtState.setToolTipText("Enter a state name between 1 and 45 characters");
+		this.txtLat.setToolTipText("Enter a latitude value between -90.0 and 90.0 degrees");
+		this.txtLon.setToolTipText("Enter a longitude value between -180.0 and 180.0 degrees");
+		
 		source=null;
 		txtCountry.setText("");
 		txtState.setText("");
@@ -231,6 +238,13 @@ public class LocationForm extends JPanel {
 	}
 	private void setReadOnly()
 	{
+		
+		this.txtCity.setToolTipText(this.lblCity.getToolTipText());
+		this.txtCountry.setToolTipText(this.txtCountry.getToolTipText());
+		this.txtState.setToolTipText(this.txtState.getToolTipText());
+		this.txtLat.setToolTipText(this.txtLat.getToolTipText());
+		this.txtLon.setToolTipText(this.txtLon.getToolTipText());
+		
 		txtCountry.setEnabled(false);
 		txtCity.setEnabled(false);
 		txtState.setEnabled(false);

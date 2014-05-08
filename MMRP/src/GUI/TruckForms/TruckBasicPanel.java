@@ -125,7 +125,8 @@ public class TruckBasicPanel extends JPanel {
 		this.cmbCarrier.setToolTipText("This is the owner of the Truck");
 		this.cmbStatus.setToolTipText("This is the current status of the Truck");
 		this.txtName.setToolTipText("This is the name of the Truck");
-	
+		
+		this.lblName.setToolTipText("This is the name of the Truck");
 		
 	}
 	public void showPanel()
@@ -151,6 +152,10 @@ public class TruckBasicPanel extends JPanel {
 	}
 	private void readOnly()
 	{
+		this.cmbCarrier.setToolTipText("This is the owner of the Truck");
+		this.cmbStatus.setToolTipText("This is the current status of the Truck");
+		this.txtName.setToolTipText("This is the name of the Truck");
+		
 		txtName.setEnabled(false);
 		cmbCarrier.setEnabled(false);
 		cmbStatus.setEnabled(false);
@@ -175,6 +180,10 @@ public class TruckBasicPanel extends JPanel {
 	}
 	private void setEditable()
 	{
+		this.cmbCarrier.setToolTipText("Select a current status for this Truck");
+		this.cmbStatus.setToolTipText("Select an owner for this Truck");
+		this.txtName.setToolTipText("Enter a truck name between 1 and 45 characters");
+		
 		txtName.setEnabled(true);
 		cmbCarrier.setEnabled(true);
 		cmbStatus.setEnabled(true);

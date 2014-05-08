@@ -244,15 +244,20 @@ public class ShipperForm extends JPanel {
 		this.btnSave.setToolTipText("Click here to save changes");
 		this.cbCity.setToolTipText("This is the city the Shipper is located in");
 		this.cbCountry.setToolTipText("This is the country the Shipper is located in");
-		this.cbPreferredCarrier1.setToolTipText("Currently no supported");
-		this.cbPreferredCarrier2.setToolTipText("Currently no supported");
-		this.cbPreferredCarrier3.setToolTipText("Currently no supported");
-		this.cbPreferredCarrier4.setToolTipText("Currently no supported");
+		this.cbPreferredCarrier1.setToolTipText("Currently not supported");
+		this.cbPreferredCarrier2.setToolTipText("Currently not supported");
+		this.cbPreferredCarrier3.setToolTipText("Currently not supported");
+		this.cbPreferredCarrier4.setToolTipText("Currently not supported");
 		this.cbState.setToolTipText("This si the state the Shipper is located in");
 		this.txtCompanyName.setToolTipText("This is the Shipper's name");
 		this.txtContactName.setToolTipText("This is the contact's name");
 		this.txtEmail.setToolTipText("This is the email address the Shipper can be reached at");
 		this.txtNumber.setToolTipText("This is the phone number the Shipper can be reached at");
+		
+		this.lblCompanyName.setToolTipText("This is the Shipper's name");
+		this.lblContactName.setToolTipText("This is the contact's name");
+		this.lblEmail.setToolTipText("This is the email address the Shipper can be reached at");
+		this.lblNumber.setToolTipText("This is the phone number the Shipper can be reached at");
 		
 		}
 
@@ -360,6 +365,18 @@ public class ShipperForm extends JPanel {
 		
 		private void setEditable()
 		{
+			
+			this.cbCity.setToolTipText("Select the city this Shipper is based in");
+			this.cbCountry.setToolTipText("Select the country this Shipper is based in");
+			this.cbPreferredCarrier1.setToolTipText("Currently not supported");
+			this.cbPreferredCarrier2.setToolTipText("Currently not supported");
+			this.cbPreferredCarrier3.setToolTipText("Currently not supported");
+			this.cbPreferredCarrier4.setToolTipText("Currently not supported");
+			this.cbState.setToolTipText("This si the state the Shipper is located in");
+			this.txtCompanyName.setToolTipText("Enter a Company name between 1 and 45 characters");
+			this.txtContactName.setToolTipText("Enter a contact name between 1 and 45 characters");
+			this.txtEmail.setToolTipText("Format : (any alphanumeric string)@(any alphanumeric string).(2-4 alphbetic characters)");
+			this.txtNumber.setToolTipText("Format : ###-###-####");
 		
 			this.txtCompanyName.setEditable(true);
 			this.txtContactName.setEditable(true);
@@ -387,6 +404,19 @@ public class ShipperForm extends JPanel {
 		
 		private void setReadOnly()
 		{
+			
+			this.cbCity.setToolTipText("This is the city the Shipper is located in");
+			this.cbCountry.setToolTipText("This is the country the Shipper is located in");
+			this.cbPreferredCarrier1.setToolTipText("Currently not supported");
+			this.cbPreferredCarrier2.setToolTipText("Currently not supported");
+			this.cbPreferredCarrier3.setToolTipText("Currently not supported");
+			this.cbPreferredCarrier4.setToolTipText("Currently not supported");
+			this.cbState.setToolTipText("This si the state the Shipper is located in");
+			this.txtCompanyName.setToolTipText("This is the Shipper's name");
+			this.txtContactName.setToolTipText("This is the contact's name");
+			this.txtEmail.setToolTipText("This is the email address the Shipper can be reached at");
+			this.txtNumber.setToolTipText("This is the phone number the Shipper can be reached at");
+			
 			this.txtCompanyName.setEditable(false);
 			this.txtContactName.setEditable(false);
 			this.txtEmail.setEditable(false);

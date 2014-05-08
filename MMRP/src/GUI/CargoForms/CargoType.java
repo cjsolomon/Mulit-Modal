@@ -49,7 +49,6 @@ public class CargoType extends JPanel {
 	private TravelType source;
 	private ArrayList<TableRefreshListener> refresh;
 	public CargoType() {
-		setToolTipText("This is the maximum weight this type can carry");
 		
 		
 		setLayout(new FormLayout(new ColumnSpec[] {
@@ -77,11 +76,11 @@ public class CargoType extends JPanel {
 				FormFactory.RELATED_GAP_ROWSPEC,
 				FormFactory.DEFAULT_ROWSPEC,}));
 		lblName = new JLabel("Type Name");
-		lblName.setToolTipText("This is the Types name");
+		lblName.setToolTipText("This is the Type's name");
 		lblCargoType = new JLabel("Cargo Type");
 		lblID = new JLabel("TypeID");
 		txtTypeName = new JTextField(20);
-		txtTypeName.setToolTipText("This is the Types name");
+		txtTypeName.setToolTipText("Enter a name between 1 and 45 characters");
 		txtID = new JTextField(10);
 		
 		add(lblCargoType, "4, 2, center, center");
@@ -114,7 +113,8 @@ public class CargoType extends JPanel {
 		add(lblMaxWeight,"2, 10, right, center");
 		
 		txtMaxWeight=new JTextField(20);
-		txtMaxWeight.setToolTipText("This is the maximum weight this type can carry");
+		this.lblMaxWeight.setToolTipText("This is the maximum weight the Cargo Type can carry");
+		txtMaxWeight.setToolTipText("Enter a maximum weight value greater than 0");
 		add(txtMaxWeight, "4, 10, left, center");
 		
 		chckbxExplosiveMaterial = new JCheckBox("Explosive Material");
@@ -127,7 +127,7 @@ public class CargoType extends JPanel {
 		lblMinCapacity.setToolTipText("This is the minimum that the type must be filled to be used");
 		add(lblMinCapacity,"2, 12, right, center");
 		txtMinCapacity = new JTextField(20);
-		txtMinCapacity.setToolTipText("This is the minimum that the type must be filled to be used");
+		txtMinCapacity.setToolTipText("Enter a minimum capacity value greater than 0");
 
 		add(txtMinCapacity, "4, 12, left, center");
 		
@@ -142,7 +142,7 @@ public class CargoType extends JPanel {
 		txtID.setEditable(false);
 		
 		txtMaxCapacity = new JTextField(10);
-		txtMaxCapacity.setToolTipText("This is the maximum the type can be filled and still be used");
+		txtMaxCapacity.setToolTipText("Enter a maximum capacity value greater than 0");
 		add(txtMaxCapacity, "4, 14, left, default");
 			
 			btnSave = new JButton("Save");
